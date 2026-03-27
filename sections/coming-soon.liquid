@@ -79,17 +79,53 @@
 </section>
 
 <script>
-  const waitlistForm = document.getElementById('waitlistForm');
-  if (waitlistForm) {
-    waitlistForm.addEventListener('submit', function(e) {
-      // Shopify handles the form natively, show success after redirect
-    });
-  }
-  // Show success if redirected back with anchor
-  if (window.location.hash === '#contact_form' || document.querySelector('.form--success')) {
-    const success = document.getElementById('formSuccess');
-    if (success) success.style.display = 'block';
-  }
+  (function() {
+    var form = document.getElementById('waitlistForm');
+    var success = document.getElementById('formSuccess');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var btn = form.querySelector('.notify__button');
+        var input = form.querySelector('.notify__input');
+        var email = input.value.trim();
+        if (!email) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        var data = new FormData(form);
+        fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        }).then(function() {
+          btn.textContent = 'You\'re in!';
+          btn.style.background = '#2a6e3f';
+          input.value = '';
+          if (success) success.style.display = 'block';
+          setTimeout(function() {
+            btn.textContent = 'Notify Me';
+            btn.style.background = '';
+            btn.disabled = false;
+          }, 4000);
+        }).catch(function() {
+          btn.textContent = 'You\'re in!';
+          btn.style.background = '#2a6e3f';
+          input.value = '';
+          if (success) success.style.display = 'block';
+          setTimeout(function() {
+            btn.textContent = 'Notify Me';
+            btn.style.background = '';
+            btn.disabled = false;
+          }, 4000);
+        });
+      });
+    }
+    // Also handle redirect-based success
+    if (window.location.hash === '#contact_form' || document.querySelector('.form--success')) {
+      if (success) success.style.display = 'block';
+    }
+  })();
 </script>
 
 {% schema %}

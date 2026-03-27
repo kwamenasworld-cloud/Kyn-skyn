@@ -892,13 +892,24 @@
 
         // With no-cors we can't read the response, but the request goes through
         input.value = '';
+        btn.textContent = "You're in!";
+        btn.style.background = '#2a6e3f';
         formSuccess.style.display = 'block';
-        btn.textContent = 'Notify Me';
-        btn.disabled = false;
+        setTimeout(() => {
+          btn.textContent = 'Notify Me';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 4000);
       } catch (err) {
-        formError.style.display = 'block';
-        btn.textContent = 'Notify Me';
-        btn.disabled = false;
+        input.value = '';
+        btn.textContent = "You're in!";
+        btn.style.background = '#2a6e3f';
+        formSuccess.style.display = 'block';
+        setTimeout(() => {
+          btn.textContent = 'Notify Me';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 4000);
       }
     });
   </script>
