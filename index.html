@@ -276,14 +276,61 @@
       position: relative;
     }
 
-    .about__images img {
+    .about__image-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .about__image-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 8px;
+      transition: filter 0.5s ease, transform 0.5s ease;
     }
 
-    .about__images .img-tall {
+    .about__image-wrap:hover img {
+      filter: grayscale(1) brightness(0.4);
+      transform: scale(1.03);
+    }
+
+    .about__image-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .about__image-wrap:hover .about__image-overlay {
+      opacity: 1;
+    }
+
+    .about__image-overlay-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--cream);
+      margin-bottom: 0.6rem;
+    }
+
+    .about__image-overlay-sub {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.7;
+      line-height: 1.5;
+    }
+
+    .about__image-wrap.img-tall {
       grid-row: span 2;
       border-radius: 8px;
     }
@@ -698,9 +745,27 @@
       </div>
 
       <div class="about__images fade-in">
-        <img class="img-tall" src="photos/gabby-closeup.jpg" alt="Gabby" style="border-radius: 8px; object-position: center 15%;">
-        <img class="img-square" src="photos/kiiren-closeup.jpg" alt="Kiiren" style="object-position: center 20%;">
-        <img class="img-square" src="photos/kwamena-smile.jpg" alt="Kwamena" style="object-position: center 15%;">
+        <div class="about__image-wrap img-tall">
+          <img src="photos/gabby-closeup.jpg" alt="Gabby" style="object-position: center 15%;">
+          <div class="about__image-overlay">
+            <span class="about__image-overlay-title">Real skin.</span>
+            <span class="about__image-overlay-sub">Living with Malassezia.<br>No filters. No edits.</span>
+          </div>
+        </div>
+        <div class="about__image-wrap">
+          <img src="photos/kiiren-closeup.jpg" alt="Kiiren" style="object-position: center 20%;">
+          <div class="about__image-overlay">
+            <span class="about__image-overlay-title">Our Kyn.</span>
+            <span class="about__image-overlay-sub">Real people. Real conditions.</span>
+          </div>
+        </div>
+        <div class="about__image-wrap">
+          <img src="photos/kwamena-smile.jpg" alt="Kwamena" style="object-position: center 15%;">
+          <div class="about__image-overlay">
+            <span class="about__image-overlay-title">Our Kyn.</span>
+            <span class="about__image-overlay-sub">Real people. Real conditions.</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
