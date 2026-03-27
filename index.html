@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyn Skyn — Coming Soon</title>
+  <meta name="description" content="Kyn Skyn: skincare made for fungus-prone skin. Launching soon. Join the waitlist.">
+  <meta property="og:title" content="Kyn Skyn — Coming Soon">
+  <meta property="og:description" content="Skincare made for fungus-prone skin, and for your people. Join the waitlist.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kynskyn.com">
+  <meta property="og:image" content="photos/group.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="photos/logomark.svg">
+  <link rel="apple-touch-icon" href="Brand-guidelines/Vector-4.png">
+  <style>
+    /* ========== FONT FACES ========== */
+    @font-face {
+      font-family: 'STK Bureau Serif';
+      src: url('fonts/STKBureauSerif-Light.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'STK Bureau Serif';
+      src: url('fonts/STKBureauSerif-Book.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'STK Bureau Sans';
+      src: url('fonts/STKBureauSans-Book.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'ABC Maxi Sharp';
+      src: url('fonts/ABCMaxiSharp-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #fff4ce;
+      --maroon: #641220;
+      --dark: #2a0208;
+      --button: #7e1029;
+      --terracotta: #c75b2a;
+      --gold: #d4952a;
+      --font-serif: 'STK Bureau Serif', Georgia, serif;
+      --font-sans: 'STK Bureau Sans', 'Helvetica Neue', Arial, sans-serif;
+      --font-accent: 'ABC Maxi Sharp', 'STK Bureau Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--maroon);
+      background: var(--cream);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ========== HEADER ========== */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s ease;
+    }
+
+    .site-header.scrolled {
+      background: rgba(42, 2, 8, 0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .header-nav a {
+      color: var(--cream);
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+
+    .header-nav a:hover { opacity: 1; }
+
+    .header-logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .header-logo svg {
+      height: 28px;
+      width: auto;
+      color: var(--cream);
+      fill: var(--cream);
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .hero__gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(100, 18, 32, 0.0) 40%,
+        rgba(42, 2, 8, 0.6) 70%,
+        rgba(42, 2, 8, 0.92) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 3rem 5rem;
+      max-width: 72rem;
+    }
+
+    .hero__badge {
+      display: inline-block;
+      font-family: var(--font-accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 1.8rem;
+      border: 1.5px solid rgba(255, 244, 206, 0.45);
+      padding: 0.6rem 1.6rem;
+      border-radius: 2rem;
+      background: rgba(42, 2, 8, 0.35);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--cream);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero__sub {
+      font-family: var(--font-sans);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 300;
+      color: var(--cream);
+      opacity: 0.85;
+      max-width: 36rem;
+      line-height: 1.6;
+    }
+
+    /* ========== MOLECULE DIVIDER ========== */
+    /* ========== ABOUT SECTION ========== */
+    .about {
+      background: var(--cream);
+      padding: 6rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about__molecule {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: auto;
+      opacity: 0.04;
+      filter: brightness(0);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .about__container {
+      max-width: 72rem;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about__content {}
+
+    .about__eyebrow {
+      font-family: var(--font-accent);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--maroon);
+      opacity: 0.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .about__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      color: var(--maroon);
+      margin-bottom: 2rem;
+      line-height: 1.1;
+    }
+
+    .about__body {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--maroon);
+      opacity: 0.8;
+    }
+
+    .about__body p + p {
+      margin-top: 1.2rem;
+    }
+
+    .about__mark {
+      display: block;
+      width: 3rem;
+      height: 3rem;
+      margin-top: 2rem;
+      color: var(--maroon);
+      opacity: 0.3;
+    }
+
+    .about__images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .about__images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .about__images .img-tall {
+      grid-row: span 2;
+      border-radius: 8px;
+    }
+
+    .about__images .img-square {
+      border-radius: 8px;
+      aspect-ratio: 1;
+    }
+
+    /* ========== COMING SOON / NOTIFY ========== */
+    .notify {
+      background: var(--dark);
+      padding: 8rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .notify__grid-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notify__grid-bg svg {
+      width: 60%;
+      height: auto;
+      color: var(--cream);
+    }
+
+    .notify__container {
+      max-width: 48rem;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .notify__eyebrow {
+      font-family: var(--font-accent);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.5;
+      margin-bottom: 2rem;
+    }
+
+    .notify__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .notify__desc {
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      color: var(--cream);
+      opacity: 0.7;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      max-width: 32rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .notify__form {
+      display: flex;
+      gap: 0;
+      max-width: 28rem;
+      margin: 0 auto;
+      border: 1px solid rgba(255, 244, 206, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .notify__form:focus-within {
+      border-color: rgba(255, 244, 206, 0.5);
+    }
+
+    .notify__input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 1rem 1.5rem;
+      color: var(--cream);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .notify__input::placeholder {
+      color: rgba(255, 244, 206, 0.4);
+    }
+
+    .notify__button {
+      background: var(--button);
+      color: var(--cream);
+      border: none;
+      padding: 1rem 2rem;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s;
+      white-space: nowrap;
+    }
+
+    .notify__button:hover {
+      background: var(--maroon);
+    }
+
+    .notify__star {
+      width: 2.5rem;
+      height: 2.5rem;
+      color: var(--cream);
+      opacity: 0.15;
+      margin: 3rem auto 0;
+    }
+
+    /* ========== COMMUNITY / MEET THE KYN ========== */
+    .community {
+      background: var(--cream);
+      padding: 6rem 3rem;
+      position: relative;
+    }
+
+    .community__container {
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    .community__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+
+    .community__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      color: var(--maroon);
+      line-height: 1.1;
+    }
+
+    .community__desc {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--maroon);
+      opacity: 0.7;
+      max-width: 24rem;
+      line-height: 1.6;
+      text-align: right;
+    }
+
+    .community__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .community__card {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+    }
+
+    .community__card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .community__card:hover img {
+      transform: scale(1.04);
+    }
+
+    .community__card-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(42, 2, 8, 0.7), transparent);
+    }
+
+    .community__card-name {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      background: var(--dark);
+      padding: 5rem 3rem 2.5rem;
+      border-top: 1px solid rgba(255, 244, 206, 0.06);
+    }
+
+    .footer__container {
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    .footer__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255, 244, 206, 0.1);
+    }
+
+    .footer__logo svg {
+      height: 24px;
+      color: var(--cream);
+      fill: var(--cream);
+    }
+
+    .footer__nav {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer__nav a {
+      color: var(--cream);
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+
+    .footer__nav a:hover { opacity: 1; }
+
+    .footer__social {
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    .footer__social a {
+      color: var(--cream);
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+
+    .footer__social a:hover { opacity: 1; }
+
+    .footer__social svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .footer__bottom {
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer__copy {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      color: var(--cream);
+      opacity: 0.3;
+      letter-spacing: 0.04em;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .site-header { padding: 1.2rem 1.5rem; }
+      .header-nav { display: none; }
+      .hero__content { padding: 0 1.5rem 3rem; }
+
+      .about { padding: 4rem 1.5rem; }
+      .about__container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .notify { padding: 5rem 1.5rem; }
+      .notify__form { flex-direction: column; }
+      .notify__button { padding: 1rem; }
+
+      .community { padding: 4rem 1.5rem; }
+      .community__header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .community__desc { text-align: left; }
+      .community__grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .community__card { aspect-ratio: 4/3; }
+
+      .site-footer { padding: 3rem 1.5rem 1.5rem; }
+      .footer__top { flex-direction: column; gap: 2rem; }
+      .footer__bottom { flex-direction: column; gap: 1rem; }
+    }
+
+    /* ========== ANIMATIONS ========== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero entrance animation */
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero__badge {
+      animation: heroFadeUp 0.8s ease 0.3s both;
+    }
+
+    .hero__heading {
+      animation: heroFadeUp 0.8s ease 0.5s both;
+    }
+
+    .hero__sub {
+      animation: heroFadeUp 0.8s ease 0.7s both;
+    }
+
+    /* Header nav background pill for visibility */
+    .site-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(42, 2, 8, 0.5), transparent);
+      z-index: -1;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+
+    .site-header.scrolled::before {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header" id="siteHeader">
+    <nav>
+      <ul class="header-nav">
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-logo">
+      <svg width="127" height="60" viewBox="0 0 127 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.8188 0.0393372H17.2363V27.4534C17.2363 27.6335 17.2462 27.7416 17.2363 27.889V28.7699L23.8123 28.7503V27.8857C23.7959 27.7351 23.7894 27.5713 23.7894 27.3945V17.3635C23.7894 17.072 23.8025 16.8755 23.8188 16.7544C23.9957 16.7347 24.297 16.7118 24.798 16.7118H25.2827C27.0315 16.7118 28.646 16.9705 30.087 17.4781C31.5279 17.9857 32.8182 18.6833 33.9251 19.538C35.0353 20.3928 35.9752 21.3523 36.7219 22.3872C37.462 23.4089 39.2272 26.8639 39.5809 27.8791L39.5907 27.9086C39.6169 27.9741 39.6365 28.0363 39.6562 28.0986L39.8822 28.7437H48.0858L47.1622 27.4698C47.0247 27.2798 46.8806 27.067 46.7267 26.8312H46.7201L46.5335 26.5299C46.4123 26.3334 46.2747 26.1042 46.1241 25.8487L45.8556 25.4001C43.74 21.8534 41.5556 18.1822 37.9172 15.6016C36.6171 14.6977 35.4381 14.0231 34.4066 13.5974C34.1446 13.4893 33.8891 13.391 33.6468 13.2994C34.3836 12.9162 35.2155 12.3365 36.1324 11.5702C36.8693 10.9283 37.521 10.2996 38.0744 9.69698C38.6672 9.04855 39.2861 8.2855 39.9215 7.42093C40.416 6.73975 41.6539 4.78792 42.6724 3.16358L43.2193 2.29573C43.4354 1.96825 43.5828 1.74883 43.7171 1.57198L44.7192 0.0393372H36.342L36.0571 1.2183C36.0211 1.42134 35.9523 1.62111 35.8803 1.8962C35.4676 3.43539 33.6206 6.54326 32.5792 7.74514C31.5378 8.9503 30.3457 9.9033 29.0292 10.5746C27.7487 11.2329 26.4781 11.5637 25.2532 11.5637H24.8111C24.297 11.5637 23.9957 11.5407 23.8319 11.5178C23.8188 11.4196 23.8057 11.2656 23.8057 11.043V1.86345L23.8188 0.0393372Z" fill="currentColor"/>
+        <path d="M72.749 0H71.2327C70.3714 3.79887 67.948 7.26697 64.6567 9.35308C64.3227 9.56594 63.9592 9.76899 63.5662 9.76571C63.1732 9.76571 62.813 9.55612 62.4822 9.34325C59.1517 7.21458 56.63 3.79232 55.5133 0C52.7918 0 50.0704 0.0196493 47.3457 0C49.0159 2.72143 50.6959 5.45269 52.7296 7.91213C54.7633 10.3716 57.4618 12.5199 60.3241 13.9379L60.3339 24.6697V28.7764H66.602C66.602 23.8444 66.602 18.9092 66.602 13.9772C69.6575 12.9096 72.2316 10.7416 74.2751 8.23306C76.3186 5.7245 77.8807 2.8426 79.4298 0H72.7457L72.749 0Z" fill="currentColor"/>
+        <path d="M103.674 1.01525C103.677 1.29362 103.684 1.57198 103.687 1.8569V1.9355C103.684 2.01737 103.684 2.09924 103.684 2.18439V19.3088C102.921 18.2968 102.118 17.2259 101.287 16.119C100.095 14.5274 98.9156 12.9522 97.753 11.3934C96.6527 9.91967 95.5589 8.46562 94.5044 7.06724C93.5121 5.75729 92.6737 4.634 92.0155 3.73341C91.3408 2.80989 90.9184 2.22369 90.7186 1.9355C90.2798 1.30999 89.9294 0.772912 89.6739 0.343902L89.4938 0.0393372H82.0762V28.7732H88.1445V26.841C88.138 26.6773 88.1347 26.5037 88.1347 26.3203V7.07052C88.8683 8.08246 89.6379 9.15989 90.4337 10.2832C91.593 11.9206 92.7851 13.581 93.9706 15.2152C95.1495 16.8428 96.2859 18.4213 97.347 19.9113C98.3753 21.3588 99.3348 22.6983 100.199 23.8903C101.031 25.0333 101.673 25.9339 102.118 26.579C102.675 27.3519 103.091 27.9839 103.36 28.4555L103.536 28.7699H109.762V0.0393372H103.654L103.667 1.01525H103.674Z" fill="currentColor"/>
+        <path d="M26.0255 44.4108C21.1459 41.3946 15.2053 42.1577 9.90326 40.5432C9.12056 40.3041 8.33131 39.9963 7.74838 39.4199C6.35655 38.0444 7.2113 36.4004 8.81272 35.8044C10.5124 35.1723 12.3267 35.1822 14.1148 35.2018C15.9028 35.2215 17.704 35.3295 19.4856 35.6014C21.2278 35.8699 22.7375 36.2105 23.9722 36.6133C25.1511 36.9932 27.3355 38.1656 27.8988 38.5095L27.9872 38.5684V31.2523C26.6248 31.141 25.2788 30.9576 23.9263 30.7971C22.9602 30.6825 21.9909 30.6104 21.0248 30.486C18.7356 30.188 16.0142 30.0373 12.9325 30.0373C10.198 30.0373 7.90557 30.3779 6.12731 31.046C4.28355 31.7304 2.87862 32.6933 1.95511 33.9017C1.00866 35.1265 0.530532 36.5445 0.530532 38.1165C0.530532 39.9144 0.985741 41.4339 1.88306 42.6358C2.7771 43.8246 4.19185 44.771 6.09129 45.4555C7.91212 46.1072 10.329 46.6312 13.2829 47.0242C15.8275 47.3254 18.6341 47.5874 21.0215 48.5896C21.742 48.8908 22.4231 49.4083 22.6786 50.1484C22.8325 50.5971 22.8129 51.0948 22.6655 51.5435C22.2856 52.7094 21.2114 53.1908 20.1176 53.4888C18.9387 53.8064 17.1604 53.9702 14.8352 53.9702C12.212 53.9702 9.93273 53.7868 8.05622 53.4266C6.20263 53.0729 4.69619 52.6406 3.586 52.133C2.68213 51.7203 1.87323 51.275 1.22153 50.5119C0.815447 50.0403 0.406086 49.5687 0 49.1004V57.6348L0.87112 57.7625C2.36447 58.0016 4.39162 58.3553 6.71679 58.6336L7.0279 58.6696C9.49717 58.9644 12.3725 59.1183 15.5688 59.1183H15.6441C17.8056 59.1183 19.741 58.9415 21.3916 58.5943C23.0748 58.2406 24.5158 57.7003 25.6784 56.9864C26.8737 56.2495 27.7874 55.3522 28.3965 54.3108C29.0089 53.2661 29.3201 52.0773 29.3201 50.7804C29.3201 48.8646 28.8485 47.2698 27.9217 46.0384C27.4566 45.4227 26.7886 44.8791 26.0288 44.4108H26.0255Z" fill="currentColor"/>
+        <path d="M40.9692 30.3845H34.3867V57.7985C34.3867 57.9787 34.3965 58.0867 34.3867 58.2341V59.115L40.9627 59.0954V58.2308C40.9463 58.0802 40.9398 57.9164 40.9398 57.7396V47.7086C40.9398 47.4171 40.9529 47.2207 40.9692 47.0995C41.1461 47.0798 41.4474 47.0569 41.9484 47.0569H42.4331C44.1819 47.0569 45.7964 47.3156 47.2374 47.8232C48.6783 48.3308 49.9686 49.0284 51.0755 49.8831C52.1857 50.7379 53.1256 51.6974 53.8723 52.7323C54.6124 53.7541 56.3776 57.2091 56.7313 58.2243L56.7411 58.2537C56.7673 58.3192 56.7869 58.3815 56.8066 58.4437L57.0326 59.0888H65.2361L64.3126 57.8149C64.1751 57.625 64.031 57.4121 63.8705 57.1763L63.6839 56.875C63.5627 56.6785 63.4251 56.4493 63.2745 56.1938L63.0059 55.7452C60.8904 52.1985 58.706 48.5273 55.0676 45.9467C53.7675 45.0429 52.5885 44.3682 51.5569 43.9425C51.295 43.8344 51.0395 43.7362 50.7972 43.6445C51.534 43.2613 52.3658 42.6817 53.2828 41.9153C54.0197 41.2735 54.6714 40.6447 55.2248 40.0421C55.8176 39.3937 56.4365 38.6306 57.0719 37.7661C57.5664 37.0849 58.8043 35.133 59.8228 33.5087C60.4843 32.4542 61.1884 31.4259 61.8696 30.3845H53.4924L53.2075 31.5634C53.1715 31.7665 53.1027 31.9662 53.0306 32.2413C52.618 33.7805 50.771 36.8884 49.7296 38.0903C48.6881 39.2954 47.4961 40.2484 46.1796 40.9198C44.8991 41.578 43.6284 41.9088 42.4036 41.9088H41.9615C41.4474 41.9088 41.1461 41.8859 40.9823 41.8629C40.9692 41.7647 40.9561 41.6108 40.9561 41.3881V32.2086L40.9692 30.3845Z" fill="currentColor"/>
+        <path d="M120.912 31.3309C120.916 31.6093 120.922 31.8909 120.925 32.1758V32.2544C120.922 32.3363 120.922 32.4215 120.922 32.5033V49.6932C120.159 48.678 119.357 47.6038 118.525 46.4904C117.333 44.8922 116.154 43.3105 114.991 41.7483C113.891 40.2681 112.797 38.8075 111.743 37.4058C110.75 36.0893 109.912 34.9628 109.254 34.0589C108.579 33.1321 108.157 32.5426 107.957 32.2544C107.518 31.6257 107.168 31.0886 106.912 30.6563L106.732 30.3517H99.3145V59.1969H105.383V57.2549C105.376 57.0879 105.373 56.9176 105.373 56.7309V37.4091C106.107 38.4243 106.876 39.505 107.672 40.6316C108.831 42.2756 110.023 43.9425 111.209 45.5832C112.388 47.2174 113.524 48.8024 114.585 50.2958C115.614 51.7498 116.573 53.0925 117.438 54.2879C118.269 55.4374 118.911 56.3412 119.357 56.9864C119.913 57.7625 120.329 58.3946 120.598 58.8727L120.775 59.1904H127V30.3484H120.893L120.906 31.3309H120.912Z" fill="currentColor"/>
+        <path d="M89.9052 30.3648H88.389C87.5277 34.1637 85.1043 37.6318 81.813 39.7179C81.479 39.9308 81.1155 40.1338 80.7225 40.1306C80.3295 40.1306 79.9692 39.921 79.6385 39.7081C76.3112 37.5761 73.7863 34.1539 72.6695 30.3616C69.9481 30.3616 67.2267 30.3812 64.502 30.3616C66.1721 33.083 67.8522 35.8143 69.8859 38.2737C71.9196 40.7331 74.6181 42.8815 77.4803 44.2995L77.4901 55.0313V59.138H83.7583C83.7583 54.206 83.7583 49.2708 83.7583 44.3388C86.8137 43.2712 89.3878 41.1032 91.4313 38.5946C93.4749 36.0861 95.0337 33.2074 96.5827 30.3648H89.8987H89.902H89.9052Z" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <div style="width: 120px;"></div>
+  </header>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="hero__bg">
+      <img src="photos/chandani-closeup.jpg" alt="Kyn Skyn community member" style="object-position: center 20%;">
+    </div>
+    <div class="hero__gradient"></div>
+    <div class="hero__content">
+      <span class="hero__badge">Coming Soon</span>
+      <h1 class="hero__heading">Skincare for<br>fungus-prone skin.</h1>
+      <p class="hero__sub">Steady Serum launches Q3 2026.</p>
+    </div>
+  </section>
+
+  <!-- ====== ABOUT ====== -->
+  <section class="about" id="about">
+    <img src="photos/molecule.svg" alt="" aria-hidden="true" class="about__molecule">
+    <div class="about__container">
+      <div class="about__content fade-in">
+        <p class="about__eyebrow">About Kyn</p>
+        <h2 class="about__heading">Built for skin like yours.</h2>
+        <div class="about__body">
+          <p>Kyn Skyn was created for people with fungus-prone skin. Conditions like seborrheic dermatitis, fungal acne, and Malassezia-related irritation show up differently on darker skin, yet are rarely represented in the skincare space. Most products on the market contain lipids that feed Malassezia, making things worse. Ours don't.</p>
+          <p>Our name is inspired by kin: a nod to connection, community, and care. Every formula and visual choice honors that ethos.</p>
+          <p>Our first product, Steady Serum, is a residue-light formula that helps reduce the look of flakes and oil while respecting your skin and scalp ecosystem. Formulated with lightweight MCT oil, it delivers long-lasting hydration without feeding Malassezia.</p>
+        </div>
+        <!-- 4-point star brand mark -->
+        <svg class="about__mark" viewBox="0 0 111 106" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M109.661 41.6249C98.2664 41.6249 87.4172 37.3581 79.14 29.6186C70.9252 21.957 65.8902 11.5703 64.9706 0.358164V0H45.1895V0.358164C44.2854 11.5703 39.2504 21.9726 30.9888 29.6497C22.6649 37.3892 11.8313 41.656 0.498814 41.656H0.0935277L0 60.6387H0.405287C25.2525 60.6387 45.4544 80.7737 45.4544 105.534V105.923H64.5029V105.534C64.5029 80.7893 84.7205 60.6387 109.568 60.6387H110.16V41.656H109.646L109.661 41.6249Z" fill="currentColor"/>
+        </svg>
+      </div>
+
+      <div class="about__images fade-in">
+        <img class="img-tall" src="photos/gabby-closeup.jpg" alt="Gabby" style="border-radius: 8px; object-position: center 15%;">
+        <img class="img-square" src="photos/kiiren-closeup.jpg" alt="Kiiren" style="object-position: center 20%;">
+        <img class="img-square" src="photos/kwamena-smile.jpg" alt="Kwamena" style="object-position: center 15%;">
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== COMING SOON / NOTIFY ====== -->
+  <section class="notify" id="notify">
+    <!-- Background grid pattern -->
+    <div class="notify__grid-bg">
+      <svg viewBox="0 0 462 462" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M462 313.338H329.148C323.956 313.338 319.752 309.136 319.752 303.946V273.66C319.752 268.47 323.956 264.268 329.148 264.268H341.139V260.492H329.148C323.956 260.492 319.752 256.29 319.752 251.1V215.779C319.752 210.59 323.956 206.388 329.148 206.388H462V202.612H329.148C323.956 202.612 319.752 198.409 319.752 193.22V157.879C319.752 152.69 323.956 148.488 329.148 148.488H333.584V144.711H329.148C323.956 144.711 319.752 140.509 319.752 135.32V0H315.975V135.32C315.975 140.509 311.771 144.711 306.579 144.711H276.282C271.09 144.711 266.886 140.509 266.886 135.32V120.816H263.109V135.32C263.109 140.509 258.905 144.711 253.714 144.711H218.379C213.188 144.711 208.984 140.509 208.984 135.32V0H205.206V135.32C205.206 140.509 201.003 144.711 195.811 144.711H160.457C155.266 144.711 151.062 140.509 151.062 135.32V128.368H147.284V135.32C147.284 140.509 143.081 144.711 137.889 144.711H0V148.488H137.889C143.081 148.488 147.284 152.69 147.284 157.879V193.2C147.284 198.39 143.081 202.592 137.889 202.592H128.416V206.368H137.889C143.081 206.368 147.284 210.57 147.284 215.76V251.081C147.284 256.271 143.081 260.473 137.889 260.473H7.55503V264.249H137.889C143.081 264.249 147.284 268.451 147.284 273.641V303.927C147.284 309.117 143.081 313.319 137.889 313.319H128.416V317.095H137.889C143.081 317.095 147.284 321.297 147.284 326.487V461.806H151.062V326.487C151.062 321.297 155.266 317.095 160.457 317.095H195.792C200.983 317.095 205.187 321.297 205.187 326.487V333.439H208.964V326.487C208.964 321.297 213.168 317.095 218.36 317.095H253.694C258.886 317.095 263.09 321.297 263.09 326.487V462H266.867V326.487C266.867 321.297 271.071 317.095 276.262 317.095H306.56C311.752 317.095 315.955 321.297 315.955 326.487V333.439H319.733V326.487C319.733 321.297 323.937 317.095 329.128 317.095H461.981V313.338H462Z" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <div class="notify__container fade-in">
+      <p class="notify__eyebrow">Launching Soon</p>
+      <h2 class="notify__heading">Be the first to know.</h2>
+      <p class="notify__desc">Steady Serum drops Q3 2026. Sign up to stay informed, take part in product testing, or collaborate with us.</p>
+
+      <form class="notify__form" id="waitlistForm">
+        <input class="notify__input" type="email" name="contact[email]" placeholder="Email address" required>
+        <button class="notify__button" type="submit">Notify Me</button>
+      </form>
+      <p class="notify__success" id="formSuccess" style="display:none; color: var(--cream); opacity: 0.8; font-family: var(--font-sans); font-size: 0.9rem; margin-top: 1rem;">You're on the list. We'll be in touch.</p>
+      <p class="notify__error" id="formError" style="display:none; color: #e8725a; font-family: var(--font-sans); font-size: 0.9rem; margin-top: 1rem;">Something went wrong. Please try again.</p>
+
+      <img src="photos/logomark-white.svg" alt="Kyn Skyn logomark" style="width: 4rem; height: auto; opacity: 0.15; margin-top: 3rem;">
+    </div>
+  </section>
+
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="site-footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__logo">
+          <svg width="100" height="47" viewBox="0 0 127 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.8188 0.0393372H17.2363V27.4534C17.2363 27.6335 17.2462 27.7416 17.2363 27.889V28.7699L23.8123 28.7503V27.8857C23.7959 27.7351 23.7894 27.5713 23.7894 27.3945V17.3635C23.7894 17.072 23.8025 16.8755 23.8188 16.7544C23.9957 16.7347 24.297 16.7118 24.798 16.7118H25.2827C27.0315 16.7118 28.646 16.9705 30.087 17.4781C31.5279 17.9857 32.8182 18.6833 33.9251 19.538C35.0353 20.3928 35.9752 21.3523 36.7219 22.3872C37.462 23.4089 39.2272 26.8639 39.5809 27.8791L39.5907 27.9086C39.6169 27.9741 39.6365 28.0363 39.6562 28.0986L39.8822 28.7437H48.0858L47.1622 27.4698C47.0247 27.2798 46.8806 27.067 46.7267 26.8312H46.7201L46.5335 26.5299C46.4123 26.3334 46.2747 26.1042 46.1241 25.8487L45.8556 25.4001C43.74 21.8534 41.5556 18.1822 37.9172 15.6016C36.6171 14.6977 35.4381 14.0231 34.4066 13.5974C34.1446 13.4893 33.8891 13.391 33.6468 13.2994C34.3836 12.9162 35.2155 12.3365 36.1324 11.5702C36.8693 10.9283 37.521 10.2996 38.0744 9.69698C38.6672 9.04855 39.2861 8.2855 39.9215 7.42093C40.416 6.73975 41.6539 4.78792 42.6724 3.16358L43.2193 2.29573C43.4354 1.96825 43.5828 1.74883 43.7171 1.57198L44.7192 0.0393372H36.342L36.0571 1.2183C36.0211 1.42134 35.9523 1.62111 35.8803 1.8962C35.4676 3.43539 33.6206 6.54326 32.5792 7.74514C31.5378 8.9503 30.3457 9.9033 29.0292 10.5746C27.7487 11.2329 26.4781 11.5637 25.2532 11.5637H24.8111C24.297 11.5637 23.9957 11.5407 23.8319 11.5178C23.8188 11.4196 23.8057 11.2656 23.8057 11.043V1.86345L23.8188 0.0393372Z" fill="currentColor"/>
+            <path d="M72.749 0H71.2327C70.3714 3.79887 67.948 7.26697 64.6567 9.35308C64.3227 9.56594 63.9592 9.76899 63.5662 9.76571C63.1732 9.76571 62.813 9.55612 62.4822 9.34325C59.1517 7.21458 56.63 3.79232 55.5133 0C52.7918 0 50.0704 0.0196493 47.3457 0C49.0159 2.72143 50.6959 5.45269 52.7296 7.91213C54.7633 10.3716 57.4618 12.5199 60.3241 13.9379L60.3339 24.6697V28.7764H66.602C66.602 23.8444 66.602 18.9092 66.602 13.9772C69.6575 12.9096 72.2316 10.7416 74.2751 8.23306C76.3186 5.7245 77.8807 2.8426 79.4298 0H72.7457L72.749 0Z" fill="currentColor"/>
+            <path d="M103.674 1.01525C103.677 1.29362 103.684 1.57198 103.687 1.8569V1.9355C103.684 2.01737 103.684 2.09924 103.684 2.18439V19.3088C102.921 18.2968 102.118 17.2259 101.287 16.119C100.095 14.5274 98.9156 12.9522 97.753 11.3934C96.6527 9.91967 95.5589 8.46562 94.5044 7.06724C93.5121 5.75729 92.6737 4.634 92.0155 3.73341C91.3408 2.80989 90.9184 2.22369 90.7186 1.9355C90.2798 1.30999 89.9294 0.772912 89.6739 0.343902L89.4938 0.0393372H82.0762V28.7732H88.1445V26.841C88.138 26.6773 88.1347 26.5037 88.1347 26.3203V7.07052C88.8683 8.08246 89.6379 9.15989 90.4337 10.2832C91.593 11.9206 92.7851 13.581 93.9706 15.2152C95.1495 16.8428 96.2859 18.4213 97.347 19.9113C98.3753 21.3588 99.3348 22.6983 100.199 23.8903C101.031 25.0333 101.673 25.9339 102.118 26.579C102.675 27.3519 103.091 27.9839 103.36 28.4555L103.536 28.7699H109.762V0.0393372H103.654L103.667 1.01525H103.674Z" fill="currentColor"/>
+            <path d="M26.0255 44.4108C21.1459 41.3946 15.2053 42.1577 9.90326 40.5432C9.12056 40.3041 8.33131 39.9963 7.74838 39.4199C6.35655 38.0444 7.2113 36.4004 8.81272 35.8044C10.5124 35.1723 12.3267 35.1822 14.1148 35.2018C15.9028 35.2215 17.704 35.3295 19.4856 35.6014C21.2278 35.8699 22.7375 36.2105 23.9722 36.6133C25.1511 36.9932 27.3355 38.1656 27.8988 38.5095L27.9872 38.5684V31.2523C26.6248 31.141 25.2788 30.9576 23.9263 30.7971C22.9602 30.6825 21.9909 30.6104 21.0248 30.486C18.7356 30.188 16.0142 30.0373 12.9325 30.0373C10.198 30.0373 7.90557 30.3779 6.12731 31.046C4.28355 31.7304 2.87862 32.6933 1.95511 33.9017C1.00866 35.1265 0.530532 36.5445 0.530532 38.1165C0.530532 39.9144 0.985741 41.4339 1.88306 42.6358C2.7771 43.8246 4.19185 44.771 6.09129 45.4555C7.91212 46.1072 10.329 46.6312 13.2829 47.0242C15.8275 47.3254 18.6341 47.5874 21.0215 48.5896C21.742 48.8908 22.4231 49.4083 22.6786 50.1484C22.8325 50.5971 22.8129 51.0948 22.6655 51.5435C22.2856 52.7094 21.2114 53.1908 20.1176 53.4888C18.9387 53.8064 17.1604 53.9702 14.8352 53.9702C12.212 53.9702 9.93273 53.7868 8.05622 53.4266C6.20263 53.0729 4.69619 52.6406 3.586 52.133C2.68213 51.7203 1.87323 51.275 1.22153 50.5119C0.815447 50.0403 0.406086 49.5687 0 49.1004V57.6348L0.87112 57.7625C2.36447 58.0016 4.39162 58.3553 6.71679 58.6336L7.0279 58.6696C9.49717 58.9644 12.3725 59.1183 15.5688 59.1183H15.6441C17.8056 59.1183 19.741 58.9415 21.3916 58.5943C23.0748 58.2406 24.5158 57.7003 25.6784 56.9864C26.8737 56.2495 27.7874 55.3522 28.3965 54.3108C29.0089 53.2661 29.3201 52.0773 29.3201 50.7804C29.3201 48.8646 28.8485 47.2698 27.9217 46.0384C27.4566 45.4227 26.7886 44.8791 26.0288 44.4108H26.0255Z" fill="currentColor"/>
+            <path d="M40.9692 30.3845H34.3867V57.7985C34.3867 57.9787 34.3965 58.0867 34.3867 58.2341V59.115L40.9627 59.0954V58.2308C40.9463 58.0802 40.9398 57.9164 40.9398 57.7396V47.7086C40.9398 47.4171 40.9529 47.2207 40.9692 47.0995C41.1461 47.0798 41.4474 47.0569 41.9484 47.0569H42.4331C44.1819 47.0569 45.7964 47.3156 47.2374 47.8232C48.6783 48.3308 49.9686 49.0284 51.0755 49.8831C52.1857 50.7379 53.1256 51.6974 53.8723 52.7323C54.6124 53.7541 56.3776 57.2091 56.7313 58.2243L56.7411 58.2537C56.7673 58.3192 56.7869 58.3815 56.8066 58.4437L57.0326 59.0888H65.2361L64.3126 57.8149C64.1751 57.625 64.031 57.4121 63.8705 57.1763L63.6839 56.875C63.5627 56.6785 63.4251 56.4493 63.2745 56.1938L63.0059 55.7452C60.8904 52.1985 58.706 48.5273 55.0676 45.9467C53.7675 45.0429 52.5885 44.3682 51.5569 43.9425C51.295 43.8344 51.0395 43.7362 50.7972 43.6445C51.534 43.2613 52.3658 42.6817 53.2828 41.9153C54.0197 41.2735 54.6714 40.6447 55.2248 40.0421C55.8176 39.3937 56.4365 38.6306 57.0719 37.7661C57.5664 37.0849 58.8043 35.133 59.8228 33.5087C60.4843 32.4542 61.1884 31.4259 61.8696 30.3845H53.4924L53.2075 31.5634C53.1715 31.7665 53.1027 31.9662 53.0306 32.2413C52.618 33.7805 50.771 36.8884 49.7296 38.0903C48.6881 39.2954 47.4961 40.2484 46.1796 40.9198C44.8991 41.578 43.6284 41.9088 42.4036 41.9088H41.9615C41.4474 41.9088 41.1461 41.8859 40.9823 41.8629C40.9692 41.7647 40.9561 41.6108 40.9561 41.3881V32.2086L40.9692 30.3845Z" fill="currentColor"/>
+            <path d="M120.912 31.3309C120.916 31.6093 120.922 31.8909 120.925 32.1758V32.2544C120.922 32.3363 120.922 32.4215 120.922 32.5033V49.6932C120.159 48.678 119.357 47.6038 118.525 46.4904C117.333 44.8922 116.154 43.3105 114.991 41.7483C113.891 40.2681 112.797 38.8075 111.743 37.4058C110.75 36.0893 109.912 34.9628 109.254 34.0589C108.579 33.1321 108.157 32.5426 107.957 32.2544C107.518 31.6257 107.168 31.0886 106.912 30.6563L106.732 30.3517H99.3145V59.1969H105.383V57.2549C105.376 57.0879 105.373 56.9176 105.373 56.7309V37.4091C106.107 38.4243 106.876 39.505 107.672 40.6316C108.831 42.2756 110.023 43.9425 111.209 45.5832C112.388 47.2174 113.524 48.8024 114.585 50.2958C115.614 51.7498 116.573 53.0925 117.438 54.2879C118.269 55.4374 118.911 56.3412 119.357 56.9864C119.913 57.7625 120.329 58.3946 120.598 58.8727L120.775 59.1904H127V30.3484H120.893L120.906 31.3309H120.912Z" fill="currentColor"/>
+            <path d="M89.9052 30.3648H88.389C87.5277 34.1637 85.1043 37.6318 81.813 39.7179C81.479 39.9308 81.1155 40.1338 80.7225 40.1306C80.3295 40.1306 79.9692 39.921 79.6385 39.7081C76.3112 37.5761 73.7863 34.1539 72.6695 30.3616C69.9481 30.3616 67.2267 30.3812 64.502 30.3616C66.1721 33.083 67.8522 35.8143 69.8859 38.2737C71.9196 40.7331 74.6181 42.8815 77.4803 44.2995L77.4901 55.0313V59.138H83.7583C83.7583 54.206 83.7583 49.2708 83.7583 44.3388C86.8137 43.2712 89.3878 41.1032 91.4313 38.5946C93.4749 36.0861 95.0337 33.2074 96.5827 30.3648H89.8987H89.902H89.9052Z" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <ul class="footer__nav">
+          <li><a href="#about">About</a></li>
+          <li><a href="#notify">Get Notified</a></li>
+        </ul>
+
+        <div class="footer__social">
+          <a href="https://instagram.com/kynskyn" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="5"/>
+              <circle cx="17.5" cy="6.5" r="1"/>
+            </svg>
+          </a>
+          <a href="https://tiktok.com/@kynskyn" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.88-2.88 2.89 2.89 0 012.88-2.88c.28 0 .56.04.82.11v-3.5a6.37 6.37 0 00-.82-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.87a8.16 8.16 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.3z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span class="footer__copy">&copy; 2025 Kyn Skyn. All rights reserved.</span>
+        <span class="footer__copy">Built for skin like yours.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====== JS ====== -->
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Scroll fade-in
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // Waitlist form - posts to Shopify contact form endpoint
+    const waitlistForm = document.getElementById('waitlistForm');
+    const formSuccess = document.getElementById('formSuccess');
+    const formError = document.getElementById('formError');
+
+    waitlistForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = waitlistForm.querySelector('input[type="email"]');
+      const btn = waitlistForm.querySelector('button');
+      const email = input.value.trim();
+
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      formSuccess.style.display = 'none';
+      formError.style.display = 'none';
+
+      try {
+        const formData = new FormData();
+        formData.append('form_type', 'customer');
+        formData.append('utf8', '\u2713');
+        formData.append('contact[email]', email);
+        formData.append('contact[tags]', 'newsletter,waitlist');
+
+        const response = await fetch('https://kynskyn.com/contact#contact_form', {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
+
+        // With no-cors we can't read the response, but the request goes through
+        input.value = '';
+        formSuccess.style.display = 'block';
+        btn.textContent = 'Notify Me';
+        btn.disabled = false;
+      } catch (err) {
+        formError.style.display = 'block';
+        btn.textContent = 'Notify Me';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
