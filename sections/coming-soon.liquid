@@ -91,6 +91,24 @@
         var email = input.value.trim();
         if (!email) return;
 
+        // Check if already signed up
+        var signedUp = JSON.parse(localStorage.getItem('kyn_waitlist') || '[]');
+        if (signedUp.indexOf(email.toLowerCase()) !== -1) {
+          btn.textContent = 'Already on the list';
+          btn.style.background = '#4a4a4a';
+          input.value = '';
+          if (success) {
+            success.textContent = "You've already signed up with this email. We'll be in touch.";
+            success.style.display = 'block';
+          }
+          setTimeout(function() {
+            btn.textContent = 'Notify Me';
+            btn.style.background = '';
+            if (success) success.textContent = "You're on the list. We'll be in touch.";
+          }, 4000);
+          return;
+        }
+
         btn.disabled = true;
         btn.textContent = 'Sending...';
 
@@ -100,6 +118,8 @@
           body: data,
           redirect: 'manual'
         }).then(function() {
+          signedUp.push(email.toLowerCase());
+          localStorage.setItem('kyn_waitlist', JSON.stringify(signedUp));
           btn.textContent = 'You\'re in!';
           btn.style.background = '#2a6e3f';
           input.value = '';
@@ -110,6 +130,8 @@
             btn.disabled = false;
           }, 4000);
         }).catch(function() {
+          signedUp.push(email.toLowerCase());
+          localStorage.setItem('kyn_waitlist', JSON.stringify(signedUp));
           btn.textContent = 'You\'re in!';
           btn.style.background = '#2a6e3f';
           input.value = '';

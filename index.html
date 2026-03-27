@@ -872,6 +872,22 @@
 
       if (!email) return;
 
+      // Check if already signed up
+      const signedUp = JSON.parse(localStorage.getItem('kyn_waitlist') || '[]');
+      if (signedUp.includes(email.toLowerCase())) {
+        btn.textContent = 'Already on the list';
+        btn.style.background = '#4a4a4a';
+        input.value = '';
+        formSuccess.textContent = "You've already signed up with this email. We'll be in touch.";
+        formSuccess.style.display = 'block';
+        setTimeout(() => {
+          btn.textContent = 'Notify Me';
+          btn.style.background = '';
+          formSuccess.textContent = "You're on the list. We'll be in touch.";
+        }, 4000);
+        return;
+      }
+
       btn.disabled = true;
       btn.textContent = 'Sending...';
       formSuccess.style.display = 'none';
@@ -890,7 +906,10 @@
           mode: 'no-cors'
         });
 
-        // With no-cors we can't read the response, but the request goes through
+        // Save to localStorage
+        signedUp.push(email.toLowerCase());
+        localStorage.setItem('kyn_waitlist', JSON.stringify(signedUp));
+
         input.value = '';
         btn.textContent = "You're in!";
         btn.style.background = '#2a6e3f';
@@ -901,6 +920,9 @@
           btn.disabled = false;
         }, 4000);
       } catch (err) {
+        signedUp.push(email.toLowerCase());
+        localStorage.setItem('kyn_waitlist', JSON.stringify(signedUp));
+
         input.value = '';
         btn.textContent = "You're in!";
         btn.style.background = '#2a6e3f';
