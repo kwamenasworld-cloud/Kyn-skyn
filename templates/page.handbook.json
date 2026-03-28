@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "handbook": {
+      "type": "handbook"
+    }
+  },
+  "order": ["handbook"]
+}
