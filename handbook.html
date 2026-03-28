@@ -564,8 +564,35 @@ li::marker { color: var(--burnt-red); }
   display: flex;
   align-items: baseline;
   gap: 0.8rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0;
   flex-wrap: wrap;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 2rem;
+}
+.treatment-header::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 50%;
+  width: 8px; height: 8px;
+  border-right: 2px solid rgba(100,18,32,0.35);
+  border-bottom: 2px solid rgba(100,18,32,0.35);
+  transform: translateY(-50%) rotate(45deg);
+  transition: transform 0.3s ease;
+}
+.treatment-card.expanded .treatment-header::after {
+  transform: translateY(-30%) rotate(-135deg);
+}
+.treatment-card .treatment-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, margin-top 0.3s ease;
+  margin-top: 0;
+}
+.treatment-card.expanded .treatment-body {
+  max-height: 800px;
+  margin-top: 0.8rem;
 }
 .treatment-name {
   font-family: 'STK Bureau Serif', serif;
@@ -1216,12 +1243,12 @@ li::marker { color: var(--burnt-red); }
 </div>
 
 <h3>Hypopigmentation: The Part Nobody Talks About</h3>
-<p>PIH gets most of the attention, but hypopigmentation — patches of skin that become lighter than your natural tone — is just as common in melanin-rich skin, and often more distressing. Tinea versicolor is the obvious one: the yeast produces azelaic acid as a metabolic byproduct, which interferes with melanocyte function and leaves behind pale or whitish patches that can take months to blend back in, sometimes longer. But it's not just TV. Seborrheic dermatitis and even fungal acne can leave behind lighter marks once the inflammation clears, especially if the condition was present for a while before treatment started.</p>
+<p>PIH gets most of the attention, but hypopigmentation (patches of skin that become lighter than your natural tone) is just as common in melanin-rich skin, and often more distressing. Tinea versicolor is the obvious one: the yeast produces azelaic acid as a metabolic byproduct, which interferes with melanocyte function and leaves behind pale or whitish patches that can take months to blend back in, sometimes longer. But it's not just tinea versicolor. Seborrheic dermatitis and even fungal acne can leave behind lighter marks once the inflammation clears, especially if the condition was present for a while before treatment started.</p>
 
 <p>The frustrating part is that hypopigmentation is slower to resolve than hyperpigmentation. PIH responds to azelaic acid, niacinamide, sunscreen, and time. Hypopigmentation mostly just responds to time. The melanocytes need to resume normal production on their own, and that can't really be rushed. Some dermatologists recommend controlled UV exposure to encourage repigmentation in stubborn cases, but that's a conversation to have with your clinician, not something to DIY.</p>
 
 <div class="callout">
-  <strong>What actually helps:</strong> Getting the underlying condition under control so the yeast stops interfering with pigment production. Consistent sunscreen, because tanning the surrounding skin while the light patches stay pale makes the contrast more visible. And patience — repigmentation can take three to six months or more, and stressing over it doesn't speed anything up. The color does come back for most people. It just takes its time.
+  <strong>What actually helps:</strong> Getting the underlying condition under control so the yeast stops interfering with pigment production. Consistent sunscreen, because tanning the surrounding skin while the light patches stay pale makes the contrast more visible. And patience. Repigmentation can take three to six months or more, and stressing over it doesn't speed anything up. The color does come back for most people. It just takes its time.
 </div>
 
 <h3>Hair Care, Protective Styles, and Scalp Access</h3>
@@ -1532,6 +1559,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-name">Ketoconazole</span>
     <span class="treatment-tag antifungal">Antifungal</span>
   </div>
+  <div class="treatment-body">
   <p>The most studied topical antifungal for Malassezia conditions. Ketoconazole is an imidazole that inhibits ergosterol synthesis, a core component of fungal cell membranes. Without ergosterol, the membrane becomes leaky and the yeast dies. Available OTC as 1% shampoo (Nizoral) and by prescription at 2% in shampoo, cream, and foam forms.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1544,6 +1572,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Can be drying with frequent use. Some people experience contact irritation. Oral ketoconazole carries liver toxicity risks and is rarely used for skin conditions anymore.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Peter RU <em>et al.</em>, <em>Br J Dermatol</em> 1995 [29]; Piérard-Franchimont C <em>et al.</em>, <em>Skin Pharmacol Appl Skin Physiol</em> 2002 [30]; Okokon EO <em>et al.</em>, <em>Eur J Dermatol</em> 2001 [31]</p>
+  </div>
 </div>
 
 <!-- ZINC PYRITHIONE -->
@@ -1553,6 +1582,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-tag antifungal">Antifungal</span>
     <span class="treatment-tag anti-inflammatory">Anti-inflammatory</span>
   </div>
+  <div class="treatment-body">
   <p>One of the most accessible and well-tolerated antifungal agents, found in numerous OTC shampoos (Head & Shoulders, Vanicream Z-Bar). ZPT works through a different mechanism than azoles, making it a useful rotation partner or combination agent.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1565,6 +1595,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Less potent than ketoconazole in head-to-head studies for severe disease. May leave residue on hair. Some formulations contain problematic oils or fatty acids—check the full ingredient list.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Park M <em>et al.</em>, <em>Sci Rep</em> 2018 [23]; Reeder NL <em>et al.</em>, <em>Antimicrob Agents Chemother</em> 2011 [32]; Piérard-Franchimont C <em>et al.</em> [30]</p>
+  </div>
 </div>
 
 <!-- SELENIUM SULFIDE -->
@@ -1574,6 +1605,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-tag antifungal">Antifungal</span>
     <span class="treatment-tag keratolytic">Keratolytic</span>
   </div>
+  <div class="treatment-body">
   <p>Available OTC at 1% (Selsun Blue) and by prescription at 2.5%. Selenium sulfide has both antifungal and anti-seborrheic properties, making it useful for conditions where excessive oil and yeast overgrowth coincide.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1586,6 +1618,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Can discolor light or color-treated hair. Has a distinctive smell. Can be drying and irritating at higher concentrations. Rinse thoroughly to avoid residue irritation.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Sanchez JL &amp; Torres VM, <em>J Am Acad Dermatol</em> 1984 [33]; Sooksriwong C <em>et al.</em>, <em>J Dermatolog Treat</em> 2023 [34]</p>
+  </div>
 </div>
 
 <!-- CICLOPIROX OLAMINE -->
@@ -1595,6 +1628,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-tag antifungal">Antifungal</span>
     <span class="treatment-tag anti-inflammatory">Anti-inflammatory</span>
   </div>
+  <div class="treatment-body">
   <p>A broad-spectrum antifungal that works through a completely different mechanism than azoles. Studies show it's comparably effective to ketoconazole, and the combination of ciclopirox with zinc pyrithione shows synergistic effects greater than either alone.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1607,6 +1641,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Less widely available OTC than ketoconazole or zinc pyrithione in some markets. Generally well-tolerated with similar side-effect profile to ketoconazole.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Roques C <em>et al.</em>, <em>Mycopathologia</em> 2006 [24]; Ratnavel RC <em>et al.</em>, <em>J Dermatolog Treat</em> 2007 [35]</p>
+  </div>
 </div>
 
 <!-- PIROCTONE OLAMINE -->
@@ -1615,6 +1650,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-name">Piroctone Olamine</span>
     <span class="treatment-tag antifungal">Antifungal</span>
   </div>
+  <div class="treatment-body">
   <p>A second-generation antifungal increasingly found in cosmetically elegant shampoos and scalp treatments. It's the active in many "gentle" or salon-oriented antidandruff products and is generally less harsh than selenium sulfide or coal tar.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1627,6 +1663,7 @@ li::marker { color: var(--burnt-red); }
     <dd>May be less effective than ketoconazole for severe disease. Concentrations vary widely across products (0.5–1%). Check the active percentage.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Ge Y <em>et al.</em>, <em>J Cosmet Dermatol</em> 2025 [36]; Schmidt-Rose T <em>et al.</em>, <em>Int J Cosmet Sci</em> 2011 [37]</p>
+  </div>
 </div>
 
 <!-- SULFUR -->
@@ -1636,6 +1673,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-tag antifungal">Antifungal</span>
     <span class="treatment-tag keratolytic">Keratolytic</span>
   </div>
+  <div class="treatment-body">
   <p>One of the oldest topical treatments in dermatology. Sulfur has antifungal and keratolytic properties, and it works well for Malassezia folliculitis where clogged follicles and yeast overgrowth overlap.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1648,6 +1686,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Has a strong smell. Can be drying. Stains some fabrics. Start with short contact times and build up tolerance.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Gupta AK &amp; Nicol K, <em>J Drugs Dermatol</em> 2004 [25]; Lin AN <em>et al.</em>, <em>J Am Acad Dermatol</em> 1988 [38]</p>
+  </div>
 </div>
 
 <!-- SALICYLIC ACID -->
@@ -1656,6 +1695,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-name">Salicylic Acid (BHA)</span>
     <span class="treatment-tag keratolytic">Keratolytic</span>
   </div>
+  <div class="treatment-body">
   <p>A beta-hydroxy acid that's lipid-soluble, meaning it can penetrate into oily follicles to dissolve the buildup that traps yeast. It doesn't kill Malassezia directly but creates a less favorable environment for overgrowth.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1668,6 +1708,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Not sufficient as a standalone treatment for active Malassezia disease. Can be drying, especially in combination with other actives. Not recommended during pregnancy at high concentrations.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Ge Y <em>et al.</em> [36]; Waller JM <em>et al.</em>, <em>Skin Pharmacol Physiol</em> 2006 [39]</p>
+  </div>
 </div>
 
 <!-- AZELAIC ACID -->
@@ -1677,6 +1718,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-tag antifungal">Antifungal</span>
     <span class="treatment-tag anti-inflammatory">Anti-inflammatory</span>
   </div>
+  <div class="treatment-body">
   <p>A naturally occurring dicarboxylic acid that's become popular in Malassezia-aware communities. It may reduce the fatty acid content of skin surface lipids, which could limit the yeast's food supply, while also calming inflammation and helping fade post-inflammatory hyperpigmentation. Worth noting: rigorous clinical trials specifically targeting Malassezia folliculitis with azelaic acid are still limited, and much of the evidence comes from mechanistic studies or small pilots.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1689,6 +1731,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Tingling or mild stinging is common for the first 1–2 weeks (usually resolves). Some formulations contain esters or fatty acids—check the vehicle ingredients, not just the active.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Draelos ZD, <em>J Clin Aesthet Dermatol</em> 2020 [40]; Passi S <em>et al.</em> 1989 [41]</p>
+  </div>
 </div>
 
 <!-- UREA -->
@@ -1698,6 +1741,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-tag keratolytic">Keratolytic</span>
     <span class="treatment-tag adjunct">Hydrating</span>
   </div>
+  <div class="treatment-body">
   <p>A humectant and keratolytic that's Malassezia-safe and works well on stubborn scale. At low concentrations (5-10%) it hydrates; at higher concentrations (20-40%) it actively breaks down scale and helps other treatments absorb better.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1710,6 +1754,7 @@ li::marker { color: var(--burnt-red); }
     <dd>High concentrations can sting on broken or inflamed skin. Start lower and build up. Check the full ingredient list of urea creams—some contain problematic emollients.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Celleno L, <em>Dermatol Ther</em> 2018 [42]; Pan M <em>et al.</em>, <em>Dermatol Online J</em> 2013 [43]</p>
+  </div>
 </div>
 
 <!-- TEA TREE OIL -->
@@ -1719,6 +1764,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-tag antifungal">Antifungal</span>
     <span class="treatment-tag anti-inflammatory">Anti-inflammatory</span>
   </div>
+  <div class="treatment-body">
   <p>The active component terpinen-4-ol has demonstrated antifungal activity against Malassezia species. Tea tree oil is one of the few essential oils with enough clinical data to take seriously for this purpose, though it's best used as a supporting agent rather than a primary treatment.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1731,6 +1777,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Contact allergy is not uncommon with tea tree oil. Patch test first. Can be irritating at high concentrations. Oxidized tea tree oil (old bottles) is more sensitizing. Many tea tree products contain other problematic oils—read the full ingredient list.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Satchell AC <em>et al.</em>, <em>J Am Acad Dermatol</em> 2002 [44]; Hammer KA <em>et al.</em>, <em>Antimicrob Agents Chemother</em> 2000 [45]</p>
+  </div>
 </div>
 
 <!-- BENZOYL PEROXIDE -->
@@ -1740,6 +1787,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-tag keratolytic">Keratolytic</span>
     <span class="treatment-tag adjunct">Antibacterial</span>
   </div>
+  <div class="treatment-body">
   <p>Primarily known as an acne treatment, benzoyl peroxide is useful in Malassezia contexts mainly as a keratolytic that helps unclog follicles. There's no strong evidence it kills Malassezia directly, but it can reduce the bacterial component of mixed presentations and improve follicular penetration of other treatments.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1752,6 +1800,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Bleaches fabrics and towels. Can be very drying and irritating, especially on the face. Start with short contact times. No direct antifungal evidence, so don't rely on it as your primary Malassezia treatment.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Waller JM <em>et al.</em> [39]; StatPearls: Benzoyl Peroxide, 2024 [46]</p>
+  </div>
 </div>
 
 <!-- NIACINAMIDE -->
@@ -1761,6 +1810,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-tag anti-inflammatory">Anti-inflammatory</span>
     <span class="treatment-tag adjunct">Barrier Support</span>
   </div>
+  <div class="treatment-body">
   <p>Not an antifungal, but probably the most useful supporting ingredient if you're dealing with Malassezia. Niacinamide strengthens the skin barrier, reduces sebum production, and calms inflammation. It's Malassezia-safe at any concentration.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1773,6 +1823,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Concentrations above 5% cause flushing in some people. This is harmless but uncomfortable. If this happens, look for a lower concentration or a product where niacinamide isn't the headline active.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Tanno O <em>et al.</em>, <em>Br J Dermatol</em> 2000 [47]; Draelos ZD <em>et al.</em>, <em>J Cosmet Laser Ther</em> 2006 [48]</p>
+  </div>
 </div>
 
 <!-- ORAL ANTIFUNGALS -->
@@ -1781,6 +1832,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-name">Oral Antifungals (Fluconazole, Itraconazole)</span>
     <span class="treatment-tag antifungal">Antifungal — Systemic</span>
   </div>
+  <div class="treatment-body">
   <p>These are for moderate-to-severe or treatment-resistant cases. Prescription only, with clinician oversight required because of potential side effects. Worth knowing about because they're sometimes what finally works when topicals have stalled.</p>
   <dl class="detail-grid">
     <dt>How they work</dt>
@@ -1793,6 +1845,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Drug interactions (especially itraconazole, which affects CYP3A4). Liver function monitoring may be needed for longer courses. GI side effects. Not a substitute for a topical maintenance plan, which is still needed after oral clearance.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: Ghodsi SZ <em>et al.</em>, <em>Am J Clin Dermatol</em> 2015 [49]; Kose O <em>et al.</em>, <em>JEADV</em> 2005 [50]; Zisova LG, <em>Folia Med</em> 2006 [51]</p>
+  </div>
 </div>
 
 <!-- ROFLUMILAST (ZORYVE) -->
@@ -1801,6 +1854,7 @@ li::marker { color: var(--burnt-red); }
     <span class="treatment-name">Roflumilast (ZORYVE)</span>
     <span class="treatment-tag anti-inflammatory">Anti-inflammatory — Prescription</span>
   </div>
+  <div class="treatment-body">
   <p>FDA-approved in December 2023 for seborrheic dermatitis in patients ages 9 and older. It's the first new mechanism approved for seb derm in roughly two decades, which is worth knowing because the treatment options had been pretty static. Roflumilast is <strong>not an antifungal</strong>; it works by reducing inflammation. That makes it useful for people who want to get off long-term topical steroids or whose disease is mostly inflammation-driven.</p>
   <dl class="detail-grid">
     <dt>How it works</dt>
@@ -1813,6 +1867,7 @@ li::marker { color: var(--burnt-red); }
     <dd>Prescription only. Since roflumilast does not directly address the Malassezia component, it works best paired with an antifungal agent. Most common side effects in trials were mild and localized (application-site irritation). Not appropriate for acute flares that need rapid control—topical steroids remain faster-acting.</dd>
   </dl>
   <p style="font-size:0.78rem; color:rgba(61,32,37,0.45); margin:0.8rem 0 0; font-style:italic;">Sources: FDA approval, Arcutis Biotherapeutics, December 2023 [52]; Blauvelt A <em>et al.</em>, STRATUM Phase 3 trial, <em>J Am Acad Dermatol</em> 2024 [53]</p>
+  </div>
 </div>
 
 <h2>Combining Treatments: A Practical Framework</h2>
@@ -1897,7 +1952,7 @@ li::marker { color: var(--burnt-red); }
     <tr><td><strong>"Ketoconazole helped a little, then stopped"</strong></td><td>Mixed disease, inconsistent use, or recurrence after stopping</td><td>Review diagnosis; use maintenance, not all-or-nothing therapy</td></tr>
     <tr><td><strong>"Scalp clears but forehead keeps flaring"</strong></td><td>Hair products contributing; wash-off scalp control insufficient for face</td><td>Check scalp spillover; simplify leave-in products</td></tr>
     <tr><td><strong>"Rash looked worse after starting antifungals"</strong></td><td>Irritant dermatitis, overuse, or fragrance sensitivity</td><td>Reduce frequency; repair barrier; irritation doesn't disprove diagnosis</td></tr>
-    <tr><td><strong>"TV gone but marks still there"</strong></td><td>Common pigment lag</td><td>Judge activity by scale, not color; give pigment time</td></tr>
+    <tr><td><strong>"Tinea versicolor gone but marks still there"</strong></td><td>Common pigment lag</td><td>Judge activity by scale, not color; give pigment time</td></tr>
     <tr><td><strong>"Everything burns now"</strong></td><td>Barrier damage from over-treatment</td><td>Simplify, moisturize, rebuild tolerance</td></tr>
   </tbody>
 </table>
@@ -2182,6 +2237,14 @@ li::marker { color: var(--burnt-red); }
         container.appendChild(svg);
       }
     })();
+
+    // Treatment card collapse/expand
+    document.querySelectorAll('.treatment-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const card = header.closest('.treatment-card');
+        card.classList.toggle('expanded');
+      });
+    });
   </script>
 </body>
 </html>
