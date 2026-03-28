@@ -1,0 +1,106 @@
+<div class="contact-page">
+  <section class="contact">
+    <div class="contact__container fade-in">
+      <p class="contact__eyebrow">Get In Touch</p>
+      <h2 class="contact__heading">Let's work together.</h2>
+      <p class="contact__desc">Whether you're a creator interested in brand collaborations or a retailer looking to stock Kyn Skyn, we'd love to hear from you.</p>
+
+      <div class="contact__type-selector">
+        <button class="contact__type-btn active" data-type="influencer" type="button">Influencer / Creator</button>
+        <button class="contact__type-btn" data-type="retailer" type="button">Retailer / Stockist</button>
+        <button class="contact__type-btn" data-type="other" type="button">General Inquiry</button>
+      </div>
+
+      <form class="contact__form" id="contactForm" action="/contact#contact_form" method="post">
+        <input type="hidden" name="form_type" value="contact">
+        <input type="hidden" name="utf8" value="✓">
+        <div class="contact__row">
+          <input class="contact__field" type="text" name="contact[name]" placeholder="Your name" required>
+          <input class="contact__field" type="email" name="contact[email]" placeholder="Email address" required>
+        </div>
+        <input class="contact__field" type="text" name="contact[company]" placeholder="Company / Brand / Handle">
+        <input class="contact__field" id="contactSubject" type="text" name="contact[subject]" placeholder="Subject" readonly value="Influencer / Creator Collaboration">
+        <textarea class="contact__field" name="contact[body]" placeholder="Tell us a bit about yourself and what you have in mind..." required></textarea>
+        <button class="contact__submit" type="submit">Send Message</button>
+        <p class="contact__confirmation" id="contactConfirmation">Message sent. We'll get back to you soon.</p>
+      </form>
+    </div>
+  </section>
+</div>
+
+<script>
+  // Contact form - type selector
+  const typeBtns = document.querySelectorAll('.contact__type-btn');
+  const contactSubject = document.getElementById('contactSubject');
+  const subjectMap = {
+    influencer: 'Influencer / Creator Collaboration',
+    retailer: 'Retailer / Stockist Inquiry',
+    other: 'General Inquiry'
+  };
+
+  typeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      typeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      contactSubject.value = subjectMap[btn.dataset.type];
+    });
+  });
+
+  // Contact form submission
+  const contactForm = document.getElementById('contactForm');
+  const contactConfirmation = document.getElementById('contactConfirmation');
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = contactForm.querySelector('.contact__submit');
+    const name = contactForm.querySelector('input[name="contact[name]"]').value.trim();
+    const email = contactForm.querySelector('input[name="contact[email]"]').value.trim();
+    const company = contactForm.querySelector('input[name="contact[company]"]').value.trim();
+    const subject = contactSubject.value;
+    const message = contactForm.querySelector('textarea[name="contact[body]"]').value.trim();
+
+    if (!name || !email || !message) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    contactConfirmation.style.display = 'none';
+
+    try {
+      const formData = new FormData(contactForm);
+      formData.set('contact[body]', '[' + subject + ']\nCompany/Handle: ' + company + '\n\n' + message);
+
+      await fetch('/contact#contact_form', {
+        method: 'POST',
+        body: formData
+      });
+
+      contactForm.reset();
+      contactSubject.value = subjectMap.influencer;
+      typeBtns.forEach(b => b.classList.remove('active'));
+      typeBtns[0].classList.add('active');
+      submitBtn.textContent = 'Sent!';
+      submitBtn.style.background = '#2a6e3f';
+      contactConfirmation.style.display = 'block';
+
+      setTimeout(() => {
+        submitBtn.textContent = 'Send Message';
+        submitBtn.style.background = '';
+        submitBtn.disabled = false;
+      }, 4000);
+    } catch (err) {
+      submitBtn.textContent = 'Send Message';
+      submitBtn.style.background = '';
+      submitBtn.disabled = false;
+      contactConfirmation.textContent = 'Something went wrong. Please try again.';
+      contactConfirmation.style.color = '#e8725a';
+      contactConfirmation.style.display = 'block';
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Contact",
+  "class": "contact-section"
+}
+{% endschema %}

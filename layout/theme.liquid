@@ -439,6 +439,160 @@
 
     .notify__button:hover { background: var(--maroon); }
 
+    /* ========== CONTACT ========== */
+    .contact-page {
+      padding-top: 7rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact {
+      background: var(--cream);
+      padding: 4rem 3rem 6rem;
+      flex: 1;
+    }
+
+    .contact__container {
+      max-width: 42rem;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact__eyebrow {
+      font-family: var(--font-accent);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--maroon);
+      opacity: 0.6;
+      margin-bottom: 1.2rem;
+    }
+
+    .contact__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--maroon);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .contact__desc {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--maroon);
+      opacity: 0.65;
+      line-height: 1.7;
+      max-width: 32rem;
+      margin: 0 auto 3rem;
+    }
+
+    .contact__type-selector {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact__type-btn {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.5rem;
+      border: 1px solid rgba(100, 18, 32, 0.25);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--maroon);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .contact__type-btn:hover {
+      border-color: var(--maroon);
+      background: rgba(100, 18, 32, 0.05);
+    }
+
+    .contact__type-btn.active {
+      background: var(--maroon);
+      color: var(--cream);
+      border-color: var(--maroon);
+    }
+
+    .contact__form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: left;
+    }
+
+    .contact__row {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .contact__field {
+      flex: 1;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--maroon);
+      background: transparent;
+      border: 1px solid rgba(100, 18, 32, 0.2);
+      border-radius: 4px;
+      padding: 1rem 1.2rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .contact__field::placeholder {
+      color: var(--maroon);
+      opacity: 0.35;
+    }
+
+    .contact__field:focus {
+      border-color: rgba(100, 18, 32, 0.5);
+    }
+
+    textarea.contact__field {
+      resize: vertical;
+      min-height: 8rem;
+    }
+
+    .contact__submit {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      background: var(--button);
+      color: var(--cream);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+      align-self: flex-start;
+    }
+
+    .contact__submit:hover {
+      background: var(--maroon);
+    }
+
+    .contact__submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .contact__confirmation {
+      display: none;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--maroon);
+      opacity: 0.8;
+      margin-top: 1rem;
+    }
+
     /* ========== FOOTER ========== */
     .site-footer {
       background: var(--dark);
@@ -503,6 +657,11 @@
       .notify { padding: 5rem 1.5rem; }
       .notify__form { flex-direction: column; }
       .notify__button { padding: 1rem; }
+      .contact { padding: 3rem 1.5rem 4rem; }
+      .contact__row { flex-direction: column; }
+      .contact__type-selector { gap: 0.5rem; }
+      .contact__type-btn { padding: 0.6rem 1.2rem; font-size: 0.75rem; }
+      .contact__submit { align-self: stretch; }
       .site-footer { padding: 3rem 1.5rem 1.5rem; }
       .footer__top { flex-direction: column; gap: 2rem; }
       .footer__bottom { flex-direction: column; gap: 1rem; }
