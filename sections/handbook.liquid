@@ -27,7 +27,7 @@
 }
 
 /* ── FLOATING BACKGROUND DECORATIONS ── */
-.bg-decor {
+.handbook-section .bg-decor {
   position: absolute;
   top: 0;
   left: 0;
@@ -36,48 +36,48 @@
   pointer-events: none;
   z-index: 0;
 }
-.bg-decor svg {
+.handbook-section .bg-decor svg {
   position: absolute;
 }
 
 /* Content needs to sit above decorations */
-.site-header, .hero, .container, .part-header, .site-footer, .molecule-divider {
+.handbook-section .hero, .handbook-section .container, .handbook-section .part-header, .handbook-section .molecule-divider {
   position: relative;
   z-index: 1;
 }
 
 /* ── MOLECULE MOTIF SVG ── */
-.molecule-divider {
+.handbook-section .molecule-divider {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2.5rem 0;
   opacity: 0.35;
 }
-.molecule-divider svg { width: 280px; height: 32px; }
+.handbook-section .molecule-divider svg { width: 280px; height: 32px; }
 
 /* ── HERO LOGOMARK ── */
-.hero-logomark {
+.handbook-section .hero-logomark {
   display: flex;
   justify-content: center;
   margin-bottom: 1.5rem;
   position: relative;
   z-index: 1;
 }
-.hero-logomark svg {
+.handbook-section .hero-logomark svg {
   width: 80px;
   height: auto;
   opacity: 0.9;
 }
 
 /* ── HERO ── */
-.hero {
+.handbook-section .hero {
   text-align: center;
   padding: 5rem 2rem 3rem;
   position: relative;
   overflow: hidden;
 }
-.hero::before {
+.handbook-section .hero::before {
   content: '';
   position: absolute;
   top: -80px; right: -80px;
@@ -85,7 +85,7 @@
   border-radius: 50%;
   background: radial-gradient(circle, rgba(248,176,68,0.12) 0%, transparent 70%);
 }
-.hero::after {
+.handbook-section .hero::after {
   content: '';
   position: absolute;
   bottom: -60px; left: -60px;
@@ -93,7 +93,7 @@
   border-radius: 50%;
   background: radial-gradient(circle, rgba(197,68,39,0.08) 0%, transparent 70%);
 }
-.hero h1 {
+.handbook-section .hero h1 {
   font-family: 'ABC Maxi Sharp', 'STK Bureau Serif', Georgia, serif;
   font-size: clamp(2.2rem, 5vw, 3.4rem);
   color: var(--burgundy);
@@ -101,7 +101,7 @@
   margin-bottom: 1rem;
   font-weight: 400;
 }
-.hero .subtitle {
+.handbook-section .hero .subtitle {
   font-family: 'STK Bureau Serif', serif;
   font-style: italic;
   font-size: 1.05rem;
@@ -110,14 +110,14 @@
   margin: 0 auto 1.5rem;
   line-height: 1.65;
 }
-.hero .byline {
+.handbook-section .hero .byline {
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--teal);
 }
-.hero .updated {
+.handbook-section .hero .updated {
   font-size: 0.82rem;
   color: rgba(100,18,32,0.5);
   margin-top: 0.3rem;
@@ -141,7 +141,7 @@
 .handbook-section h3 { font-size: 1.15rem; margin: 2rem 0 0.8rem; line-height: 1.35; font-weight: 700; }
 
 /* ── PART HEADERS ── */
-.part-header {
+.handbook-section .part-header {
   background: var(--burgundy);
   color: var(--cream);
   text-align: center;
@@ -149,7 +149,7 @@
   margin: 3.5rem -2rem 2rem;
   position: relative;
 }
-.part-header::after {
+.handbook-section .part-header::after {
   content: '';
   position: absolute;
   bottom: -12px;
@@ -159,7 +159,7 @@
   background: var(--burgundy);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
-.part-header h2 {
+.handbook-section .part-header h2 {
   color: var(--cream);
   font-size: 0.8rem;
   font-family: 'STK Bureau Sans', sans-serif;
@@ -168,7 +168,7 @@
   text-transform: uppercase;
   margin: 0 0 0.4rem;
 }
-.part-header h1 {
+.handbook-section .part-header h1 {
   color: var(--cream);
   font-size: 1.8rem;
   margin: 0;
@@ -178,7 +178,7 @@
 .handbook-section p { margin-bottom: 1.1rem; }
 
 /* ── CALLOUT BOXES ── */
-.callout {
+.handbook-section .callout {
   border-left: 4px solid var(--gold);
   background: rgba(248,176,68,0.08);
   padding: 1.2rem 1.5rem;
@@ -186,22 +186,22 @@
   border-radius: 0 6px 6px 0;
   font-size: 0.97rem;
 }
-.callout strong { color: var(--burgundy); }
-.callout.green {
+.handbook-section .callout strong { color: var(--burgundy); }
+.handbook-section .callout.green {
   border-left-color: var(--deep-green);
   background: rgba(5,85,40,0.06);
 }
-.callout.teal {
+.handbook-section .callout.teal {
   border-left-color: var(--teal);
   background: rgba(5,90,91,0.05);
 }
-.callout.red {
+.handbook-section .callout.red {
   border-left-color: var(--burnt-red);
   background: rgba(197,68,39,0.05);
 }
 
 /* ── IMPORTANT BOX ── */
-.important-box {
+.handbook-section .important-box {
   background: var(--burgundy);
   color: var(--cream);
   padding: 1.5rem 2rem;
@@ -210,7 +210,7 @@
   font-size: 0.95rem;
   line-height: 1.7;
 }
-.important-box strong { color: var(--gold); }
+.handbook-section .important-box strong { color: var(--gold); }
 
 /* ── TABLES ── */
 .handbook-section table {
@@ -244,7 +244,7 @@
 .handbook-section li::marker { color: var(--burnt-red); }
 
 /* ── START HERE BOX ── */
-.start-here {
+.handbook-section .start-here {
   background: linear-gradient(135deg, var(--burgundy) 0%, #4a0e18 100%);
   color: var(--cream);
   border-radius: 12px;
@@ -253,7 +253,7 @@
   position: relative;
   overflow: hidden;
 }
-.start-here::before {
+.handbook-section .start-here::before {
   content: '';
   position: absolute;
   top: -40px; right: -40px;
@@ -261,14 +261,14 @@
   border-radius: 50%;
   background: rgba(248,176,68,0.08);
 }
-.start-here h2 {
+.handbook-section .start-here h2 {
   color: var(--gold);
   font-size: 1.5rem;
   margin: 0 0 1.2rem;
 }
-.start-here p { color: rgba(255,244,206,0.9); margin-bottom: 1rem; }
-.start-here strong { color: var(--gold); }
-.start-here .num {
+.handbook-section .start-here p { color: rgba(255,244,206,0.9); margin-bottom: 1rem; }
+.handbook-section .start-here strong { color: var(--gold); }
+.handbook-section .start-here .num {
   display: inline-block;
   background: var(--gold);
   color: var(--burgundy);
@@ -282,14 +282,14 @@
 }
 
 /* ── QUICK NAV CARDS ── */
-.nav-cards {
+.handbook-section .nav-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin: 2rem 0;
 }
-@media (max-width: 600px) { .nav-cards { grid-template-columns: 1fr; } }
-.nav-card {
+@media (max-width: 600px) { .handbook-section .nav-cards { grid-template-columns: 1fr; } }
+.handbook-section .nav-card {
   border: 1.5px solid rgba(100,18,32,0.15);
   border-radius: 8px;
   padding: 1.2rem 1.4rem;
@@ -298,12 +298,12 @@
   text-decoration: none;
   color: var(--text-body);
 }
-.nav-card:hover {
+.handbook-section .nav-card:hover {
   border-color: var(--burnt-red);
   background: rgba(197,68,39,0.04);
   transform: translateY(-2px);
 }
-.nav-card .card-label {
+.handbook-section .nav-card .card-label {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -311,7 +311,7 @@
   color: var(--burnt-red);
   margin-bottom: 0.3rem;
 }
-.nav-card .card-title {
+.handbook-section .nav-card .card-title {
   font-family: 'STK Bureau Serif', serif;
   font-size: 0.95rem;
   color: var(--burgundy);
@@ -319,7 +319,7 @@
 }
 
 /* ── SECTION LABELS ── */
-.section-label {
+.handbook-section .section-label {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -329,14 +329,14 @@
 }
 
 /* ── KEY TAKEAWAYS ── */
-.takeaways {
+.handbook-section .takeaways {
   border: 1.5px solid rgba(5,85,40,0.2);
   border-radius: 8px;
   padding: 1.5rem 1.8rem;
   margin: 2rem 0;
   background: rgba(5,85,40,0.03);
 }
-.takeaways h3 {
+.handbook-section .takeaways h3 {
   color: var(--deep-green);
   font-family: 'STK Bureau Sans', sans-serif;
   font-size: 0.78rem;
@@ -344,27 +344,27 @@
   text-transform: uppercase;
   margin: 0 0 0.8rem;
 }
-.takeaways ul { margin-left: 1.2rem; }
-.takeaways li { font-size: 0.95rem; margin-bottom: 0.4rem; }
-.takeaways li::marker { color: var(--deep-green); }
+.handbook-section .takeaways ul { margin-left: 1.2rem; }
+.handbook-section .takeaways li { font-size: 0.95rem; margin-bottom: 0.4rem; }
+.handbook-section .takeaways li::marker { color: var(--deep-green); }
 
 /* ── MYTH BOXES ── */
-.myth {
+.handbook-section .myth {
   border-bottom: 1px solid rgba(100,18,32,0.1);
   padding: 1rem 0;
 }
-.myth:last-child { border-bottom: none; }
-.myth-q {
+.handbook-section .myth:last-child { border-bottom: none; }
+.handbook-section .myth-q {
   font-family: 'STK Bureau Serif', serif;
   font-style: italic;
   color: var(--burgundy);
   font-size: 0.97rem;
   margin-bottom: 0.4rem;
 }
-.myth-a { font-size: 0.95rem; }
+.handbook-section .myth-a { font-size: 0.95rem; }
 
 /* ── VISUAL AID PLACEHOLDER ── */
-.visual-placeholder {
+.handbook-section .visual-placeholder {
   border: 2px dashed rgba(100,18,32,0.15);
   border-radius: 8px;
   padding: 2rem;
@@ -376,19 +376,19 @@
 }
 
 /* ── INGREDIENT GRID ── */
-.ingredient-grid {
+.handbook-section .ingredient-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.2rem;
   margin: 1.5rem 0;
 }
-@media (max-width: 600px) { .ingredient-grid { grid-template-columns: 1fr; } }
-.ingredient-card {
+@media (max-width: 600px) { .handbook-section .ingredient-grid { grid-template-columns: 1fr; } }
+.handbook-section .ingredient-card {
   border-radius: 8px;
   padding: 1.3rem 1.5rem;
   font-size: 0.93rem;
 }
-.ingredient-card h4 {
+.handbook-section .ingredient-card h4 {
   font-family: 'STK Bureau Sans', sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
@@ -396,23 +396,23 @@
   text-transform: uppercase;
   margin-bottom: 0.6rem;
 }
-.ingredient-card ul { margin: 0 0 0 1.2rem; }
-.ingredient-card li { margin-bottom: 0.3rem; font-size: 0.9rem; }
-.ingredient-card.avoid {
+.handbook-section .ingredient-card ul { margin: 0 0 0 1.2rem; }
+.handbook-section .ingredient-card li { margin-bottom: 0.3rem; font-size: 0.9rem; }
+.handbook-section .ingredient-card.avoid {
   background: rgba(197,68,39,0.06);
   border: 1.5px solid rgba(197,68,39,0.2);
 }
-.ingredient-card.avoid h4 { color: var(--burnt-red); }
-.ingredient-card.avoid li::marker { color: var(--burnt-red); }
-.ingredient-card.safe {
+.handbook-section .ingredient-card.avoid h4 { color: var(--burnt-red); }
+.handbook-section .ingredient-card.avoid li::marker { color: var(--burnt-red); }
+.handbook-section .ingredient-card.safe {
   background: rgba(5,85,40,0.05);
   border: 1.5px solid rgba(5,85,40,0.2);
 }
-.ingredient-card.safe h4 { color: var(--deep-green); }
-.ingredient-card.safe li::marker { color: var(--deep-green); }
+.handbook-section .ingredient-card.safe h4 { color: var(--deep-green); }
+.handbook-section .ingredient-card.safe li::marker { color: var(--deep-green); }
 
 /* ── WARNING BOX ── */
-.warning-box {
+.handbook-section .warning-box {
   background: rgba(197,68,39,0.07);
   border-left: 4px solid var(--burnt-red);
   border-radius: 0 8px 8px 0;
@@ -420,23 +420,23 @@
   margin: 1.5rem 0;
   font-size: 0.95rem;
 }
-.warning-box strong { color: var(--burnt-red); }
+.handbook-section .warning-box strong { color: var(--burnt-red); }
 
 /* ── ROUTINE GRID ── */
-.routine-grid {
+.handbook-section .routine-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   margin: 1.5rem 0;
 }
-@media (max-width: 600px) { .routine-grid { grid-template-columns: 1fr; } }
-.routine-card {
+@media (max-width: 600px) { .handbook-section .routine-grid { grid-template-columns: 1fr; } }
+.handbook-section .routine-card {
   background: rgba(5,85,40,0.04);
   border: 1.5px solid rgba(5,85,40,0.15);
   border-radius: 8px;
   padding: 1.3rem 1.5rem;
 }
-.routine-card h4 {
+.handbook-section .routine-card h4 {
   font-family: 'STK Bureau Sans', sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
@@ -445,17 +445,17 @@
   color: var(--deep-green);
   margin-bottom: 0.8rem;
 }
-.routine-card ol {
+.handbook-section .routine-card ol {
   margin: 0 0 0 1.2rem;
   font-size: 0.93rem;
 }
-.routine-card li {
+.handbook-section .routine-card li {
   margin-bottom: 0.5rem;
   line-height: 1.5;
 }
 
 /* ── TREATMENT CARDS ── */
-.treatment-card {
+.handbook-section .treatment-card {
   border: 1.5px solid rgba(100,18,32,0.12);
   border-radius: 10px;
   padding: 1.8rem 2rem;
@@ -464,29 +464,29 @@
   position: relative;
   overflow: hidden;
 }
-.treatment-card::before {
+.handbook-section .treatment-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0;
   width: 5px; height: 100%;
 }
-.treatment-card.antifungal::before { background: var(--burgundy); }
-.treatment-card.keratolytic::before { background: var(--teal); }
-.treatment-card.anti-inflammatory::before { background: var(--deep-green); }
-.treatment-card.adjunct::before { background: var(--gold); }
-.treatment-header {
+.handbook-section .treatment-card.antifungal::before { background: var(--burgundy); }
+.handbook-section .treatment-card.keratolytic::before { background: var(--teal); }
+.handbook-section .treatment-card.anti-inflammatory::before { background: var(--deep-green); }
+.handbook-section .treatment-card.adjunct::before { background: var(--gold); }
+.handbook-section .treatment-header {
   display: flex;
   align-items: baseline;
   gap: 0.8rem;
   margin-bottom: 0.8rem;
   flex-wrap: wrap;
 }
-.treatment-name {
+.handbook-section .treatment-name {
   font-family: 'STK Bureau Serif', serif;
   font-size: 1.15rem;
   color: var(--burgundy);
 }
-.treatment-tag {
+.handbook-section .treatment-tag {
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -494,19 +494,19 @@
   padding: 0.2rem 0.6rem;
   border-radius: 3px;
 }
-.treatment-tag.antifungal { background: rgba(100,18,32,0.1); color: var(--burgundy); }
-.treatment-tag.keratolytic { background: rgba(5,90,91,0.1); color: var(--teal); }
-.treatment-tag.anti-inflammatory { background: rgba(5,85,40,0.1); color: var(--deep-green); }
-.treatment-tag.adjunct { background: rgba(248,176,68,0.2); color: #8B6914; }
-.treatment-card .detail-grid {
+.handbook-section .treatment-tag.antifungal { background: rgba(100,18,32,0.1); color: var(--burgundy); }
+.handbook-section .treatment-tag.keratolytic { background: rgba(5,90,91,0.1); color: var(--teal); }
+.handbook-section .treatment-tag.anti-inflammatory { background: rgba(5,85,40,0.1); color: var(--deep-green); }
+.handbook-section .treatment-tag.adjunct { background: rgba(248,176,68,0.2); color: #8B6914; }
+.handbook-section .treatment-card .detail-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.6rem 1.5rem;
   font-size: 0.9rem;
   margin-top: 0.8rem;
 }
-@media (max-width: 600px) { .treatment-card .detail-grid { grid-template-columns: 1fr; } }
-.treatment-card .detail-grid dt {
+@media (max-width: 600px) { .handbook-section .treatment-card .detail-grid { grid-template-columns: 1fr; } }
+.handbook-section .treatment-card .detail-grid dt {
   font-weight: 700;
   font-size: 0.75rem;
   letter-spacing: 0.06em;
@@ -514,33 +514,33 @@
   color: rgba(61,32,37,0.55);
   margin-bottom: 0.15rem;
 }
-.treatment-card .detail-grid dd {
+.handbook-section .treatment-card .detail-grid dd {
   margin: 0 0 0.6rem 0;
   line-height: 1.55;
 }
 
 /* ── SAFE OIL SPOTLIGHT ── */
-.oil-spotlight {
+.handbook-section .oil-spotlight {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
   margin: 1.5rem 0;
 }
-@media (max-width: 600px) { .oil-spotlight { grid-template-columns: 1fr; } }
-.oil-card {
+@media (max-width: 600px) { .handbook-section .oil-spotlight { grid-template-columns: 1fr; } }
+.handbook-section .oil-card {
   background: rgba(5,90,91,0.05);
   border: 1.5px solid rgba(5,90,91,0.15);
   border-radius: 8px;
   padding: 1.2rem 1.3rem;
   text-align: center;
 }
-.oil-card .oil-name {
+.handbook-section .oil-card .oil-name {
   font-family: 'STK Bureau Serif', serif;
   font-size: 1.05rem;
   color: var(--teal);
   margin-bottom: 0.3rem;
 }
-.oil-card .oil-chain {
+.handbook-section .oil-card .oil-chain {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -548,7 +548,7 @@
   color: var(--deep-green);
   margin-bottom: 0.5rem;
 }
-.oil-card p {
+.handbook-section .oil-card p {
   font-size: 0.88rem;
   color: var(--text-body);
   line-height: 1.55;
@@ -556,19 +556,19 @@
 }
 
 /* ── TIMELINE TABLE ── */
-.timeline-table td:first-child {
+.handbook-section .timeline-table td:first-child {
   font-weight: 600;
   color: var(--burgundy);
   white-space: nowrap;
 }
 
 /* ── REFERENCES ── */
-.references {
+.handbook-section .references {
   font-size: 0.82rem;
   color: rgba(61,32,37,0.7);
   line-height: 1.6;
 }
-.references p { margin-bottom: 0.6rem; }
+.handbook-section .references p { margin-bottom: 0.6rem; }
 
 /* ── ANCHOR OFFSET ── */
 .handbook-section [id] { scroll-margin-top: 70px; }
@@ -576,7 +576,7 @@
 /* ── PRINT ── */
 @media print {
   .site-nav, .site-footer { display: none; }
-  .part-header { break-before: page; }
+  .handbook-section .part-header { break-before: page; }
   .handbook-section { font-size: 11pt; }
 }
 </style>
