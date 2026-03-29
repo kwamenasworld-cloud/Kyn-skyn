@@ -23,7 +23,7 @@
   font-size: 17px;
   line-height: 1.72;
   font-weight: 400;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* ── FLOATING BACKGROUND DECORATIONS ── */
@@ -35,6 +35,7 @@
   height: 100%;
   pointer-events: none;
   z-index: 0;
+  overflow: hidden;
 }
 .handbook-section .bg-decor svg {
   position: absolute;
@@ -217,14 +218,18 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   margin: 1.5rem 0;
+  position: relative;
+  z-index: 1;
 }
 .handbook-section table {
   width: 100%;
   border-collapse: collapse;
   margin: 0;
   font-size: 0.9rem;
-  min-width: 480px;
+  min-width: 520px;
 }
+.handbook-section td:first-child,
+.handbook-section th:first-child { min-width: 140px; }
 .handbook-section thead th {
   background: var(--burgundy);
   color: var(--cream);
@@ -368,18 +373,6 @@
   margin-bottom: 0.4rem;
 }
 .handbook-section .myth-a { font-size: 0.95rem; }
-
-/* ── VISUAL AID PLACEHOLDER ── */
-.handbook-section .visual-placeholder {
-  border: 2px dashed rgba(100,18,32,0.15);
-  border-radius: 8px;
-  padding: 2rem;
-  text-align: center;
-  margin: 1.5rem 0;
-  color: rgba(100,18,32,0.4);
-  font-size: 0.85rem;
-  font-style: italic;
-}
 
 /* ── INGREDIENT GRID ── */
 .handbook-section .ingredient-grid {
@@ -634,7 +627,6 @@
 @media print {
   .site-nav, .site-footer, .site-header,
   .handbook-section .download-btn,
-  .handbook-section .visual-placeholder,
   .bg-decor { display: none !important; }
   .handbook-section .part-header { break-before: page; }
   .handbook-section { font-size: 11pt; }
@@ -814,7 +806,6 @@
 </table>
 </div>
 
-<div class="visual-placeholder">VISUAL AID: Illustrated body map showing where each condition typically appears, with color-coded zones</div>
 
 <!-- ═══════════════════════════════════ -->
 <!-- PART 2: CONDITION DEEP DIVES       -->

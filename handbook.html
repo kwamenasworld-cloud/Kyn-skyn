@@ -67,7 +67,7 @@ body {
   font-size: 17px;
   line-height: 1.72;
   font-weight: 400;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* ── FLOATING BACKGROUND DECORATIONS ── */
@@ -79,6 +79,7 @@ body {
   height: 100%;
   pointer-events: none;
   z-index: 0;
+  overflow: hidden;
 }
 .bg-decor svg {
   position: absolute;
@@ -303,14 +304,17 @@ p { margin-bottom: 1.1rem; }
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   margin: 1.5rem 0;
+  position: relative;
+  z-index: 1;
 }
 table {
   width: 100%;
   border-collapse: collapse;
   margin: 0;
   font-size: 0.9rem;
-  min-width: 480px;
+  min-width: 520px;
 }
+td:first-child, th:first-child { min-width: 140px; }
 thead th {
   background: var(--burgundy);
   color: var(--cream);
@@ -454,18 +458,6 @@ li::marker { color: var(--burnt-red); }
   margin-bottom: 0.4rem;
 }
 .myth-a { font-size: 0.95rem; }
-
-/* ── VISUAL AID PLACEHOLDER ── */
-.visual-placeholder {
-  border: 2px dashed rgba(100,18,32,0.15);
-  border-radius: 8px;
-  padding: 2rem;
-  text-align: center;
-  margin: 1.5rem 0;
-  color: rgba(100,18,32,0.4);
-  font-size: 0.85rem;
-  font-style: italic;
-}
 
 /* ── INGREDIENT GRID ── */
 .ingredient-grid {
@@ -746,7 +738,7 @@ li::marker { color: var(--burnt-red); }
 .download-btn svg { width: 16px; height: 16px; fill: currentColor; }
 @media print {
   .site-nav, .site-footer, .site-header,
-  .download-btn, .visual-placeholder,
+  .download-btn,
   .bg-decor { display: none !important; }
   .part-header { break-before: page; }
   body { font-size: 11pt; padding: 0; margin: 0; }
@@ -1115,7 +1107,6 @@ li::marker { color: var(--burnt-red); }
 </table>
 </div>
 
-<div class="visual-placeholder">VISUAL AID: Illustrated body map showing where each condition typically appears, with color-coded zones</div>
 
 <!-- ═══════════════════════════════════ -->
 <!-- PART 2: CONDITION DEEP DIVES       -->
