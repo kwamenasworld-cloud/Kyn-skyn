@@ -642,6 +642,28 @@
   .handbook-section .container { max-width: 100%; padding: 0 1rem; }
   .handbook-section table { font-size: 9pt; }
   .handbook-section .treatment-card .treatment-body { display: block !important; max-height: none !important; }
+
+  /* Prevent page breaks inside key elements */
+  .handbook-section .callout,
+  .handbook-section .important-box,
+  .handbook-section .nav-card,
+  .handbook-section .treatment-card,
+  .handbook-section .oil-spotlight,
+  .handbook-section table,
+  .handbook-section thead,
+  .handbook-section tr,
+  .handbook-section blockquote,
+  .handbook-section li,
+  .handbook-section h2,
+  .handbook-section h3,
+  .handbook-section h4 { break-inside: avoid; }
+
+  .handbook-section h2,
+  .handbook-section h3,
+  .handbook-section h4 { break-after: avoid; }
+
+  .handbook-section thead { display: table-header-group; }
+  .handbook-section p { orphans: 3; widows: 3; }
 }
 </style>
 

@@ -754,6 +754,22 @@ li::marker { color: var(--burnt-red); }
   .container { max-width: 100%; padding: 0 1rem; }
   table { font-size: 9pt; }
   .treatment-card .treatment-body { display: block !important; max-height: none !important; }
+
+  /* Prevent page breaks inside key elements */
+  .callout, .important-box, .nav-card,
+  .treatment-card, .oil-spotlight,
+  table, thead, tr,
+  blockquote, li,
+  h2, h3, h4 { break-inside: avoid; }
+
+  /* Keep headings with the content that follows them */
+  h2, h3, h4 { break-after: avoid; }
+
+  /* Keep table headers with at least some rows */
+  thead { display: table-header-group; }
+
+  /* Avoid orphaned lines */
+  p { orphans: 3; widows: 3; }
 }
 
     /* ========== SITE HEADER (from index.html) ========== */
