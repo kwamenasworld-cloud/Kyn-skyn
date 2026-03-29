@@ -631,18 +631,6 @@
 }
 .handbook-section .download-btn:hover { background: var(--maroon, #4a0d18); }
 .handbook-section .download-btn svg { width: 16px; height: 16px; fill: currentColor; }
-.handbook-section .download-btn.generating { opacity: 0.7; pointer-events: none; }
-/* Hide elements during PDF generation */
-body.pdf-generating .site-nav,
-body.pdf-generating .site-footer,
-body.pdf-generating .site-header,
-body.pdf-generating .download-btn,
-body.pdf-generating .nav-cards,
-body.pdf-generating .visual-placeholder,
-body.pdf-generating .bg-decor { display: none !important; }
-body.pdf-generating .hb-hero { min-height: auto; padding: 2rem 1rem; }
-body.pdf-generating .container { max-width: 100%; }
-
 @media print {
   .site-nav, .site-footer, .site-header,
   .handbook-section .download-btn,
@@ -670,10 +658,10 @@ body.pdf-generating .container { max-width: 100%; }
   <p class="subtitle">Everything we wish someone had explained about seb derm, dandruff, "fungal acne," tinea versicolor, and related conditions.</p>
   <p class="byline">Prepared by Kyn Skyn</p>
   <p class="updated">Updated March 2026</p>
-  <button class="download-btn" id="downloadPdf" onclick="generatePDF()">
+  <a class="download-btn" href="{{ 'Kyn-Skyn-Malassezia-Handbook.pdf' | asset_url }}" download>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
     Download PDF
-  </button>
+  </a>
 </header>
 
 <div class="container">
@@ -1939,61 +1927,6 @@ body.pdf-generating .container { max-width: 100%; }
       container.appendChild(svg);
     }
   })();
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
-<script>
-  function generatePDF() {
-    var btn = document.getElementById('downloadPdf');
-    var origText = btn.innerHTML;
-    btn.classList.add('generating');
-    btn.textContent = 'Generating\u2026';
-
-    // Expand collapsed treatment cards
-    document.querySelectorAll('.treatment-card:not(.expanded)').forEach(function(card) {
-      card.classList.add('expanded');
-      card.dataset.wasCollapsed = 'true';
-    });
-
-    // Hide elements not needed in PDF
-    document.body.classList.add('pdf-generating');
-
-    // Scroll to top so html2canvas captures from the start
-    var prevScroll = window.scrollY;
-    window.scrollTo(0, 0);
-
-    // Short delay to let layout settle after class changes
-    setTimeout(function() {
-      var section = document.querySelector('.handbook-section') || document.body;
-
-      var opt = {
-        margin:       [8, 10, 12, 10],
-        filename:     'Kyn-Skyn-Malassezia-Handbook.pdf',
-        image:        { type: 'jpeg', quality: 0.85 },
-        html2canvas:  { scale: 1, useCORS: true, scrollY: 0, windowWidth: 900, logging: false },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak:    { mode: ['css', 'legacy'], before: '.part-header' }
-      };
-
-      html2pdf().set(opt).from(section).save().then(function() {
-        cleanup();
-      }).catch(function(err) {
-        console.error('PDF generation failed:', err);
-        cleanup();
-      });
-
-      function cleanup() {
-        document.body.classList.remove('pdf-generating');
-        window.scrollTo(0, prevScroll);
-        btn.classList.remove('generating');
-        btn.innerHTML = origText;
-        document.querySelectorAll('.treatment-card[data-was-collapsed]').forEach(function(card) {
-          card.classList.remove('expanded');
-          delete card.dataset.wasCollapsed;
-        });
-      }
-    }, 300);
-  }
 </script>
 
 {% schema %}
