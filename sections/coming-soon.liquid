@@ -115,7 +115,7 @@
     <h2 class="notify__heading">Be the first to know.</h2>
     <p class="notify__desc">Steady Serum drops Q3 2026. Sign up to stay informed, take part in product testing, or collaborate with us.</p>
 
-    {% form 'customer', class: 'notify__form', id: 'waitlistForm' %}
+    {% form 'customer', class: 'notify__form' %}
       <input type="hidden" name="contact[tags]" value="newsletter,waitlist">
       <input class="notify__input" type="email" name="contact[email]" placeholder="Email address" required>
       <button class="notify__button" type="submit">Notify Me</button>
@@ -128,7 +128,7 @@
 
 <script>
   (function() {
-    var form = document.getElementById('waitlistForm');
+    var form = document.getElementById('contact_form');
     var success = document.getElementById('formSuccess');
     if (form) {
       form.addEventListener('submit', function(e) {
