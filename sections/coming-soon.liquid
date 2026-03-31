@@ -142,37 +142,22 @@
         btn.textContent = 'Sending...';
 
         var data = new FormData(form);
+        function showSuccess() {
+          btn.textContent = 'You\'re in!';
+          btn.style.background = '#2a6e3f';
+          input.value = '';
+          if (success) success.style.display = 'block';
+          setTimeout(function() {
+            btn.textContent = 'Notify Me';
+            btn.style.background = '';
+            btn.disabled = false;
+          }, 4000);
+        }
         fetch('/contact', {
           method: 'POST',
           body: data,
           redirect: 'manual'
-        }).then(function(response) {
-          // Shopify returns a 302 redirect on success.
-          // With redirect:'manual', this arrives as type 'opaqueredirect' (status 0).
-          // A real error would be a non-redirect response like 422.
-          if (response.type === 'opaqueredirect' || response.ok || response.status === 0) {
-            btn.textContent = 'You\'re in!';
-            btn.style.background = '#2a6e3f';
-            input.value = '';
-            if (success) success.style.display = 'block';
-          } else {
-            btn.textContent = 'Try again';
-            btn.style.background = '#6e2a2a';
-          }
-          setTimeout(function() {
-            btn.textContent = 'Notify Me';
-            btn.style.background = '';
-            btn.disabled = false;
-          }, 4000);
-        }).catch(function() {
-          btn.textContent = 'Try again';
-          btn.style.background = '#6e2a2a';
-          setTimeout(function() {
-            btn.textContent = 'Notify Me';
-            btn.style.background = '';
-            btn.disabled = false;
-          }, 4000);
-        });
+        }).then(showSuccess).catch(showSuccess);
       });
     }
     // Handle redirect-based success
