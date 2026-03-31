@@ -115,12 +115,11 @@
     <h2 class="notify__heading">Be the first to know.</h2>
     <p class="notify__desc">Steady Serum drops Q3 2026. Sign up to stay informed, take part in product testing, or collaborate with us.</p>
 
-    <form class="notify__form" id="waitlistForm" action="javascript:void(0)" method="post">
-      <input type="hidden" name="form_type" value="customer">
+    {% form 'customer', class: 'notify__form', id: 'waitlistForm' %}
       <input type="hidden" name="contact[tags]" value="newsletter,waitlist">
       <input class="notify__input" type="email" name="contact[email]" placeholder="Email address" required>
       <button class="notify__button" type="submit">Notify Me</button>
-    </form>
+    {% endform %}
     <p id="formSuccess" style="display:none; color: var(--cream); opacity: 0.8; font-family: var(--font-sans); font-size: 0.9rem; margin-top: 1rem;">You're on the list. We'll be in touch.</p>
 
     <img src="{{ 'logomark-white.svg' | asset_url }}" alt="Kyn Skyn logomark" style="width: 4rem; height: auto; opacity: 0.15; margin-top: 3rem;">
@@ -134,29 +133,10 @@
     if (form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        e.stopPropagation();
         var btn = form.querySelector('.notify__button');
         var input = form.querySelector('.notify__input');
         var email = input.value.trim();
         if (!email) return;
-
-        // Check if already signed up
-        var signedUp = JSON.parse(localStorage.getItem('kyn_waitlist') || '[]');
-        if (signedUp.indexOf(email.toLowerCase()) !== -1) {
-          btn.textContent = 'Already on the list';
-          btn.style.background = '#4a4a4a';
-          input.value = '';
-          if (success) {
-            success.textContent = "You've already signed up with this email. We'll be in touch.";
-            success.style.display = 'block';
-          }
-          setTimeout(function() {
-            btn.textContent = 'Notify Me';
-            btn.style.background = '';
-            if (success) success.textContent = "You're on the list. We'll be in touch.";
-          }, 4000);
-          return;
-        }
 
         btn.disabled = true;
         btn.textContent = 'Sending...';
@@ -165,26 +145,25 @@
         fetch('/contact', {
           method: 'POST',
           body: data,
-          redirect: 'manual'
-        }).then(function() {
-          signedUp.push(email.toLowerCase());
-          localStorage.setItem('kyn_waitlist', JSON.stringify(signedUp));
-          btn.textContent = 'You\'re in!';
-          btn.style.background = '#2a6e3f';
-          input.value = '';
-          if (success) success.style.display = 'block';
+          headers: { 'Accept': 'application/json' }
+        }).then(function(response) {
+          if (response.ok || response.status === 302 || response.status === 0) {
+            btn.textContent = 'You\'re in!';
+            btn.style.background = '#2a6e3f';
+            input.value = '';
+            if (success) success.style.display = 'block';
+          } else {
+            btn.textContent = 'Try again';
+            btn.style.background = '#6e2a2a';
+          }
           setTimeout(function() {
             btn.textContent = 'Notify Me';
             btn.style.background = '';
             btn.disabled = false;
           }, 4000);
         }).catch(function() {
-          signedUp.push(email.toLowerCase());
-          localStorage.setItem('kyn_waitlist', JSON.stringify(signedUp));
-          btn.textContent = 'You\'re in!';
-          btn.style.background = '#2a6e3f';
-          input.value = '';
-          if (success) success.style.display = 'block';
+          btn.textContent = 'Try again';
+          btn.style.background = '#6e2a2a';
           setTimeout(function() {
             btn.textContent = 'Notify Me';
             btn.style.background = '';
@@ -193,7 +172,7 @@
         });
       });
     }
-    // Also handle redirect-based success
+    // Handle redirect-based success
     if (window.location.hash === '#contact_form' || document.querySelector('.form--success')) {
       if (success) success.style.display = 'block';
     }
