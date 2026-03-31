@@ -145,9 +145,12 @@
         fetch('/contact', {
           method: 'POST',
           body: data,
-          headers: { 'Accept': 'application/json' }
+          redirect: 'manual'
         }).then(function(response) {
-          if (response.ok || response.status === 302 || response.status === 0) {
+          // Shopify returns a 302 redirect on success.
+          // With redirect:'manual', this arrives as type 'opaqueredirect' (status 0).
+          // A real error would be a non-redirect response like 422.
+          if (response.type === 'opaqueredirect' || response.ok || response.status === 0) {
             btn.textContent = 'You\'re in!';
             btn.style.background = '#2a6e3f';
             input.value = '';
