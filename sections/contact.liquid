@@ -12,17 +12,20 @@
       </div>
 
       <iframe name="contact-hidden" style="display:none" aria-hidden="true"></iframe>
-      {% form 'contact', class: 'contact__form', id: 'contactForm', target: 'contact-hidden' %}
+      <form class="contact__form" id="contactForm" action="https://formsubmit.co/John@kynskyn.com" method="POST" target="contact-hidden">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" value="Kyn Skyn Contact Form">
         <div class="contact__row">
-          <input class="contact__field" type="text" name="contact[name]" placeholder="Your name" required>
-          <input class="contact__field" type="email" name="contact[email]" placeholder="Email address" required>
+          <input class="contact__field" type="text" name="name" placeholder="Your name" required>
+          <input class="contact__field" type="email" name="email" placeholder="Email address" required>
         </div>
-        <input class="contact__field" type="text" name="contact[company]" placeholder="Company / Brand / Handle">
-        <input class="contact__field" id="contactSubject" type="text" name="contact[subject]" placeholder="Subject" readonly value="Influencer / Creator Collaboration">
-        <textarea class="contact__field" name="contact[body]" placeholder="Tell us a bit about yourself and what you have in mind..." required></textarea>
+        <input class="contact__field" type="text" name="company" placeholder="Company / Brand / Handle">
+        <input class="contact__field" id="contactSubject" type="text" name="subject" placeholder="Subject" readonly value="Influencer / Creator Collaboration">
+        <textarea class="contact__field" name="message" placeholder="Tell us a bit about yourself and what you have in mind..." required></textarea>
         <button class="contact__submit" type="submit">Send Message</button>
         <p class="contact__confirmation" id="contactConfirmation">Message sent. We'll get back to you soon.</p>
-      {% endform %}
+      </form>
     </div>
   </section>
 </div>
@@ -52,12 +55,7 @@
   if (contactForm) {
     contactForm.addEventListener('submit', function() {
       const submitBtn = contactForm.querySelector('.contact__submit');
-      const company = contactForm.querySelector('input[name="contact[company]"]').value.trim();
-      const message = contactForm.querySelector('textarea[name="contact[body]"]');
-      const subject = contactSubject.value;
-
-      // Prepend subject and company to message body before submit
-      message.value = '[' + subject + ']\nCompany/Handle: ' + company + '\n\n' + message.value;
+      const subjectField = contactForm.querySelector('#contactSubject');
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
