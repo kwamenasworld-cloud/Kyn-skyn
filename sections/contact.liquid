@@ -11,11 +11,10 @@
         <button class="contact__type-btn" data-type="other" type="button">General Inquiry</button>
       </div>
 
-      <iframe name="contact-hidden" style="display:none" aria-hidden="true"></iframe>
-      <form class="contact__form" id="contactForm" action="https://formsubmit.co/John@kynskyn.com" method="POST" target="contact-hidden">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_subject" value="Kyn Skyn Contact Form">
+      <form class="contact__form" id="contactForm">
+        <input type="hidden" name="access_key" value="247dfa8d-cc76-4f13-ae64-e916737ac782">
+        <input type="hidden" name="subject" value="Kyn Skyn Contact Form">
+        <input type="hidden" name="from_name" value="Kyn Skyn Website">
         <div class="contact__row">
           <input class="contact__field" type="text" name="name" placeholder="Your name" required>
           <input class="contact__field" type="email" name="email" placeholder="Email address" required>
@@ -53,31 +52,49 @@
   const contactConfirmation = document.getElementById('contactConfirmation');
 
   if (contactForm) {
-    contactForm.addEventListener('submit', function() {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
       const submitBtn = contactForm.querySelector('.contact__submit');
 
-      // Update the hidden _subject field with the selected type
-      contactForm.querySelector('input[name="_subject"]').value = 'Kyn Skyn: ' + contactSubject.value;
+      contactForm.querySelector('input[name="subject"]').value = 'Kyn Skyn: ' + contactSubject.value;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
 
-      // Form submits natively into hidden iframe — show success after delay
-      setTimeout(() => {
-        contactForm.reset();
-        contactSubject.value = subjectMap.influencer;
-        typeBtns.forEach(b => b.classList.remove('active'));
-        typeBtns[0].classList.add('active');
-        submitBtn.textContent = 'Sent!';
-        submitBtn.style.background = '#2a6e3f';
-        contactConfirmation.style.display = 'block';
-
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          contactForm.reset();
+          contactSubject.value = subjectMap.influencer;
+          typeBtns.forEach(b => b.classList.remove('active'));
+          typeBtns[0].classList.add('active');
+          submitBtn.textContent = 'Sent!';
+          submitBtn.style.background = '#2a6e3f';
+          contactConfirmation.style.display = 'block';
+        } else {
+          submitBtn.textContent = 'Try again';
+          submitBtn.style.background = '#6e2a2a';
+        }
         setTimeout(() => {
           submitBtn.textContent = 'Send Message';
           submitBtn.style.background = '';
           submitBtn.disabled = false;
         }, 4000);
-      }, 1500);
+      })
+      .catch(() => {
+        submitBtn.textContent = 'Try again';
+        submitBtn.style.background = '#6e2a2a';
+        setTimeout(() => {
+          submitBtn.textContent = 'Send Message';
+          submitBtn.style.background = '';
+          submitBtn.disabled = false;
+        }, 4000);
+      });
     });
   }
 </script>
