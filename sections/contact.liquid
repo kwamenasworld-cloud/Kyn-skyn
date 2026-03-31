@@ -11,7 +11,8 @@
         <button class="contact__type-btn" data-type="other" type="button">General Inquiry</button>
       </div>
 
-      <form class="contact__form" id="contactForm">
+      <iframe name="contact-hidden" style="display:none" aria-hidden="true"></iframe>
+      <form class="contact__form" id="contactForm" action="https://formsubmit.co/John@kynskyn.com" method="POST" target="contact-hidden">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_subject" value="Kyn Skyn Contact Form">
@@ -52,51 +53,31 @@
   const contactConfirmation = document.getElementById('contactConfirmation');
 
   if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
+    contactForm.addEventListener('submit', function() {
       const submitBtn = contactForm.querySelector('.contact__submit');
+
+      // Update the hidden _subject field with the selected type
+      contactForm.querySelector('input[name="_subject"]').value = 'Kyn Skyn: ' + contactSubject.value;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
 
-      var data = new FormData(contactForm);
-      data.set('subject', contactSubject.value);
-      data.set('_subject', 'Kyn Skyn: ' + contactSubject.value);
+      // Form submits natively into hidden iframe — show success after delay
+      setTimeout(() => {
+        contactForm.reset();
+        contactSubject.value = subjectMap.influencer;
+        typeBtns.forEach(b => b.classList.remove('active'));
+        typeBtns[0].classList.add('active');
+        submitBtn.textContent = 'Sent!';
+        submitBtn.style.background = '#2a6e3f';
+        contactConfirmation.style.display = 'block';
 
-      fetch('https://formsubmit.co/ajax/John@kynskyn.com', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: data
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          contactForm.reset();
-          contactSubject.value = subjectMap.influencer;
-          typeBtns.forEach(b => b.classList.remove('active'));
-          typeBtns[0].classList.add('active');
-          submitBtn.textContent = 'Sent!';
-          submitBtn.style.background = '#2a6e3f';
-          contactConfirmation.style.display = 'block';
-        } else {
-          submitBtn.textContent = 'Try again';
-          submitBtn.style.background = '#6e2a2a';
-        }
         setTimeout(() => {
           submitBtn.textContent = 'Send Message';
           submitBtn.style.background = '';
           submitBtn.disabled = false;
         }, 4000);
-      })
-      .catch(() => {
-        submitBtn.textContent = 'Try again';
-        submitBtn.style.background = '#6e2a2a';
-        setTimeout(() => {
-          submitBtn.textContent = 'Send Message';
-          submitBtn.style.background = '';
-          submitBtn.disabled = false;
-        }, 4000);
-      });
+      }, 1500);
     });
   }
 </script>
