@@ -11,9 +11,8 @@
         <button class="contact__type-btn" data-type="other" type="button">General Inquiry</button>
       </div>
 
-      <form class="contact__form" id="contactForm" action="/contact#contact_form" method="post">
-        <input type="hidden" name="form_type" value="contact">
-        <input type="hidden" name="utf8" value="✓">
+      <iframe name="contact-hidden" style="display:none" aria-hidden="true"></iframe>
+      {% form 'contact', class: 'contact__form', id: 'contactForm', target: 'contact-hidden' %}
         <div class="contact__row">
           <input class="contact__field" type="text" name="contact[name]" placeholder="Your name" required>
           <input class="contact__field" type="email" name="contact[email]" placeholder="Email address" required>
@@ -23,7 +22,7 @@
         <textarea class="contact__field" name="contact[body]" placeholder="Tell us a bit about yourself and what you have in mind..." required></textarea>
         <button class="contact__submit" type="submit">Send Message</button>
         <p class="contact__confirmation" id="contactConfirmation">Message sent. We'll get back to you soon.</p>
-      </form>
+      {% endform %}
     </div>
   </section>
 </div>
@@ -50,52 +49,36 @@
   const contactForm = document.getElementById('contactForm');
   const contactConfirmation = document.getElementById('contactConfirmation');
 
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const submitBtn = contactForm.querySelector('.contact__submit');
-    const name = contactForm.querySelector('input[name="contact[name]"]').value.trim();
-    const email = contactForm.querySelector('input[name="contact[email]"]').value.trim();
-    const company = contactForm.querySelector('input[name="contact[company]"]').value.trim();
-    const subject = contactSubject.value;
-    const message = contactForm.querySelector('textarea[name="contact[body]"]').value.trim();
+  if (contactForm) {
+    contactForm.addEventListener('submit', function() {
+      const submitBtn = contactForm.querySelector('.contact__submit');
+      const company = contactForm.querySelector('input[name="contact[company]"]').value.trim();
+      const message = contactForm.querySelector('textarea[name="contact[body]"]');
+      const subject = contactSubject.value;
 
-    if (!name || !email || !message) return;
+      // Prepend subject and company to message body before submit
+      message.value = '[' + subject + ']\nCompany/Handle: ' + company + '\n\n' + message.value;
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
-    contactConfirmation.style.display = 'none';
-
-    try {
-      const formData = new FormData(contactForm);
-      formData.set('contact[body]', '[' + subject + ']\nCompany/Handle: ' + company + '\n\n' + message);
-
-      await fetch('/contact#contact_form', {
-        method: 'POST',
-        body: formData
-      });
-
-      contactForm.reset();
-      contactSubject.value = subjectMap.influencer;
-      typeBtns.forEach(b => b.classList.remove('active'));
-      typeBtns[0].classList.add('active');
-      submitBtn.textContent = 'Sent!';
-      submitBtn.style.background = '#2a6e3f';
-      contactConfirmation.style.display = 'block';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
 
       setTimeout(() => {
-        submitBtn.textContent = 'Send Message';
-        submitBtn.style.background = '';
-        submitBtn.disabled = false;
-      }, 4000);
-    } catch (err) {
-      submitBtn.textContent = 'Send Message';
-      submitBtn.style.background = '';
-      submitBtn.disabled = false;
-      contactConfirmation.textContent = 'Something went wrong. Please try again.';
-      contactConfirmation.style.color = '#e8725a';
-      contactConfirmation.style.display = 'block';
-    }
-  });
+        contactForm.reset();
+        contactSubject.value = subjectMap.influencer;
+        typeBtns.forEach(b => b.classList.remove('active'));
+        typeBtns[0].classList.add('active');
+        submitBtn.textContent = 'Sent!';
+        submitBtn.style.background = '#2a6e3f';
+        contactConfirmation.style.display = 'block';
+
+        setTimeout(() => {
+          submitBtn.textContent = 'Send Message';
+          submitBtn.style.background = '';
+          submitBtn.disabled = false;
+        }, 4000);
+      }, 1500);
+    });
+  }
 </script>
 
 {% schema %}
