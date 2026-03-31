@@ -127,44 +127,54 @@
 </section>
 
 <script>
-  (function() {
+  document.addEventListener('DOMContentLoaded', function() {
     var form = document.querySelector('.notify__form');
     var success = document.getElementById('formSuccess');
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var btn = form.querySelector('.notify__button');
-        var input = form.querySelector('.notify__input');
-        var email = input.value.trim();
-        if (!email) return;
+    if (!form) return;
 
-        btn.disabled = true;
-        btn.textContent = 'Sending...';
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-        var data = new FormData(form);
-        function showSuccess() {
+      var btn = form.querySelector('.notify__button');
+      var input = form.querySelector('.notify__input');
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(data) {
+        if (data.errors) {
+          btn.textContent = 'Try again';
+          btn.style.background = '#6e2a2a';
+        } else {
           btn.textContent = 'You\'re in!';
           btn.style.background = '#2a6e3f';
           input.value = '';
           if (success) success.style.display = 'block';
-          setTimeout(function() {
-            btn.textContent = 'Notify Me';
-            btn.style.background = '';
-            btn.disabled = false;
-          }, 4000);
         }
-        fetch('/contact', {
-          method: 'POST',
-          body: data,
-          redirect: 'manual'
-        }).then(showSuccess).catch(showSuccess);
+        setTimeout(function() {
+          btn.textContent = 'Notify Me';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 4000);
+      })
+      .catch(function() {
+        btn.textContent = 'Try again';
+        btn.style.background = '#6e2a2a';
+        setTimeout(function() {
+          btn.textContent = 'Notify Me';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 4000);
       });
-    }
-    // Handle redirect-based success
-    if (window.location.hash === '#contact_form' || document.querySelector('.form--success')) {
-      if (success) success.style.display = 'block';
-    }
-  })();
+    });
+  });
 </script>
 
 {% schema %}
