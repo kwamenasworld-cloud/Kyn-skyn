@@ -115,7 +115,8 @@
     <h2 class="notify__heading">Be the first to know.</h2>
     <p class="notify__desc">Steady Serum drops Q3 2026. Sign up to stay informed, take part in product testing, or collaborate with us.</p>
 
-    <form class="notify__form" action="https://kynskyn.us15.list-manage.com/subscribe/post?u=61338503f23a719d2d581c864&id=051996d936" method="post" novalidate>
+    <iframe name="mc-hidden" style="display:none" aria-hidden="true"></iframe>
+    <form class="notify__form" action="https://kynskyn.us15.list-manage.com/subscribe/post?u=61338503f23a719d2d581c864&id=051996d936" method="post" target="mc-hidden" novalidate>
       <input type="hidden" name="b_61338503f23a719d2d581c864_051996d936" value="">
       <input class="notify__input" type="email" name="EMAIL" placeholder="Email address" required>
       <button class="notify__button" type="submit">Notify Me</button>
@@ -127,49 +128,31 @@
 </section>
 
 <script>
-  document.addEventListener('submit', function(e) {
-    var form = e.target;
-    if (!form.classList.contains('notify__form')) return;
+  (function() {
+    var form = document.querySelector('.notify__form');
+    if (!form) return;
 
-    e.preventDefault();
-    e.stopImmediatePropagation();
+    form.addEventListener('submit', function() {
+      var btn = form.querySelector('.notify__button');
+      var input = form.querySelector('.notify__input');
+      var success = document.getElementById('formSuccess');
 
-    var btn = form.querySelector('.notify__button');
-    var input = form.querySelector('.notify__input');
-    var success = document.getElementById('formSuccess');
-    var email = input.value.trim();
-    if (!email) return;
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
 
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-
-    // Mailchimp requires JSONP for cross-origin submissions
-    var callbackName = 'mc_callback_' + Date.now();
-    var url = form.action.replace('/post?', '/post-json?') + '&EMAIL=' + encodeURIComponent(email) + '&c=' + callbackName;
-
-    window[callbackName] = function(data) {
-      delete window[callbackName];
-      document.head.removeChild(script);
-      if (data.result === 'success') {
+      setTimeout(function() {
         btn.textContent = 'You\'re in!';
         btn.style.background = '#2a6e3f';
         input.value = '';
         if (success) success.style.display = 'block';
-      } else {
-        btn.textContent = 'Try again';
-        btn.style.background = '#6e2a2a';
-      }
-      setTimeout(function() {
-        btn.textContent = 'Notify Me';
-        btn.style.background = '';
-        btn.disabled = false;
-      }, 4000);
-    };
-
-    var script = document.createElement('script');
-    script.src = url;
-    document.head.appendChild(script);
-  }, true);
+        setTimeout(function() {
+          btn.textContent = 'Notify Me';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 4000);
+      }, 1500);
+    });
+  })();
 </script>
 
 {% schema %}
