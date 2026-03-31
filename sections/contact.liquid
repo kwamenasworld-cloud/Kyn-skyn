@@ -59,19 +59,14 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
 
+      var data = new FormData(contactForm);
+      data.set('subject', contactSubject.value);
+      data.set('_subject', 'Kyn Skyn: ' + contactSubject.value);
+
       fetch('https://formsubmit.co/ajax/John@kynskyn.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          name: contactForm.querySelector('input[name="name"]').value,
-          email: contactForm.querySelector('input[name="email"]').value,
-          company: contactForm.querySelector('input[name="company"]').value,
-          subject: contactSubject.value,
-          message: contactForm.querySelector('textarea[name="message"]').value,
-          _subject: 'Kyn Skyn: ' + contactSubject.value,
-          _captcha: 'false',
-          _template: 'table'
-        })
+        headers: { 'Accept': 'application/json' },
+        body: data
       })
       .then(res => res.json())
       .then(data => {
