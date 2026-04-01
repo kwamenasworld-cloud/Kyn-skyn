@@ -2089,7 +2089,6 @@
     // ==========================================
     const SUPABASE_URL = 'https://pbriwsgraemyqhkymneq.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicml3c2dyYWVteXFoa3ltbmVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNTQxNjEsImV4cCI6MjA5MDYzMDE2MX0.AFfCsWNblX3MzjOJVRL7JefLzaLQrsc6xHSeDZuFWrI';
-    const GOOGLE_VISION_API_KEY = 'AIzaSyDaZ1TgCVUOhBhX6onwhm3oJI7qgRQ9izc';
 
     // ==========================================
     // INGREDIENT DATABASE
@@ -2874,25 +2873,19 @@
 
         const base64 = ev.target.result.split(',')[1];
 
-        if (GOOGLE_VISION_API_KEY === 'YOUR_GOOGLE_VISION_API_KEY') {
-          status.textContent = 'OCR not configured. Please set up your Google Cloud Vision API key.';
-          return;
-        }
-
         try {
-          const res = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${GOOGLE_VISION_API_KEY}`, {
+          const res = await fetch(`${SUPABASE_URL}/functions/v1/ocr`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              requests: [{
-                image: { content: base64 },
-                features: [{ type: 'TEXT_DETECTION' }]
-              }]
-            })
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+            },
+            body: JSON.stringify({ image: base64 })
           });
 
           const data = await res.json();
-          const text = data.responses?.[0]?.fullTextAnnotation?.text || '';
+          if (!res.ok) throw new Error(data.error || 'OCR request failed');
+          const text = data.text || '';
 
           if (!text) {
             status.textContent = 'Could not read text from image. Try a clearer photo.';
