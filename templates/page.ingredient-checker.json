@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "ingredient-checker": {
+      "type": "ingredient-checker"
+    }
+  },
+  "order": ["ingredient-checker"]
+}
