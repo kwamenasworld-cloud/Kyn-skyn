@@ -1634,6 +1634,276 @@
 
     .compare__go-btn:hover { background: var(--maroon); }
 
+    /* ========== POSITION SEVERITY ========== */
+    .ingredient-card__position {
+      font-family: var(--font-accent);
+      font-size: 0.55rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      opacity: 0.5;
+    }
+
+    .ingredient-card__position--high {
+      color: var(--unsafe-red);
+      opacity: 0.8;
+    }
+
+    .ingredient-card__concentration-bar {
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(100, 18, 32, 0.08);
+      margin-bottom: 0.6rem;
+      overflow: hidden;
+    }
+
+    .ingredient-card__concentration-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.6s ease;
+    }
+
+    .ingredient-card__concentration-fill--high { background: var(--unsafe-red); }
+    .ingredient-card__concentration-fill--medium { background: var(--caution-amber); }
+    .ingredient-card__concentration-fill--low { background: rgba(100, 18, 32, 0.2); }
+
+    /* ========== COMMUNITY RATINGS ========== */
+    .ratings {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(100, 18, 32, 0.08);
+    }
+
+    .ratings__label {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: var(--maroon);
+      opacity: 0.5;
+    }
+
+    .ratings__btns {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .ratings__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid rgba(100, 18, 32, 0.12);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--maroon);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .ratings__btn:hover { border-color: var(--maroon); }
+
+    .ratings__btn.active-up {
+      background: rgba(42, 110, 63, 0.1);
+      border-color: var(--safe-green);
+      color: var(--safe-green);
+    }
+
+    .ratings__btn.active-down {
+      background: rgba(168, 18, 50, 0.1);
+      border-color: var(--unsafe-red);
+      color: var(--unsafe-red);
+    }
+
+    .ratings__btn svg { width: 14px; height: 14px; }
+
+    .ratings__count {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      color: var(--maroon);
+      opacity: 0.4;
+    }
+
+    /* ========== ROUTINE WIZARD ========== */
+    .wizard {
+      display: none;
+      padding: 5rem 3rem;
+      background: var(--cream);
+      border-top: 1px solid rgba(100, 18, 32, 0.08);
+    }
+
+    .wizard.visible { display: block; }
+
+    .wizard__container {
+      max-width: 42rem;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .wizard__eyebrow {
+      font-family: var(--font-accent);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--maroon);
+      opacity: 0.45;
+      margin-bottom: 1rem;
+    }
+
+    .wizard__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 300;
+      color: var(--maroon);
+      margin-bottom: 0.5rem;
+    }
+
+    .wizard__desc {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--maroon);
+      opacity: 0.55;
+      margin-bottom: 2.5rem;
+    }
+
+    .wizard__steps {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .wizard__step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(100, 18, 32, 0.15);
+      transition: all 0.3s;
+    }
+
+    .wizard__step-dot.active {
+      background: var(--button);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    .wizard__step-dot.done { background: var(--safe-green); }
+
+    .wizard__step-label {
+      font-family: var(--font-accent);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--maroon);
+      opacity: 0.4;
+      margin-bottom: 2rem;
+    }
+
+    .wizard__search {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--maroon);
+      background: white;
+      border: 1px solid rgba(100, 18, 32, 0.2);
+      border-radius: 6px;
+      padding: 1rem 1.2rem;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.3s;
+      text-align: center;
+    }
+
+    .wizard__search::placeholder { color: var(--maroon); opacity: 0.3; }
+    .wizard__search:focus { border-color: rgba(100, 18, 32, 0.5); }
+
+    .wizard__results {
+      margin-top: 1rem;
+      max-height: 16rem;
+      overflow-y: auto;
+      text-align: left;
+    }
+
+    .wizard__skip {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--maroon);
+      opacity: 0.4;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      transition: opacity 0.2s;
+    }
+
+    .wizard__skip:hover { opacity: 0.7; }
+
+    .wizard__summary {
+      text-align: left;
+      margin-top: 2rem;
+    }
+
+    .wizard__summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border: 1px solid rgba(100, 18, 32, 0.1);
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      background: white;
+    }
+
+    .wizard__summary-step {
+      font-family: var(--font-accent);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--maroon);
+      opacity: 0.4;
+    }
+
+    .wizard__summary-name {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      color: var(--maroon);
+    }
+
+    .wizard__summary-score {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    .wizard__final-score {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 2rem;
+      border-radius: 8px;
+    }
+
+    .wizard__final-num {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .wizard__final-label {
+      font-family: var(--font-accent);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .wizard__save-routine {
+      margin-top: 2rem;
+    }
+
     /* ========== LOADING SHIMMER ========== */
     .shimmer {
       background: linear-gradient(90deg, rgba(100,18,32,0.04) 25%, rgba(100,18,32,0.08) 50%, rgba(100,18,32,0.04) 75%);
@@ -1831,6 +2101,7 @@
         <div class="checker__actions">
           <button class="checker__submit" id="checkBtn" type="button">Check My Product</button>
           <button class="checker__example-link" id="tryExample" type="button">See how it works with an example</button>
+          <button class="checker__example-link" id="openWizardBtn" type="button" style="margin-left:auto;">Or build a full routine step by step</button>
         </div>
       </div>
 
@@ -1893,6 +2164,21 @@
           <p class="results__verdict-desc" id="verdictDesc"></p>
         </div>
         <button class="results__save-btn" id="saveProductBtn" type="button">Save Product</button>
+      </div>
+
+      <!-- Community Ratings -->
+      <div class="ratings" id="ratingsArea">
+        <span class="ratings__label">Did this product work for you?</span>
+        <div class="ratings__btns">
+          <button class="ratings__btn" id="voteUpBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>
+            Works <span class="ratings__count" id="upCount">0</span>
+          </button>
+          <button class="ratings__btn" id="voteDownBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 003 3l4-9V2H5.72a2 2 0 00-2 1.7l-1.38 9a2 2 0 002 2.3H10z"/><path d="M17 2h2.67A2.31 2.31 0 0122 4v7a2.31 2.31 0 01-2.33 2H17"/></svg>
+            Broke out <span class="ratings__count" id="downCount">0</span>
+          </button>
+        </div>
       </div>
 
       <!-- Share -->
@@ -1962,6 +2248,27 @@
       </div>
 
       <div id="unassignedSection"></div>
+    </div>
+  </section>
+
+
+  <!-- ====== ROUTINE WIZARD ====== -->
+  <section class="wizard" id="wizard">
+    <div class="wizard__container">
+      <p class="wizard__eyebrow">Routine Builder</p>
+      <h2 class="wizard__heading" id="wizardHeading">Let's build your routine.</h2>
+      <p class="wizard__desc" id="wizardDesc">We'll check each step for Malassezia safety and give you an overall score.</p>
+
+      <div class="wizard__steps" id="wizardDots"></div>
+      <p class="wizard__step-label" id="wizardStepLabel"></p>
+
+      <input class="wizard__search" type="text" id="wizardSearch" placeholder="Search for a product..." autocomplete="off">
+      <div class="wizard__results" id="wizardResults"></div>
+
+      <button class="wizard__skip" id="wizardSkip" type="button">Skip this step</button>
+
+      <div class="wizard__summary" id="wizardSummary" style="display:none;"></div>
+      <div id="wizardFinal" style="display:none;"></div>
     </div>
   </section>
 
@@ -2565,9 +2872,15 @@
     function analyzeIngredients(inciList) {
       const results = { unsafe: [], caution: [], safe: [], unknown: [], total: inciList.length };
 
-      for (const ingredient of inciList) {
+      for (let i = 0; i < inciList.length; i++) {
+        const ingredient = inciList[i];
         const match = matchIngredient(ingredient);
         match.original = ingredient;
+        match.position = i + 1;
+        // Concentration estimate: ingredients listed first are at higher concentration
+        // Top 5 = high, 6-15 = medium, 16+ = low
+        match.concentration = i < 5 ? 'high' : (i < 15 ? 'medium' : 'low');
+        match.concentrationPct = Math.max(5, Math.round(100 - (i / inciList.length) * 100));
 
         if (match.severity === 'unsafe') results.unsafe.push(match);
         else if (match.severity === 'caution') results.caution.push(match);
@@ -2575,15 +2888,24 @@
         else results.unknown.push(match);
       }
 
-      const flaggedCount = results.unsafe.length + results.caution.length;
-      const safeCount = results.safe.length;
-      const score = results.total > 0 ? Math.round(((results.total - results.unsafe.length - results.caution.length * 0.5) / results.total) * 100) : 100;
+      // Weighted score: ingredients higher in the list penalize more
+      let penalty = 0;
+      results.unsafe.forEach(m => {
+        const weight = m.concentration === 'high' ? 3 : (m.concentration === 'medium' ? 2 : 1);
+        penalty += weight;
+      });
+      results.caution.forEach(m => {
+        const weight = m.concentration === 'high' ? 1.5 : (m.concentration === 'medium' ? 1 : 0.5);
+        penalty += weight;
+      });
+      const maxPenalty = results.total * 3;
+      const score = results.total > 0 ? Math.round((1 - penalty / maxPenalty) * 100) : 100;
 
       let verdict = 'safe';
       if (results.unsafe.length > 0) verdict = 'unsafe';
       else if (results.caution.length > 0) verdict = 'caution';
 
-      return { ...results, score: Math.max(0, Math.min(100, score)), verdict, flaggedCount };
+      return { ...results, score: Math.max(0, Math.min(100, score)), verdict, flaggedCount: results.unsafe.length + results.caution.length };
     }
 
     // ==========================================
@@ -2699,7 +3021,7 @@
     // ==========================================
     // CHECK INGREDIENTS
     // ==========================================
-    function runCheck(inci, productName, brand) {
+    function runCheck(inci, productName, brand, skipScroll) {
       const ingredients = parseINCI(inci);
       if (ingredients.length === 0) return;
 
@@ -2709,10 +3031,33 @@
       currentAnalysis = analyzeIngredients(ingredients);
 
       renderResults(currentAnalysis, productName);
+      loadRatings();
 
       const resultsEl = $('#results');
       resultsEl.classList.add('visible');
-      resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!skipScroll) resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Update URL for sharing (encode product name + first 200 chars of INCI)
+      try {
+        const shareData = { n: productName || '', b: brand || '', i: inci.substring(0, 2000) };
+        const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(shareData))));
+        history.replaceState(null, '', '#r=' + encoded);
+      } catch (e) { /* ignore encoding errors */ }
+    }
+
+    // Read URL hash on page load to restore shared results
+    function checkUrlHash() {
+      const hash = window.location.hash;
+      if (hash.startsWith('#r=')) {
+        try {
+          const decoded = JSON.parse(decodeURIComponent(escape(atob(hash.substring(3)))));
+          if (decoded.i) {
+            $('#productName').value = decoded.n || '';
+            $('#inciInput').value = decoded.i;
+            runCheck(decoded.i, decoded.n, decoded.b, true);
+          }
+        } catch (e) { /* ignore bad hash */ }
+      }
     }
 
     $('#checkBtn').addEventListener('click', () => {
@@ -3007,15 +3352,17 @@
         ring.textContent = displayScore;
       }, 30);
 
-      // Share link
+      // Share link (use current URL which now includes #r= hash)
       const shareText = `${label || 'This product'} scored ${analysis.score}/100 on the Malassezia-Safe Ingredient Checker by @kynskyn`;
-      const shareUrl = 'https://kynskyn.com/pages/ingredient-checker';
+      const shareUrl = window.location.href;
       $('#shareTwitter').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
 
       if (flagged.length > 0) {
         flaggedSection.style.display = 'block';
         flaggedGrid.innerHTML = flagged.map((item, i) => `
           <div class="ingredient-card ingredient-card--${item.severity} animate" style="animation-delay:${i * 0.08}s">
+            <div class="ingredient-card__position${item.concentration === 'high' ? ' ingredient-card__position--high' : ''}">#${item.position} in list${item.concentration === 'high' ? ' — high concentration' : item.concentration === 'medium' ? ' — medium concentration' : ''}</div>
+            <div class="ingredient-card__concentration-bar"><div class="ingredient-card__concentration-fill ingredient-card__concentration-fill--${item.concentration}" style="width:${item.concentrationPct}%"></div></div>
             <span class="ingredient-card__badge ingredient-card__badge--${item.severity}">${item.severity}</span>
             <div class="ingredient-card__name">${item.original}</div>
             <div class="ingredient-card__reason">${item.reason}</div>
@@ -3431,9 +3778,252 @@
     });
 
     // ==========================================
+    // COMMUNITY RATINGS
+    // ==========================================
+    function getProductKey() {
+      // Create a simple key from product name + first 5 ingredients
+      const name = (currentProductBrand + ' ' + currentProductName).trim().toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+      const inciKey = currentInci.split(',').slice(0, 5).join(',').toLowerCase().trim();
+      return name || inciKey.substring(0, 60);
+    }
+
+    async function loadRatings() {
+      const key = getProductKey();
+      if (!key) return;
+
+      try {
+        // Get counts
+        const counts = await supabaseRequest('GET', 'product_rating_counts', null, { 'product_key': `eq.${key}` });
+        if (counts && counts[0]) {
+          $('#upCount').textContent = counts[0].upvotes || 0;
+          $('#downCount').textContent = counts[0].downvotes || 0;
+        } else {
+          $('#upCount').textContent = '0';
+          $('#downCount').textContent = '0';
+        }
+
+        // Check if this device already voted
+        const myVote = await supabaseRequest('GET', 'product_ratings', null, {
+          'product_key': `eq.${key}`,
+          'device_id': `eq.${deviceId}`
+        });
+        $('#voteUpBtn').classList.remove('active-up');
+        $('#voteDownBtn').classList.remove('active-down');
+        if (myVote && myVote[0]) {
+          if (myVote[0].vote === 'up') $('#voteUpBtn').classList.add('active-up');
+          if (myVote[0].vote === 'down') $('#voteDownBtn').classList.add('active-down');
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    async function submitVote(vote) {
+      const key = getProductKey();
+      if (!key) return;
+
+      try {
+        // Upsert: try insert, if conflict update
+        const existing = await supabaseRequest('GET', 'product_ratings', null, {
+          'product_key': `eq.${key}`,
+          'device_id': `eq.${deviceId}`
+        });
+
+        if (existing && existing[0]) {
+          if (existing[0].vote === vote) {
+            // Toggle off — delete the vote
+            await supabaseRequest('DELETE', 'product_ratings', { _match_id: existing[0].id });
+          } else {
+            // Change vote
+            await supabaseRequest('PATCH', 'product_ratings', { _match_id: existing[0].id, device_id: deviceId, vote });
+          }
+        } else {
+          // New vote
+          await supabaseRequest('POST', 'product_ratings', { device_id: deviceId, product_key: key, vote });
+        }
+        loadRatings();
+      } catch (e) { /* ignore */ }
+    }
+
+    $('#voteUpBtn').addEventListener('click', () => submitVote('up'));
+    $('#voteDownBtn').addEventListener('click', () => submitVote('down'));
+
+    // ==========================================
+    // ROUTINE WIZARD
+    // ==========================================
+    const WIZARD_STEPS = [
+      { key: 'cleanser', label: 'Cleanser', question: 'What cleanser do you use?', placeholder: 'Search for your cleanser...' },
+      { key: 'toner', label: 'Toner', question: 'Do you use a toner or essence?', placeholder: 'Search for your toner...' },
+      { key: 'serum', label: 'Serum', question: 'What serum or treatment do you use?', placeholder: 'Search for your serum...' },
+      { key: 'moisturizer', label: 'Moisturizer', question: 'What moisturizer do you use?', placeholder: 'Search for your moisturizer...' },
+      { key: 'spf', label: 'SPF', question: 'What sunscreen do you use?', placeholder: 'Search for your sunscreen...' },
+    ];
+
+    let wizardStep = 0;
+    let wizardSelections = {};
+
+    function renderWizardStep() {
+      const step = WIZARD_STEPS[wizardStep];
+      const isComplete = wizardStep >= WIZARD_STEPS.length;
+
+      // Dots
+      const dots = $('#wizardDots');
+      dots.innerHTML = WIZARD_STEPS.map((s, i) => {
+        let cls = 'wizard__step-dot';
+        if (i < wizardStep) cls += ' done';
+        if (i === wizardStep && !isComplete) cls += ' active';
+        return `<div class="${cls}"></div>`;
+      }).join('');
+
+      if (isComplete) {
+        // Show final summary
+        $('#wizardHeading').textContent = 'Your routine is ready.';
+        $('#wizardDesc').textContent = '';
+        $('#wizardStepLabel').textContent = '';
+        $('#wizardSearch').style.display = 'none';
+        $('#wizardResults').innerHTML = '';
+        $('#wizardSkip').style.display = 'none';
+
+        const summary = $('#wizardSummary');
+        summary.style.display = 'block';
+
+        let totalScore = 0;
+        let counted = 0;
+
+        summary.innerHTML = WIZARD_STEPS.map(s => {
+          const sel = wizardSelections[s.key];
+          if (!sel) return `
+            <div class="wizard__summary-item">
+              <div><span class="wizard__summary-step">${s.label}</span><br><span class="wizard__summary-name" style="opacity:0.3;">Skipped</span></div>
+              <span style="opacity:0.2;">--</span>
+            </div>`;
+
+          const analysis = analyzeIngredients(parseINCI(sel.inci));
+          totalScore += analysis.score;
+          counted++;
+          const color = analysis.score >= 80 ? 'var(--safe-green)' : (analysis.score >= 50 ? 'var(--caution-amber)' : 'var(--unsafe-red)');
+
+          return `
+            <div class="wizard__summary-item">
+              <div><span class="wizard__summary-step">${s.label}</span><br><span class="wizard__summary-name">${sel.brand} ${sel.name}</span></div>
+              <span class="wizard__summary-score" style="color:${color}">${analysis.score}</span>
+            </div>`;
+        }).join('');
+
+        // Overall score
+        const avg = counted > 0 ? Math.round(totalScore / counted) : 0;
+        const finalColor = avg >= 80 ? 'var(--safe-green)' : (avg >= 50 ? 'var(--caution-amber)' : 'var(--unsafe-red)');
+        const finalBg = avg >= 80 ? 'rgba(42,110,63,0.08)' : (avg >= 50 ? 'rgba(184,134,11,0.08)' : 'rgba(168,18,50,0.08)');
+
+        const finalEl = $('#wizardFinal');
+        finalEl.style.display = 'block';
+        finalEl.innerHTML = `
+          <div class="wizard__final-score" style="background:${finalBg};">
+            <div class="wizard__final-num" style="color:${finalColor}">${avg}</div>
+            <div class="wizard__final-label" style="color:${finalColor}">Overall Routine Score</div>
+          </div>
+          <div class="wizard__save-routine" style="text-align:center;">
+            <button class="checker__submit" id="wizardSaveBtn" type="button">Save This Routine</button>
+          </div>
+        `;
+
+        $('#wizardSaveBtn').addEventListener('click', async () => {
+          for (const s of WIZARD_STEPS) {
+            const sel = wizardSelections[s.key];
+            if (!sel) continue;
+            const analysis = analyzeIngredients(parseINCI(sel.inci));
+            const product = {
+              device_id: deviceId,
+              product_name: sel.name,
+              brand: sel.brand,
+              inci_list: sel.inci,
+              safety_score: analysis.score,
+              unsafe_count: analysis.unsafe.length,
+              caution_count: analysis.caution.length,
+              routine_slot: (s.key === 'spf' || s.key === 'cleanser' || s.key === 'moisturizer') ? 'both' : 'am',
+              is_prebuilt: true
+            };
+            const existing = savedProducts.find(p => p.inci_list === sel.inci);
+            if (!existing) {
+              const result = await supabaseRequest('POST', 'saved_products', product);
+              if (result && result[0]) savedProducts.push(result[0]);
+              else savedProducts.push(product);
+            }
+          }
+          renderRoutine();
+          $('#wizardSaveBtn').textContent = 'Saved!';
+          $('#wizardSaveBtn').disabled = true;
+          $('#wizardSaveBtn').style.background = 'var(--safe-green)';
+        });
+        return;
+      }
+
+      // Active step
+      $('#wizardHeading').textContent = step.question;
+      $('#wizardDesc').textContent = `Step ${wizardStep + 1} of ${WIZARD_STEPS.length}`;
+      $('#wizardStepLabel').textContent = step.label;
+      $('#wizardSearch').style.display = 'block';
+      $('#wizardSearch').placeholder = step.placeholder;
+      $('#wizardSearch').value = '';
+      $('#wizardResults').innerHTML = '';
+      $('#wizardSkip').style.display = 'inline-block';
+      $('#wizardSummary').style.display = 'none';
+      $('#wizardFinal').style.display = 'none';
+      $('#wizardSearch').focus();
+    }
+
+    $('#wizardSearch').addEventListener('input', () => {
+      const q = $('#wizardSearch').value.toLowerCase().trim();
+      const resultsDiv = $('#wizardResults');
+      resultsDiv.innerHTML = '';
+      if (q.length < 2) return;
+
+      const matches = PRODUCTS.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.brand.toLowerCase().includes(q) ||
+        `${p.brand} ${p.name}`.toLowerCase().includes(q)
+      ).slice(0, 8);
+
+      matches.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'checker__search-item';
+        div.innerHTML = `
+          <div>
+            <div class="checker__search-item-name">${p.brand} ${p.name}</div>
+            <div class="checker__search-item-brand">${p.category}</div>
+          </div>
+          <span class="checker__search-item-category">Select</span>
+        `;
+        div.addEventListener('click', () => {
+          wizardSelections[WIZARD_STEPS[wizardStep].key] = p;
+          wizardStep++;
+          renderWizardStep();
+        });
+        resultsDiv.appendChild(div);
+      });
+
+      if (matches.length === 0) {
+        resultsDiv.innerHTML = '<p style="padding:1rem;opacity:0.4;font-size:0.85rem;">No match found. You can skip this step.</p>';
+      }
+    });
+
+    $('#wizardSkip').addEventListener('click', () => {
+      wizardStep++;
+      renderWizardStep();
+    });
+
+    $('#openWizardBtn').addEventListener('click', () => {
+      wizardStep = 0;
+      wizardSelections = {};
+      const wiz = $('#wizard');
+      wiz.classList.add('visible');
+      renderWizardStep();
+      wiz.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // ==========================================
     // INIT
     // ==========================================
     loadSavedData();
+    checkUrlHash();
 
   })();
   </script>
