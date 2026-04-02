@@ -3420,8 +3420,15 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0 });
     fadeEls.forEach(el => observer.observe(el));
+    // Immediately show elements already in viewport on load
+    requestAnimationFrame(() => {
+      fadeEls.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) el.classList.add('visible');
+      });
+    });
 
     // ==========================================
     // INIT

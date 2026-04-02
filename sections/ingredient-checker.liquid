@@ -3136,7 +3136,14 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0 });
+    // Also immediately show any elements already in viewport
+    requestAnimationFrame(() => {
+      fadeEls.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) el.classList.add('visible');
+      });
+    });
     fadeEls.forEach(el => observer.observe(el));
 
     // ==========================================
