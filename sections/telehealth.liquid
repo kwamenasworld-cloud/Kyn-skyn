@@ -1,0 +1,525 @@
+<style>
+  /* ========== TELEHEALTH HERO ========== */
+  .th-hero {
+    background: var(--dark);
+    padding: 10rem 3rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .th-hero__molecule {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40rem;
+    height: 40rem;
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
+  .th-hero__eyebrow {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .th-hero__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.15;
+    max-width: 48rem;
+    margin: 0 auto 1.5rem;
+  }
+
+  .th-hero__desc {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--cream);
+    opacity: 0.6;
+    line-height: 1.7;
+    max-width: 36rem;
+    margin: 0 auto 2.5rem;
+  }
+
+  .th-hero__cta {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--button);
+    padding: 1rem 2.5rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+
+  .th-hero__cta:hover { background: var(--maroon); }
+
+  /* ========== CONDITIONS ========== */
+  .th-conditions {
+    padding: 6rem 3rem;
+    background: var(--cream);
+  }
+
+  .th-conditions__container {
+    max-width: 64rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .th-conditions__eyebrow {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .th-conditions__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 300;
+    color: var(--maroon);
+    margin-bottom: 3.5rem;
+  }
+
+  .th-conditions__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .th-card {
+    background: var(--dark);
+    border-radius: 6px;
+    padding: 2.5rem 2rem;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .th-card__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .th-card__title {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 0.75rem;
+  }
+
+  .th-card__desc {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--cream);
+    opacity: 0.6;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .th-card__symptoms {
+    list-style: none;
+  }
+
+  .th-card__symptoms li {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--cream);
+    opacity: 0.45;
+    padding: 0.35rem 0;
+    border-top: 1px solid rgba(255, 244, 206, 0.08);
+  }
+
+  .th-card__symptoms li:last-child {
+    border-bottom: 1px solid rgba(255, 244, 206, 0.08);
+  }
+
+  /* ========== HOW IT WORKS ========== */
+  .th-steps {
+    padding: 6rem 3rem;
+    background: var(--dark);
+  }
+
+  .th-steps__container {
+    max-width: 64rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .th-steps__eyebrow {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .th-steps__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 4rem;
+  }
+
+  .th-steps__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: left;
+  }
+
+  .th-step {
+    position: relative;
+  }
+
+  .th-step__num {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.3;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .th-step__title {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .th-step__desc {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--cream);
+    opacity: 0.5;
+    line-height: 1.7;
+  }
+
+  /* ========== CTA SECTION ========== */
+  .th-cta {
+    padding: 6rem 3rem;
+    background: var(--cream);
+    text-align: center;
+  }
+
+  .th-cta__container {
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
+  .th-cta__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 300;
+    color: var(--maroon);
+    margin-bottom: 1rem;
+  }
+
+  .th-cta__desc {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--maroon);
+    opacity: 0.6;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .th-cta__button {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--button);
+    padding: 1rem 2.5rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+
+  .th-cta__button:hover { background: var(--maroon); }
+
+  .th-cta__note {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--maroon);
+    opacity: 0.4;
+    margin-top: 1.5rem;
+    line-height: 1.6;
+  }
+
+  /* ========== FAQ ========== */
+  .th-faq {
+    padding: 6rem 3rem;
+    background: var(--dark);
+  }
+
+  .th-faq__container {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  .th-faq__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 300;
+    color: var(--cream);
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .th-faq__item {
+    border-bottom: 1px solid rgba(255, 244, 206, 0.1);
+    padding: 1.5rem 0;
+  }
+
+  .th-faq__q {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--cream);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+  }
+
+  .th-faq__q::after {
+    content: '+';
+    font-size: 1.2rem;
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-left: 1rem;
+    transition: transform 0.3s;
+  }
+
+  .th-faq__q.active::after {
+    content: '\2212';
+  }
+
+  .th-faq__a {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--cream);
+    opacity: 0.5;
+    line-height: 1.7;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .th-faq__a.open {
+    max-height: 20rem;
+    padding-top: 1rem;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    .th-hero { padding: 8rem 1.5rem 3rem; }
+    .th-conditions { padding: 4rem 1.5rem; }
+    .th-conditions__grid { grid-template-columns: 1fr; }
+    .th-steps { padding: 4rem 1.5rem; }
+    .th-steps__grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .th-cta { padding: 4rem 1.5rem; }
+    .th-faq { padding: 4rem 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    .th-steps__grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- ====== HERO ====== -->
+<section class="th-hero">
+  <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="th-hero__molecule">
+  <p class="th-hero__eyebrow fade-in">Telehealth</p>
+  <h1 class="th-hero__heading fade-in">Get diagnosed by a<br>dermatologist.</h1>
+  <p class="th-hero__desc fade-in">Not sure what's going on with your skin? Connect with a board-certified dermatologist who specializes in Malassezia-related conditions. Video consultations, prescriptions, and treatment plans.</p>
+  <a href="#th-conditions" class="th-hero__cta fade-in">See Conditions We Cover</a>
+</section>
+
+<!-- ====== CONDITIONS ====== -->
+<section class="th-conditions" id="th-conditions">
+  <div class="th-conditions__container">
+    <p class="th-conditions__eyebrow fade-in">What We Treat</p>
+    <h2 class="th-conditions__heading fade-in">Three conditions. One root cause.</h2>
+
+    <div class="th-conditions__grid">
+      <div class="th-card fade-in">
+        <svg class="th-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="3"/><circle cx="12" cy="5" r="1.5"/><circle cx="17" cy="8" r="1.5"/><circle cx="17" cy="16" r="1.5"/><circle cx="12" cy="19" r="1.5"/><circle cx="7" cy="16" r="1.5"/><circle cx="7" cy="8" r="1.5"/>
+        </svg>
+        <h3 class="th-card__title">Fungal Acne</h3>
+        <p class="th-card__desc">Malassezia folliculitis. Looks like acne but doesn't respond to acne treatments.</p>
+        <ul class="th-card__symptoms">
+          <li>Uniform small bumps on forehead, chest, or back</li>
+          <li>Itchy, especially when sweating</li>
+          <li>Doesn't respond to typical acne treatment</li>
+          <li>No blackheads or whiteheads</li>
+        </ul>
+      </div>
+
+      <div class="th-card fade-in">
+        <svg class="th-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/><path d="M9 8.5c0-.28.22-.5.5-.5s.5.22.5.5"/><path d="M14 8.5c0-.28.22-.5.5-.5s.5.22.5.5"/>
+        </svg>
+        <h3 class="th-card__title">Seborrheic Dermatitis</h3>
+        <p class="th-card__desc">Chronic flaking and redness in oil-rich zones. Often misdiagnosed as dry skin.</p>
+        <ul class="th-card__symptoms">
+          <li>Flaky, scaly patches on scalp, eyebrows, or nose</li>
+          <li>Greasy or powdery scale</li>
+          <li>Redness that comes and goes</li>
+          <li>Worse with stress, weather changes, or certain products</li>
+        </ul>
+      </div>
+
+      <div class="th-card fade-in">
+        <svg class="th-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <ellipse cx="12" cy="12" rx="8" ry="10"/><path d="M8 9c1-1 3-1 4 0"/><path d="M12 9c1-1 3-1 4 0"/><path d="M7 15c2 1 4 1 5 0"/><path d="M12 15c2 1 4 1 5 0"/>
+        </svg>
+        <h3 class="th-card__title">Tinea Versicolor</h3>
+        <p class="th-card__desc">Patchy discoloration on the trunk caused by Malassezia overgrowth.</p>
+        <ul class="th-card__symptoms">
+          <li>Light or dark patches on chest, back, or shoulders</li>
+          <li>Fine, powdery scale when scratched</li>
+          <li>More visible after sun exposure</li>
+          <li>Patches that don't tan evenly</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== HOW IT WORKS ====== -->
+<section class="th-steps">
+  <div class="th-steps__container">
+    <p class="th-steps__eyebrow fade-in">How It Works</p>
+    <h2 class="th-steps__heading fade-in">From symptoms to treatment plan.</h2>
+
+    <div class="th-steps__grid">
+      <div class="th-step fade-in">
+        <div class="th-step__num">01</div>
+        <h3 class="th-step__title">Pick your concern</h3>
+        <p class="th-step__desc">Select the condition you're dealing with. Not sure? A dermatologist can help you figure it out.</p>
+      </div>
+
+      <div class="th-step fade-in">
+        <div class="th-step__num">02</div>
+        <h3 class="th-step__title">Book a consultation</h3>
+        <p class="th-step__desc">Schedule a video visit with a board-certified dermatologist at a time that works for you.</p>
+      </div>
+
+      <div class="th-step fade-in">
+        <div class="th-step__num">03</div>
+        <h3 class="th-step__title">Get diagnosed</h3>
+        <p class="th-step__desc">Share photos, discuss your history, and receive a professional diagnosis during your visit.</p>
+      </div>
+
+      <div class="th-step fade-in">
+        <div class="th-step__num">04</div>
+        <h3 class="th-step__title">Start treatment</h3>
+        <p class="th-step__desc">Receive a treatment plan and prescriptions sent directly to your pharmacy if needed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CTA ====== -->
+<section class="th-cta">
+  <div class="th-cta__container fade-in">
+    <h2 class="th-cta__heading">Ready to get answers?</h2>
+    <p class="th-cta__desc">Stop guessing. A dermatologist who understands Malassezia-related conditions can give you a clear diagnosis and a treatment plan that actually works.</p>
+    <a href="#" class="th-cta__button" id="thBookBtn">Book a Consultation</a>
+    <p class="th-cta__note">Telehealth consultations are launching soon. Join the waitlist to be first in line.</p>
+  </div>
+</section>
+
+<!-- ====== FAQ ====== -->
+<section class="th-faq">
+  <div class="th-faq__container">
+    <h2 class="th-faq__heading fade-in">Common questions</h2>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">What conditions can I get diagnosed for?</button>
+      <div class="th-faq__a">Our dermatologists specialize in Malassezia-related skin conditions: fungal acne (Malassezia folliculitis), seborrheic dermatitis, and tinea versicolor. All three are caused by the same yeast overgrowth and require specific treatment approaches.</div>
+    </div>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">How does the consultation work?</button>
+      <div class="th-faq__a">You'll have a video consultation with a board-certified dermatologist. Before your visit, you'll fill out an intake form and upload photos of your skin. During the visit, the dermatologist will review your history, examine your photos, and provide a diagnosis and treatment plan.</div>
+    </div>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">Can I get a prescription?</button>
+      <div class="th-faq__a">Yes. If your dermatologist determines you need prescription treatment, they can send e-prescriptions directly to your preferred pharmacy, including antifungals and other medications commonly used for Malassezia-related conditions.</div>
+    </div>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">Is this covered by insurance?</button>
+      <div class="th-faq__a">Coverage varies by insurance plan. Many plans cover telehealth dermatology visits. We recommend checking with your insurance provider before booking. We'll provide you with the information needed to submit a claim.</div>
+    </div>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">How is my health information protected?</button>
+      <div class="th-faq__a">All consultations are conducted through a HIPAA-compliant platform. Your medical information is encrypted, securely stored, and never shared with third parties. The telehealth platform is separate from our e-commerce site to ensure full compliance.</div>
+    </div>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">I already used the Ingredient Checker. Should I still book?</button>
+      <div class="th-faq__a">The Ingredient Checker helps you identify products that may be feeding Malassezia, but it can't diagnose your condition. A dermatologist can confirm whether you're dealing with fungal acne, seb derm, or tinea versicolor and prescribe targeted treatment that over-the-counter products can't provide.</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.th-faq__q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var answer = this.nextElementSibling;
+      var isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.th-faq__a').forEach(function(a) { a.classList.remove('open'); });
+      document.querySelectorAll('.th-faq__q').forEach(function(q) { q.classList.remove('active'); });
+      if (!isOpen) {
+        answer.classList.add('open');
+        this.classList.add('active');
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Telehealth",
+  "class": "telehealth-section"
+}
+{% endschema %}
