@@ -364,8 +364,8 @@
 <section class="th-hero">
   <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="th-hero__molecule">
   <p class="th-hero__eyebrow fade-in">Telehealth</p>
-  <h1 class="th-hero__heading fade-in">Get diagnosed by a<br>dermatologist.</h1>
-  <p class="th-hero__desc fade-in">Not sure what's going on with your skin? Connect with a board-certified dermatologist who specializes in Malassezia-related conditions. Video consultations, prescriptions, and treatment plans.</p>
+  <h1 class="th-hero__heading fade-in">Get diagnosed by a<br>skin expert.</h1>
+  <p class="th-hero__desc fade-in">Not sure what's going on with your skin? Connect with a licensed provider who specializes in Malassezia-related conditions. Video consultations, prescriptions, and treatment plans.</p>
   <a href="#th-conditions" class="th-hero__cta fade-in">See Conditions We Cover</a>
 </section>
 
@@ -431,13 +431,13 @@
       <div class="th-step fade-in">
         <div class="th-step__num">01</div>
         <h3 class="th-step__title">Pick your concern</h3>
-        <p class="th-step__desc">Select the condition you're dealing with. Not sure? A dermatologist can help you figure it out.</p>
+        <p class="th-step__desc">Select the condition you're dealing with. Not sure? A provider can help you figure it out.</p>
       </div>
 
       <div class="th-step fade-in">
         <div class="th-step__num">02</div>
         <h3 class="th-step__title">Book a consultation</h3>
-        <p class="th-step__desc">Schedule a video visit with a board-certified dermatologist at a time that works for you.</p>
+        <p class="th-step__desc">Schedule a video visit with a licensed provider at a time that works for you.</p>
       </div>
 
       <div class="th-step fade-in">
@@ -455,13 +455,72 @@
   </div>
 </section>
 
+<!-- ====== PRICING ====== -->
+<section class="th-cta" style="background: var(--dark);">
+  <div class="th-cta__container fade-in" style="max-width: 500px;">
+    <h2 class="th-cta__heading">Simple, transparent pricing</h2>
+    <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 2rem; margin: 2rem 0; text-align: center;">
+      <p style="font-family: var(--font-accent); font-size: 3rem; color: var(--gold); margin: 0;">From $59</p>
+      <p style="font-family: var(--font-sans); font-size: 1rem; color: var(--cream); opacity: 0.7; margin-top: 0.5rem;">per consultation</p>
+      <div style="margin-top: 1.5rem; font-family: var(--font-sans); font-size: 0.85rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.8;">
+        <p style="margin: 0;">&#10003; Licensed healthcare provider</p>
+        <p style="margin: 0;">&#10003; Photo review ($59) or live video visit ($89)</p>
+        <p style="margin: 0;">&#10003; Personalized treatment plan</p>
+        <p style="margin: 0;">&#10003; E-prescriptions to your pharmacy</p>
+        <p style="margin: 0;">&#10003; Skin photo review included</p>
+        <p style="margin: 0;">&#10003; HIPAA-compliant platform</p>
+      </div>
+    </div>
+    <p class="th-cta__desc" style="font-size: 0.85rem;">No subscriptions. No hidden fees. Pay once per visit.</p>
+  </div>
+</section>
+
+<!-- ====== BOOKING FLOW ====== -->
+<section class="th-steps" style="background: rgba(100, 18, 32, 0.08);">
+  <div class="th-steps__container">
+    <h2 class="th-steps__heading fade-in">Your booking journey</h2>
+    <div class="th-steps__grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem;">
+      <div class="th-step fade-in" style="padding: 1.2rem;">
+        <div class="th-step__num">01</div>
+        <h3 class="th-step__title" style="font-size: 0.9rem;">Select state</h3>
+        <p class="th-step__desc" style="font-size: 0.75rem;">Choose your location to see licensed providers</p>
+      </div>
+      <div class="th-step fade-in" style="padding: 1.2rem;">
+        <div class="th-step__num">02</div>
+        <h3 class="th-step__title" style="font-size: 0.9rem;">Pick provider</h3>
+        <p class="th-step__desc" style="font-size: 0.75rem;">Choose a provider and available time slot</p>
+      </div>
+      <div class="th-step fade-in" style="padding: 1.2rem;">
+        <div class="th-step__num">03</div>
+        <h3 class="th-step__title" style="font-size: 0.9rem;">Medical intake</h3>
+        <p class="th-step__desc" style="font-size: 0.75rem;">Answer questions about your skin concerns</p>
+      </div>
+      <div class="th-step fade-in" style="padding: 1.2rem;">
+        <div class="th-step__num">04</div>
+        <h3 class="th-step__title" style="font-size: 0.9rem;">Upload photos</h3>
+        <p class="th-step__desc" style="font-size: 0.75rem;">Securely share photos of affected areas</p>
+      </div>
+      <div class="th-step fade-in" style="padding: 1.2rem;">
+        <div class="th-step__num">05</div>
+        <h3 class="th-step__title" style="font-size: 0.9rem;">Select pharmacy</h3>
+        <p class="th-step__desc" style="font-size: 0.75rem;">Search and choose your preferred pharmacy</p>
+      </div>
+      <div class="th-step fade-in" style="padding: 1.2rem;">
+        <div class="th-step__num">06</div>
+        <h3 class="th-step__title" style="font-size: 0.9rem;">Review & pay</h3>
+        <p class="th-step__desc" style="font-size: 0.75rem;">Confirm details and pay securely with Stripe</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ====== CTA ====== -->
 <section class="th-cta">
   <div class="th-cta__container fade-in">
     <h2 class="th-cta__heading">Ready to get answers?</h2>
-    <p class="th-cta__desc">Stop guessing. A dermatologist who understands Malassezia-related conditions can give you a clear diagnosis and a treatment plan that actually works.</p>
-    <a href="#" class="th-cta__button" id="thBookBtn">Book a Consultation</a>
-    <p class="th-cta__note">Telehealth consultations are launching soon. Join the waitlist to be first in line.</p>
+    <p class="th-cta__desc">Stop guessing. A licensed provider who understands Malassezia-related conditions can give you a clear diagnosis and a treatment plan that actually works.</p>
+    <a href="https://care.kynskyn.com/book" class="th-cta__button" id="thBookBtn" target="_blank" rel="noopener noreferrer">Book a Consultation</a>
+    <p class="th-cta__note">Secure, HIPAA-compliant consultations. No account needed until checkout.</p>
   </div>
 </section>
 
@@ -472,17 +531,17 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">What conditions can I get diagnosed for?</button>
-      <div class="th-faq__a">Our dermatologists specialize in Malassezia-related skin conditions: fungal acne (Malassezia folliculitis), seborrheic dermatitis, and tinea versicolor. All three are caused by the same yeast overgrowth and require specific treatment approaches.</div>
+      <div class="th-faq__a">Our providers specialize in Malassezia-related skin conditions: fungal acne (Malassezia folliculitis), seborrheic dermatitis, and tinea versicolor. All three are caused by the same yeast overgrowth and require specific treatment approaches.</div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How does the consultation work?</button>
-      <div class="th-faq__a">You'll have a video consultation with a board-certified dermatologist. Before your visit, you'll fill out an intake form and upload photos of your skin. During the visit, the dermatologist will review your history, examine your photos, and provide a diagnosis and treatment plan.</div>
+      <div class="th-faq__a">You'll have a consultation with a licensed provider (MD, DO, or NP). Before your visit, you'll fill out an intake form and upload photos of your skin. Your provider will review your history, examine your photos, and provide a diagnosis and treatment plan.</div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">Can I get a prescription?</button>
-      <div class="th-faq__a">Yes. If your dermatologist determines you need prescription treatment, they can send e-prescriptions directly to your preferred pharmacy, including antifungals and other medications commonly used for Malassezia-related conditions.</div>
+      <div class="th-faq__a">Yes. If your provider determines you need prescription treatment, they can send e-prescriptions directly to your preferred pharmacy, including antifungals and other medications commonly used for Malassezia-related conditions.</div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -497,7 +556,27 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">I already used the Ingredient Checker. Should I still book?</button>
-      <div class="th-faq__a">The Ingredient Checker helps you identify products that may be feeding Malassezia, but it can't diagnose your condition. A dermatologist can confirm whether you're dealing with fungal acne, seb derm, or tinea versicolor and prescribe targeted treatment that over-the-counter products can't provide.</div>
+      <div class="th-faq__a">The Ingredient Checker helps you identify products that may be feeding Malassezia, but it can't diagnose your condition. A licensed provider can confirm whether you're dealing with fungal acne, seb derm, or tinea versicolor and prescribe targeted treatment that over-the-counter products can't provide.</div>
+    </div>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">How much does a consultation cost?</button>
+      <div class="th-faq__a">Photo review consultations are $59 and live video visits are $89. Prescribed medications are available for one-time purchase or monthly auto-ship at 15% off. Payment is processed securely through Stripe.</div>
+    </div>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">Do I need to upload photos of my skin?</button>
+      <div class="th-faq__a">Photos are optional but highly recommended. You can upload up to 5 photos during the booking process. All GPS and device metadata is automatically stripped for your privacy, and photos are only visible to your treating provider.</div>
+    </div>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">How do I select a pharmacy?</button>
+      <div class="th-faq__a">During the booking process, you'll search for pharmacies by name and ZIP code. If your provider prescribes medication, the e-prescription will be sent directly to the pharmacy you selected.</div>
+    </div>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">What payment methods do you accept?</button>
+      <div class="th-faq__a">We accept all major credit and debit cards through Stripe, including Visa, Mastercard, American Express, and Discover. Apple Pay and Google Pay are also supported.</div>
     </div>
   </div>
 </section>

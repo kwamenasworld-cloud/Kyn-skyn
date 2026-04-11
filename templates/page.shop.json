@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "shop": {
+      "type": "shop"
+    }
+  },
+  "order": ["shop"]
+}

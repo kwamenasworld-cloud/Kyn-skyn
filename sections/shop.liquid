@@ -1,0 +1,299 @@
+<style>
+  .shop {
+    padding: 4rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .shop__hero {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .shop__hero-title {
+    font-family: var(--font-accent);
+    font-size: 2.5rem;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .shop__hero-desc {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--cream);
+    opacity: 0.6;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* Featured product */
+  .shop__featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 4rem;
+  }
+  .shop__featured-img {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, rgba(100, 18, 32, 0.2), rgba(42, 2, 8, 1));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .shop__featured-img span {
+    font-family: var(--font-accent);
+    font-size: 2rem;
+    color: var(--cream);
+    opacity: 0.12;
+  }
+  .shop__featured-label {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #055A5B;
+    margin-bottom: 0.25rem;
+  }
+  .shop__featured-name {
+    font-family: var(--font-accent);
+    font-size: 2.2rem;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .shop__featured-price {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .shop__featured-desc {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--cream);
+    opacity: 0.6;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .shop__featured-btn {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    background: var(--button);
+    color: var(--cream);
+    border: none;
+    padding: 0.8rem 2.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .shop__featured-btn:hover { background: var(--maroon); }
+  .shop__featured-note {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    color: var(--cream);
+    opacity: 0.3;
+    margin-top: 0.75rem;
+  }
+
+  /* Rx section */
+  .shop__section {
+    margin-bottom: 4rem;
+  }
+  .shop__section-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .shop__section-desc {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--cream);
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+  }
+  .shop__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+  }
+  .shop__card {
+    background: rgba(100, 18, 32, 0.1);
+    border: 1px solid rgba(100, 18, 32, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .shop__card:hover { border-color: rgba(100, 18, 32, 0.5); }
+  .shop__card-img {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, rgba(5, 90, 91, 0.1), rgba(42, 2, 8, 1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .shop__card-img span {
+    font-family: var(--font-accent);
+    color: var(--cream);
+    opacity: 0.1;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0 0.5rem;
+  }
+  .shop__card-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.5rem;
+    border-radius: 100px;
+    color: var(--cream);
+    background: #055A5B;
+  }
+  .shop__card-body { padding: 1rem; }
+  .shop__card-name {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--cream);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  .shop__card-desc {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--cream);
+    opacity: 0.5;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+  .shop__card-price {
+    font-family: var(--font-sans);
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+  .shop__card-price--old {
+    text-decoration: line-through;
+    opacity: 0.4;
+    margin-right: 0.5rem;
+    font-size: 0.85rem;
+  }
+  .shop__card-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    background: #055A5B;
+    color: var(--cream);
+    border: none;
+    padding: 0.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .shop__card-btn:hover { background: #0a7a7b; }
+
+  .shop__divider {
+    border: none;
+    border-top: 1px solid rgba(100, 18, 32, 0.2);
+    margin: 3rem 0;
+  }
+
+  @media (max-width: 640px) {
+    .shop { padding: 2rem 1.5rem; }
+    .shop__hero-title { font-size: 1.8rem; }
+    .shop__featured { grid-template-columns: 1fr; }
+    .shop__featured-name { font-size: 1.8rem; }
+    .shop__featured-btn { width: 100%; text-align: center; }
+    .shop__grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  }
+</style>
+
+<section class="shop">
+  <div class="shop__hero fade-in">
+    <h1 class="shop__hero-title">Your Complete Skin Routine</h1>
+    <p class="shop__hero-desc">Malassezia-safe cosmetics and prescription treatment — all in one place.</p>
+  </div>
+
+  <!-- Featured: Steady Serum -->
+  <div class="shop__featured fade-in">
+    <div class="shop__featured-img"><span>Steady Serum</span></div>
+    <div>
+      <p class="shop__featured-label">Kyn Skyn Cosmetics</p>
+      <h2 class="shop__featured-name">Steady Serum</h2>
+      <p class="shop__featured-price">$32</p>
+      <p class="shop__featured-desc">Formulated with lightweight MCT oil, Steady Serum delivers long-lasting hydration without feeding Malassezia. Unlike coconut, olive, or other common oils that can worsen symptoms, MCT oil is microbiome-safe and skin-soothing.</p>
+      <a href="https://care.kynskyn.com/shop" class="shop__featured-btn" target="_blank" rel="noopener noreferrer">Shop Now</a>
+      <p class="shop__featured-note">No prescription needed. Free shipping on orders over $50.</p>
+    </div>
+  </div>
+
+  <hr class="shop__divider">
+
+  <!-- Prescription Treatment -->
+  <div class="shop__section fade-in">
+    <h2 class="shop__section-title">Prescription Treatment</h2>
+    <p class="shop__section-desc">Requires a consultation with a licensed provider — from $59</p>
+    <div class="shop__grid">
+
+      <div class="shop__card">
+        <div class="shop__card-img"><span>Ketoconazole</span><div class="shop__card-badge">Prescription</div></div>
+        <div class="shop__card-body">
+          <p class="shop__card-name">Ketoconazole 2% Cream</p>
+          <p class="shop__card-desc">Antifungal cream for affected areas</p>
+          <p class="shop__card-price">From $59/mo</p>
+          <a href="https://care.kynskyn.com/book" class="shop__card-btn" target="_blank" rel="noopener noreferrer">Get Prescribed</a>
+        </div>
+      </div>
+
+      <div class="shop__card">
+        <div class="shop__card-img"><span>Fluconazole</span><div class="shop__card-badge">Prescription</div></div>
+        <div class="shop__card-body">
+          <p class="shop__card-name">Fluconazole 150mg</p>
+          <p class="shop__card-desc">Oral antifungal — weekly dosing</p>
+          <p class="shop__card-price">From $47/mo</p>
+          <a href="https://care.kynskyn.com/book" class="shop__card-btn" target="_blank" rel="noopener noreferrer">Get Prescribed</a>
+        </div>
+      </div>
+
+      <div class="shop__card">
+        <div class="shop__card-img"><span>Tretinoin</span><div class="shop__card-badge">Prescription</div></div>
+        <div class="shop__card-body">
+          <p class="shop__card-name">Tretinoin Cream 0.02%</p>
+          <p class="shop__card-desc">Retinoid cream for skin renewal</p>
+          <p class="shop__card-price">From $55/mo</p>
+          <a href="https://care.kynskyn.com/book" class="shop__card-btn" target="_blank" rel="noopener noreferrer">Get Prescribed</a>
+        </div>
+      </div>
+
+      <div class="shop__card">
+        <div class="shop__card-img"><span>Itraconazole</span><div class="shop__card-badge">Prescription</div></div>
+        <div class="shop__card-body">
+          <p class="shop__card-name">Itraconazole 100mg</p>
+          <p class="shop__card-desc">Oral antifungal — daily dosing</p>
+          <p class="shop__card-price">From $76/mo</p>
+          <a href="https://care.kynskyn.com/book" class="shop__card-btn" target="_blank" rel="noopener noreferrer">Get Prescribed</a>
+        </div>
+      </div>
+
+    </div>
+    <p style="text-align: center; font-family: var(--font-sans); font-size: 0.75rem; color: var(--cream); opacity: 0.4; margin-top: 1.5rem;">
+      Consultation: $59 (photo review) or $89 (video visit). Save 15% with monthly subscription.
+    </p>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Shop",
+  "class": "shop-page"
+}
+{% endschema %}
