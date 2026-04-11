@@ -445,6 +445,65 @@
       pointer-events: none;
     }
 
+    /* Telehealth CTA Banner */
+    .telehealth-cta {
+      display: none;
+      background: linear-gradient(135deg, rgba(5, 90, 91, 0.15), rgba(31, 63, 111, 0.1));
+      border: 1px solid rgba(5, 90, 91, 0.3);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+      align-items: center;
+      gap: 1rem;
+    }
+    .telehealth-cta.visible { display: flex; }
+    .telehealth-cta__icon {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: 50%;
+      background: rgba(5, 90, 91, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .telehealth-cta__icon svg { width: 20px; height: 20px; color: #055A5B; }
+    .telehealth-cta__text { flex: 1; }
+    .telehealth-cta__title {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--maroon);
+      margin-bottom: 2px;
+    }
+    .telehealth-cta__desc {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: var(--maroon);
+      opacity: 0.6;
+      line-height: 1.4;
+    }
+    .telehealth-cta__btn {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: var(--button);
+      color: var(--cream);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .telehealth-cta__btn:hover { background: var(--maroon); }
+
+    @media (max-width: 480px) {
+      .telehealth-cta { flex-direction: column; text-align: center; }
+      .telehealth-cta__btn { width: 100%; text-align: center; }
+    }
+
     /* Stats row */
     .results__stats {
       display: flex;
@@ -1982,6 +2041,20 @@
         </div>
       </div>
 
+      <!-- Telehealth CTA -->
+      <div class="telehealth-cta" id="telehealthCta">
+        <div class="telehealth-cta__icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+          </svg>
+        </div>
+        <div class="telehealth-cta__text">
+          <p class="telehealth-cta__title" id="telehealthCtaTitle">Not sure if it's fungal?</p>
+          <p class="telehealth-cta__desc" id="telehealthCtaDesc">A licensed provider can diagnose your skin condition and prescribe treatment.</p>
+        </div>
+        <a href="https://care.kynskyn.com/book" class="telehealth-cta__btn" target="_blank" rel="noopener noreferrer">Get Diagnosed — $59</a>
+      </div>
+
       <!-- Share -->
       <div class="results__share" id="shareRow">
         <button class="results__share-btn" id="copyResultBtn" type="button">
@@ -3103,6 +3176,23 @@
         unsafe: `We found ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that can feed Malassezia — the yeast behind fungal acne, seb derm, and dandruff. Scroll down to see which ones and what to use instead.`
       };
       $('#verdictDesc').textContent = descs[analysis.verdict];
+
+      // Telehealth CTA — contextual messaging based on verdict
+      const ctaBanner = $('#telehealthCta');
+      const ctaTitle = $('#telehealthCtaTitle');
+      const ctaDesc = $('#telehealthCtaDesc');
+      ctaBanner.classList.add('visible');
+
+      if (analysis.verdict === 'unsafe') {
+        ctaTitle.textContent = 'Struggling with fungal acne?';
+        ctaDesc.textContent = `This product has ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that feed Malassezia. A provider can diagnose your condition and prescribe targeted treatment.`;
+      } else if (analysis.verdict === 'caution') {
+        ctaTitle.textContent = 'Not sure if it\'s fungal?';
+        ctaDesc.textContent = 'If products keep causing breakouts, a provider can determine if Malassezia is the issue and create a treatment plan.';
+      } else {
+        ctaTitle.textContent = 'Want a personalized skin plan?';
+        ctaDesc.textContent = 'A licensed provider can review your routine and prescribe treatment if needed.';
+      }
 
       // Save button state
       const saveBtn = $('#saveProductBtn');
