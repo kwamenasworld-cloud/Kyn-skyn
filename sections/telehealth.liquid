@@ -226,6 +226,17 @@
     text-align: center;
   }
 
+  .th-cta--dark {
+    background: var(--dark) !important;
+  }
+  .th-cta--dark .th-cta__heading,
+  .th-cta--dark .th-cta__desc {
+    color: var(--cream) !important;
+  }
+  .th-cta--dark .th-cta__desc {
+    opacity: 0.8;
+  }
+
   .th-cta__container {
     max-width: 40rem;
     margin: 0 auto;
@@ -456,9 +467,9 @@
 </section>
 
 <!-- ====== PRICING ====== -->
-<section class="th-cta" style="background: var(--dark);">
+<section class="th-cta th-cta--dark">
   <div class="th-cta__container fade-in" style="max-width: 500px;">
-    <h2 class="th-cta__heading" style="color: var(--cream);">Simple, transparent pricing</h2>
+    <h2 class="th-cta__heading">Simple, transparent pricing</h2>
     <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 2rem; margin: 2rem 0; text-align: center;">
       <p style="font-family: var(--font-accent); font-size: 3rem; color: var(--gold); margin: 0;">From $59</p>
       <p style="font-family: var(--font-sans); font-size: 1rem; color: var(--cream); opacity: 0.7; margin-top: 0.5rem;">per consultation</p>
@@ -471,7 +482,7 @@
         <p style="margin: 0;">&#10003; HIPAA-compliant platform</p>
       </div>
     </div>
-    <p class="th-cta__desc" style="font-size: 0.85rem; color: var(--cream); opacity: 0.8;">No subscriptions. No hidden fees. Pay once per visit.</p>
+    <p class="th-cta__desc" style="font-size: 0.85rem;">No subscriptions. No hidden fees. Pay once per visit.</p>
   </div>
 </section>
 
