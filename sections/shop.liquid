@@ -240,7 +240,7 @@
   <!-- Prescription Treatment -->
   <div class="shop__section fade-in">
     <h2 class="shop__section-title">Prescription Treatment</h2>
-    <p class="shop__section-desc">Requires a consultation with a licensed provider — from $59</p>
+    <p class="shop__section-desc" data-price="shop_treatment_desc">Included with Treatment Plan — $49/mo</p>
     <div class="shop__grid">
 
       <div class="shop__card">
@@ -285,11 +285,34 @@
 
     </div>
     <p style="text-align: center; font-family: var(--font-sans); font-size: 0.75rem; color: var(--cream); opacity: 0.5; margin-top: 1.5rem;">
-      Consultation: $59 (photo review) or $89 (video visit). Save 15% with monthly subscription.
+      Treatment Plan: $49/month includes consultation + Rx + monthly refills. Or Skin Assessment: $35 one-time.
     </p>
   </div>
 
 </section>
+
+<script>
+  // Dynamic pricing from Supabase — single source of truth
+  (function() {
+    var SUPABASE_URL = 'https://pbriwsgraemyqhkymneq.supabase.co';
+    var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicml3c2dyYWVteXFoa3ltbmVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNTQxNjEsImV4cCI6MjA5MDYzMDE2MX0.AFfCsWNblX3MzjOJVRL7JefLzaLQrsc6xHSeDZuFWrI';
+
+    fetch(SUPABASE_URL + '/rest/v1/pricing_config?select=key,value', {
+      headers: { 'apikey': SUPABASE_KEY }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(prices) {
+      var p = {};
+      prices.forEach(function(row) { p[row.key] = Math.round(Number(row.value)); });
+
+      var descEl = document.querySelector('[data-price="shop_treatment_desc"]');
+      if (descEl && p.treatment_monthly) {
+        descEl.textContent = 'Included with Treatment Plan — $' + p.treatment_monthly + '/mo';
+      }
+    })
+    .catch(function() { /* keep hardcoded defaults */ });
+  })();
+</script>
 
 {% schema %}
 {

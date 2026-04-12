@@ -474,9 +474,9 @@
       <!-- Treatment Plan -->
       <div style="background: rgba(212, 149, 42, 0.15); border: 2px solid rgba(212, 149, 42, 0.4); border-radius: 16px; padding: 1.5rem; text-align: center; position: relative;">
         <span style="position: absolute; top: -0.6rem; right: 1rem; background: var(--gold); color: var(--dark); font-family: var(--font-sans); font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.6rem; border-radius: 100px;">Most Popular</span>
-        <p style="font-family: var(--font-accent); font-size: 2.2rem; color: var(--gold); margin: 0;">$49<span style="font-size: 1rem; opacity: 0.6;">/mo</span></p>
+        <p style="font-family: var(--font-accent); font-size: 2.2rem; color: var(--gold); margin: 0;" data-price="treatment_monthly">$49<span style="font-size: 1rem; opacity: 0.6;">/mo</span></p>
         <p style="font-family: var(--font-sans); font-size: 0.9rem; color: var(--cream); margin-top: 0.3rem;">Treatment Plan</p>
-        <p style="font-family: var(--font-sans); font-size: 0.7rem; color: var(--cream); opacity: 0.4; margin-top: 0.3rem;">or $69 one-time</p>
+        <p style="font-family: var(--font-sans); font-size: 0.7rem; color: var(--cream); opacity: 0.4; margin-top: 0.3rem;" data-price="treatment_onetime_label">or $69 one-time</p>
         <div style="margin-top: 1rem; font-family: var(--font-sans); font-size: 0.75rem; color: rgba(255,244,206,0.6); text-align: left; line-height: 1.8;">
           <p style="margin: 0;">&#10003; Provider consultation</p>
           <p style="margin: 0;">&#10003; Prescription medication</p>
@@ -487,7 +487,7 @@
       </div>
       <!-- Skin Assessment -->
       <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 1.5rem; text-align: center;">
-        <p style="font-family: var(--font-accent); font-size: 2.2rem; color: var(--cream); opacity: 0.8; margin: 0;">$35</p>
+        <p style="font-family: var(--font-accent); font-size: 2.2rem; color: var(--cream); opacity: 0.8; margin: 0;" data-price="assessment_price">$35</p>
         <p style="font-family: var(--font-sans); font-size: 0.9rem; color: var(--cream); opacity: 0.6; margin-top: 0.3rem;">Skin Assessment</p>
         <div style="margin-top: 1rem; font-family: var(--font-sans); font-size: 0.75rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.8;">
           <p style="margin: 0;">&#10003; Photo review by provider</p>
@@ -587,7 +587,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a">Skin Assessments are $35 (one-time diagnosis). Treatment Plans are $49/month and include your consultation, prescription medication, and monthly refills with free shipping. One-time treatment is available for $69. Payment is processed securely through Stripe.</div>
+      <div class="th-faq__a" data-price="faq_pricing">Skin Assessments are $35 (one-time diagnosis). Treatment Plans are $49/month and include your consultation, prescription medication, and monthly refills with free shipping. One-time treatment is available for $69. Payment is processed securely through Stripe.</div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -620,6 +620,46 @@
       }
     });
   });
+
+  // Dynamic pricing from Supabase — single source of truth
+  (function() {
+    var SUPABASE_URL = 'https://pbriwsgraemyqhkymneq.supabase.co';
+    var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicml3c2dyYWVteXFoa3ltbmVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNTQxNjEsImV4cCI6MjA5MDYzMDE2MX0.AFfCsWNblX3MzjOJVRL7JefLzaLQrsc6xHSeDZuFWrI';
+
+    fetch(SUPABASE_URL + '/rest/v1/pricing_config?select=key,value', {
+      headers: { 'apikey': SUPABASE_KEY }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(prices) {
+      var p = {};
+      prices.forEach(function(row) { p[row.key] = Math.round(Number(row.value)); });
+
+      // Update Treatment Plan price
+      var treatEl = document.querySelector('[data-price="treatment_monthly"]');
+      if (treatEl && p.treatment_monthly) {
+        treatEl.innerHTML = '$' + p.treatment_monthly + '<span style="font-size: 1rem; opacity: 0.6;">/mo</span>';
+      }
+
+      // Update one-time label
+      var otEl = document.querySelector('[data-price="treatment_onetime_label"]');
+      if (otEl && p.treatment_onetime) {
+        otEl.textContent = 'or $' + p.treatment_onetime + ' one-time';
+      }
+
+      // Update Assessment price
+      var assessEl = document.querySelector('[data-price="assessment_price"]');
+      if (assessEl && p.assessment_price) {
+        assessEl.textContent = '$' + p.assessment_price;
+      }
+
+      // Update FAQ pricing text
+      var faqEl = document.querySelector('[data-price="faq_pricing"]');
+      if (faqEl && p.assessment_price && p.treatment_monthly && p.treatment_onetime) {
+        faqEl.textContent = 'Skin Assessments are $' + p.assessment_price + ' (one-time diagnosis). Treatment Plans are $' + p.treatment_monthly + '/month and include your consultation, prescription medication, and monthly refills with free shipping. One-time treatment is available for $' + p.treatment_onetime + '. Payment is processed securely through Stripe.';
+      }
+    })
+    .catch(function() { /* keep hardcoded defaults */ });
+  })();
 </script>
 
 {% schema %}
