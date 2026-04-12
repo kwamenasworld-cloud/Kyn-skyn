@@ -3307,7 +3307,7 @@
         is_prebuilt: false
       };
 
-      const result = await supabaseRequest('POST', 'saved_products', product);
+      const result = await supabaseRequest('POST', 'checker_saved_items', product);
       if (result && result[0]) {
         savedProducts.push(result[0]);
       } else {
@@ -3388,7 +3388,7 @@
             const product = savedProducts.find(p => p.id === id);
             if (product) {
               product.routine_slot = null;
-              await supabaseRequest('PATCH', 'saved_products', { _match_id: id, device_id: deviceId, routine_slot: null });
+              await supabaseRequest('PATCH', 'checker_saved_items', { _match_id: id, device_id: deviceId, routine_slot: null });
               renderRoutine();
             }
           });
@@ -3443,7 +3443,7 @@
             const product = savedProducts.find(p => p.id === id);
             if (product) {
               product.routine_slot = slot;
-              await supabaseRequest('PATCH', 'saved_products', { _match_id: id, device_id: deviceId, routine_slot: slot });
+              await supabaseRequest('PATCH', 'checker_saved_items', { _match_id: id, device_id: deviceId, routine_slot: slot });
               renderRoutine();
             }
           });
@@ -3458,7 +3458,7 @@
     // ==========================================
     async function loadSavedData() {
       try {
-        const data = await supabaseRequest('GET', 'saved_products', null, { 'device_id': `eq.${deviceId}` });
+        const data = await supabaseRequest('GET', 'checker_saved_items', null, { 'device_id': `eq.${deviceId}` });
         if (Array.isArray(data)) {
           savedProducts = data;
         }
@@ -3831,7 +3831,7 @@
             };
             const existing = savedProducts.find(p => p.inci_list === sel.inci);
             if (!existing) {
-              const result = await supabaseRequest('POST', 'saved_products', product);
+              const result = await supabaseRequest('POST', 'checker_saved_items', product);
               if (result && result[0]) savedProducts.push(result[0]);
               else savedProducts.push(product);
             }
