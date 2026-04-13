@@ -470,30 +470,39 @@
 <section class="th-cta th-cta--dark">
   <div class="th-cta__container fade-in" style="max-width: 500px;">
     <h2 class="th-cta__heading">Choose your plan</h2>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0;">
-      <!-- Treatment Plan -->
-      <div style="background: rgba(212, 149, 42, 0.15); border: 2px solid rgba(212, 149, 42, 0.4); border-radius: 16px; padding: 1.5rem; text-align: center; position: relative;">
-        <span style="position: absolute; top: -0.6rem; right: 1rem; background: var(--gold); color: var(--dark); font-family: var(--font-sans); font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.6rem; border-radius: 100px;">Most Popular</span>
-        <p style="font-family: var(--font-accent); font-size: 2.2rem; color: var(--gold); margin: 0;" data-price="treatment_monthly">$49<span style="font-size: 1rem; opacity: 0.6;">/mo</span></p>
-        <p style="font-family: var(--font-sans); font-size: 0.9rem; color: var(--cream); margin-top: 0.3rem;">Treatment Plan</p>
-        <p style="font-family: var(--font-sans); font-size: 0.7rem; color: var(--cream); opacity: 0.4; margin-top: 0.3rem;" data-price="treatment_onetime_label">or $69 one-time</p>
-        <div style="margin-top: 1rem; font-family: var(--font-sans); font-size: 0.75rem; color: rgba(255,244,206,0.6); text-align: left; line-height: 1.8;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; margin: 2rem 0;">
+      <!-- Treatment Plan — $49/mo -->
+      <div style="background: rgba(212, 149, 42, 0.15); border: 2px solid rgba(212, 149, 42, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center; position: relative;">
+        <span style="position: absolute; top: -0.6rem; right: 0.8rem; background: rgba(212,149,42,0.2); color: var(--gold); border: 1px solid rgba(212,149,42,0.3); font-family: var(--font-sans); font-size: 0.55rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.5rem; border-radius: 100px;">Recommended</span>
+        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--gold); margin: 0;" data-price="treatment_monthly">$49<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
+        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); margin-top: 0.3rem;">Treatment Plan</p>
+        <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.6); text-align: left; line-height: 1.7;">
           <p style="margin: 0;">&#10003; Provider consultation</p>
-          <p style="margin: 0;">&#10003; Prescription medication</p>
-          <p style="margin: 0;">&#10003; Monthly refills shipped</p>
+          <p style="margin: 0;">&#10003; Rx sent to your pharmacy</p>
+          <p style="margin: 0;">&#10003; Monthly adjustments</p>
+          <p style="margin: 0;">&#10003; Cancel anytime</p>
+        </div>
+      </div>
+      <!-- Treatment + Delivery — $69/mo -->
+      <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center;">
+        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.9; margin: 0;" data-price="treatment_delivered">$69<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
+        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.7; margin-top: 0.3rem;">Treatment + Delivery</p>
+        <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.7;">
+          <p style="margin: 0;">&#10003; Everything in Treatment Plan</p>
+          <p style="margin: 0;">&#10003; Medication shipped to your door</p>
           <p style="margin: 0;">&#10003; Free shipping</p>
           <p style="margin: 0;">&#10003; Cancel anytime</p>
         </div>
       </div>
-      <!-- Skin Assessment -->
-      <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 1.5rem; text-align: center;">
-        <p style="font-family: var(--font-accent); font-size: 2.2rem; color: var(--cream); opacity: 0.8; margin: 0;" data-price="assessment_price">$35</p>
-        <p style="font-family: var(--font-sans); font-size: 0.9rem; color: var(--cream); opacity: 0.6; margin-top: 0.3rem;">Skin Assessment</p>
-        <div style="margin-top: 1rem; font-family: var(--font-sans); font-size: 0.75rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.8;">
-          <p style="margin: 0;">&#10003; Photo review by provider</p>
-          <p style="margin: 0;">&#10003; Diagnosis + recommendations</p>
+      <!-- Skin Assessment — $35 -->
+      <div style="background: rgba(100, 18, 32, 0.1); border: 1px solid rgba(100, 18, 32, 0.3); border-radius: 16px; padding: 1.3rem; text-align: center;">
+        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.7; margin: 0;" data-price="assessment_price">$35</p>
+        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.5; margin-top: 0.3rem;">Skin Assessment</p>
+        <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.4); text-align: left; line-height: 1.7;">
+          <p style="margin: 0;">&#10003; Photo review + diagnosis</p>
+          <p style="margin: 0;">&#10003; Treatment recommendations</p>
           <p style="margin: 0;">&#10003; One-time payment</p>
-          <p style="margin: 0; opacity: 0.4;">Rx available separately after</p>
+          <p style="margin: 0;">&#10003; Rx to your pharmacy if needed</p>
         </div>
       </div>
     </div>
