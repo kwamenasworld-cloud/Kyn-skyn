@@ -467,45 +467,150 @@
 </section>
 
 <!-- ====== PRICING ====== -->
+<style>
+  .th-billing-toggle {
+    display: inline-flex;
+    background: rgba(255, 244, 206, 0.08);
+    border: 1px solid rgba(255, 244, 206, 0.15);
+    border-radius: 100px;
+    padding: 0.25rem;
+    margin-bottom: 2rem;
+  }
+  .th-billing-toggle__btn {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--cream);
+    opacity: 0.5;
+    background: none;
+    border: none;
+    padding: 0.5rem 1.4rem;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+  }
+  .th-billing-toggle__btn.active {
+    background: var(--gold);
+    color: var(--dark);
+    opacity: 1;
+    font-weight: 600;
+  }
+  .th-billing-toggle__badge {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.3rem;
+    background: var(--gold);
+    color: var(--dark);
+    font-family: var(--font-sans);
+    font-size: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.4rem;
+    border-radius: 100px;
+  }
+  .th-pricing-cards [data-billing] { display: none; }
+  .th-pricing-cards [data-billing="monthly"] { display: grid; }
+</style>
+
 <section class="th-cta th-cta--dark">
-  <div class="th-cta__container fade-in" style="max-width: 500px;">
+  <div class="th-cta__container fade-in" style="max-width: 540px;">
     <h2 class="th-cta__heading">Choose your plan</h2>
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; margin: 2rem 0;">
-      <!-- Treatment Plan — $49/mo -->
-      <div style="background: rgba(212, 149, 42, 0.15); border: 2px solid rgba(212, 149, 42, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center; position: relative;">
-        <span style="position: absolute; top: -0.6rem; right: 0.8rem; background: rgba(212,149,42,0.2); color: var(--gold); border: 1px solid rgba(212,149,42,0.3); font-family: var(--font-sans); font-size: 0.55rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.5rem; border-radius: 100px;">Recommended</span>
-        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--gold); margin: 0;" data-price="treatment_monthly">$49<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
-        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); margin-top: 0.3rem;">Treatment Plan</p>
-        <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.6); text-align: left; line-height: 1.7;">
-          <p style="margin: 0;">&#10003; Provider consultation</p>
-          <p style="margin: 0;">&#10003; Rx sent to your pharmacy</p>
-          <p style="margin: 0;">&#10003; Monthly adjustments</p>
-          <p style="margin: 0;">&#10003; Cancel anytime</p>
+
+    <!-- Billing cycle toggle -->
+    <div style="text-align: center;">
+      <div class="th-billing-toggle" id="billingToggle">
+        <button class="th-billing-toggle__btn active" data-cycle="monthly" type="button">Monthly</button>
+        <button class="th-billing-toggle__btn" data-cycle="quarterly" type="button">
+          Quarterly
+          <span class="th-billing-toggle__badge">Save 15%</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="th-pricing-cards">
+      <!-- ===== MONTHLY CARDS ===== -->
+      <div data-billing="monthly" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem;">
+        <!-- Treatment Plan — $49/mo -->
+        <div style="background: rgba(212, 149, 42, 0.15); border: 2px solid rgba(212, 149, 42, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center; position: relative;">
+          <span style="position: absolute; top: -0.6rem; right: 0.8rem; background: rgba(212,149,42,0.2); color: var(--gold); border: 1px solid rgba(212,149,42,0.3); font-family: var(--font-sans); font-size: 0.55rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.5rem; border-radius: 100px;">Recommended</span>
+          <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--gold); margin: 0;" data-price="treatment_monthly">$49<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
+          <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); margin-top: 0.3rem;">Treatment Plan</p>
+          <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.6); text-align: left; line-height: 1.7;">
+            <p style="margin: 0;">&#10003; Provider consultation</p>
+            <p style="margin: 0;">&#10003; Rx sent to your pharmacy</p>
+            <p style="margin: 0;">&#10003; Monthly refills</p>
+            <p style="margin: 0;">&#10003; Pause or cancel anytime</p>
+          </div>
+        </div>
+        <!-- Treatment + Delivery — $69/mo -->
+        <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center;">
+          <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.9; margin: 0;" data-price="treatment_delivered">$69<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
+          <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.7; margin-top: 0.3rem;">Treatment + Delivery</p>
+          <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.7;">
+            <p style="margin: 0;">&#10003; Everything in Treatment Plan</p>
+            <p style="margin: 0;">&#10003; Medication shipped to your door</p>
+            <p style="margin: 0;">&#10003; Free shipping</p>
+            <p style="margin: 0;">&#10003; Pause or cancel anytime</p>
+          </div>
+        </div>
+        <!-- Skin Assessment — $35 -->
+        <div style="background: rgba(100, 18, 32, 0.1); border: 1px solid rgba(100, 18, 32, 0.3); border-radius: 16px; padding: 1.3rem; text-align: center;">
+          <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.7; margin: 0;" data-price="assessment_price">$35</p>
+          <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.5; margin-top: 0.3rem;">Skin Assessment</p>
+          <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.4); text-align: left; line-height: 1.7;">
+            <p style="margin: 0;">&#10003; Photo review + diagnosis</p>
+            <p style="margin: 0;">&#10003; Treatment recommendations</p>
+            <p style="margin: 0;">&#10003; One-time payment</p>
+            <p style="margin: 0;">&#10003; Rx to your pharmacy if needed</p>
+          </div>
         </div>
       </div>
-      <!-- Treatment + Delivery — $69/mo -->
-      <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center;">
-        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.9; margin: 0;" data-price="treatment_delivered">$69<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
-        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.7; margin-top: 0.3rem;">Treatment + Delivery</p>
-        <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.7;">
-          <p style="margin: 0;">&#10003; Everything in Treatment Plan</p>
-          <p style="margin: 0;">&#10003; Medication shipped to your door</p>
-          <p style="margin: 0;">&#10003; Free shipping</p>
-          <p style="margin: 0;">&#10003; Cancel anytime</p>
+
+      <!-- ===== QUARTERLY CARDS ===== -->
+      <div data-billing="quarterly" style="grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem;">
+        <!-- Treatment Plan — $42/mo (billed $126/qtr) -->
+        <div style="background: rgba(212, 149, 42, 0.15); border: 2px solid rgba(212, 149, 42, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center; position: relative;">
+          <span style="position: absolute; top: -0.6rem; right: 0.8rem; background: rgba(212,149,42,0.2); color: var(--gold); border: 1px solid rgba(212,149,42,0.3); font-family: var(--font-sans); font-size: 0.55rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.5rem; border-radius: 100px;">Best Value</span>
+          <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--gold); margin: 0;" data-price="treatment_quarterly_monthly">$42<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
+          <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); margin-top: 0.3rem;">Treatment Plan</p>
+          <p style="font-family: var(--font-sans); font-size: 0.65rem; color: var(--gold); opacity: 0.7; margin-top: 0.2rem;" data-price="treatment_quarterly_total">Billed $126 every 3 months</p>
+          <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.6); text-align: left; line-height: 1.7;">
+            <p style="margin: 0;">&#10003; Provider consultation</p>
+            <p style="margin: 0;">&#10003; Rx sent to your pharmacy</p>
+            <p style="margin: 0;">&#10003; 3-month supply</p>
+            <p style="margin: 0;">&#10003; Pause or cancel anytime</p>
+          </div>
         </div>
-      </div>
-      <!-- Skin Assessment — $35 -->
-      <div style="background: rgba(100, 18, 32, 0.1); border: 1px solid rgba(100, 18, 32, 0.3); border-radius: 16px; padding: 1.3rem; text-align: center;">
-        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.7; margin: 0;" data-price="assessment_price">$35</p>
-        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.5; margin-top: 0.3rem;">Skin Assessment</p>
-        <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.4); text-align: left; line-height: 1.7;">
-          <p style="margin: 0;">&#10003; Photo review + diagnosis</p>
-          <p style="margin: 0;">&#10003; Treatment recommendations</p>
-          <p style="margin: 0;">&#10003; One-time payment</p>
-          <p style="margin: 0;">&#10003; Rx to your pharmacy if needed</p>
+        <!-- Treatment + Delivery — $59/mo (billed $177/qtr) -->
+        <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center; position: relative;">
+          <span style="position: absolute; top: -0.6rem; right: 0.8rem; background: rgba(212,149,42,0.2); color: var(--gold); border: 1px solid rgba(212,149,42,0.3); font-family: var(--font-sans); font-size: 0.55rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.5rem; border-radius: 100px;">Save 15%</span>
+          <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.9; margin: 0;" data-price="treatment_delivered_quarterly_monthly">$59<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
+          <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.7; margin-top: 0.3rem;">Treatment + Delivery</p>
+          <p style="font-family: var(--font-sans); font-size: 0.65rem; color: var(--gold); opacity: 0.7; margin-top: 0.2rem;" data-price="treatment_delivered_quarterly_total">Billed $177 every 3 months</p>
+          <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.7;">
+            <p style="margin: 0;">&#10003; Everything in Treatment Plan</p>
+            <p style="margin: 0;">&#10003; Medication shipped to your door</p>
+            <p style="margin: 0;">&#10003; Free shipping</p>
+            <p style="margin: 0;">&#10003; Pause or cancel anytime</p>
+          </div>
+        </div>
+        <!-- Skin Assessment — $35 (same) -->
+        <div style="background: rgba(100, 18, 32, 0.1); border: 1px solid rgba(100, 18, 32, 0.3); border-radius: 16px; padding: 1.3rem; text-align: center;">
+          <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.7; margin: 0;" data-price="assessment_price_q">$35</p>
+          <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.5; margin-top: 0.3rem;">Skin Assessment</p>
+          <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.4); text-align: left; line-height: 1.7;">
+            <p style="margin: 0;">&#10003; Photo review + diagnosis</p>
+            <p style="margin: 0;">&#10003; Treatment recommendations</p>
+            <p style="margin: 0;">&#10003; One-time payment</p>
+            <p style="margin: 0;">&#10003; Rx to your pharmacy if needed</p>
+          </div>
         </div>
       </div>
     </div>
+
     <p class="th-cta__desc" style="font-size: 0.85rem;">All plans include HIPAA-compliant care from licensed providers.</p>
   </div>
 </section>
@@ -596,7 +701,17 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing">Skin Assessments are $35 (one-time diagnosis). Treatment Plans are $49/month and include your consultation, prescription medication, and monthly refills with free shipping. One-time treatment is available for $69. Payment is processed securely through Stripe.</div>
+      <div class="th-faq__a" data-price="faq_pricing">Skin Assessments are $35 (one-time diagnosis). Treatment Plans start at $42/month when billed quarterly ($126 every 3 months), or $49/month billed monthly. Treatment + Delivery starts at $59/month quarterly ($177 every 3 months) or $69/month billed monthly. All plans include your consultation, prescription medication, and refills. Payment is processed securely through Stripe.</div>
+    </div>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">Do you offer quarterly billing?</button>
+      <div class="th-faq__a">Yes. You can choose to be billed monthly or quarterly. Quarterly billing saves you approximately 15% compared to the monthly rate. Treatment Plans are $126 every 3 months ($42/mo) and Treatment + Delivery is $177 every 3 months ($59/mo). You can switch between billing cycles at any time from your account.</div>
+    </div>
+
+    <div class="th-faq__item fade-in">
+      <button class="th-faq__q" type="button">Can I pause my subscription instead of canceling?</button>
+      <div class="th-faq__a">Absolutely. If you need a break, you can pause (snooze) your subscription for up to 90 days. While paused, you won't be charged and no shipments will be sent. Your treatment plan and provider notes are saved so you can pick up right where you left off. You can pause or resume anytime from your account dashboard.</div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -630,6 +745,23 @@
     });
   });
 
+  // Billing toggle — Monthly / Quarterly
+  (function() {
+    var toggle = document.getElementById('billingToggle');
+    if (!toggle) return;
+    var btns = toggle.querySelectorAll('.th-billing-toggle__btn');
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var cycle = this.getAttribute('data-cycle');
+        btns.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        document.querySelectorAll('.th-pricing-cards [data-billing]').forEach(function(panel) {
+          panel.style.display = panel.getAttribute('data-billing') === cycle ? 'grid' : 'none';
+        });
+      });
+    });
+  })();
+
   // Dynamic pricing from Supabase — single source of truth
   (function() {
     var SUPABASE_URL = 'https://pbriwsgraemyqhkymneq.supabase.co';
@@ -643,28 +775,46 @@
       var p = {};
       prices.forEach(function(row) { p[row.key] = Math.round(Number(row.value)); });
 
-      // Update Treatment Plan price
+      // Monthly prices
       var treatEl = document.querySelector('[data-price="treatment_monthly"]');
-      if (treatEl && p.treatment_monthly) {
-        treatEl.innerHTML = '$' + p.treatment_monthly + '<span style="font-size: 1rem; opacity: 0.6;">/mo</span>';
+      if (treatEl && p.treatment_self) {
+        treatEl.innerHTML = '$' + p.treatment_self + '<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span>';
       }
 
-      // Update one-time label
-      var otEl = document.querySelector('[data-price="treatment_onetime_label"]');
-      if (otEl && p.treatment_onetime) {
-        otEl.textContent = 'or $' + p.treatment_onetime + ' one-time';
+      var delivEl = document.querySelector('[data-price="treatment_delivered"]');
+      if (delivEl && p.treatment_delivered) {
+        delivEl.innerHTML = '$' + p.treatment_delivered + '<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span>';
       }
 
-      // Update Assessment price
-      var assessEl = document.querySelector('[data-price="assessment_price"]');
-      if (assessEl && p.assessment_price) {
-        assessEl.textContent = '$' + p.assessment_price;
+      // Assessment price (both tabs)
+      var assessEls = document.querySelectorAll('[data-price="assessment_price"], [data-price="assessment_price_q"]');
+      assessEls.forEach(function(el) {
+        if (p.assessment_price) el.textContent = '$' + p.assessment_price;
+      });
+
+      // Quarterly prices
+      if (p.treatment_self_quarterly) {
+        var qMonthly = Math.round(p.treatment_self_quarterly / 3);
+        var qTreatEl = document.querySelector('[data-price="treatment_quarterly_monthly"]');
+        if (qTreatEl) qTreatEl.innerHTML = '$' + qMonthly + '<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span>';
+        var qTotalEl = document.querySelector('[data-price="treatment_quarterly_total"]');
+        if (qTotalEl) qTotalEl.textContent = 'Billed $' + p.treatment_self_quarterly + ' every 3 months';
+      }
+
+      if (p.treatment_delivered_quarterly) {
+        var qdMonthly = Math.round(p.treatment_delivered_quarterly / 3);
+        var qdTreatEl = document.querySelector('[data-price="treatment_delivered_quarterly_monthly"]');
+        if (qdTreatEl) qdTreatEl.innerHTML = '$' + qdMonthly + '<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span>';
+        var qdTotalEl = document.querySelector('[data-price="treatment_delivered_quarterly_total"]');
+        if (qdTotalEl) qdTotalEl.textContent = 'Billed $' + p.treatment_delivered_quarterly + ' every 3 months';
       }
 
       // Update FAQ pricing text
       var faqEl = document.querySelector('[data-price="faq_pricing"]');
-      if (faqEl && p.assessment_price && p.treatment_monthly && p.treatment_onetime) {
-        faqEl.textContent = 'Skin Assessments are $' + p.assessment_price + ' (one-time diagnosis). Treatment Plans are $' + p.treatment_monthly + '/month and include your consultation, prescription medication, and monthly refills with free shipping. One-time treatment is available for $' + p.treatment_onetime + '. Payment is processed securely through Stripe.';
+      if (faqEl && p.assessment_price && p.treatment_self && p.treatment_self_quarterly) {
+        var qm = Math.round(p.treatment_self_quarterly / 3);
+        var qdm = p.treatment_delivered_quarterly ? Math.round(p.treatment_delivered_quarterly / 3) : 59;
+        faqEl.textContent = 'Skin Assessments are $' + p.assessment_price + ' (one-time diagnosis). Treatment Plans start at $' + qm + '/month when billed quarterly ($' + p.treatment_self_quarterly + ' every 3 months), or $' + p.treatment_self + '/month billed monthly. Treatment + Delivery starts at $' + qdm + '/month quarterly or $' + p.treatment_delivered + '/month billed monthly. All plans include your consultation, prescription medication, and refills. Payment is processed securely through Stripe.';
       }
     })
     .catch(function() { /* keep hardcoded defaults */ });

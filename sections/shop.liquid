@@ -284,8 +284,8 @@
       </div>
 
     </div>
-    <p style="text-align: center; font-family: var(--font-sans); font-size: 0.75rem; color: var(--cream); opacity: 0.5; margin-top: 1.5rem;">
-      Treatment Plan: $49/month includes consultation + Rx + monthly refills. Or Skin Assessment: $35 one-time.
+    <p style="text-align: center; font-family: var(--font-sans); font-size: 0.75rem; color: var(--cream); opacity: 0.5; margin-top: 1.5rem;" data-price="shop_treatment_desc">
+      Treatment Plan: from $42/mo (billed quarterly) or $49/mo. Includes consultation + Rx + refills. Pause anytime. Or Skin Assessment: $35 one-time.
     </p>
   </div>
 
@@ -306,8 +306,9 @@
       prices.forEach(function(row) { p[row.key] = Math.round(Number(row.value)); });
 
       var descEl = document.querySelector('[data-price="shop_treatment_desc"]');
-      if (descEl && p.treatment_monthly) {
-        descEl.textContent = 'Included with Treatment Plan — $' + p.treatment_monthly + '/mo';
+      if (descEl && p.treatment_self && p.treatment_self_quarterly) {
+        var qm = Math.round(p.treatment_self_quarterly / 3);
+        descEl.textContent = 'Treatment Plan: from $' + qm + '/mo (billed quarterly) or $' + p.treatment_self + '/mo. Includes consultation + Rx + refills. Pause anytime.' + (p.assessment_price ? ' Or Skin Assessment: $' + p.assessment_price + ' one-time.' : '');
       }
     })
     .catch(function() { /* keep hardcoded defaults */ });
