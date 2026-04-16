@@ -483,15 +483,20 @@
           <p style="margin: 0;">&#10003; Cancel anytime</p>
         </div>
       </div>
-      <!-- Treatment + Delivery — $69/mo -->
-      <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center;">
-        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.9; margin: 0;" data-price="treatment_delivered">$69<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
+      <!-- Treatment + Delivery — cadence toggle -->
+      <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center;" data-cadence-card>
+        <div role="tablist" aria-label="Billing cadence" data-cadence-toggle style="display: flex; gap: 0.15rem; justify-content: center; margin-bottom: 0.75rem; background: rgba(0,0,0,0.28); border-radius: 100px; padding: 0.2rem;">
+          <button type="button" role="tab" aria-selected="true" data-cadence="monthly" style="flex: 1; background: var(--cream); color: var(--dark); border: 0; border-radius: 100px; padding: 0.35rem 0.3rem; font-family: var(--font-sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.04em; cursor: pointer;">Monthly</button>
+          <button type="button" role="tab" aria-selected="false" data-cadence="bimonthly" style="flex: 1; background: transparent; color: var(--cream); border: 0; border-radius: 100px; padding: 0.35rem 0.3rem; font-family: var(--font-sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; opacity: 0.7;">Every 2 mo</button>
+          <button type="button" role="tab" aria-selected="false" data-cadence="prepay4" style="flex: 1; background: transparent; color: var(--cream); border: 0; border-radius: 100px; padding: 0.35rem 0.3rem; font-family: var(--font-sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; opacity: 0.7;">4-mo prepay</button>
+        </div>
+        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.9; margin: 0;" data-price="treatment_delivered" data-cadence-price>$69<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
         <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.7; margin-top: 0.3rem;">Treatment + Delivery</p>
         <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.7;">
           <p style="margin: 0;">&#10003; Everything in Treatment Plan</p>
           <p style="margin: 0;">&#10003; Medication shipped to your door</p>
           <p style="margin: 0;">&#10003; Free shipping</p>
-          <p style="margin: 0;">&#10003; Cancel anytime</p>
+          <p style="margin: 0;" data-cadence-bullet>&#10003; Cancel anytime</p>
         </div>
       </div>
       <!-- Skin Assessment — $35 -->
@@ -635,13 +640,20 @@
     var SUPABASE_URL = 'https://pbriwsgraemyqhkymneq.supabase.co';
     var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicml3c2dyYWVteXFoa3ltbmVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNTQxNjEsImV4cCI6MjA5MDYzMDE2MX0.AFfCsWNblX3MzjOJVRL7JefLzaLQrsc6xHSeDZuFWrI';
 
+    var cadencePrices = buildCadencePrices({});
+    applyCadenceToggle(cadencePrices);
+
     fetch(SUPABASE_URL + '/rest/v1/pricing_config?select=key,value', {
       headers: { 'apikey': SUPABASE_KEY }
     })
     .then(function(r) { return r.json(); })
     .then(function(prices) {
       var p = {};
-      prices.forEach(function(row) { p[row.key] = Math.round(Number(row.value)); });
+      prices.forEach(function(row) {
+        // Keep cents for bimonthly keys; everything else is whole dollars.
+        var v = Number(row.value);
+        p[row.key] = /bimonthly/.test(row.key) ? v : Math.round(v);
+      });
 
       // Update Treatment Plan price
       var treatEl = document.querySelector('[data-price="treatment_monthly"]');
@@ -666,8 +678,56 @@
       if (faqEl && p.assessment_price && p.treatment_monthly && p.treatment_onetime) {
         faqEl.textContent = 'Skin Assessments are $' + p.assessment_price + ' (one-time diagnosis). Treatment Plans are $' + p.treatment_monthly + '/month and include your consultation, prescription medication, and monthly refills with free shipping. One-time treatment is available for $' + p.treatment_onetime + '. Payment is processed securely through Stripe.';
       }
+
+      // Update the already-wired cadence toggle with live prices.
+      Object.assign(cadencePrices, buildCadencePrices(p));
+      var activeBtn = document.querySelector('[data-cadence-toggle] [aria-selected="true"]');
+      if (activeBtn) activeBtn.click();
     })
-    .catch(function() { /* keep hardcoded defaults */ });
+    .catch(function() { /* toggle keeps default prices */ });
+
+    function buildCadencePrices(p) {
+      return {
+        monthly: {
+          value: p.treatment_delivered || 69,
+          format: function(v) { return '$' + v + '<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span>'; },
+          bullet: '&#10003; Cancel anytime'
+        },
+        bimonthly: {
+          value: p.treatment_bimonthly || 89.99,
+          format: function(v) { return '$' + v + '<span style="font-size: 0.9rem; opacity: 0.6;"> every 2 mo</span>'; },
+          bullet: '&#10003; Cancel anytime'
+        },
+        prepay4: {
+          value: p.treatment_bimonthly_prepay4 || 179.98,
+          format: function(v) { return '$' + v + '<span style="font-size: 0.9rem; opacity: 0.6;"> for 4 mo</span>'; },
+          bullet: '&#10003; Prepaid &middot; 4 months'
+        }
+      };
+    }
+
+    function applyCadenceToggle(prices) {
+      var toggle = document.querySelector('[data-cadence-toggle]');
+      if (!toggle) return;
+      var priceEl = document.querySelector('[data-cadence-price]');
+      var bulletEl = document.querySelector('[data-cadence-bullet]');
+      toggle.querySelectorAll('[data-cadence]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var key = btn.getAttribute('data-cadence');
+          var cfg = prices[key];
+          if (!cfg) return;
+          toggle.querySelectorAll('[data-cadence]').forEach(function(b) {
+            var active = b === btn;
+            b.setAttribute('aria-selected', active ? 'true' : 'false');
+            b.style.background = active ? 'var(--cream)' : 'transparent';
+            b.style.color = active ? 'var(--dark)' : 'var(--cream)';
+            b.style.opacity = active ? '1' : '0.7';
+          });
+          if (priceEl) priceEl.innerHTML = cfg.format(cfg.value);
+          if (bulletEl) bulletEl.innerHTML = cfg.bullet;
+        });
+      });
+    }
   })();
 </script>
 
