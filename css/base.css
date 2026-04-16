@@ -1,0 +1,35 @@
+/* Shared font + reset for all Kyn Skyn pages.
+   Page-specific tokens (color palette, body styles) stay in each page. */
+
+@font-face {
+  font-family: 'STK Bureau Serif';
+  src: url('../fonts/STKBureauSerif-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'STK Bureau Serif';
+  src: url('../fonts/STKBureauSerif-Book.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'STK Bureau Sans';
+  src: url('../fonts/STKBureauSans-Book.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ABC Maxi Sharp';
+  src: url('../fonts/ABCMaxiSharp-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
