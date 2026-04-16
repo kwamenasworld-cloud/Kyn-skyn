@@ -474,7 +474,7 @@
       <!-- Treatment Plan — $49/mo -->
       <div style="background: rgba(212, 149, 42, 0.15); border: 2px solid rgba(212, 149, 42, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center; position: relative;">
         <span style="position: absolute; top: -0.6rem; right: 0.8rem; background: rgba(212,149,42,0.2); color: var(--gold); border: 1px solid rgba(212,149,42,0.3); font-family: var(--font-sans); font-size: 0.55rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.5rem; border-radius: 100px;">Recommended</span>
-        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--gold); margin: 0;" data-price="treatment_monthly">$49<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
+        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--gold); margin: 0;" data-price="treatment_self">$49<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
         <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); margin-top: 0.3rem;">Treatment Plan</p>
         <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.6); text-align: left; line-height: 1.7;">
           <p style="margin: 0;">&#10003; Provider consultation</p>
@@ -601,7 +601,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing">Skin Assessments are $35 (one-time diagnosis). Treatment Plans are $49/month and include your consultation, prescription medication, and monthly refills with free shipping. One-time treatment is available for $69. Payment is processed securely through Stripe.</div>
+      <div class="th-faq__a" data-price="faq_pricing">Skin Assessments are $35 (one-time diagnosis). Treatment Plans start at $49/month for Rx sent to your pharmacy, or $69/month including delivery. One-time treatment is available from $59. Cancel anytime. Payment is processed securely through Stripe.</div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -656,15 +656,9 @@
       });
 
       // Update Treatment Plan price
-      var treatEl = document.querySelector('[data-price="treatment_monthly"]');
-      if (treatEl && p.treatment_monthly) {
-        treatEl.innerHTML = '$' + p.treatment_monthly + '<span style="font-size: 1rem; opacity: 0.6;">/mo</span>';
-      }
-
-      // Update one-time label
-      var otEl = document.querySelector('[data-price="treatment_onetime_label"]');
-      if (otEl && p.treatment_onetime) {
-        otEl.textContent = 'or $' + p.treatment_onetime + ' one-time';
+      var treatEl = document.querySelector('[data-price="treatment_self"]');
+      if (treatEl && p.treatment_self) {
+        treatEl.innerHTML = '$' + p.treatment_self + '<span style="font-size: 1rem; opacity: 0.6;">/mo</span>';
       }
 
       // Update Assessment price
@@ -675,8 +669,8 @@
 
       // Update FAQ pricing text
       var faqEl = document.querySelector('[data-price="faq_pricing"]');
-      if (faqEl && p.assessment_price && p.treatment_monthly && p.treatment_onetime) {
-        faqEl.textContent = 'Skin Assessments are $' + p.assessment_price + ' (one-time diagnosis). Treatment Plans are $' + p.treatment_monthly + '/month and include your consultation, prescription medication, and monthly refills with free shipping. One-time treatment is available for $' + p.treatment_onetime + '. Payment is processed securely through Stripe.';
+      if (faqEl && p.assessment_price && p.treatment_self && p.treatment_delivered && p.treatment_self_onetime) {
+        faqEl.textContent = 'Skin Assessments are $' + p.assessment_price + ' (one-time diagnosis). Treatment Plans start at $' + p.treatment_self + '/month for Rx sent to your pharmacy, or $' + p.treatment_delivered + '/month including delivery. One-time treatment is available from $' + p.treatment_self_onetime + '. Cancel anytime. Payment is processed securely through Stripe.';
       }
 
       // Update the already-wired cadence toggle with live prices.

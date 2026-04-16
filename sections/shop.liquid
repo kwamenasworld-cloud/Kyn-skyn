@@ -306,8 +306,8 @@
       prices.forEach(function(row) { p[row.key] = Math.round(Number(row.value)); });
 
       var descEl = document.querySelector('[data-price="shop_treatment_desc"]');
-      if (descEl && p.treatment_monthly) {
-        descEl.textContent = 'Included with Treatment Plan — $' + p.treatment_monthly + '/mo';
+      if (descEl && p.treatment_self) {
+        descEl.textContent = 'Included with Treatment Plan — $' + p.treatment_self + '/mo';
       }
     })
     .catch(function() { /* keep hardcoded defaults */ });
