@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://*.supabase.co https://kynskyn.com; form-action 'self' https://kynskyn.com; frame-ancestors 'none'; base-uri 'self'">
   <title>Kyn Skyn — Coming Soon</title>
   <meta name="description" content="Kyn Skyn: skincare made for fungus-prone skin. Launching soon. Join the waitlist.">
   <meta property="og:title" content="Kyn Skyn — Coming Soon">
@@ -915,7 +916,7 @@
   <!-- ====== HERO ====== -->
   <section class="hero">
     <div class="hero__bg">
-      <img src="photos/chandani-closeup.jpg" alt="Kyn Skyn community member" style="object-position: center 20%;">
+      <img src="photos/chandani-closeup.jpg" alt="Kyn Skyn community member" fetchpriority="high" decoding="async" style="object-position: center 20%;">
     </div>
     <div class="hero__gradient"></div>
     <div class="hero__content">
@@ -943,21 +944,21 @@
 
       <div class="about__images fade-in">
         <div class="about__image-wrap img-tall">
-          <img src="photos/gabby-closeup.jpg" alt="Gabby" style="object-position: center 15%;">
+          <img src="photos/gabby-closeup.jpg" alt="Gabby" loading="lazy" decoding="async" style="object-position: center 15%;">
           <div class="about__image-overlay">
             <span class="about__image-overlay-title">The Kyn.</span>
             <span class="about__image-overlay-sub">Made by us, for us.</span>
           </div>
         </div>
         <div class="about__image-wrap">
-          <img src="photos/kiiren-closeup.jpg" alt="Kiiren" style="object-position: center 20%;">
+          <img src="photos/kiiren-closeup.jpg" alt="Kiiren" loading="lazy" decoding="async" style="object-position: center 20%;">
           <div class="about__image-overlay">
             <span class="about__image-overlay-title">Malassezia.</span>
             <span class="about__image-overlay-sub">Doesn't run the show.</span>
           </div>
         </div>
         <div class="about__image-wrap">
-          <img src="photos/kwamena-smile.jpg" alt="Kwamena" style="object-position: center 15%;">
+          <img src="photos/kwamena-smile.jpg" alt="Kwamena" loading="lazy" decoding="async" style="object-position: center 15%;">
           <div class="about__image-overlay">
             <span class="about__image-overlay-title">The Skyn.</span>
             <span class="about__image-overlay-sub">Built by people who get it,<br>because they have it.</span>
@@ -1036,7 +1037,7 @@
       <p class="notify__success" id="formSuccess" style="display:none; color: var(--cream); opacity: 0.8; font-family: var(--font-sans); font-size: 0.9rem; margin-top: 1rem;">You're on the list. We'll be in touch.</p>
       <p class="notify__error" id="formError" style="display:none; color: #e8725a; font-family: var(--font-sans); font-size: 0.9rem; margin-top: 1rem;">Something went wrong. Please try again.</p>
 
-      <img src="photos/logomark-white.svg" alt="Kyn Skyn logomark" style="width: 4rem; height: auto; opacity: 0.15; margin-top: 3rem;">
+      <img src="photos/logomark-white.svg" alt="Kyn Skyn logomark" loading="lazy" decoding="async" style="width: 4rem; height: auto; opacity: 0.15; margin-top: 3rem;">
     </div>
   </section>
 
@@ -1119,8 +1120,16 @@
 
       if (!email) return;
 
-      // Check if already signed up
-      const signedUp = JSON.parse(localStorage.getItem('kyn_waitlist') || '[]');
+      // Check if already signed up. Guard against corrupted storage so a bad
+      // value doesn't crash the form for everyone on the device.
+      let signedUp = [];
+      try {
+        const raw = localStorage.getItem('kyn_waitlist');
+        const parsed = raw ? JSON.parse(raw) : [];
+        if (Array.isArray(parsed)) signedUp = parsed;
+      } catch (_) {
+        localStorage.removeItem('kyn_waitlist');
+      }
       if (signedUp.includes(email.toLowerCase())) {
         btn.textContent = 'Already on the list';
         btn.style.background = '#4a4a4a';

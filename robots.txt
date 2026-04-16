@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /supabase/
+Disallow: /config/
+
+Sitemap: https://kynskyn.com/sitemap.xml

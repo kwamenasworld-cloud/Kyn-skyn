@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://*.supabase.co https://kynskyn.com; form-action 'self' https://kynskyn.com; frame-ancestors 'none'; base-uri 'self'">
   <title>Is My Skincare Fungal Acne Safe? Free Ingredient Checker | Kyn Skyn</title>
   <meta name="description" content="Free tool to check if your skincare products are safe for fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor. Paste ingredients, scan a label, or search 77+ popular products. Instantly flag Malassezia-feeding ingredients and find safe alternatives.">
   <meta name="keywords" content="fungal acne safe products, is my skincare fungal acne safe, malassezia safe ingredient checker, seb derm safe moisturizer, seborrheic dermatitis skincare, tinea versicolor safe products, fungal acne safe moisturizer, fungal acne safe sunscreen, malassezia safe, INCI checker, fungal acne ingredient list, seb derm safe cleanser, dandruff safe products, pityrosporum folliculitis safe">
@@ -3021,7 +3022,14 @@
     // localStorage fallback
     function localStorageFallback(method, table, data) {
       const key = `kyn_${table}`;
-      let items = JSON.parse(localStorage.getItem(key) || '[]');
+      let items = [];
+      try {
+        const raw = localStorage.getItem(key);
+        const parsed = raw ? JSON.parse(raw) : [];
+        if (Array.isArray(parsed)) items = parsed;
+      } catch (_) {
+        localStorage.removeItem(key);
+      }
 
       if (method === 'GET') return items.filter(i => i.device_id === deviceId);
       if (method === 'POST') {
