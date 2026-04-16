@@ -486,17 +486,19 @@
       <!-- Treatment + Delivery — cadence toggle -->
       <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center;" data-cadence-card>
         <div role="tablist" aria-label="Billing cadence" data-cadence-toggle style="display: flex; gap: 0.15rem; justify-content: center; margin-bottom: 0.75rem; background: rgba(0,0,0,0.28); border-radius: 100px; padding: 0.2rem;">
-          <button type="button" role="tab" aria-selected="true" data-cadence="monthly" style="flex: 1; background: var(--cream); color: var(--dark); border: 0; border-radius: 100px; padding: 0.35rem 0.3rem; font-family: var(--font-sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.04em; cursor: pointer;">Monthly</button>
-          <button type="button" role="tab" aria-selected="false" data-cadence="bimonthly" style="flex: 1; background: transparent; color: var(--cream); border: 0; border-radius: 100px; padding: 0.35rem 0.3rem; font-family: var(--font-sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; opacity: 0.7;">Every 2 mo</button>
-          <button type="button" role="tab" aria-selected="false" data-cadence="prepay4" style="flex: 1; background: transparent; color: var(--cream); border: 0; border-radius: 100px; padding: 0.35rem 0.3rem; font-family: var(--font-sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; opacity: 0.7;">4-mo prepay</button>
+          <button type="button" role="tab" id="cadence-tab-monthly" aria-selected="true" aria-controls="cadence-panel" tabindex="0" data-cadence="monthly" style="flex: 1; background: var(--cream); color: var(--dark); border: 0; border-radius: 100px; padding: 0.35rem 0.3rem; font-family: var(--font-sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.04em; cursor: pointer;">Monthly</button>
+          <button type="button" role="tab" id="cadence-tab-bimonthly" aria-selected="false" aria-controls="cadence-panel" tabindex="-1" data-cadence="bimonthly" style="flex: 1; background: transparent; color: var(--cream); border: 0; border-radius: 100px; padding: 0.35rem 0.3rem; font-family: var(--font-sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; opacity: 0.7;">Every 2 mo</button>
+          <button type="button" role="tab" id="cadence-tab-prepay4" aria-selected="false" aria-controls="cadence-panel" tabindex="-1" data-cadence="prepay4" style="flex: 1; background: transparent; color: var(--cream); border: 0; border-radius: 100px; padding: 0.35rem 0.3rem; font-family: var(--font-sans); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; opacity: 0.7;">4-mo prepay</button>
         </div>
-        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.9; margin: 0;" data-price="treatment_delivered" data-cadence-price>$69<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
-        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.7; margin-top: 0.3rem;">Treatment + Delivery</p>
-        <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.7;">
-          <p style="margin: 0;">&#10003; Everything in Treatment Plan</p>
-          <p style="margin: 0;">&#10003; Medication shipped to your door</p>
-          <p style="margin: 0;">&#10003; Free shipping</p>
-          <p style="margin: 0;" data-cadence-bullet>&#10003; Cancel anytime</p>
+        <div id="cadence-panel" role="tabpanel" aria-labelledby="cadence-tab-monthly">
+          <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.9; margin: 0;" data-price="treatment_delivered" data-cadence-price>$69<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
+          <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.7; margin-top: 0.3rem;">Treatment + Delivery</p>
+          <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.7;">
+            <p style="margin: 0;">&#10003; Everything in Treatment Plan</p>
+            <p style="margin: 0;">&#10003; Medication shipped to your door</p>
+            <p style="margin: 0;">&#10003; Free shipping</p>
+            <p style="margin: 0;" data-cadence-bullet>&#10003; Cancel anytime</p>
+          </div>
         </div>
       </div>
       <!-- Skin Assessment — $35 -->
@@ -703,22 +705,41 @@
     function applyCadenceToggle(prices) {
       var toggle = document.querySelector('[data-cadence-toggle]');
       if (!toggle) return;
+      var tabs = Array.prototype.slice.call(toggle.querySelectorAll('[data-cadence]'));
       var priceEl = document.querySelector('[data-cadence-price]');
       var bulletEl = document.querySelector('[data-cadence-bullet]');
-      toggle.querySelectorAll('[data-cadence]').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var key = btn.getAttribute('data-cadence');
-          var cfg = prices[key];
-          if (!cfg) return;
-          toggle.querySelectorAll('[data-cadence]').forEach(function(b) {
-            var active = b === btn;
-            b.setAttribute('aria-selected', active ? 'true' : 'false');
-            b.style.background = active ? 'var(--cream)' : 'transparent';
-            b.style.color = active ? 'var(--dark)' : 'var(--cream)';
-            b.style.opacity = active ? '1' : '0.7';
-          });
-          if (priceEl) priceEl.innerHTML = cfg.format(cfg.value);
-          if (bulletEl) bulletEl.innerHTML = cfg.bullet;
+      var panel = document.getElementById('cadence-panel');
+
+      function activate(btn, moveFocus) {
+        var key = btn.getAttribute('data-cadence');
+        var cfg = prices[key];
+        if (!cfg) return;
+        tabs.forEach(function(b) {
+          var active = b === btn;
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+          b.setAttribute('tabindex', active ? '0' : '-1');
+          b.style.background = active ? 'var(--cream)' : 'transparent';
+          b.style.color = active ? 'var(--dark)' : 'var(--cream)';
+          b.style.opacity = active ? '1' : '0.7';
+        });
+        if (priceEl) priceEl.innerHTML = cfg.format(cfg.value);
+        if (bulletEl) bulletEl.innerHTML = cfg.bullet;
+        if (panel) panel.setAttribute('aria-labelledby', btn.id);
+        if (moveFocus) btn.focus();
+      }
+
+      tabs.forEach(function(btn, i) {
+        btn.addEventListener('click', function() { activate(btn, false); });
+        btn.addEventListener('keydown', function(e) {
+          var next = null;
+          if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+          else if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+          else if (e.key === 'Home') next = tabs[0];
+          else if (e.key === 'End') next = tabs[tabs.length - 1];
+          if (next) {
+            e.preventDefault();
+            activate(next, true);
+          }
         });
       });
     }

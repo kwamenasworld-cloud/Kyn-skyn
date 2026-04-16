@@ -396,12 +396,17 @@
 
         <form class="contact__form" id="contactForm" action="javascript:void(0)">
           <div class="contact__row">
-            <input class="contact__field" type="text" name="name" placeholder="Your name" required>
-            <input class="contact__field" type="email" name="email" placeholder="Email address" required>
+            <label class="sr-only" for="contactName">Your name</label>
+            <input class="contact__field" type="text" id="contactName" name="name" placeholder="Your name" required>
+            <label class="sr-only" for="contactEmail">Email address</label>
+            <input class="contact__field" type="email" id="contactEmail" name="email" placeholder="Email address" required>
           </div>
-          <input class="contact__field" type="text" name="company" placeholder="Company / Brand / Handle">
+          <label class="sr-only" for="contactCompany">Company, brand, or handle</label>
+          <input class="contact__field" type="text" id="contactCompany" name="company" placeholder="Company / Brand / Handle">
+          <label class="sr-only" for="contactSubject">Subject</label>
           <input class="contact__field" id="contactSubject" type="text" name="subject" placeholder="Subject" readonly value="Influencer / Creator Collaboration">
-          <textarea class="contact__field" name="message" placeholder="Tell us a bit about yourself and what you have in mind..." required></textarea>
+          <label class="sr-only" for="contactMessage">Message</label>
+          <textarea class="contact__field" id="contactMessage" name="message" placeholder="Tell us a bit about yourself and what you have in mind..." required></textarea>
           <button class="contact__submit" type="submit">Send Message</button>
           <p class="contact__confirmation" id="contactConfirmation">Message sent. We'll get back to you soon.</p>
         </form>

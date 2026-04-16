@@ -33,3 +33,25 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
+
+/* Keyboard focus ring. Uses currentColor so it stays visible on both cream
+   (light) and maroon (dark) sections without per-page overrides. */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Screen-reader-only labels: visually hidden, still announced by assistive
+   tech. Use on <label> when the design relies on placeholders. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
