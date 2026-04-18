@@ -1,7 +1,10 @@
 {
   "sections": {
     "shop": {
-      "type": "shop"
+      "type": "shop",
+      "settings": {
+        "product": "steady-serum"
+      }
     }
   },
   "order": ["shop"]
