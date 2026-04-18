@@ -488,7 +488,7 @@
             <input type="checkbox" class="th-plan__augment-input" data-augment="quarterly">
             <span class="th-plan__augment-label">
               <span class="th-plan__augment-title">Pay quarterly — save ~$10/mo</span>
-              <span class="th-plan__augment-detail"><span data-price="treatment_quarterly">$149</span>/qtr · billed every 3 months</span>
+              <span class="th-plan__augment-detail"><span data-price="treatment_quarterly">$149<span class="th-plan__price-suffix">/qtr</span></span> · billed every 3 months</span>
             </span>
           </label>
         </div>
@@ -664,7 +664,10 @@
     function readPrice(selector) {
       var el = document.querySelector(selector);
       if (!el) return '';
-      return el.textContent.replace(/[^0-9.]/g, '');
+      var clone = el.cloneNode(true);
+      var suffix = clone.querySelector('.th-plan__price-suffix');
+      if (suffix) suffix.parentNode.removeChild(suffix);
+      return clone.textContent.replace(/[^0-9.]/g, '');
     }
 
     // Determine effective plan: selected card, overridden to quarterly if Monthly + augment checkbox
