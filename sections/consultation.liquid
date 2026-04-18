@@ -376,7 +376,7 @@
   <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="th-hero__molecule">
   <p class="th-hero__eyebrow fade-in">Consultation</p>
   <h1 class="th-hero__heading fade-in">Get diagnosed by a<br>skin expert.</h1>
-  <p class="th-hero__desc fade-in">Not sure what's going on with your skin? Connect with a licensed provider who specializes in Malassezia-related conditions. Video consultations, prescriptions, and treatment plans.</p>
+  <p class="th-hero__desc fade-in">Not sure what's going on with your skin? Talk to a licensed provider who works with Malassezia-related conditions. Video visits and prescriptions included.</p>
   <a href="#th-conditions" class="th-hero__cta fade-in">See Conditions We Cover</a>
 </section>
 
@@ -384,7 +384,7 @@
 <section class="th-conditions" id="th-conditions">
   <div class="th-conditions__container">
     <p class="th-conditions__eyebrow fade-in">What We Treat</p>
-    <h2 class="th-conditions__heading fade-in">Three conditions. One root cause.</h2>
+    <h2 class="th-conditions__heading fade-in">Conditions we treat</h2>
 
     <div class="th-conditions__grid">
       <div class="th-card fade-in">
@@ -436,13 +436,13 @@
 <section class="th-steps">
   <div class="th-steps__container">
     <p class="th-steps__eyebrow fade-in">How It Works</p>
-    <h2 class="th-steps__heading fade-in">From symptoms to treatment plan.</h2>
+    <h2 class="th-steps__heading fade-in">How it works</h2>
 
     <div class="th-steps__grid">
       <div class="th-step fade-in">
         <div class="th-step__num">01</div>
         <h3 class="th-step__title">Pick your concern</h3>
-        <p class="th-step__desc">Select the condition you're dealing with. Not sure? A provider can help you figure it out.</p>
+        <p class="th-step__desc">Tell us what you're dealing with. Not sure? A provider can help you figure it out.</p>
       </div>
 
       <div class="th-step fade-in">
@@ -454,13 +454,13 @@
       <div class="th-step fade-in">
         <div class="th-step__num">03</div>
         <h3 class="th-step__title">Get diagnosed</h3>
-        <p class="th-step__desc">Share photos, discuss your history, and receive a professional diagnosis during your visit.</p>
+        <p class="th-step__desc">Share photos and your history. Your provider gives you a diagnosis during the visit.</p>
       </div>
 
       <div class="th-step fade-in">
         <div class="th-step__num">04</div>
         <h3 class="th-step__title">Start treatment</h3>
-        <p class="th-step__desc">Receive a treatment plan and prescriptions sent directly to your pharmacy if needed.</p>
+        <p class="th-step__desc">Get your treatment plan. If you need a prescription, it goes straight to your pharmacy.</p>
       </div>
     </div>
   </div>
@@ -487,7 +487,7 @@
           <label class="th-plan__augment-toggle">
             <input type="checkbox" class="th-plan__augment-input" data-augment="quarterly">
             <span class="th-plan__augment-label">
-              <span class="th-plan__augment-title">Pay quarterly — save ~$10/mo</span>
+              <span class="th-plan__augment-title">Pay quarterly, save ~$10/mo</span>
               <span class="th-plan__augment-detail"><span data-price="treatment_quarterly">$149<span class="th-plan__price-suffix">/qtr</span></span> · billed every 3 months</span>
             </span>
           </label>
@@ -516,8 +516,8 @@
         </div>
       </button>
     </div>
-    <p class="th-cta__desc" style="font-size: 0.85rem;">Every plan includes a provider consultation and a prescription sent to your pharmacy — you pay the pharmacy for the medication. Prefer it shipped to you instead? Add medication + home delivery for $50/month. HIPAA-compliant care from licensed providers.</p>
-    <a href="https://care.kynskyn.com/book?plan=monthly&utm_source=kynskyn&utm_medium=consultation&utm_campaign=treatment_plan" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Continue with Monthly — $59.99/mo</a>
+    <p class="th-cta__desc" style="font-size: 0.85rem;">Every plan includes a provider consultation and a prescription sent to your pharmacy. You pay the pharmacy for the medication. Want it shipped to you instead? Add medication and home delivery for $50/month. HIPAA-compliant care from licensed providers.</p>
+    <a href="https://care.kynskyn.com/book?plan=monthly&utm_source=kynskyn&utm_medium=consultation&utm_campaign=treatment_plan" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Continue with Monthly · $59.99/mo</a>
   </div>
 </section>
 
@@ -655,10 +655,10 @@
     var plans = document.querySelectorAll('.th-plan');
     var augmentInput = document.querySelector('.th-plan__augment-input[data-augment="quarterly"]');
     var CTA_LABELS = {
-      'monthly': 'Continue with Monthly — $[price]/mo',
-      'bimonthly': 'Continue every 2 months — $[price]/2mo',
-      'quarterly': 'Continue with Quarterly — $[price]/qtr',
-      'one-time': 'Book One-time Consult — $[price]'
+      'monthly': 'Continue with Monthly · $[price]/mo',
+      'bimonthly': 'Continue every 2 months · $[price]/2mo',
+      'quarterly': 'Continue with Quarterly · $[price]/qtr',
+      'one-time': 'Book One-time Consult · $[price]'
     };
 
     function readPrice(selector) {
@@ -731,7 +731,7 @@
 <section class="th-cta">
   <div class="th-cta__container fade-in">
     <h2 class="th-cta__heading">Ready to get answers?</h2>
-    <p class="th-cta__desc">Stop guessing. A licensed provider who understands Malassezia-related conditions can give you a clear diagnosis and a treatment plan that actually works.</p>
+    <p class="th-cta__desc">Stop guessing. A licensed provider who knows Malassezia-related conditions can give you a clear diagnosis and a treatment plan that works.</p>
     <a href="https://care.kynskyn.com/book?utm_source=kynskyn&utm_medium=consultation&utm_campaign=treatment_plan" class="th-cta__button" id="thBookBtn">Start Treatment Plan</a>
     <p class="th-cta__note">Secure, HIPAA-compliant consultations.</p>
   </div>
@@ -744,47 +744,47 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">What conditions can I get diagnosed for?</button>
-      <div class="th-faq__a">Our providers specialize in Malassezia-related skin conditions: fungal acne (Malassezia folliculitis), seborrheic dermatitis, and tinea versicolor. All three are caused by the same yeast overgrowth and require specific treatment approaches.</div>
+      <div class="th-faq__a">Our providers work with Malassezia-related skin conditions: fungal acne (Malassezia folliculitis), seborrheic dermatitis, and tinea versicolor. All three come from the same yeast overgrowth and need specific treatment.</div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How does the consultation work?</button>
-      <div class="th-faq__a">You'll have a consultation with a licensed provider (MD, DO, or NP). Before your visit, you'll fill out an intake form and upload photos of your skin. Your provider will review your history, examine your photos, and provide a diagnosis and treatment plan.</div>
+      <div class="th-faq__a">You'll meet with a licensed provider (MD, DO, or NP) over video. Before the visit, you fill out an intake form and upload photos of your skin. Your provider reviews your history, looks at your photos, then gives you a diagnosis and treatment plan.</div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">Can I get a prescription?</button>
-      <div class="th-faq__a">Yes. If your provider determines you need prescription treatment, they can send e-prescriptions directly to your preferred pharmacy, including antifungals and other medications commonly used for Malassezia-related conditions.</div>
+      <div class="th-faq__a">Yes. If your provider decides you need prescription treatment, they send e-prescriptions straight to your pharmacy. This includes antifungals and other medications used for Malassezia-related conditions.</div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">Is this covered by insurance?</button>
-      <div class="th-faq__a">Coverage varies by insurance plan. Many plans cover virtual dermatology visits. We recommend checking with your insurance provider before booking. We'll provide you with the information needed to submit a claim.</div>
+      <div class="th-faq__a">Coverage varies by plan. Many plans cover virtual dermatology visits. Check with your insurance before booking. We'll give you the information you need to submit a claim.</div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How is my health information protected?</button>
-      <div class="th-faq__a">All consultations are conducted through a HIPAA-compliant platform. Your medical information is encrypted, securely stored, and never shared with third parties. The care platform is separate from our e-commerce site to ensure full compliance.</div>
+      <div class="th-faq__a">All consultations run through a HIPAA-compliant platform. Your medical information is encrypted, stored securely, and never shared with third parties. The care platform is kept separate from our store to stay compliant.</div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">I already used the Ingredient Checker. Should I still book?</button>
-      <div class="th-faq__a">The Ingredient Checker helps you identify products that may be feeding Malassezia, but it can't diagnose your condition. A licensed provider can confirm whether you're dealing with fungal acne, seb derm, or tinea versicolor and prescribe targeted treatment that over-the-counter products can't provide.</div>
+      <div class="th-faq__a">The Ingredient Checker flags products that may be feeding Malassezia, but it can't diagnose you. A licensed provider can confirm whether you're dealing with fungal acne, seb derm, or tinea versicolor, and prescribe treatment that over-the-counter products can't match.</div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing">Treatment Plans are $59.99/month, $69.99 every 2 months, or $149 quarterly — all include your provider consultation and prescription sent to your pharmacy. A one-time consult is available for $79. Optional delivery + medication add-on is $50/month. Payment is processed securely through Stripe.</div>
+      <div class="th-faq__a" data-price="faq_pricing">Treatment Plans are $59.99/month, $69.99 every 2 months, or $149 quarterly. All include your provider consultation and prescription sent to your pharmacy. A one-time consult is $79. Optional medication and home delivery add-on is $50/month. Payment runs securely through Stripe.</div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">Do I need to upload photos of my skin?</button>
-      <div class="th-faq__a">Photos are optional but highly recommended. You can upload up to 5 photos during the booking process. All GPS and device metadata is automatically stripped for your privacy, and photos are only visible to your treating provider.</div>
+      <div class="th-faq__a">Photos are optional but we strongly recommend them. You can upload up to 5 photos when you book. We strip all GPS and device metadata for your privacy, and only your treating provider can see them.</div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How do I select a pharmacy?</button>
-      <div class="th-faq__a">During the booking process, you'll search for pharmacies by name and ZIP code. If your provider prescribes medication, the e-prescription will be sent directly to the pharmacy you selected.</div>
+      <div class="th-faq__a">When you book, you'll search for pharmacies by name and ZIP code. If your provider prescribes medication, the e-prescription goes straight to the pharmacy you picked.</div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -847,7 +847,7 @@
       // Update FAQ pricing text
       var faqEl = document.querySelector('[data-price="faq_pricing"]');
       if (faqEl && p.treatment_monthly && p.treatment_onetime && p.treatment_quarterly && p.treatment_bimonthly && p.delivery_addon_monthly) {
-        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + '/month, $' + p.treatment_bimonthly + ' every 2 months, or $' + p.treatment_quarterly + ' quarterly — all include your provider consultation and prescription sent to your pharmacy. A one-time consult is available for $' + p.treatment_onetime + '. Optional delivery + medication add-on is $' + p.delivery_addon_monthly + '/month. Payment is processed securely through Stripe.';
+        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + '/month, $' + p.treatment_bimonthly + ' every 2 months, or $' + p.treatment_quarterly + ' quarterly. All include your provider consultation and prescription sent to your pharmacy. A one-time consult is $' + p.treatment_onetime + '. Optional medication and home delivery add-on is $' + p.delivery_addon_monthly + '/month. Payment runs securely through Stripe.';
       }
     })
     .catch(function() { /* keep hardcoded defaults */ });
