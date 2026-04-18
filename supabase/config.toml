@@ -120,9 +120,9 @@ file_size_limit = "50MiB"
 enabled = true
 # The base URL of your website. Used as an allow-list for redirects and for constructing URLs used
 # in emails.
-site_url = "http://127.0.0.1:3000"
+site_url = "https://care.kynskyn.com"
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["https://127.0.0.1:3000"]
+additional_redirect_urls = ["https://care.kynskyn.com/auth/callback", "https://care.kynskyn.com/dashboard", "https://care.kynskyn.com/book"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # Path to JWT signing key. DO NOT commit your signing keys file to git.
@@ -183,20 +183,24 @@ otp_length = 6
 # Number of seconds before the email OTP expires (defaults to 1 hour).
 otp_expiry = 3600
 
-# Use a production-ready SMTP server
-# [auth.email.smtp]
-# enabled = true
-# host = "smtp.sendgrid.net"
-# port = 587
-# user = "apikey"
-# pass = "env(SENDGRID_API_KEY)"
-# admin_email = "admin@email.com"
-# sender_name = "Admin"
+# Production SMTP via Resend
+[auth.email.smtp]
+enabled = true
+host = "smtp.resend.com"
+port = 465
+user = "resend"
+pass = "re_Ky3KtkQh_CDt7n5wgpCuEJnQBbV8CrWdw"
+admin_email = "care@kynskyn.com"
+sender_name = "Kyn Skyn Care"
 
-# Uncomment to customize email template
-# [auth.email.template.invite]
-# subject = "You have been invited"
-# content_path = "./supabase/templates/invite.html"
+# Branded email templates
+[auth.email.template.magic_link]
+subject = "Sign in to Kyn Skyn Care"
+content_path = "./telehealth/email-templates/magic-link.html"
+
+[auth.email.template.confirmation]
+subject = "Welcome to Kyn Skyn Care - Confirm your email"
+content_path = "./telehealth/email-templates/signup-confirmation.html"
 
 [auth.sms]
 # Allow/disallow new user signups via SMS to your project.

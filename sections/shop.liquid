@@ -240,7 +240,7 @@
   <!-- Prescription Treatment -->
   <div class="shop__section fade-in">
     <h2 class="shop__section-title">Prescription Treatment</h2>
-    <p class="shop__section-desc" data-price="shop_treatment_desc">Included with Treatment Plan — $49/mo</p>
+    <p class="shop__section-desc" data-price="shop_treatment_desc">Included with Treatment Plan — $59.99/mo</p>
     <div class="shop__grid">
 
       <div class="shop__card">
@@ -285,7 +285,7 @@
 
     </div>
     <p style="text-align: center; font-family: var(--font-sans); font-size: 0.75rem; color: var(--cream); opacity: 0.5; margin-top: 1.5rem;">
-      Treatment Plan: $49/month includes consultation + Rx + monthly refills. Or Skin Assessment: $35 one-time.
+      Treatment Plan: $59.99/month or $149/quarter. Consultation + Rx. Add delivery + medication for $50/mo. Or $99 one-time.
     </p>
   </div>
 
@@ -307,7 +307,8 @@
 
       var descEl = document.querySelector('[data-price="shop_treatment_desc"]');
       if (descEl && p.treatment_monthly) {
-        descEl.textContent = 'Included with Treatment Plan — $' + p.treatment_monthly + '/mo';
+        var basePrice = p.treatment_monthly.toFixed ? p.treatment_monthly.toFixed(2).replace(/\.00$/, '') : p.treatment_monthly;
+        descEl.textContent = 'Included with Treatment Plan — $' + basePrice + '/mo';
       }
     })
     .catch(function() { /* keep hardcoded defaults */ });

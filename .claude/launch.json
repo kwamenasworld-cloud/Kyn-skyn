@@ -7,6 +7,14 @@
       "runtimeArgs": ["C:/Program Files/nodejs/node_modules/npm/bin/npx-cli.js", "serve", "."],
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "telehealth",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "telehealth",
+      "port": 3001,
+      "autoPort": true
     }
   ]
 }
