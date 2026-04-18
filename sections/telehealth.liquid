@@ -483,6 +483,17 @@
           <p>&#10003; Cancel anytime</p>
         </div>
       </button>
+      <!-- Every 2 months — $89 -->
+      <button type="button" class="th-plan" data-plan="bimonthly" role="radio" aria-checked="false">
+        <p class="th-plan__price" data-price="treatment_bimonthly">$89<span class="th-plan__price-suffix">/2mo</span></p>
+        <p class="th-plan__label">Every 2 months · $44.50/mo effective</p>
+        <div class="th-plan__features">
+          <p>&#10003; Maintenance cadence</p>
+          <p>&#10003; Rx sent to your pharmacy</p>
+          <p>&#10003; Billed every 2 months</p>
+          <p>&#10003; Cancel anytime</p>
+        </div>
+      </button>
       <!-- Quarterly — $149 -->
       <button type="button" class="th-plan" data-plan="quarterly" role="radio" aria-checked="false">
         <span class="th-plan__badge th-plan__badge--teal">Best value</span>
@@ -515,9 +526,12 @@
 <style>
   .th-pricing__grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 0.8rem;
     margin: 2rem 0;
+  }
+  @media (max-width: 480px) {
+    .th-pricing__grid { grid-template-columns: 1fr; }
   }
   .th-plan {
     background: rgba(255, 244, 206, 0.04);
@@ -585,6 +599,7 @@
     var plans = document.querySelectorAll('.th-plan');
     var CTA_LABELS = {
       'monthly': 'Continue with Monthly — $[price]/mo',
+      'bimonthly': 'Continue every 2 months — $[price]/2mo',
       'quarterly': 'Continue with Quarterly — $[price]/qtr',
       'one-time': 'Book One-time Consult — $[price]'
     };
@@ -662,7 +677,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing">Treatment Plans are $59.99/month (or $149 quarterly — $49.67/mo effective) and include your provider consultation and prescription sent to your pharmacy. A one-time consult is available for $79. Optional delivery + medication add-on is $50/month. Payment is processed securely through Stripe.</div>
+      <div class="th-faq__a" data-price="faq_pricing">Treatment Plans are $59.99/month, $89 every 2 months, or $149 quarterly — all include your provider consultation and prescription sent to your pharmacy. A one-time consult is available for $79. Optional delivery + medication add-on is $50/month. Payment is processed securely through Stripe.</div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -714,19 +729,19 @@
         p[row.key] = (n % 1 === 0) ? String(Math.round(n)) : n.toFixed(2).replace(/\.?0+$/, '');
       });
 
-      // Update Treatment Plan monthly price
-      var treatEl = document.querySelector('[data-price="treatment_monthly"]');
-      if (treatEl && p.treatment_monthly) {
-        treatEl.innerHTML = '$' + p.treatment_monthly + '<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span>';
+      // Update plan card prices (uses CSS class for suffix styling)
+      var monthlyEl = document.querySelector('[data-price="treatment_monthly"]');
+      if (monthlyEl && p.treatment_monthly) {
+        monthlyEl.innerHTML = '$' + p.treatment_monthly + '<span class="th-plan__price-suffix">/mo</span>';
       }
-
-      // Update Quarterly price
+      var bimonthlyEl = document.querySelector('[data-price="treatment_bimonthly"]');
+      if (bimonthlyEl && p.treatment_bimonthly) {
+        bimonthlyEl.innerHTML = '$' + p.treatment_bimonthly + '<span class="th-plan__price-suffix">/2mo</span>';
+      }
       var qtrEl = document.querySelector('[data-price="treatment_quarterly"]');
       if (qtrEl && p.treatment_quarterly) {
-        qtrEl.innerHTML = '$' + p.treatment_quarterly + '<span style="font-size: 0.9rem; opacity: 0.6;">/qtr</span>';
+        qtrEl.innerHTML = '$' + p.treatment_quarterly + '<span class="th-plan__price-suffix">/qtr</span>';
       }
-
-      // Update One-time Consult price
       var otEl = document.querySelector('[data-price="treatment_onetime"]');
       if (otEl && p.treatment_onetime) {
         otEl.textContent = '$' + p.treatment_onetime;
@@ -734,8 +749,8 @@
 
       // Update FAQ pricing text
       var faqEl = document.querySelector('[data-price="faq_pricing"]');
-      if (faqEl && p.treatment_monthly && p.treatment_onetime && p.treatment_quarterly && p.delivery_addon_monthly) {
-        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + '/month (or $' + p.treatment_quarterly + ' quarterly) and include your provider consultation and prescription sent to your pharmacy. A one-time consult is available for $' + p.treatment_onetime + '. Optional delivery + medication add-on is $' + p.delivery_addon_monthly + '/month. Payment is processed securely through Stripe.';
+      if (faqEl && p.treatment_monthly && p.treatment_onetime && p.treatment_quarterly && p.treatment_bimonthly && p.delivery_addon_monthly) {
+        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + '/month, $' + p.treatment_bimonthly + ' every 2 months, or $' + p.treatment_quarterly + ' quarterly — all include your provider consultation and prescription sent to your pharmacy. A one-time consult is available for $' + p.treatment_onetime + '. Optional delivery + medication add-on is $' + p.delivery_addon_monthly + '/month. Payment is processed securely through Stripe.';
       }
     })
     .catch(function() { /* keep hardcoded defaults */ });
