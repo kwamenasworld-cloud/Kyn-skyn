@@ -495,19 +495,19 @@
           <p style="margin: 0;">&#10003; Cancel anytime</p>
         </div>
       </div>
-      <!-- Skin Assessment — $35 -->
-      <div style="background: rgba(100, 18, 32, 0.1); border: 1px solid rgba(100, 18, 32, 0.3); border-radius: 16px; padding: 1.3rem; text-align: center;">
-        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.7; margin: 0;" data-price="assessment_price">$35</p>
-        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.5; margin-top: 0.3rem;">Skin Assessment</p>
-        <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.4); text-align: left; line-height: 1.7;">
-          <p style="margin: 0;">&#10003; Photo review + diagnosis</p>
-          <p style="margin: 0;">&#10003; Treatment recommendations</p>
-          <p style="margin: 0;">&#10003; One-time payment</p>
-          <p style="margin: 0;">&#10003; Rx to your pharmacy if needed</p>
+      <!-- One-time Consult — $79 -->
+      <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.3); border-radius: 16px; padding: 1.3rem; text-align: center;">
+        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.85; margin: 0;" data-price="treatment_onetime">$79</p>
+        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.6; margin-top: 0.3rem;">One-time Consult</p>
+        <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.7;">
+          <p style="margin: 0;">&#10003; Provider consultation</p>
+          <p style="margin: 0;">&#10003; Rx to your pharmacy</p>
+          <p style="margin: 0;">&#10003; Single visit, no commitment</p>
+          <p style="margin: 0;">&#10003; No recurring charges</p>
         </div>
       </div>
     </div>
-    <p class="th-cta__desc" style="font-size: 0.85rem;">All plans include consultation + Rx. Add delivery + medication for $50/mo. Or $99 one-time. HIPAA-compliant care from licensed providers.</p>
+    <p class="th-cta__desc" style="font-size: 0.85rem;">All plans include consultation + Rx. Add delivery + medication for $50/mo. HIPAA-compliant care from licensed providers.</p>
   </div>
 </section>
 
@@ -597,7 +597,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing">Skin Assessments are $35 (one-time diagnosis). Treatment Plans are $59.99/month (or $149 quarterly — $49.67/mo effective) and include your provider consultation and prescription sent to your pharmacy. Optional delivery + medication add-on is $50/month. One-time treatment is available for $99. Payment is processed securely through Stripe.</div>
+      <div class="th-faq__a" data-price="faq_pricing">Treatment Plans are $59.99/month (or $149 quarterly — $49.67/mo effective) and include your provider consultation and prescription sent to your pharmacy. A one-time consult is available for $79. Optional delivery + medication add-on is $50/month. Payment is processed securely through Stripe.</div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -661,16 +661,16 @@
         qtrEl.innerHTML = '$' + p.treatment_quarterly + '<span style="font-size: 0.9rem; opacity: 0.6;">/qtr</span>';
       }
 
-      // Update Assessment price
-      var assessEl = document.querySelector('[data-price="assessment_price"]');
-      if (assessEl && p.assessment_price) {
-        assessEl.textContent = '$' + p.assessment_price;
+      // Update One-time Consult price
+      var otEl = document.querySelector('[data-price="treatment_onetime"]');
+      if (otEl && p.treatment_onetime) {
+        otEl.textContent = '$' + p.treatment_onetime;
       }
 
       // Update FAQ pricing text
       var faqEl = document.querySelector('[data-price="faq_pricing"]');
-      if (faqEl && p.assessment_price && p.treatment_monthly && p.treatment_onetime && p.treatment_quarterly && p.delivery_addon_monthly) {
-        faqEl.textContent = 'Skin Assessments are $' + p.assessment_price + ' (one-time diagnosis). Treatment Plans are $' + p.treatment_monthly + '/month (or $' + p.treatment_quarterly + ' quarterly) and include your provider consultation and prescription sent to your pharmacy. Optional delivery + medication add-on is $' + p.delivery_addon_monthly + '/month. One-time treatment is available for $' + p.treatment_onetime + '. Payment is processed securely through Stripe.';
+      if (faqEl && p.treatment_monthly && p.treatment_onetime && p.treatment_quarterly && p.delivery_addon_monthly) {
+        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + '/month (or $' + p.treatment_quarterly + ' quarterly) and include your provider consultation and prescription sent to your pharmacy. A one-time consult is available for $' + p.treatment_onetime + '. Optional delivery + medication add-on is $' + p.delivery_addon_monthly + '/month. Payment is processed securely through Stripe.';
       }
     })
     .catch(function() { /* keep hardcoded defaults */ });
