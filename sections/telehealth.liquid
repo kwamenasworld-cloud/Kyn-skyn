@@ -471,11 +471,11 @@
   <div class="th-cta__container fade-in" style="max-width: 500px;">
     <h2 class="th-cta__heading">Choose your plan</h2>
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; margin: 2rem 0;">
-      <!-- Treatment Plan — $49/mo -->
-      <div style="background: rgba(212, 149, 42, 0.15); border: 2px solid rgba(212, 149, 42, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center; position: relative;">
-        <span style="position: absolute; top: -0.6rem; right: 0.8rem; background: rgba(212,149,42,0.2); color: var(--gold); border: 1px solid rgba(212,149,42,0.3); font-family: var(--font-sans); font-size: 0.55rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.5rem; border-radius: 100px;">Recommended</span>
-        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--gold); margin: 0;" data-price="treatment_monthly">$49<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
-        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); margin-top: 0.3rem;">Treatment Plan</p>
+      <!-- Treatment Plan — $59.99/mo -->
+      <div style="background: rgba(248, 176, 68, 0.15); border: 2px solid rgba(248, 176, 68, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center; position: relative;">
+        <span style="position: absolute; top: -0.6rem; right: 0.8rem; background: #F8B044; color: #641220; font-family: var(--font-sans); font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.25rem 0.6rem; border-radius: 100px;">Recommended</span>
+        <p style="font-family: var(--font-accent); font-size: 2rem; color: #F8B044; margin: 0;" data-price="treatment_monthly">$59.99<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
+        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); margin-top: 0.3rem;">Monthly</p>
         <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.6); text-align: left; line-height: 1.7;">
           <p style="margin: 0;">&#10003; Provider consultation</p>
           <p style="margin: 0;">&#10003; Rx sent to your pharmacy</p>
@@ -483,14 +483,15 @@
           <p style="margin: 0;">&#10003; Cancel anytime</p>
         </div>
       </div>
-      <!-- Treatment + Delivery — $69/mo -->
-      <div style="background: rgba(100, 18, 32, 0.15); border: 1px solid rgba(100, 18, 32, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center;">
-        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.9; margin: 0;" data-price="treatment_delivered">$69<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span></p>
-        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.7; margin-top: 0.3rem;">Treatment + Delivery</p>
+      <!-- Quarterly — $149/qtr -->
+      <div style="background: rgba(5, 90, 91, 0.15); border: 1px solid rgba(5, 90, 91, 0.4); border-radius: 16px; padding: 1.3rem; text-align: center; position: relative;">
+        <span style="position: absolute; top: -0.6rem; right: 0.8rem; background: #055A5B; color: #C5FEFF; font-family: var(--font-sans); font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.25rem 0.6rem; border-radius: 100px;">Best value</span>
+        <p style="font-family: var(--font-accent); font-size: 2rem; color: var(--cream); opacity: 0.9; margin: 0;" data-price="treatment_quarterly">$149<span style="font-size: 0.9rem; opacity: 0.6;">/qtr</span></p>
+        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.7; margin-top: 0.3rem;">Quarterly · $49.67/mo effective</p>
         <div style="margin-top: 0.8rem; font-family: var(--font-sans); font-size: 0.7rem; color: rgba(255,244,206,0.5); text-align: left; line-height: 1.7;">
-          <p style="margin: 0;">&#10003; Everything in Treatment Plan</p>
-          <p style="margin: 0;">&#10003; Medication shipped to your door</p>
-          <p style="margin: 0;">&#10003; Free shipping</p>
+          <p style="margin: 0;">&#10003; Everything in Monthly</p>
+          <p style="margin: 0;">&#10003; Billed every 3 months</p>
+          <p style="margin: 0;">&#10003; Save ~$10/mo</p>
           <p style="margin: 0;">&#10003; Cancel anytime</p>
         </div>
       </div>
@@ -506,7 +507,7 @@
         </div>
       </div>
     </div>
-    <p class="th-cta__desc" style="font-size: 0.85rem;">All plans include HIPAA-compliant care from licensed providers.</p>
+    <p class="th-cta__desc" style="font-size: 0.85rem;">All plans include consultation + Rx. Add delivery + medication for $50/mo. Or $99 one-time. HIPAA-compliant care from licensed providers.</p>
   </div>
 </section>
 
@@ -596,7 +597,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing">Skin Assessments are $35 (one-time diagnosis). Treatment Plans are $49/month and include your consultation, prescription medication, and monthly refills with free shipping. One-time treatment is available for $69. Payment is processed securely through Stripe.</div>
+      <div class="th-faq__a" data-price="faq_pricing">Skin Assessments are $35 (one-time diagnosis). Treatment Plans are $59.99/month (or $149 quarterly — $49.67/mo effective) and include your provider consultation and prescription sent to your pharmacy. Optional delivery + medication add-on is $50/month. One-time treatment is available for $99. Payment is processed securely through Stripe.</div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -641,18 +642,23 @@
     .then(function(r) { return r.json(); })
     .then(function(prices) {
       var p = {};
-      prices.forEach(function(row) { p[row.key] = Math.round(Number(row.value)); });
+      // Preserve decimals — don't round $59.99 to $60
+      prices.forEach(function(row) {
+        var n = Number(row.value);
+        // Strip trailing .00 but keep decimals like .99
+        p[row.key] = (n % 1 === 0) ? String(Math.round(n)) : n.toFixed(2).replace(/\.?0+$/, '');
+      });
 
-      // Update Treatment Plan price
+      // Update Treatment Plan monthly price
       var treatEl = document.querySelector('[data-price="treatment_monthly"]');
       if (treatEl && p.treatment_monthly) {
-        treatEl.innerHTML = '$' + p.treatment_monthly + '<span style="font-size: 1rem; opacity: 0.6;">/mo</span>';
+        treatEl.innerHTML = '$' + p.treatment_monthly + '<span style="font-size: 0.9rem; opacity: 0.6;">/mo</span>';
       }
 
-      // Update one-time label
-      var otEl = document.querySelector('[data-price="treatment_onetime_label"]');
-      if (otEl && p.treatment_onetime) {
-        otEl.textContent = 'or $' + p.treatment_onetime + ' one-time';
+      // Update Quarterly price
+      var qtrEl = document.querySelector('[data-price="treatment_quarterly"]');
+      if (qtrEl && p.treatment_quarterly) {
+        qtrEl.innerHTML = '$' + p.treatment_quarterly + '<span style="font-size: 0.9rem; opacity: 0.6;">/qtr</span>';
       }
 
       // Update Assessment price
@@ -663,8 +669,8 @@
 
       // Update FAQ pricing text
       var faqEl = document.querySelector('[data-price="faq_pricing"]');
-      if (faqEl && p.assessment_price && p.treatment_monthly && p.treatment_onetime) {
-        faqEl.textContent = 'Skin Assessments are $' + p.assessment_price + ' (one-time diagnosis). Treatment Plans are $' + p.treatment_monthly + '/month and include your consultation, prescription medication, and monthly refills with free shipping. One-time treatment is available for $' + p.treatment_onetime + '. Payment is processed securely through Stripe.';
+      if (faqEl && p.assessment_price && p.treatment_monthly && p.treatment_onetime && p.treatment_quarterly && p.delivery_addon_monthly) {
+        faqEl.textContent = 'Skin Assessments are $' + p.assessment_price + ' (one-time diagnosis). Treatment Plans are $' + p.treatment_monthly + '/month (or $' + p.treatment_quarterly + ' quarterly) and include your provider consultation and prescription sent to your pharmacy. Optional delivery + medication add-on is $' + p.delivery_addon_monthly + '/month. One-time treatment is available for $' + p.treatment_onetime + '. Payment is processed securely through Stripe.';
       }
     })
     .catch(function() { /* keep hardcoded defaults */ });
