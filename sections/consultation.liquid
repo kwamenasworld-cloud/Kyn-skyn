@@ -471,7 +471,7 @@
   <div class="th-cta__container fade-in" style="max-width: 500px;">
     <h2 class="th-cta__heading">Choose your plan</h2>
     <div class="th-pricing__grid" role="radiogroup" aria-label="Choose your plan">
-      <!-- Monthly — $59.99 -->
+      <!-- Monthly — $59.99 (with quarterly billing toggle as an augment) -->
       <button type="button" class="th-plan th-plan--selected" data-plan="monthly" role="radio" aria-checked="true">
         <span class="th-plan__badge th-plan__badge--amber">Recommended</span>
         <p class="th-plan__price" data-price="treatment_monthly">$59.99<span class="th-plan__price-suffix">/mo</span></p>
@@ -482,27 +482,25 @@
           <p>&#10003; Monthly adjustments</p>
           <p>&#10003; Cancel anytime</p>
         </div>
+        <!-- Quarterly billing toggle — augments the Monthly plan -->
+        <div class="th-plan__augment" aria-hidden="true">
+          <label class="th-plan__augment-toggle">
+            <input type="checkbox" class="th-plan__augment-input" data-augment="quarterly">
+            <span class="th-plan__augment-label">
+              <span class="th-plan__augment-title">Pay quarterly — save ~$10/mo</span>
+              <span class="th-plan__augment-detail"><span data-price="treatment_quarterly">$149</span>/qtr · billed every 3 months</span>
+            </span>
+          </label>
+        </div>
       </button>
-      <!-- Every 2 months — $89 -->
+      <!-- Every 2 months — $69.99 -->
       <button type="button" class="th-plan" data-plan="bimonthly" role="radio" aria-checked="false">
-        <p class="th-plan__price" data-price="treatment_bimonthly">$89<span class="th-plan__price-suffix">/2mo</span></p>
-        <p class="th-plan__label">Every 2 months · $44.50/mo effective</p>
+        <p class="th-plan__price" data-price="treatment_bimonthly">$69.99<span class="th-plan__price-suffix">/2mo</span></p>
+        <p class="th-plan__label">Every 2 months · $35/mo effective</p>
         <div class="th-plan__features">
           <p>&#10003; Maintenance cadence</p>
           <p>&#10003; Rx sent to your pharmacy</p>
           <p>&#10003; Billed every 2 months</p>
-          <p>&#10003; Cancel anytime</p>
-        </div>
-      </button>
-      <!-- Quarterly — $149 -->
-      <button type="button" class="th-plan" data-plan="quarterly" role="radio" aria-checked="false">
-        <span class="th-plan__badge th-plan__badge--teal">Best value</span>
-        <p class="th-plan__price" data-price="treatment_quarterly">$149<span class="th-plan__price-suffix">/qtr</span></p>
-        <p class="th-plan__label">Quarterly · $49.67/mo effective</p>
-        <div class="th-plan__features">
-          <p>&#10003; Everything in Monthly</p>
-          <p>&#10003; Billed every 3 months</p>
-          <p>&#10003; Save ~$10/mo</p>
           <p>&#10003; Cancel anytime</p>
         </div>
       </button>
@@ -519,18 +517,19 @@
       </button>
     </div>
     <p class="th-cta__desc" style="font-size: 0.85rem;">All plans include consultation + Rx. Add delivery + medication for $50/mo. HIPAA-compliant care from licensed providers.</p>
-    <a href="https://care.kynskyn.com/book?plan=monthly&utm_source=kynskyn&utm_medium=telehealth&utm_campaign=treatment_plan" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Continue with Monthly — $59.99/mo</a>
+    <a href="https://care.kynskyn.com/book?plan=monthly&utm_source=kynskyn&utm_medium=consultation&utm_campaign=treatment_plan" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Continue with Monthly — $59.99/mo</a>
   </div>
 </section>
 
 <style>
   .th-pricing__grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 0.8rem;
     margin: 2rem 0;
+    align-items: start;
   }
-  @media (max-width: 480px) {
+  @media (max-width: 640px) {
     .th-pricing__grid { grid-template-columns: 1fr; }
   }
   .th-plan {
@@ -591,12 +590,70 @@
     line-height: 1.7;
   }
   .th-plan__features p { margin: 0; }
+  /* Quarterly augment — sits inside the Monthly card, below the feature list */
+  .th-plan__augment {
+    margin-top: 0.9rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255, 244, 206, 0.12);
+    text-align: left;
+  }
+  .th-plan__augment-toggle {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    cursor: pointer;
+    font-family: var(--font-sans);
+  }
+  .th-plan__augment-input {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0.15rem 0 0 0;
+    width: 0.9rem;
+    height: 0.9rem;
+    border: 1.5px solid rgba(255, 244, 206, 0.4);
+    border-radius: 3px;
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .th-plan__augment-input:checked {
+    background: #F8B044;
+    border-color: #F8B044;
+  }
+  .th-plan__augment-input:checked::after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 0px;
+    width: 3px;
+    height: 6px;
+    border: solid #641220;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .th-plan__augment-label { display: block; }
+  .th-plan__augment-title {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #F8B044;
+    letter-spacing: 0.02em;
+  }
+  .th-plan__augment-detail {
+    display: block;
+    font-size: 0.65rem;
+    color: rgba(255, 244, 206, 0.55);
+    margin-top: 0.1rem;
+  }
 </style>
 
 <script>
   (function() {
     var pricingCta = document.getElementById('thPricingCta');
     var plans = document.querySelectorAll('.th-plan');
+    var augmentInput = document.querySelector('.th-plan__augment-input[data-augment="quarterly"]');
     var CTA_LABELS = {
       'monthly': 'Continue with Monthly — $[price]/mo',
       'bimonthly': 'Continue every 2 months — $[price]/2mo',
@@ -604,28 +661,65 @@
       'one-time': 'Book One-time Consult — $[price]'
     };
 
-    function setPricingCta(plan) {
+    function readPrice(selector) {
+      var el = document.querySelector(selector);
+      if (!el) return '';
+      return el.textContent.replace(/[^0-9.]/g, '');
+    }
+
+    // Determine effective plan: selected card, overridden to quarterly if Monthly + augment checkbox
+    function getEffectivePlan() {
+      var selected = document.querySelector('.th-plan.th-plan--selected');
+      var plan = selected ? selected.getAttribute('data-plan') : 'monthly';
+      if (plan === 'monthly' && augmentInput && augmentInput.checked) return 'quarterly';
+      return plan;
+    }
+
+    function setPricingCta() {
       if (!pricingCta) return;
-      var priceEl = document.querySelector('[data-plan="' + plan + '"] [data-price]');
-      var priceText = priceEl ? priceEl.textContent.replace(/[^0-9.]/g, '') : '';
-      var label = CTA_LABELS[plan].replace('[price]', priceText);
-      pricingCta.textContent = label;
+      var plan = getEffectivePlan();
+      // Quarterly augment uses the quarterly card price (hidden from grid but still in DOM via the augment block)
+      var priceSelector = plan === 'quarterly'
+        ? '[data-price="treatment_quarterly"]'
+        : '[data-plan="' + plan + '"] [data-price]';
+      var priceText = readPrice(priceSelector);
+      pricingCta.textContent = CTA_LABELS[plan].replace('[price]', priceText);
       var url = new URL(pricingCta.href);
       url.searchParams.set('plan', plan);
       pricingCta.href = url.toString();
     }
 
     plans.forEach(function(plan) {
-      plan.addEventListener('click', function() {
+      plan.addEventListener('click', function(e) {
+        // Don't hijack clicks inside the augment toggle label
+        if (e.target && e.target.closest && e.target.closest('.th-plan__augment')) return;
         plans.forEach(function(p) {
           p.classList.remove('th-plan--selected');
           p.setAttribute('aria-checked', 'false');
         });
         plan.classList.add('th-plan--selected');
         plan.setAttribute('aria-checked', 'true');
-        setPricingCta(plan.getAttribute('data-plan'));
+        // Switching to a non-Monthly card clears the quarterly augment
+        if (augmentInput && plan.getAttribute('data-plan') !== 'monthly') {
+          augmentInput.checked = false;
+        }
+        setPricingCta();
       });
     });
+
+    if (augmentInput) {
+      augmentInput.addEventListener('change', function() {
+        // Turning on the augment forces the Monthly card to be selected
+        if (augmentInput.checked) {
+          plans.forEach(function(p) {
+            var isMonthly = p.getAttribute('data-plan') === 'monthly';
+            p.classList.toggle('th-plan--selected', isMonthly);
+            p.setAttribute('aria-checked', isMonthly ? 'true' : 'false');
+          });
+        }
+        setPricingCta();
+      });
+    }
   })();
 </script>
 
@@ -635,7 +729,7 @@
   <div class="th-cta__container fade-in">
     <h2 class="th-cta__heading">Ready to get answers?</h2>
     <p class="th-cta__desc">Stop guessing. A licensed provider who understands Malassezia-related conditions can give you a clear diagnosis and a treatment plan that actually works.</p>
-    <a href="https://care.kynskyn.com/book?utm_source=kynskyn&utm_medium=telehealth&utm_campaign=treatment_plan" class="th-cta__button" id="thBookBtn">Start Treatment Plan</a>
+    <a href="https://care.kynskyn.com/book?utm_source=kynskyn&utm_medium=consultation&utm_campaign=treatment_plan" class="th-cta__button" id="thBookBtn">Start Treatment Plan</a>
     <p class="th-cta__note">Secure, HIPAA-compliant consultations. No account needed until checkout.</p>
   </div>
 </section>
@@ -677,7 +771,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing">Treatment Plans are $59.99/month, $89 every 2 months, or $149 quarterly — all include your provider consultation and prescription sent to your pharmacy. A one-time consult is available for $79. Optional delivery + medication add-on is $50/month. Payment is processed securely through Stripe.</div>
+      <div class="th-faq__a" data-price="faq_pricing">Treatment Plans are $59.99/month, $69.99 every 2 months, or $149 quarterly — all include your provider consultation and prescription sent to your pharmacy. A one-time consult is available for $79. Optional delivery + medication add-on is $50/month. Payment is processed securely through Stripe.</div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -759,7 +853,7 @@
 
 {% schema %}
 {
-  "name": "Telehealth",
-  "class": "telehealth-section"
+  "name": "Consultation",
+  "class": "consultation-section"
 }
 {% endschema %}

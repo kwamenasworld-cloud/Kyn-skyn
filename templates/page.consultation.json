@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "consultation": {
+      "type": "consultation"
+    }
+  },
+  "order": ["consultation"]
+}

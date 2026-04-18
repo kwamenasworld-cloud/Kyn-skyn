@@ -1,8 +1,0 @@
-{
-  "sections": {
-    "telehealth": {
-      "type": "telehealth"
-    }
-  },
-  "order": ["telehealth"]
-}
