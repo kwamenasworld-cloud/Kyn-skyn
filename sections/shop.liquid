@@ -125,6 +125,24 @@
     opacity: 0.5;
   }
 
+  /* Product image — replaces the mockup when a featured product is set */
+  .shop-featured__image {
+    aspect-ratio: 1;
+    background: var(--maroon);
+    border: 1px solid rgba(255, 244, 206, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .shop-featured__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   .shop-featured__info { }
   .shop-featured__label {
     font-family: var(--font-sans);
@@ -155,6 +173,8 @@
     line-height: 1.7;
     margin: 0 0 1.5rem 0;
   }
+  .shop-featured__desc p { margin: 0 0 0.85rem 0; }
+  .shop-featured__desc p:last-child { margin-bottom: 0; }
   .shop-featured__btn {
     display: inline-block;
     font-family: var(--font-sans);
@@ -241,22 +261,47 @@
       <p class="shop-hero__subtitle">Malassezia-safe skincare designed for fungal-prone skin. No prescription needed.</p>
     </div>
 
+    {%- assign featured_product = section.settings.product -%}
+    {%- if featured_product != blank -%}
+      {%- assign featured_variant = featured_product.selected_or_first_available_variant -%}
+    {%- endif -%}
     <div class="shop-hero__featured fade-in">
-      <div class="shop-mockup" aria-hidden="true">
-        <span class="shop-mockup__brand">Kyn Skyn</span>
-        <div class="shop-mockup__name">
-          <p class="shop-mockup__name-top">STEADY</p>
-          <div class="shop-mockup__divider"></div>
-          <p class="shop-mockup__name-bottom">SERUM</p>
+      {%- if featured_product != blank and featured_product.featured_image != blank -%}
+        <div class="shop-featured__image">
+          <img
+            src="{{ featured_product.featured_image | image_url: width: 800 }}"
+            alt="{{ featured_product.featured_image.alt | default: featured_product.title | escape }}"
+            width="{{ featured_product.featured_image.width }}"
+            height="{{ featured_product.featured_image.height }}"
+            loading="lazy">
         </div>
-        <span class="shop-mockup__size">30 ml</span>
-      </div>
+      {%- else -%}
+        <div class="shop-mockup" aria-hidden="true">
+          <span class="shop-mockup__brand">Kyn Skyn</span>
+          <div class="shop-mockup__name">
+            <p class="shop-mockup__name-top">STEADY</p>
+            <div class="shop-mockup__divider"></div>
+            <p class="shop-mockup__name-bottom">SERUM</p>
+          </div>
+          <span class="shop-mockup__size">30 ml</span>
+        </div>
+      {%- endif -%}
       <div class="shop-featured__info">
-        <p class="shop-featured__label">Serum</p>
-        <h2 class="shop-featured__name">Steady Serum</h2>
-        <p class="shop-featured__price">$38</p>
-        <p class="shop-featured__desc">Formulated with lightweight MCT oil, Steady Serum delivers long-lasting hydration without feeding Malassezia. Unlike coconut, olive, or other common oils that can worsen symptoms, MCT oil is microbiome-safe and skin-soothing.</p>
-        <a href="https://care.kynskyn.com/shop?utm_source=kynskyn&utm_medium=shop&utm_campaign=steady_serum" class="shop-featured__btn">Add to Cart — $38</a>
+        <p class="shop-featured__label">{% if featured_product != blank and featured_product.type != blank %}{{ featured_product.type }}{% else %}Serum{% endif %}</p>
+        <h2 class="shop-featured__name">{% if featured_product != blank %}{{ featured_product.title }}{% else %}Steady Serum{% endif %}</h2>
+        <p class="shop-featured__price">{% if featured_variant != blank %}{{ featured_variant.price | money_without_trailing_zeros }}{% else %}$38{% endif %}</p>
+        <div class="shop-featured__desc">{% if featured_product != blank and featured_product.description != blank %}{{ featured_product.description }}{% else %}<p>Formulated with lightweight MCT oil, Steady Serum delivers long-lasting hydration without feeding Malassezia. Unlike coconut, olive, or other common oils that can worsen symptoms, MCT oil is microbiome-safe and skin-soothing.</p>{% endif %}</div>
+        {%- if featured_product != blank -%}
+          <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="shop-featured__form">
+            <input type="hidden" name="id" value="{{ featured_variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="shop-featured__btn"{% unless featured_variant.available %} disabled{% endunless %}>
+              {%- if featured_variant.available -%}Add to Cart — {{ featured_variant.price | money_without_trailing_zeros }}{%- else -%}Sold out{%- endif -%}
+            </button>
+          </form>
+        {%- else -%}
+          <a href="/products/steady-serum" class="shop-featured__btn">Add to Cart — $38</a>
+        {%- endif -%}
         <p class="shop-featured__note">Free shipping on every order.</p>
       </div>
     </div>
@@ -298,6 +343,14 @@
 {% schema %}
 {
   "name": "Shop",
-  "class": "shop-page"
+  "class": "shop-page",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Featured product",
+      "info": "When set, the Add to Cart button posts to the Shopify cart instead of redirecting to care.kynskyn.com."
+    }
+  ]
 }
 {% endschema %}
