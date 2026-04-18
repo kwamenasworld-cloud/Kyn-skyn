@@ -1,319 +1,299 @@
 <style>
-  .shop {
-    padding: 4rem 2rem;
-    max-width: 1100px;
+  /* Scoped to .shop-page so it doesn't leak into other templates */
+  .shop-page {
+    --amber: #F8B044;
+    --amber-light: #fbc676;
+    --terracotta: #C54427;
+  }
+
+  .shop-hero {
+    position: relative;
+    background: var(--maroon);
+    color: var(--cream);
+    padding: 4.5rem 1.5rem;
+    overflow: hidden;
+  }
+  .shop-hero__watermark {
+    position: absolute;
+    inset: 0;
+    background-image: url('{{ 'plus-grid.svg' | asset_url }}');
+    background-repeat: no-repeat;
+    background-position: right -180px top -100px;
+    background-size: 620px 620px;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+  .shop-hero__inner {
+    position: relative;
+    max-width: 1080px;
     margin: 0 auto;
   }
-  .shop__hero {
+  .shop-hero__head {
     text-align: center;
     margin-bottom: 3rem;
   }
-  .shop__hero-title {
-    font-family: var(--font-accent);
-    font-size: 2.5rem;
-    color: var(--cream);
-    margin-bottom: 0.5rem;
+  .shop-hero__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--amber);
+    margin: 0 0 0.6rem 0;
   }
-  .shop__hero-desc {
+  .shop-hero__title {
+    font-family: var(--font-accent);
+    font-size: 3rem;
+    line-height: 1.05;
+    color: var(--cream);
+    margin: 0 0 0.75rem 0;
+  }
+  .shop-hero__subtitle {
     font-family: var(--font-sans);
     font-size: 1rem;
     color: var(--cream);
-    opacity: 0.6;
-    max-width: 500px;
+    opacity: 0.85;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .shop-hero__featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 900px;
     margin: 0 auto;
   }
 
-  /* Featured product */
-  .shop__featured {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: center;
-    margin-bottom: 4rem;
-  }
-  .shop__featured-img {
+  /* Amber-on-maroon package mockup — echoes the actual Steady Serum box */
+  .shop-mockup {
     aspect-ratio: 1;
-    background: linear-gradient(135deg, rgba(100, 18, 32, 0.2), rgba(42, 2, 8, 1));
-    border-radius: 16px;
+    position: relative;
+    background: var(--maroon);
+    border: 1px solid rgba(255, 244, 206, 0.15);
+    border-radius: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 0.8rem;
+    overflow: hidden;
   }
-  .shop__featured-img span {
+  .shop-mockup__brand {
+    position: absolute;
+    top: 1.8rem;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--amber);
+    opacity: 0.75;
+  }
+  .shop-mockup__name {
+    text-align: center;
+    line-height: 0.95;
+  }
+  .shop-mockup__name-top {
     font-family: var(--font-accent);
-    font-size: 2rem;
-    color: var(--cream);
-    opacity: 0.12;
+    font-size: 4rem;
+    color: var(--amber);
+    margin: 0;
   }
-  .shop__featured-label {
+  .shop-mockup__divider {
+    height: 1px;
+    width: 4rem;
+    background: var(--amber);
+    opacity: 0.4;
+    margin: 0.8rem auto;
+  }
+  .shop-mockup__name-bottom {
+    font-family: var(--font-accent);
+    font-size: 2.6rem;
+    color: var(--amber);
+    opacity: 0.92;
+    margin: 0;
+  }
+  .shop-mockup__size {
+    position: absolute;
+    bottom: 1.8rem;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--cream);
+    opacity: 0.5;
+  }
+
+  .shop-featured__info { }
+  .shop-featured__label {
     font-family: var(--font-sans);
     font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #C5FEFF;
-    margin-bottom: 0.25rem;
+    letter-spacing: 0.25em;
+    color: var(--amber);
+    margin: 0 0 0.5rem 0;
   }
-  .shop__featured-name {
+  .shop-featured__name {
     font-family: var(--font-accent);
-    font-size: 2.2rem;
+    font-size: 2.6rem;
     color: var(--cream);
-    margin-bottom: 0.5rem;
+    line-height: 1.05;
+    margin: 0 0 0.8rem 0;
   }
-  .shop__featured-price {
-    font-family: var(--font-sans);
-    font-size: 1.5rem;
-    color: var(--gold);
-    margin-bottom: 1rem;
+  .shop-featured__price {
+    font-family: var(--font-accent);
+    font-size: 1.75rem;
+    color: var(--amber);
+    margin: 0 0 1.25rem 0;
   }
-  .shop__featured-desc {
+  .shop-featured__desc {
     font-family: var(--font-sans);
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--cream);
-    opacity: 0.6;
+    opacity: 0.92;
     line-height: 1.7;
-    margin-bottom: 1.5rem;
+    margin: 0 0 1.5rem 0;
   }
-  .shop__featured-btn {
+  .shop-featured__btn {
     display: inline-block;
     font-family: var(--font-sans);
     font-size: 1rem;
-    background: var(--button);
-    color: var(--cream);
+    font-weight: 500;
+    background: var(--amber);
+    color: var(--maroon);
     border: none;
-    padding: 0.8rem 2.5rem;
-    border-radius: 8px;
+    padding: 0.9rem 2.5rem;
+    border-radius: 10px;
     cursor: pointer;
     text-decoration: none;
     transition: background 0.2s;
   }
-  .shop__featured-btn:hover { background: var(--maroon); }
-  .shop__featured-note {
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
-    color: var(--cream);
-    opacity: 0.5;
-    margin-top: 0.75rem;
-  }
-
-  /* Rx section */
-  .shop__section {
-    margin-bottom: 4rem;
-  }
-  .shop__section-title {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    color: var(--cream);
-    margin-bottom: 0.5rem;
-  }
-  .shop__section-desc {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    color: var(--cream);
-    opacity: 0.5;
-    margin-bottom: 1.5rem;
-  }
-  .shop__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.2rem;
-  }
-  .shop__card {
-    background: rgba(100, 18, 32, 0.1);
-    border: 1px solid rgba(100, 18, 32, 0.3);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-  .shop__card:hover { border-color: rgba(100, 18, 32, 0.5); }
-  .shop__card-img {
-    aspect-ratio: 1;
-    background: linear-gradient(135deg, rgba(5, 90, 91, 0.1), rgba(42, 2, 8, 1));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .shop__card-img span {
-    font-family: var(--font-accent);
-    color: var(--cream);
-    opacity: 0.1;
-    font-size: 0.9rem;
-    text-align: center;
-    padding: 0 0.5rem;
-  }
-  .shop__card-badge {
-    position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    font-family: var(--font-sans);
-    font-size: 0.6rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.2rem 0.5rem;
-    border-radius: 100px;
-    color: var(--cream);
-    background: #055A5B;
-  }
-  .shop__card-body { padding: 1rem; }
-  .shop__card-name {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    color: var(--cream);
-    font-weight: 500;
-    margin-bottom: 0.25rem;
-  }
-  .shop__card-desc {
+  .shop-featured__btn:hover { background: var(--amber-light); }
+  .shop-featured__note {
     font-family: var(--font-sans);
     font-size: 0.75rem;
     color: var(--cream);
-    opacity: 0.5;
-    margin-bottom: 0.75rem;
-    line-height: 1.4;
+    opacity: 0.7;
+    margin: 0.85rem 0 0 0;
   }
-  .shop__card-price {
-    font-family: var(--font-sans);
-    color: var(--gold);
-    font-weight: 500;
-    margin-bottom: 0.75rem;
+
+  /* Values strip — cream section, high contrast */
+  .shop-values {
+    background: var(--cream);
+    color: var(--maroon);
+    padding: 3.5rem 1.5rem;
   }
-  .shop__card-price--old {
-    text-decoration: line-through;
-    opacity: 0.4;
-    margin-right: 0.5rem;
-    font-size: 0.85rem;
+  .shop-values__grid {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2.5rem;
   }
-  .shop__card-btn {
-    display: block;
-    width: 100%;
+  .shop-values__item {
     text-align: center;
+  }
+  .shop-values__icon {
+    width: 3rem;
+    height: 3rem;
+    margin: 0 auto 0.75rem;
+    border-radius: 14px;
+    background: rgba(5, 90, 91, 0.1);
+    color: #055A5B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .shop-values__title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--maroon);
+    margin: 0 0 0.35rem 0;
+  }
+  .shop-values__desc {
     font-family: var(--font-sans);
     font-size: 0.8rem;
-    background: #055A5B;
-    color: var(--cream);
-    border: none;
-    padding: 0.6rem;
-    border-radius: 8px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  .shop__card-btn:hover { background: #0a7a7b; }
-
-  .shop__divider {
-    border: none;
-    border-top: 1px solid rgba(100, 18, 32, 0.2);
-    margin: 3rem 0;
+    color: var(--maroon);
+    opacity: 0.7;
+    line-height: 1.55;
+    margin: 0;
   }
 
   @media (max-width: 640px) {
-    .shop { padding: 2rem 1.5rem; }
-    .shop__hero-title { font-size: 1.8rem; }
-    .shop__featured { grid-template-columns: 1fr; }
-    .shop__featured-name { font-size: 1.8rem; }
-    .shop__featured-btn { width: 100%; text-align: center; }
-    .shop__grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+    .shop-hero { padding: 3rem 1.25rem; }
+    .shop-hero__title { font-size: 2rem; }
+    .shop-hero__featured { grid-template-columns: 1fr; gap: 2rem; }
+    .shop-mockup__name-top { font-size: 3rem; }
+    .shop-mockup__name-bottom { font-size: 2rem; }
+    .shop-featured__name { font-size: 2rem; }
+    .shop-featured__btn { width: 100%; text-align: center; }
+    .shop-values__grid { grid-template-columns: 1fr; gap: 1.75rem; }
   }
 </style>
 
-<section class="shop">
-  <div class="shop__hero fade-in">
-    <h1 class="shop__hero-title">Your Complete Skin Routine</h1>
-    <p class="shop__hero-desc">Malassezia-safe cosmetics and prescription treatment — all in one place.</p>
-  </div>
+<section class="shop-hero">
+  <div class="shop-hero__watermark" aria-hidden="true"></div>
+  <div class="shop-hero__inner">
+    <div class="shop-hero__head fade-in">
+      <p class="shop-hero__eyebrow">Kyn Skyn Cosmetics</p>
+      <h1 class="shop-hero__title">Shop</h1>
+      <p class="shop-hero__subtitle">Malassezia-safe skincare designed for fungal-prone skin. No prescription needed.</p>
+    </div>
 
-  <!-- Featured: Steady Serum -->
-  <div class="shop__featured fade-in">
-    <div class="shop__featured-img"><span>Steady Serum</span></div>
-    <div>
-      <p class="shop__featured-label">Kyn Skyn Cosmetics</p>
-      <h2 class="shop__featured-name">Steady Serum</h2>
-      <p class="shop__featured-price">$38</p>
-      <p class="shop__featured-desc">Formulated with lightweight MCT oil, Steady Serum delivers long-lasting hydration without feeding Malassezia. Unlike coconut, olive, or other common oils that can worsen symptoms, MCT oil is microbiome-safe and skin-soothing.</p>
-      <a href="https://care.kynskyn.com/shop?utm_source=kynskyn&utm_medium=shop&utm_campaign=steady_serum" class="shop__featured-btn">Shop Now</a>
-      <p class="shop__featured-note">No prescription needed. Free shipping on all orders.</p>
+    <div class="shop-hero__featured fade-in">
+      <div class="shop-mockup" aria-hidden="true">
+        <span class="shop-mockup__brand">Kyn Skyn</span>
+        <div class="shop-mockup__name">
+          <p class="shop-mockup__name-top">STEADY</p>
+          <div class="shop-mockup__divider"></div>
+          <p class="shop-mockup__name-bottom">SERUM</p>
+        </div>
+        <span class="shop-mockup__size">30 ml</span>
+      </div>
+      <div class="shop-featured__info">
+        <p class="shop-featured__label">Serum</p>
+        <h2 class="shop-featured__name">Steady Serum</h2>
+        <p class="shop-featured__price">$38</p>
+        <p class="shop-featured__desc">Formulated with lightweight MCT oil, Steady Serum delivers long-lasting hydration without feeding Malassezia. Unlike coconut, olive, or other common oils that can worsen symptoms, MCT oil is microbiome-safe and skin-soothing.</p>
+        <a href="https://care.kynskyn.com/shop?utm_source=kynskyn&utm_medium=shop&utm_campaign=steady_serum" class="shop-featured__btn">Add to Cart — $38</a>
+        <p class="shop-featured__note">Free shipping on every order.</p>
+      </div>
     </div>
   </div>
-
-  <hr class="shop__divider">
-
-  <!-- Prescription Treatment -->
-  <div class="shop__section fade-in">
-    <h2 class="shop__section-title">Prescription Treatment</h2>
-    <p class="shop__section-desc" data-price="shop_treatment_desc">Included with Treatment Plan — $59.99/mo</p>
-    <div class="shop__grid">
-
-      <div class="shop__card">
-        <div class="shop__card-img"><span>Ketoconazole</span><div class="shop__card-badge">Prescription</div></div>
-        <div class="shop__card-body">
-          <p class="shop__card-name">Ketoconazole 2% Cream</p>
-          <p class="shop__card-desc">Antifungal cream for affected areas</p>
-          <p class="shop__card-price">From $30/mo</p>
-          <a href="https://care.kynskyn.com/book?utm_source=kynskyn&utm_medium=shop&utm_campaign=treatment_plan" class="shop__card-btn">Start Treatment Plan</a>
-        </div>
-      </div>
-
-      <div class="shop__card">
-        <div class="shop__card-img"><span>Fluconazole</span><div class="shop__card-badge">Prescription</div></div>
-        <div class="shop__card-body">
-          <p class="shop__card-name">Fluconazole 150mg</p>
-          <p class="shop__card-desc">Oral antifungal — weekly dosing</p>
-          <p class="shop__card-price">From $21/mo</p>
-          <a href="https://care.kynskyn.com/book?utm_source=kynskyn&utm_medium=shop&utm_campaign=treatment_plan" class="shop__card-btn">Start Treatment Plan</a>
-        </div>
-      </div>
-
-      <div class="shop__card">
-        <div class="shop__card-img"><span>Tretinoin</span><div class="shop__card-badge">Prescription</div></div>
-        <div class="shop__card-body">
-          <p class="shop__card-name">Tretinoin Cream 0.02%</p>
-          <p class="shop__card-desc">Retinoid cream for skin renewal</p>
-          <p class="shop__card-price">From $30/mo</p>
-          <a href="https://care.kynskyn.com/book?utm_source=kynskyn&utm_medium=shop&utm_campaign=treatment_plan" class="shop__card-btn">Start Treatment Plan</a>
-        </div>
-      </div>
-
-      <div class="shop__card">
-        <div class="shop__card-img"><span>Itraconazole</span><div class="shop__card-badge">Prescription</div></div>
-        <div class="shop__card-body">
-          <p class="shop__card-name">Itraconazole 100mg</p>
-          <p class="shop__card-desc">Oral antifungal — daily dosing</p>
-          <p class="shop__card-price">From $50/mo</p>
-          <a href="https://care.kynskyn.com/book?utm_source=kynskyn&utm_medium=shop&utm_campaign=treatment_plan" class="shop__card-btn">Start Treatment Plan</a>
-        </div>
-      </div>
-
-    </div>
-    <p style="text-align: center; font-family: var(--font-sans); font-size: 0.75rem; color: var(--cream); opacity: 0.5; margin-top: 1.5rem;">
-      Treatment Plan: $59.99/month or $149/quarter. Consultation + Rx. Add delivery + medication for $50/mo. Or $79 one-time consult.
-    </p>
-  </div>
-
 </section>
 
-<script>
-  // Dynamic pricing from Supabase — single source of truth
-  (function() {
-    var SUPABASE_URL = 'https://pbriwsgraemyqhkymneq.supabase.co';
-    var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicml3c2dyYWVteXFoa3ltbmVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNTQxNjEsImV4cCI6MjA5MDYzMDE2MX0.AFfCsWNblX3MzjOJVRL7JefLzaLQrsc6xHSeDZuFWrI';
-
-    fetch(SUPABASE_URL + '/rest/v1/pricing_config?select=key,value', {
-      headers: { 'apikey': SUPABASE_KEY }
-    })
-    .then(function(r) { return r.json(); })
-    .then(function(prices) {
-      var p = {};
-      prices.forEach(function(row) { p[row.key] = Math.round(Number(row.value)); });
-
-      var descEl = document.querySelector('[data-price="shop_treatment_desc"]');
-      if (descEl && p.treatment_monthly) {
-        var basePrice = p.treatment_monthly.toFixed ? p.treatment_monthly.toFixed(2).replace(/\.00$/, '') : p.treatment_monthly;
-        descEl.textContent = 'Included with Treatment Plan — $' + basePrice + '/mo';
-      }
-    })
-    .catch(function() { /* keep hardcoded defaults */ });
-  })();
-</script>
+<section class="shop-values">
+  <div class="shop-values__grid">
+    <div class="shop-values__item fade-in">
+      <div class="shop-values__icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.623 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
+        </svg>
+      </div>
+      <h3 class="shop-values__title">Malassezia-safe</h3>
+      <p class="shop-values__desc">Formulated without the oils, esters, and fatty acids that feed fungal yeasts.</p>
+    </div>
+    <div class="shop-values__item fade-in">
+      <div class="shop-values__icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25"/>
+        </svg>
+      </div>
+      <h3 class="shop-values__title">Free shipping</h3>
+      <p class="shop-values__desc">On every order, every time. No minimums, no surprises.</p>
+    </div>
+    <div class="shop-values__item fade-in">
+      <div class="shop-values__icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
+        </svg>
+      </div>
+      <h3 class="shop-values__title">No prescription</h3>
+      <p class="shop-values__desc">Everything here is over-the-counter — no appointment needed.</p>
+    </div>
+  </div>
+</section>
 
 {% schema %}
 {
