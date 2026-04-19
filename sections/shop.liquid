@@ -258,7 +258,7 @@
     <div class="shop-hero__head fade-in">
       <p class="shop-hero__eyebrow">Kyn Skyn Cosmetics</p>
       <h1 class="shop-hero__title">Shop</h1>
-      <p class="shop-hero__subtitle">Malassezia-safe skincare designed for fungal-prone skin. No prescription needed.</p>
+      <p class="shop-hero__subtitle">Malassezia-safe skincare for fungal-prone skin. No prescription needed.</p>
     </div>
 
     {%- assign featured_product = section.settings.product -%}
@@ -290,7 +290,7 @@
         <p class="shop-featured__label">{% if featured_product != blank and featured_product.type != blank %}{{ featured_product.type }}{% else %}Serum{% endif %}</p>
         <h2 class="shop-featured__name">{% if featured_product != blank %}{{ featured_product.title }}{% else %}Steady Serum{% endif %}</h2>
         <p class="shop-featured__price">{% if featured_variant != blank %}{{ featured_variant.price | money_without_trailing_zeros }}{% else %}$38{% endif %}</p>
-        <div class="shop-featured__desc">{% if featured_product != blank and featured_product.description != blank %}{{ featured_product.description }}{% else %}<p>Steady Serum uses lightweight MCT oil for hydration that lasts without feeding Malassezia. Coconut, olive, and most plant oils can make fungal acne worse. MCT is one of the few that doesn't.</p>{% endif %}</div>
+        <div class="shop-featured__desc">{% if featured_product != blank and featured_product.description != blank %}{{ featured_product.description }}{% else %}<p>Steady Serum hydrates with lightweight MCT oil, which Malassezia yeast can't digest. Coconut, olive, and most plant oils make fungal acne worse. MCT is one of the few exceptions, and it absorbs fast without a greasy finish.</p>{% endif %}</div>
         {%- if featured_product != blank -%}
           <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="shop-featured__form">
             <input type="hidden" name="id" value="{{ featured_variant.id }}">
@@ -317,7 +317,7 @@
         </svg>
       </div>
       <h3 class="shop-values__title">Malassezia-safe</h3>
-      <p class="shop-values__desc">Formulated without the oils, esters, and fatty acids that feed fungal yeasts.</p>
+      <p class="shop-values__desc">No oils, esters, or fatty acids that feed fungal yeast.</p>
     </div>
     <div class="shop-values__item fade-in">
       <div class="shop-values__icon">
@@ -326,7 +326,7 @@
         </svg>
       </div>
       <h3 class="shop-values__title">Free shipping</h3>
-      <p class="shop-values__desc">Every order ships free. There is no minimum to qualify.</p>
+      <p class="shop-values__desc">On every order, no minimum.</p>
     </div>
     <div class="shop-values__item fade-in">
       <div class="shop-values__icon">
@@ -335,7 +335,7 @@
         </svg>
       </div>
       <h3 class="shop-values__title">No prescription</h3>
-      <p class="shop-values__desc">Everything here is over the counter. You don't need an appointment to buy it.</p>
+      <p class="shop-values__desc">Over the counter. Skip the derm visit.</p>
     </div>
   </div>
 </section>

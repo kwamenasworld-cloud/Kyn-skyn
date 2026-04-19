@@ -1933,7 +1933,7 @@
     <div class="fade-in">
       <p class="checker-hero__eyebrow">Free Tool</p>
       <h1 class="checker-hero__heading">Check if your skincare is feeding Malassezia.</h1>
-      <p class="checker-hero__desc">Fungal acne, seb derm, dandruff, and tinea versicolor all come back to the same yeast. Plenty of common products contain ingredients that feed it. Paste a label and this tool checks it in seconds.</p>
+      <p class="checker-hero__desc">Fungal acne, seb derm, dandruff, and tinea versicolor all trace back to the same yeast, and plenty of common products contain ingredients that feed it. Paste a label and this tool will check it for you.</p>
     </div>
   </section>
 
@@ -1990,8 +1990,8 @@
               <circle cx="12" cy="13" r="4"/>
             </svg>
           </div>
-          <p class="checker__scan-label">Snap a photo of the ingredient list on your product</p>
-          <p class="checker__scan-sublabel">Flip the product over and photograph the small ingredient list on the back. We'll read it for you.</p>
+          <p class="checker__scan-label">Photograph the ingredient list on your product</p>
+          <p class="checker__scan-sublabel">Flip the product over and photograph the ingredient list on the back. The tool will pull the text out for you.</p>
           <button class="checker__scan-btn" id="scanBtn" type="button">Take Photo</button>
           <input type="file" id="cameraInput" accept="image/*" capture="environment">
         </div>
@@ -2140,7 +2140,7 @@
     <div class="wizard__container">
       <p class="wizard__eyebrow">Routine Builder</p>
       <h2 class="wizard__heading" id="wizardHeading">Build your routine.</h2>
-      <p class="wizard__desc" id="wizardDesc">We check each step for Malassezia safety and give the routine an overall score.</p>
+      <p class="wizard__desc" id="wizardDesc">Each step gets checked for Malassezia safety, and the routine gets an overall score at the end.</p>
 
       <div class="wizard__steps" id="wizardDots"></div>
       <p class="wizard__step-label" id="wizardStepLabel"></p>
@@ -2185,14 +2185,14 @@
     <div class="notify__container fade-in">
       <p class="notify__eyebrow">Made for Fungus-Prone Skin</p>
       <h2 class="notify__heading">Skincare built around the yeast that's breaking you out.</h2>
-      <p class="notify__desc">Get Malassezia-related updates in your inbox.</p>
+      <p class="notify__desc">Sign up for Malassezia-related updates from Kyn Skyn.</p>
 
       <form class="notify__form" id="waitlistForm" action="javascript:void(0)" method="post">
         <input class="notify__input" type="email" name="contact[email]" placeholder="Email address" required>
         <button class="notify__button" type="submit">Notify Me</button>
       </form>
       <p class="notify__success" id="formSuccess">You're on the list.</p>
-      <p class="notify__error" id="formError">Something went wrong. Please try again.</p>
+      <p class="notify__error" id="formError">That didn't go through. Try again.</p>
     </div>
   </section>
 
@@ -3077,7 +3077,7 @@
       });
 
       if (matches.length === 0) {
-        searchResults.innerHTML = '<p style="padding:1rem;opacity:0.4;font-size:0.85rem;">No products match. Paste the ingredient list instead.</p>';
+        searchResults.innerHTML = '<p style="padding:1rem;opacity:0.4;font-size:0.85rem;">No matching products. Paste the ingredient list instead.</p>';
       }
     }
 
@@ -3139,10 +3139,10 @@
           $$('.checker__tab')[0].classList.add('active');
           $('#panel-paste').classList.add('active');
           $('#inciInput').value = cleaned;
-          status.textContent = 'Ingredients extracted. Review them and hit Check.';
+          status.textContent = 'Got the ingredients. Review them and hit Check.';
 
         } catch (err) {
-          status.textContent = 'Error reading image. Please try again.';
+          status.textContent = 'Could not read that image. Try again.';
           console.error('OCR error:', err);
         }
       };
@@ -3171,9 +3171,9 @@
       verdictLabel.textContent = labels[analysis.verdict];
 
       const descs = {
-        safe: 'No ingredients known to feed Malassezia in this one. It should be fine for fungal acne, seb derm, and other Malassezia-prone skin.',
-        caution: 'Mostly fine. It contains a few ingredients that flare some people with Malassezia-prone skin, so patch test and watch how your skin reacts.',
-        unsafe: `Found ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that can feed Malassezia, the yeast behind fungal acne, seb derm, and dandruff. Scroll down for the list and safer swaps.`
+        safe: 'This product has no ingredients known to feed Malassezia, so it should work for fungal acne, seb derm, and other Malassezia-prone skin.',
+        caution: 'Mostly fine, but it contains a few ingredients that flare some people with Malassezia-prone skin. Patch test and see how your skin reacts.',
+        unsafe: `This product has ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that can feed Malassezia, the yeast behind fungal acne, seb derm, and dandruff. The list and safer swaps are below.`
       };
       $('#verdictDesc').textContent = descs[analysis.verdict];
 
@@ -3185,13 +3185,13 @@
 
       if (analysis.verdict === 'unsafe') {
         ctaTitle.textContent = 'Struggling with fungal acne?';
-        ctaDesc.textContent = `This product has ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that feed Malassezia. A provider can confirm what's going on and prescribe targeted treatment.`;
+        ctaDesc.textContent = `This product has ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that feed Malassezia. A provider can confirm the diagnosis and prescribe targeted treatment.`;
       } else if (analysis.verdict === 'caution') {
         ctaTitle.textContent = 'Not sure if it\'s fungal?';
-        ctaDesc.textContent = 'If products keep making you break out, a provider can tell you whether Malassezia is the cause and put a treatment plan together.';
+        ctaDesc.textContent = 'If products keep making you break out, a provider can tell you whether Malassezia is the cause and prescribe treatment.';
       } else {
         ctaTitle.textContent = 'Want a plan for your skin?';
-        ctaDesc.textContent = 'A licensed provider can look over your routine and prescribe treatment if you need it.';
+        ctaDesc.textContent = 'A licensed provider can review your routine and prescribe treatment.';
       }
 
       // Save button state
@@ -3377,7 +3377,7 @@
 
       function renderCardRow(container, products) {
         if (products.length === 0) {
-          container.innerHTML = '<div class="routine__empty">Nothing here yet. Check a product and save it to add it to this slot.</div>';
+          container.innerHTML = '<div class="routine__empty">This slot is empty. Check a product and save it to fill it in.</div>';
           return;
         }
         container.innerHTML = products.map(buildCard).join('');
@@ -3501,7 +3501,7 @@
 
       navigator.clipboard.writeText(text).then(() => {
         btn.classList.add('copied');
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied';
         setTimeout(() => {
           btn.classList.remove('copied');
           btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Results';
@@ -3628,7 +3628,7 @@
           });
 
           localStorage.setItem('kyn_waitlist', 'true');
-          btn.textContent = "You're in!";
+          btn.textContent = "You're on the list";
           btn.style.background = '#2a6e3f';
           btn.style.borderColor = '#2a6e3f';
           $('#formSuccess').style.display = 'block';
@@ -3763,7 +3763,7 @@
 
       if (isComplete) {
         // Show final summary
-        $('#wizardHeading').textContent = 'Here\'s your routine.';
+        $('#wizardHeading').textContent = 'Your routine.';
         $('#wizardDesc').textContent = '';
         $('#wizardStepLabel').textContent = '';
         $('#wizardSearch').style.display = 'none';
@@ -3837,7 +3837,7 @@
             }
           }
           renderRoutine();
-          $('#wizardSaveBtn').textContent = 'Saved!';
+          $('#wizardSaveBtn').textContent = 'Saved';
           $('#wizardSaveBtn').disabled = true;
           $('#wizardSaveBtn').style.background = 'var(--safe-green)';
         });
@@ -3889,7 +3889,7 @@
       });
 
       if (matches.length === 0) {
-        resultsDiv.innerHTML = '<p style="padding:1rem;opacity:0.4;font-size:0.85rem;">Nothing matched. Skip this step if you don\'t use one.</p>';
+        resultsDiv.innerHTML = '<p style="padding:1rem;opacity:0.4;font-size:0.85rem;">No matches. Skip this step if you don\'t use one.</p>';
       }
     });
 
