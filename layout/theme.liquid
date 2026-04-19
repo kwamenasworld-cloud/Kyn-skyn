@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page_title }} — {{ shop.name }}</title>
+  <title>{%- if template == 'index' -%}{{ shop.name }} — Skincare for fungus-prone skin{%- elsif page_title contains shop.name -%}{{ page_title }}{%- else -%}{{ page_title }} — {{ shop.name }}{%- endif -%}</title>
   <meta name="description" content="Kyn Skyn: skincare made for fungus-prone skin. Launching soon. Join the waitlist.">
   <meta property="og:title" content="Kyn Skyn — Coming Soon">
   <meta property="og:description" content="Skincare for fungus-prone skin. Built for skin like yours. Join the waitlist.">
