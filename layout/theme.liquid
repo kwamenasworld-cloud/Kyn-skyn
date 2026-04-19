@@ -837,11 +837,11 @@
       border-top: 1px solid rgba(255, 244, 206, 0.08);
       padding: 0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom, 0px));
     }
-    .mobile-tab-bar__links { display: flex; justify-content: space-around; align-items: center; list-style: none; }
-    .mobile-tab-bar__link { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-decoration: none; color: var(--cream); opacity: 0.45; transition: opacity 0.2s; padding: 0.3rem 0.5rem; }
+    .mobile-tab-bar__links { display: flex; justify-content: space-around; align-items: center; list-style: none; padding: 0 0.25rem; }
+    .mobile-tab-bar__link { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; text-decoration: none; color: var(--cream); opacity: 0.45; transition: opacity 0.2s; padding: 0.3rem 0.2rem; flex: 1 1 0; min-width: 0; }
     .mobile-tab-bar__link.active { opacity: 1; }
-    .mobile-tab-bar__link svg { width: 20px; height: 20px; }
-    .mobile-tab-bar__label { font-family: var(--font-sans); font-size: 0.6rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    .mobile-tab-bar__link svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .mobile-tab-bar__label { font-family: var(--font-sans); font-size: 0.58rem; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 
     /* ========== RESPONSIVE ========== */
     @media (max-width: 768px) {
@@ -938,6 +938,12 @@
         <a href="/pages/ingredient-checker" class="mobile-tab-bar__link{% if request.path contains 'ingredient-checker' %} active{% endif %}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
           <span class="mobile-tab-bar__label">Checker</span>
+        </a>
+      </li>
+      <li>
+        <a href="/pages/consultation" class="mobile-tab-bar__link{% if request.path contains 'consultation' %} active{% endif %}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          <span class="mobile-tab-bar__label">Consult</span>
         </a>
       </li>
       <li>
