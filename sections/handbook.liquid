@@ -1,3 +1,52 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "The Fungal Skin Handbook",
+  "headline": "A plain-English guide to managing Malassezia skin conditions",
+  "description": "Clinician-backed guide covering seborrheic dermatitis, dandruff, fungal acne (Malassezia folliculitis), tinea versicolor, and head-and-neck dermatitis. Evidence-based treatment ladders, ingredient guidance, and myth-busting for skin of color.",
+  "url": "https://kynskyn.com/pages/handbook",
+  "inLanguage": "en",
+  "audience": { "@type": "MedicalAudience", "audienceType": "Patient" },
+  "medicalAudience": "Patient",
+  "specialty": { "@type": "MedicalSpecialty", "name": "Dermatologic" },
+  "about": [
+    { "@type": "MedicalCondition", "name": "Seborrheic dermatitis", "alternateName": ["Seb derm", "Dandruff"] },
+    { "@type": "MedicalCondition", "name": "Malassezia folliculitis", "alternateName": ["Fungal acne", "Pityrosporum folliculitis"] },
+    { "@type": "MedicalCondition", "name": "Tinea versicolor", "alternateName": ["Pityriasis versicolor"] },
+    { "@type": "MedicalCondition", "name": "Head-and-neck dermatitis" }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Kyn Skyn",
+    "url": "https://kynskyn.com",
+    "logo": "https:{{ 'logomark.svg' | asset_url }}"
+  },
+  "datePublished": "2025-01-01",
+  "dateModified": "2026-04-19"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://kynskyn.com/pages/handbook" },
+  "headline": "The Fungal Skin Handbook",
+  "description": "A plain-English guide to seborrheic dermatitis, dandruff, fungal acne, tinea versicolor, and head-and-neck dermatitis.",
+  "author": { "@type": "Organization", "name": "Kyn Skyn" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Kyn Skyn",
+    "logo": { "@type": "ImageObject", "url": "https:{{ 'logomark.svg' | asset_url }}" }
+  },
+  "image": "https:{{ 'seb-derm-zones.svg' | asset_url }}",
+  "datePublished": "2025-01-01",
+  "dateModified": "2026-04-19",
+  "keywords": "seborrheic dermatitis, dandruff, fungal acne, Malassezia folliculitis, tinea versicolor, Malassezia, ketoconazole, azelaic acid, pityrosporum, skincare for fungus-prone skin, fungal acne treatment, seb derm treatment"
+}
+</script>
+
 <style>
 /* ── Handbook-scoped CSS variables (extras not in theme.liquid) ── */
 .handbook-section {
@@ -873,6 +922,10 @@
   </ul>
 </div>
 
+<div class="callout">
+  <strong>Next:</strong> Check your current products with the <a href="/pages/ingredient-checker">Ingredient Checker</a>, or book a <a href="/pages/consultation">video consultation</a> if OTC antifungals haven't been enough after ~4 weeks.
+</div>
+
 <div class="molecule-divider">
   <svg viewBox="0 0 280 32" fill="none" xmlns="http://www.w3.org/2000/svg">
     <line x1="0" y1="16" x2="280" y2="16" stroke="#641220" stroke-width="1.5"/>
@@ -1125,6 +1178,10 @@
 <h1 id="ingredients">Ingredients to avoid and safe alternatives</h1>
 
 <p>If you have spent any time in Malassezia skincare communities, you have seen the ingredient lists. They look overwhelming until the logic clicks. Malassezia is lipid-dependent. It cannot make its own fatty acids, so it scavenges them from your skin's surface. The ingredients that matter most are the ones delivering fatty acids the yeast can actually use.</p>
+
+<div class="callout">
+  <strong>Skip the memorization.</strong> Paste any product's ingredient list into our free <a href="/pages/ingredient-checker">Ingredient Checker</a> and it will flag every Malassezia-feeding ingredient, score the product, and suggest safe swaps. Scans 77+ popular products by name too.
+</div>
 
 <div class="callout teal">
   <strong>The carbon chain rule.</strong> Malassezia grows on fatty acids with carbon chain lengths from C12 through C24. Anything shorter than C12 (caprylic acid at C8, capric acid at C10) does not support growth. Neither do very long chains well above C24. A few studies reference C11 as a borderline threshold, but C12 (lauric acid) is the practical lower bound most widely cited. Once the rule clicks, most of the ingredient logic below falls into place.
