@@ -701,7 +701,7 @@
     margin-top: 0.1rem;
   }
 
-  /* ── Waitlist form ── */
+  /* ── Waitlist form (on cream section background) ── */
   .th-waitlist__eyebrow {
     display: inline-block;
     font-family: var(--font-accent, 'STK Bureau Sans', sans-serif);
@@ -709,9 +709,9 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #F8B044;
-    background: rgba(248, 176, 68, 0.1);
-    border: 1px solid rgba(248, 176, 68, 0.35);
+    color: var(--maroon);
+    background: rgba(248, 176, 68, 0.18);
+    border: 1px solid rgba(100, 18, 32, 0.25);
     padding: 0.35rem 0.8rem;
     border-radius: 999px;
     margin-bottom: 1.2rem;
@@ -729,13 +729,13 @@
     padding: 0.9rem 1.1rem;
     font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
     font-size: 0.95rem;
-    background: rgba(255, 244, 206, 0.08);
-    border: 1px solid rgba(255, 244, 206, 0.25);
+    background: #ffffff;
+    border: 1px solid rgba(100, 18, 32, 0.3);
     border-radius: 4px;
-    color: var(--cream);
+    color: var(--dark);
   }
-  .th-waitlist__input::placeholder { color: rgba(255, 244, 206, 0.4); }
-  .th-waitlist__input:focus { outline: none; border-color: rgba(255, 244, 206, 0.55); }
+  .th-waitlist__input::placeholder { color: rgba(61, 32, 37, 0.4); }
+  .th-waitlist__input:focus { outline: none; border-color: var(--maroon); box-shadow: 0 0 0 3px rgba(100, 18, 32, 0.08); }
   .th-waitlist__button {
     padding: 0.9rem 1.8rem;
     font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
@@ -743,20 +743,21 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--dark);
-    background: var(--cream);
-    border: 1px solid var(--cream);
+    color: var(--cream);
+    background: var(--maroon);
+    border: 1px solid var(--maroon);
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.2s, border-color 0.2s;
   }
-  .th-waitlist__button:hover { background: #F8B044; border-color: #F8B044; }
+  .th-waitlist__button:hover { background: var(--dark); border-color: var(--dark); }
   .th-waitlist__button:disabled { opacity: 0.6; cursor: not-allowed; }
   .th-waitlist__note {
     font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
     font-size: 0.9rem;
     margin: 0.6rem 0 0;
     min-height: 1.2rem;
+    color: var(--dark);
   }
   .th-waitlist__note:empty { display: none; }
   @media (max-width: 540px) {
@@ -868,12 +869,12 @@
         btn.style.borderColor = '#2a6e3f';
         btn.style.color = '#ffffff';
         note.textContent = "We'll email you on July 1 with your $20-off code.";
-        note.style.color = '#C5FEFF';
+        note.style.color = '#2a6e3f';
       } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Join the waitlist';
         note.textContent = 'Something went wrong — please try again.';
-        note.style.color = '#e8725a';
+        note.style.color = '#b02a2a';
       }
     });
   })();
