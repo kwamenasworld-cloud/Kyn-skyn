@@ -1,0 +1,4 @@
+# Internal financial planning — do not commit
+Kyn-Skyn-Budget.xlsx
+scripts/build_budget.py
+scripts/check_budget.py
