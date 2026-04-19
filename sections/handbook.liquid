@@ -340,6 +340,22 @@
 }
 
 /* ── KEY TAKEAWAYS ── */
+.handbook-section .handbook-figure {
+  margin: 2rem 0;
+  text-align: center;
+}
+.handbook-section .handbook-figure img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.handbook-section .handbook-figure figcaption {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-top: 0.75rem;
+  font-style: italic;
+}
 .handbook-section .takeaways {
   border: 1.5px solid rgba(5,85,40,0.2);
   border-radius: 8px;
@@ -820,6 +836,11 @@
 <!-- SEB DERM -->
 <h1 id="seb-derm">Seborrheic dermatitis and dandruff</h1>
 <p>Seborrheic dermatitis and dandruff sit on one spectrum, not two separate diseases. Dandruff is the milder, scalp-limited end: itchy flaking without obvious inflammation. Seborrheic dermatitis is the inflamed end: scale plus redness, sometimes real itch, spreading beyond the scalp to brows, eyelid margins, beard area, nasolabial folds, ears, upper chest, and sometimes the back or flexures.</p>
+
+<figure class="handbook-figure">
+  <img src="{{ 'seb-derm-zones.svg' | asset_url }}" alt="Diagram of a head and shoulders showing the five zones where seborrheic dermatitis typically appears: scalp and hairline, eyebrows, around the nose, in and behind the ears, and chest and sternum." loading="lazy">
+  <figcaption>Where seb derm shows up on the body.</figcaption>
+</figure>
 
 <div class="callout">
   <strong>Greasy or powdery scale in oily areas?</strong> Scalp, brows, sides of nose, beard, ears, chest? Put seborrheic dermatitis near the top of the list.

@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720" font-family="Georgia, serif">
+  <!-- Background -->
+  <rect width="1000" height="720" fill="#FFF4CE"/>
+
+  <!-- Title -->
+  <text x="40" y="56" font-size="28" fill="#5B1A1A" font-weight="600">Where seb derm shows up</text>
+  <text x="40" y="82" font-size="14" fill="#5B1A1A" opacity="0.75" font-family="Helvetica, Arial, sans-serif">Malassezia-driven inflammation gathers in oily zones.</text>
+
+  <!-- ============ SILHOUETTE ============ -->
+  <!-- Head center: (300, 270)  ellipse rx=90 ry=112 -->
+  <!-- Shoulders y: 420–600  |  Neck between y=380 and y=450 -->
+
+  <g>
+    <!-- Shoulders / upper torso (one skin tone for simplicity) -->
+    <path d="M 150 600 Q 150 470 250 450 L 265 420 L 335 420 L 350 450 Q 450 470 450 600 Z"
+          fill="#E8D6AF" stroke="#5B1A1A" stroke-width="2"/>
+    <!-- Neck -->
+    <path d="M 265 378 L 265 420 L 335 420 L 335 378 Z" fill="#E8D6AF" stroke="#5B1A1A" stroke-width="2"/>
+    <!-- Collar / shirt neckline hint (subtle curved stroke across collarbone area) -->
+    <path d="M 210 470 Q 275 500 300 510 Q 325 500 390 470" fill="none" stroke="#5B1A1A" stroke-width="1.5" opacity="0.45"/>
+
+    <!-- Head (oval) -->
+    <ellipse cx="300" cy="270" rx="90" ry="112" fill="#E8D6AF" stroke="#5B1A1A" stroke-width="2"/>
+    <!-- Soft jawline shadow for subtle depth -->
+    <path d="M 218 330 Q 230 365 300 382 Q 370 365 382 330 Q 372 360 300 372 Q 228 360 218 330 Z"
+          fill="#D4BF93" opacity="0.5"/>
+
+    <!-- Ears: outer helix + inner curl -->
+    <path d="M 210 262 Q 196 262 193 280 Q 193 300 205 302 Q 213 302 214 295" fill="#E8D6AF" stroke="#5B1A1A" stroke-width="1.5"/>
+    <path d="M 205 275 Q 200 278 200 285 Q 200 292 206 293" fill="none" stroke="#5B1A1A" stroke-width="1" opacity="0.55"/>
+    <path d="M 390 262 Q 404 262 407 280 Q 407 300 395 302 Q 387 302 386 295" fill="#E8D6AF" stroke="#5B1A1A" stroke-width="1.5"/>
+    <path d="M 395 275 Q 400 278 400 285 Q 400 292 394 293" fill="none" stroke="#5B1A1A" stroke-width="1" opacity="0.55"/>
+
+    <!-- Hair (softer asymmetric top curve) -->
+    <path d="M 215 230 Q 210 185 245 170 Q 280 158 305 162 Q 345 168 370 190 Q 385 210 385 232
+             Q 380 205 345 198 Q 305 192 275 195 Q 240 200 220 220 Q 215 225 215 230 Z"
+          fill="#2A1212"/>
+
+    <!-- ============ HIGHLIGHTED ZONES ============ -->
+    <!-- 1. Scalp: scattered flake patches on hair + slight hairline redness -->
+    <g fill="#C54427" opacity="0.78">
+      <ellipse cx="250" cy="205" rx="9" ry="5"/>
+      <ellipse cx="285" cy="188" rx="11" ry="5"/>
+      <ellipse cx="320" cy="193" rx="10" ry="5"/>
+      <ellipse cx="350" cy="210" rx="8" ry="4"/>
+      <ellipse cx="270" cy="220" rx="7" ry="4"/>
+      <ellipse cx="305" cy="218" rx="8" ry="4"/>
+    </g>
+    <!-- Subtle hairline redness (just where hair meets forehead, not a full band) -->
+    <path d="M 235 230 Q 260 228 290 230 Q 320 232 355 230" stroke="#C54427" stroke-width="3" fill="none" opacity="0.55" stroke-linecap="round"/>
+
+    <!-- 2. Eyebrows -->
+    <ellipse cx="262" cy="272" rx="22" ry="5" fill="#C54427" opacity="0.75"/>
+    <ellipse cx="338" cy="272" rx="22" ry="5" fill="#C54427" opacity="0.75"/>
+
+    <!-- 3. Nasolabial folds: elongated creases from nose-side to mouth corner -->
+    <path d="M 290 308 Q 284 328 280 352" stroke="#C54427" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.72"/>
+    <path d="M 310 308 Q 316 328 320 352" stroke="#C54427" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.72"/>
+
+    <!-- 4. Ears overlay (matches new ear shape) -->
+    <path d="M 208 265 Q 197 266 196 282 Q 197 298 207 299 Q 212 298 213 292 Q 207 292 205 285 Q 204 275 208 265 Z" fill="#C54427" opacity="0.78"/>
+    <path d="M 392 265 Q 403 266 404 282 Q 403 298 393 299 Q 388 298 387 292 Q 393 292 395 285 Q 396 275 392 265 Z" fill="#C54427" opacity="0.78"/>
+
+    <!-- 5. Chest / sternum -->
+    <path d="M 272 450 Q 300 468 328 450 L 322 525 Q 300 538 278 525 Z"
+          fill="#C54427" opacity="0.62"/>
+
+    <!-- ============ FACE FEATURES (softer) ============ -->
+    <circle cx="262" cy="290" r="2.8" fill="#2A1212"/>
+    <circle cx="338" cy="290" r="2.8" fill="#2A1212"/>
+    <!-- Nose (gentler) -->
+    <path d="M 300 300 Q 294 324 300 334" stroke="#5B1A1A" stroke-width="1.3" fill="none" opacity="0.85"/>
+    <!-- Mouth (gentler) -->
+    <path d="M 284 352 Q 300 361 316 352" stroke="#5B1A1A" stroke-width="1.3" fill="none" opacity="0.85"/>
+  </g>
+
+  <!-- ============ LEADER LINES ============ -->
+  <!-- Each leader originates ON its zone and curves out to the numbered label on the right. -->
+  <g stroke="#C54427" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.9">
+    <!-- 1 Scalp: from rightmost scalp flake -->
+    <path d="M 358 210 Q 480 190 600 175"/>
+    <!-- 2 Eyebrows: from right edge of right brow -->
+    <path d="M 360 272 Q 480 273 600 275"/>
+    <!-- 3 Nose: from middle of right nasolabial crease -->
+    <path d="M 316 328 Q 460 345 600 375"/>
+    <!-- 4 Ears: from right ear -->
+    <path d="M 400 285 Q 500 380 600 475"/>
+    <!-- 5 Chest: from right edge of chest zone -->
+    <path d="M 328 488 Q 465 530 600 575"/>
+  </g>
+  <!-- Origin markers on each zone — cream-filled with maroon ring so they read on any zone color -->
+  <g>
+    <circle cx="358" cy="210" r="5" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="1.8"/>
+    <circle cx="360" cy="272" r="5" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="1.8"/>
+    <circle cx="316" cy="328" r="5" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="1.8"/>
+    <circle cx="400" cy="285" r="5" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="1.8"/>
+    <circle cx="328" cy="488" r="5" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="1.8"/>
+  </g>
+
+  <!-- ============ RIGHT LABEL COLUMN ============ -->
+  <g font-family="Helvetica, Arial, sans-serif" fill="#5B1A1A">
+    <!-- 1 Scalp -->
+    <circle cx="628" cy="169" r="11" fill="#5B1A1A"/>
+    <text x="628" y="173" font-size="12" font-weight="700" fill="#FFF4CE" text-anchor="middle">1</text>
+    <text x="648" y="173" font-size="16" font-weight="700">Scalp &amp; hairline</text>
+    <text x="648" y="196" font-size="13" opacity="0.78">"Dandruff" flakes, often itchy.</text>
+    <text x="648" y="214" font-size="13" opacity="0.78">Most common zone.</text>
+
+    <!-- 2 Eyebrows -->
+    <circle cx="628" cy="269" r="11" fill="#5B1A1A"/>
+    <text x="628" y="273" font-size="12" font-weight="700" fill="#FFF4CE" text-anchor="middle">2</text>
+    <text x="648" y="273" font-size="16" font-weight="700">Eyebrows</text>
+    <text x="648" y="296" font-size="13" opacity="0.78">Flaking between brow hairs;</text>
+    <text x="648" y="314" font-size="13" opacity="0.78">easy to miss early on.</text>
+
+    <!-- 3 Around the nose -->
+    <circle cx="628" cy="369" r="11" fill="#5B1A1A"/>
+    <text x="628" y="373" font-size="12" font-weight="700" fill="#FFF4CE" text-anchor="middle">3</text>
+    <text x="648" y="373" font-size="16" font-weight="700">Around the nose</text>
+    <text x="648" y="396" font-size="13" opacity="0.78">Red, greasy-looking creases</text>
+    <text x="648" y="414" font-size="13" opacity="0.78">at the sides of the nose.</text>
+
+    <!-- 4 Ears -->
+    <circle cx="628" cy="469" r="11" fill="#5B1A1A"/>
+    <text x="628" y="473" font-size="12" font-weight="700" fill="#FFF4CE" text-anchor="middle">4</text>
+    <text x="648" y="473" font-size="16" font-weight="700">In and behind the ears</text>
+    <text x="648" y="496" font-size="13" opacity="0.78">Often missed. Inside the ear</text>
+    <text x="648" y="514" font-size="13" opacity="0.78">canal itches too.</text>
+
+    <!-- 5 Chest -->
+    <circle cx="628" cy="569" r="11" fill="#5B1A1A"/>
+    <text x="628" y="573" font-size="12" font-weight="700" fill="#FFF4CE" text-anchor="middle">5</text>
+    <text x="648" y="573" font-size="16" font-weight="700">Chest &amp; sternum</text>
+    <text x="648" y="596" font-size="13" opacity="0.78">Red patches, especially in</text>
+    <text x="648" y="614" font-size="13" opacity="0.78">people who sweat a lot.</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="40" y="690" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#5B1A1A" opacity="0.55" letter-spacing="2.5">KYN SKYN · THE FUNGAL SKIN HANDBOOK</text>
+</svg>
