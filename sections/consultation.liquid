@@ -427,10 +427,10 @@
 <!-- ====== HERO ====== -->
 <section class="th-hero">
   <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="th-hero__molecule">
-  <p class="th-hero__eyebrow fade-in">Consultation</p>
+  <p class="th-hero__eyebrow fade-in">Opening July 1, 2026 · Waitlist open</p>
   <h1 class="th-hero__heading fade-in">Get diagnosed by a<br>skin expert.</h1>
-  <p class="th-hero__desc fade-in">Not sure what's going on with your skin? Book a video visit with a licensed provider who actually treats Malassezia conditions. Prescriptions included when you need one.</p>
-  <a href="#th-conditions" class="th-hero__cta fade-in">See what we cover</a>
+  <p class="th-hero__desc fade-in">Kyn Skyn Rx opens July 1. Video visits with licensed providers who actually treat Malassezia conditions, prescriptions included when you need one. Join the waitlist now for $20 off your first quarterly plan.</p>
+  <a href="#th-waitlist" class="th-hero__cta fade-in">Join the waitlist</a>
 </section>
 
 <!-- ====== CONDITIONS ====== -->
@@ -570,7 +570,7 @@
       </button>
     </div>
     <p class="th-cta__desc" style="font-size: 0.85rem;">Every plan includes a provider consultation and a prescription sent to your pharmacy. You pay the pharmacy for the medication itself. Want it shipped to you instead? Add medication and home delivery for $50/month. Care runs through a HIPAA-compliant platform with licensed providers.</p>
-    <a href="https://care.kynskyn.com/book?plan=monthly&utm_source=kynskyn&utm_medium=consultation&utm_campaign=treatment_plan" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Continue with Monthly · $59.99/mo</a>
+    <a href="#th-waitlist" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Join the waitlist — $20 off quarterly</a>
   </div>
 </section>
 
@@ -700,6 +700,70 @@
     color: rgba(255, 244, 206, 0.55);
     margin-top: 0.1rem;
   }
+
+  /* ── Waitlist form ── */
+  .th-waitlist__eyebrow {
+    display: inline-block;
+    font-family: var(--font-accent, 'STK Bureau Sans', sans-serif);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #F8B044;
+    background: rgba(248, 176, 68, 0.1);
+    border: 1px solid rgba(248, 176, 68, 0.35);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+  }
+  .th-waitlist__form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 480px;
+    margin: 1.8rem auto 0.5rem;
+    flex-wrap: wrap;
+  }
+  .th-waitlist__input {
+    flex: 1;
+    min-width: 220px;
+    padding: 0.9rem 1.1rem;
+    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
+    font-size: 0.95rem;
+    background: rgba(255, 244, 206, 0.08);
+    border: 1px solid rgba(255, 244, 206, 0.25);
+    border-radius: 4px;
+    color: var(--cream);
+  }
+  .th-waitlist__input::placeholder { color: rgba(255, 244, 206, 0.4); }
+  .th-waitlist__input:focus { outline: none; border-color: rgba(255, 244, 206, 0.55); }
+  .th-waitlist__button {
+    padding: 0.9rem 1.8rem;
+    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dark);
+    background: var(--cream);
+    border: 1px solid var(--cream);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .th-waitlist__button:hover { background: #F8B044; border-color: #F8B044; }
+  .th-waitlist__button:disabled { opacity: 0.6; cursor: not-allowed; }
+  .th-waitlist__note {
+    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
+    font-size: 0.9rem;
+    margin: 0.6rem 0 0;
+    min-height: 1.2rem;
+  }
+  .th-waitlist__note:empty { display: none; }
+  @media (max-width: 540px) {
+    .th-waitlist__form { flex-direction: column; }
+    .th-waitlist__input { width: 100%; }
+    .th-waitlist__button { width: 100%; }
+  }
 </style>
 
 <script>
@@ -732,17 +796,8 @@
     }
 
     function setPricingCta() {
-      if (!pricingCta) return;
-      var plan = getEffectivePlan();
-      // Quarterly augment uses the quarterly card price (hidden from grid but still in DOM via the augment block)
-      var priceSelector = plan === 'quarterly'
-        ? '[data-price="treatment_quarterly"]'
-        : '[data-plan="' + plan + '"] [data-price]';
-      var priceText = readPrice(priceSelector);
-      pricingCta.textContent = CTA_LABELS[plan].replace('[price]', priceText);
-      var url = new URL(pricingCta.href);
-      url.searchParams.set('plan', plan);
-      pricingCta.href = url.toString();
+      // No-op while the page is in pre-launch waitlist mode.
+      // The CTA stays as a static scroll link to #th-waitlist.
     }
 
     plans.forEach(function(plan) {
@@ -777,16 +832,66 @@
       });
     }
   })();
+
+  // ── Waitlist form submission ──
+  (function () {
+    var form = document.getElementById('thWaitlistForm');
+    if (!form) return;
+    var input = form.querySelector('input[type="email"]');
+    var btn = form.querySelector('.th-waitlist__button');
+    var note = document.getElementById('thWaitlistNote');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var email = input.value.trim();
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Joining...';
+      note.textContent = '';
+
+      try {
+        var formData = new FormData();
+        formData.append('form_type', 'customer');
+        formData.append('utf8', '\u2713');
+        formData.append('contact[email]', email);
+        formData.append('contact[tags]', 'telehealth-waitlist,consultation-page,offer-20-off-quarterly');
+
+        await fetch('https://kynskyn.com/contact#contact_form', {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
+
+        btn.textContent = "You're on the list";
+        btn.style.background = '#2a6e3f';
+        btn.style.borderColor = '#2a6e3f';
+        btn.style.color = '#ffffff';
+        note.textContent = "We'll email you on July 1 with your $20-off code.";
+        note.style.color = '#C5FEFF';
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Join the waitlist';
+        note.textContent = 'Something went wrong — please try again.';
+        note.style.color = '#e8725a';
+      }
+    });
+  })();
 </script>
 
 
-<!-- ====== CTA ====== -->
-<section class="th-cta">
+<!-- ====== WAITLIST ====== -->
+<section class="th-cta" id="th-waitlist">
   <div class="th-cta__container fade-in">
-    <h2 class="th-cta__heading">Ready for a real answer?</h2>
-    <p class="th-cta__desc">Stop guessing. Bring your photos and history to a provider who knows what Malassezia looks like, and leave with a diagnosis and a plan.</p>
-    <a href="https://care.kynskyn.com/book?utm_source=kynskyn&utm_medium=consultation&utm_campaign=treatment_plan" class="th-cta__button" id="thBookBtn">Start treatment plan</a>
-    <p class="th-cta__note">Consultations run on a HIPAA-compliant platform.</p>
+    <p class="th-waitlist__eyebrow">Opening July 1, 2026</p>
+    <h2 class="th-cta__heading">Be first in line.</h2>
+    <p class="th-cta__desc">Join the Kyn Skyn Rx waitlist and we'll email you the moment booking opens. Waitlist members get <strong>$20 off their first quarterly plan</strong> — $149 becomes $129, and that includes provider consultation plus Rx sent to your pharmacy.</p>
+    <form class="th-waitlist__form" id="thWaitlistForm">
+      <input type="email" class="th-waitlist__input" placeholder="you@email.com" required aria-label="Email address">
+      <button type="submit" class="th-waitlist__button">Join the waitlist</button>
+    </form>
+    <p class="th-waitlist__note" id="thWaitlistNote"></p>
+    <p class="th-cta__note">One email when we launch. No spam. Unsubscribe anytime.</p>
   </div>
 </section>
 
