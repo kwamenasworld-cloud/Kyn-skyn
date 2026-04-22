@@ -853,12 +853,11 @@
 
       try {
         var formData = new FormData();
-        formData.append('form_type', 'customer');
-        formData.append('utf8', '\u2713');
-        formData.append('contact[email]', email);
-        formData.append('contact[tags]', 'telehealth-waitlist,consultation-page,offer-20-off-quarterly');
+        formData.append('EMAIL', email);
+        formData.append('SOURCE', 'consultation-waitlist-quarterly-20off');
+        formData.append('b_61338503f23a719d2d581c864_051996d936', '');
 
-        await fetch('https://kynskyn.com/contact#contact_form', {
+        await fetch('https://kynskyn.us15.list-manage.com/subscribe/post?u=61338503f23a719d2d581c864&id=051996d936', {
           method: 'POST',
           body: formData,
           mode: 'no-cors'
