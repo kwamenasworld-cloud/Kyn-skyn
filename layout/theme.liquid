@@ -231,6 +231,28 @@
       margin-bottom: 1.2rem;
     }
 
+    .hero__heading-plus {
+      display: inline-block;
+      color: var(--terracotta);
+      font-family: var(--font-accent);
+      font-weight: 400;
+      font-size: 0.7em;
+      line-height: 1;
+      margin: 0 0.18em;
+      vertical-align: 0.08em;
+      transform-origin: 50% 55%;
+      animation: heroPlusSpin 14s linear infinite;
+    }
+
+    @keyframes heroPlusSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero__heading-plus { animation: none; transform: rotate(-8deg); }
+    }
+
     .hero__sub {
       font-family: var(--font-sans);
       font-size: clamp(1rem, 2vw, 1.25rem);
