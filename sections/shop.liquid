@@ -125,6 +125,49 @@
     opacity: 0.5;
   }
 
+  .shop-featured__cta-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .shop-featured__sticker {
+    position: absolute;
+    top: -14px;
+    left: -14px;
+    transform: rotate(-8deg);
+    transform-origin: center;
+    z-index: 3;
+    display: inline-block;
+    background: var(--dark);
+    color: var(--cream);
+    border: 1.5px solid rgba(255, 244, 206, 0.45);
+    border-radius: 2rem;
+    font-family: var(--font-accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.1rem;
+    box-shadow: 0 8px 22px -8px rgba(42, 2, 8, 0.7);
+    pointer-events: none;
+    white-space: nowrap;
+    animation: shopStickerPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both,
+               shopStickerWiggle 6s ease-in-out 2s infinite;
+  }
+
+  @keyframes shopStickerPop {
+    from { opacity: 0; transform: rotate(-22deg) scale(0.7); }
+    to   { opacity: 1; transform: rotate(-8deg) scale(1); }
+  }
+
+  @keyframes shopStickerWiggle {
+    0%, 100% { transform: rotate(-8deg) translateY(0); }
+    50%      { transform: rotate(-6deg) translateY(-2px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shop-featured__sticker { animation: none; transform: rotate(-8deg); }
+  }
+
   /* Product image — replaces the mockup when a featured product is set */
   .shop-featured__image {
     aspect-ratio: 1;
@@ -247,6 +290,7 @@
     .shop-mockup__name-top { font-size: 3rem; }
     .shop-mockup__name-bottom { font-size: 2rem; }
     .shop-featured__name { font-size: 2rem; }
+    .shop-featured__cta-wrap { display: block; }
     .shop-featured__btn { width: 100%; text-align: center; }
     .shop-values__grid { grid-template-columns: 1fr; gap: 1.75rem; }
   }
@@ -266,42 +310,49 @@
       {%- assign featured_variant = featured_product.selected_or_first_available_variant -%}
     {%- endif -%}
     <div class="shop-hero__featured fade-in">
-      {%- if featured_product != blank and featured_product.featured_image != blank -%}
-        <div class="shop-featured__image">
-          <img
-            src="{{ featured_product.featured_image | image_url: width: 800 }}"
-            alt="{{ featured_product.featured_image.alt | default: featured_product.title | escape }}"
-            width="{{ featured_product.featured_image.width }}"
-            height="{{ featured_product.featured_image.height }}"
-            loading="lazy">
-        </div>
-      {%- else -%}
-        <div class="shop-mockup" aria-hidden="true">
-          <span class="shop-mockup__brand">Kyn Skyn</span>
-          <div class="shop-mockup__name">
-            <p class="shop-mockup__name-top">STEADY</p>
-            <div class="shop-mockup__divider"></div>
-            <p class="shop-mockup__name-bottom">SERUM</p>
+      <div class="shop-featured__media">
+        {%- if featured_product != blank and featured_product.featured_image != blank -%}
+          <div class="shop-featured__image">
+            <img
+              src="{{ featured_product.featured_image | image_url: width: 800 }}"
+              alt="{{ featured_product.featured_image.alt | default: featured_product.title | escape }}"
+              width="{{ featured_product.featured_image.width }}"
+              height="{{ featured_product.featured_image.height }}"
+              loading="lazy">
           </div>
-          <span class="shop-mockup__size">30 ml</span>
-        </div>
-      {%- endif -%}
+        {%- else -%}
+          <div class="shop-mockup" aria-hidden="true">
+            <span class="shop-mockup__brand">Kyn Skyn</span>
+            <div class="shop-mockup__name">
+              <p class="shop-mockup__name-top">STEADY</p>
+              <div class="shop-mockup__divider"></div>
+              <p class="shop-mockup__name-bottom">SERUM</p>
+            </div>
+            <span class="shop-mockup__size">30 ml</span>
+          </div>
+        {%- endif -%}
+      </div>
       <div class="shop-featured__info">
         <p class="shop-featured__label">{% if featured_product != blank and featured_product.type != blank %}{{ featured_product.type }}{% else %}Serum{% endif %}</p>
         <h2 class="shop-featured__name">{% if featured_product != blank %}{{ featured_product.title }}{% else %}Steady Serum{% endif %}</h2>
         <p class="shop-featured__price">{% if featured_variant != blank %}{{ featured_variant.price | money_without_trailing_zeros }}{% else %}$38{% endif %}</p>
         <div class="shop-featured__desc">{% if featured_product != blank and featured_product.description != blank %}{{ featured_product.description }}{% else %}<p>Steady Serum hydrates with lightweight MCT oil, which Malassezia yeast can't digest. Coconut, olive, and most plant oils make fungal acne worse. MCT is one of the few exceptions, and it absorbs fast without a greasy finish.</p>{% endif %}</div>
-        {%- if featured_product != blank -%}
-          <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="shop-featured__form">
-            <input type="hidden" name="id" value="{{ featured_variant.id }}">
-            <input type="hidden" name="quantity" value="1">
-            <button type="submit" class="shop-featured__btn"{% unless featured_variant.available %} disabled{% endunless %}>
-              {%- if featured_variant.available -%}Add to Cart — {{ featured_variant.price | money_without_trailing_zeros }}{%- else -%}Sold out{%- endif -%}
-            </button>
-          </form>
-        {%- else -%}
-          <a href="/products/steady-serum" class="shop-featured__btn">Add to Cart — $38</a>
-        {%- endif -%}
+        <div class="shop-featured__cta-wrap">
+          {%- unless featured_variant != blank and featured_variant.available -%}
+            <span class="shop-featured__sticker" aria-hidden="true">Coming Soon</span>
+          {%- endunless -%}
+          {%- if featured_product != blank -%}
+            <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="shop-featured__form">
+              <input type="hidden" name="id" value="{{ featured_variant.id }}">
+              <input type="hidden" name="quantity" value="1">
+              <button type="submit" class="shop-featured__btn"{% unless featured_variant.available %} disabled{% endunless %}>
+                {%- if featured_variant.available -%}Add to Cart — {{ featured_variant.price | money_without_trailing_zeros }}{%- else -%}Sold out{%- endif -%}
+              </button>
+            </form>
+          {%- else -%}
+            <a href="/products/steady-serum" class="shop-featured__btn">Add to Cart — $38</a>
+          {%- endif -%}
+        </div>
         <p class="shop-featured__note">Free shipping on every order.</p>
       </div>
     </div>
