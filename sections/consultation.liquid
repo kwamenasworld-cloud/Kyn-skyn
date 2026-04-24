@@ -569,7 +569,7 @@
         </div>
       </button>
     </div>
-    <p class="th-cta__desc" style="font-size: 0.85rem;">Every plan includes a provider consultation and a prescription sent to your pharmacy. You pay the pharmacy for the medication itself. Want it shipped to you instead? Add medication and home delivery for $50/month. Care runs through a HIPAA-compliant platform with licensed providers.</p>
+    <p class="th-cta__desc" style="font-size: 0.85rem;">Every plan includes a provider consultation and a prescription sent to your pharmacy. You pay the pharmacy for the medication itself. Care runs through a HIPAA-compliant platform with licensed providers.</p>
     <a href="#th-waitlist" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Join the waitlist — $20 off quarterly</a>
   </div>
 </section>
@@ -932,7 +932,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing">Treatment Plans are $59.99/month, $69.99 every 2 months, or $149 quarterly. All include your provider consultation and prescription sent to your pharmacy. A one-time consult is $79. Optional medication and home delivery add-on is $50/month. Payment runs securely through Stripe.</div>
+      <div class="th-faq__a" data-price="faq_pricing">Treatment Plans are $59.99/month, $69.99 every 2 months, or $149 quarterly. All include your provider consultation and prescription sent to your pharmacy. A one-time consult is $79. Payment runs securely through Stripe.</div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -1004,8 +1004,8 @@
 
       // Update FAQ pricing text
       var faqEl = document.querySelector('[data-price="faq_pricing"]');
-      if (faqEl && p.treatment_monthly && p.treatment_onetime && p.treatment_quarterly && p.treatment_bimonthly && p.delivery_addon_monthly) {
-        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + '/month, $' + p.treatment_bimonthly + ' every 2 months, or $' + p.treatment_quarterly + ' quarterly. All include your provider consultation and prescription sent to your pharmacy. A one-time consult is $' + p.treatment_onetime + '. Optional medication and home delivery add-on is $' + p.delivery_addon_monthly + '/month. Payment runs securely through Stripe.';
+      if (faqEl && p.treatment_monthly && p.treatment_onetime && p.treatment_quarterly && p.treatment_bimonthly) {
+        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + '/month, $' + p.treatment_bimonthly + ' every 2 months, or $' + p.treatment_quarterly + ' quarterly. All include your provider consultation and prescription sent to your pharmacy. A one-time consult is $' + p.treatment_onetime + '. Payment runs securely through Stripe.';
       }
     })
     .catch(function() { /* keep hardcoded defaults */ });
