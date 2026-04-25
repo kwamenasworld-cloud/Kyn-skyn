@@ -896,6 +896,7 @@
 </section>
 
 <!-- ====== FAQ ====== -->
+<!-- DEBUG-FAQ-BLOCKS: size={{ section.blocks.size }} type0={% if section.blocks.size > 0 %}{{ section.blocks[0].type }}{% else %}none{% endif %} -->
 <section class="th-faq">
   <div class="th-faq__container">
     <h2 class="th-faq__heading fade-in">Common questions</h2>
@@ -1015,6 +1016,16 @@
 {% schema %}
 {
   "name": "Consultation",
-  "class": "consultation-section"
+  "class": "consultation-section",
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "textarea", "id": "answer", "label": "Answer" }
+      ]
+    }
+  ]
 }
 {% endschema %}
