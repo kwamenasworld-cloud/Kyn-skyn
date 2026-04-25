@@ -1057,99 +1057,6 @@
     .notify__success { color: var(--cream); opacity: 0.8; }
     .notify__error { color: #e8725a; }
 
-    /* ========== EMAIL GATE (ingredient checker) ========== */
-    .checker-gate {
-      background: var(--cream);
-      border: 1px solid rgba(100, 18, 32, 0.15);
-      border-radius: 6px;
-      padding: 2.5rem 2rem;
-      margin: 2rem 0;
-      text-align: center;
-    }
-
-    .checker-gate__icon {
-      width: 40px;
-      height: 40px;
-      margin: 0 auto 1rem;
-      color: var(--maroon);
-    }
-
-    .checker-gate__icon svg { width: 100%; height: 100%; }
-
-    .checker-gate__title {
-      font-family: var(--font-serif);
-      font-size: 1.35rem;
-      font-weight: 300;
-      color: var(--maroon);
-      margin-bottom: 0.5rem;
-    }
-
-    .checker-gate__desc {
-      font-family: var(--font-sans);
-      font-size: 0.9rem;
-      color: var(--dark);
-      opacity: 0.7;
-      line-height: 1.6;
-      margin: 0 auto 1.5rem;
-      max-width: 440px;
-    }
-
-    .checker-gate__form {
-      display: flex;
-      gap: 0.5rem;
-      max-width: 440px;
-      margin: 0 auto;
-      flex-wrap: wrap;
-    }
-
-    .checker-gate__input {
-      flex: 1;
-      min-width: 200px;
-      padding: 0.85rem 1rem;
-      font-family: var(--font-sans);
-      font-size: 0.9rem;
-      border: 1px solid rgba(100, 18, 32, 0.25);
-      border-radius: 2px;
-      background: #fff;
-      color: var(--dark);
-    }
-
-    .checker-gate__input::placeholder { color: rgba(36, 36, 36, 0.35); }
-    .checker-gate__input:focus { outline: none; border-color: var(--maroon); }
-
-    .checker-gate__btn {
-      padding: 0.85rem 1.6rem;
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--cream);
-      background: var(--button);
-      border: none;
-      border-radius: 2px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .checker-gate__btn:hover { background: var(--maroon); }
-    .checker-gate__btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
-    .checker-gate__note {
-      font-family: var(--font-sans);
-      font-size: 0.85rem;
-      margin-top: 1rem;
-    }
-
-    .checker-gate__note:empty { display: none; }
-    .checker-gate__note--error { color: #b02a2a; }
-
-    @media (max-width: 640px) {
-      .checker-gate__form { flex-direction: column; }
-      .checker-gate__input { width: 100%; }
-      .checker-gate__btn { width: 100%; }
-    }
-
     /* ========== FAQ ========== */
     .faq {
       padding: 5rem 3rem;
@@ -2163,20 +2070,6 @@
       <!-- Stats -->
       <div class="results__stats" id="statsRow"></div>
 
-      <!-- Email gate — hides detail sections until email captured -->
-      <div class="checker-gate" id="checkerGate" style="display:none;">
-        <div class="checker-gate__icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </div>
-        <h3 class="checker-gate__title">See the full ingredient breakdown</h3>
-        <p class="checker-gate__desc">Drop your email to unlock which specific ingredients flagged — plus occasional tips on fungal-acne-safe skincare. Unsubscribe anytime.</p>
-        <form class="checker-gate__form" id="checkerGateForm">
-          <input type="email" class="checker-gate__input" placeholder="you@email.com" required aria-label="Email address">
-          <button type="submit" class="checker-gate__btn">Unlock Results</button>
-        </form>
-        <p class="checker-gate__note" id="checkerGateNote"></p>
-      </div>
-
       <!-- Flagged ingredients -->
       <div id="flaggedSection" style="display:none;">
         <h3 class="results__section-title">Problem Ingredients</h3>
@@ -3009,7 +2902,6 @@
       currentAnalysis = analyzeIngredients(ingredients);
 
       renderResults(currentAnalysis, productName);
-      applyGate();
       loadRatings();
 
       const resultsEl = $('#results');
@@ -3751,76 +3643,6 @@
           btn.textContent = 'Notify Me';
           btn.disabled = false;
           $('#formError').style.display = 'block';
-        }
-      });
-    }
-
-    // ==========================================
-    // EMAIL GATE — ingredient checker
-    // ==========================================
-    const GATE_KEY = 'kyn_checker_unlocked';
-    const gateEl = $('#checkerGate');
-    const gateForm = $('#checkerGateForm');
-    const gateInput = gateForm ? gateForm.querySelector('input[type="email"]') : null;
-    const gateBtn = gateForm ? gateForm.querySelector('.checker-gate__btn') : null;
-    const gateNote = $('#checkerGateNote');
-    let isUnlocked = localStorage.getItem(GATE_KEY) === 'true';
-
-    function applyGate() {
-      if (!gateEl) return;
-      if (isUnlocked) {
-        gateEl.style.display = 'none';
-        return;
-      }
-      gateEl.style.display = 'block';
-      const flagged = $('#flaggedSection');
-      const safe = $('#safeSection');
-      const unknown = $('#unknownSection');
-      if (flagged) flagged.style.display = 'none';
-      if (safe) safe.style.display = 'none';
-      if (unknown) unknown.style.display = 'none';
-    }
-
-    if (gateForm) {
-      gateForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = gateInput.value.trim();
-        if (!email) return;
-
-        gateBtn.disabled = true;
-        gateBtn.textContent = 'Unlocking...';
-        gateNote.textContent = '';
-        gateNote.className = 'checker-gate__note';
-
-        try {
-          const formData = new FormData();
-          formData.append('form_type', 'customer');
-          formData.append('utf8', '\u2713');
-          formData.append('contact[email]', email);
-          const verdict = (currentAnalysis && currentAnalysis.verdict) || 'unknown';
-          formData.append('contact[tags]', 'ingredient-checker,gate,verdict-' + verdict);
-
-          await fetch('https://kynskyn.com/contact#contact_form', {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors'
-          });
-
-          localStorage.setItem(GATE_KEY, 'true');
-          isUnlocked = true;
-
-          if (currentAnalysis) {
-            const flaggedList = [...currentAnalysis.unsafe, ...currentAnalysis.caution];
-            if (flaggedList.length > 0) $('#flaggedSection').style.display = 'block';
-            if (currentAnalysis.safe.length > 0) $('#safeSection').style.display = 'block';
-            if (currentAnalysis.unknown.length > 0) $('#unknownSection').style.display = 'block';
-          }
-          gateEl.style.display = 'none';
-        } catch (err) {
-          gateBtn.disabled = false;
-          gateBtn.textContent = 'Unlock Results';
-          gateNote.textContent = 'Something went wrong — please try again.';
-          gateNote.className = 'checker-gate__note checker-gate__note--error';
         }
       });
     }
