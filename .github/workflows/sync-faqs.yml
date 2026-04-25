@@ -2,8 +2,9 @@ name: Sync FAQs from Supabase
 
 on:
   repository_dispatch:
-    types: [faq-changed]
-  workflow_dispatch:
+    types:
+      - faq-changed
+  workflow_dispatch: {}
 
 permissions:
   contents: write
