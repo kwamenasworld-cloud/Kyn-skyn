@@ -404,9 +404,13 @@
   }
 
   .th-faq__a.open {
-    max-height: 20rem;
+    max-height: 24rem;
     padding-top: 1rem;
   }
+
+  .th-faq__a p { margin: 0; }
+  .th-faq__a p + p { margin-top: 0.8rem; }
+  .th-faq__a a { color: inherit; text-decoration: underline; }
 
   /* ========== RESPONSIVE ========== */
   @media (max-width: 768px) {
@@ -902,55 +906,57 @@
   <div class="th-faq__container">
     <h2 class="th-faq__heading fade-in">Common questions</h2>
 
+    <!-- FAQ:START -->
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">What conditions can I get diagnosed for?</button>
-      <div class="th-faq__a">Our providers focus on Malassezia-related skin conditions: fungal acne (Malassezia folliculitis), seborrheic dermatitis, and tinea versicolor. They all trace back to the same yeast overgrowth, which is why generic acne or eczema treatments tend to miss.</div>
+      <div class="th-faq__a"><p>Our providers focus on Malassezia-related skin conditions: fungal acne (Malassezia folliculitis), seborrheic dermatitis, and tinea versicolor. They all trace back to the same yeast overgrowth, which is why generic acne or eczema treatments tend to miss.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How does the consultation work?</button>
-      <div class="th-faq__a">You fill out a thorough intake and upload photos of your skin — no scheduling, no video call. A licensed provider (MD, DO, or NP) reviews everything and sends you a written diagnosis and treatment plan, usually within 24 hours. You can ask follow-up questions in the same thread.</div>
+      <div class="th-faq__a"><p>You fill out a thorough intake and upload photos of your skin — no scheduling, no video call. A licensed provider (MD, DO, or NP) reviews everything and sends you a written diagnosis and treatment plan, usually within 24 hours. You can ask follow-up questions in the same thread.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">Can I get a prescription?</button>
-      <div class="th-faq__a">Yes. If your provider decides a prescription is the right call, they e-prescribe it straight to your pharmacy. That typically means a topical or oral antifungal, depending on what you have.</div>
+      <div class="th-faq__a"><p>Yes. If your provider decides a prescription is the right call, they e-prescribe it straight to your pharmacy. That typically means a topical or oral antifungal, depending on what you have.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">Is this covered by insurance?</button>
-      <div class="th-faq__a">It depends on your plan. A lot of insurers do cover virtual dermatology visits, but some don't — call yours before you book. We'll hand you an itemized receipt so you can file a claim yourself.</div>
+      <div class="th-faq__a"><p>It depends on your plan. A lot of insurers do cover virtual dermatology visits, but some don't — call yours before you book. We'll hand you an itemized receipt so you can file a claim yourself.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How is my health information protected?</button>
-      <div class="th-faq__a">All consultations run on a HIPAA-compliant platform. Your medical records are encrypted at rest and in transit, and we don't share them with third parties. We also keep the care platform entirely separate from the shop — your clinical data never sits next to your order history.</div>
+      <div class="th-faq__a"><p>All consultations run on a HIPAA-compliant platform. Your medical records are encrypted at rest and in transit, and we don't share them with third parties. We also keep the care platform entirely separate from the shop — your clinical data never sits next to your order history.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">I already used the Ingredient Checker. Should I still book?</button>
-      <div class="th-faq__a">The Ingredient Checker flags products that may be feeding Malassezia, but it can't diagnose you. A provider can tell you whether it's actually fungal acne, seb derm, or tinea versicolor — and can prescribe the antifungals you can't buy over the counter.</div>
+      <div class="th-faq__a"><p>The Ingredient Checker flags products that may be feeding Malassezia, but it can't diagnose you. A provider can tell you whether it's actually fungal acne, seb derm, or tinea versicolor — and can prescribe the antifungals you can't buy over the counter.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing">Treatment Plans are $59.99/month, $69.99 every 2 months, or $149 quarterly. All include your provider consultation and prescription sent to your pharmacy. A one-time consult is $79. Payment runs securely through Stripe.</div>
+      <div class="th-faq__a" data-price="faq_pricing"><p>Treatment Plans are $59.99/month, $69.99 every 2 months, or $149 quarterly. All include your provider consultation and prescription sent to your pharmacy. A one-time consult is $79. Payment runs securely through Stripe.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">Do I need to upload photos of my skin?</button>
-      <div class="th-faq__a">Photos are optional, but please upload them if you can — they make a real difference for your provider. You can attach up to 5 during intake. We strip GPS and device metadata before storing them, and only your treating provider can see them.</div>
+      <div class="th-faq__a"><p>Photos are optional, but please upload them if you can — they make a real difference for your provider. You can attach up to 5 during intake. We strip GPS and device metadata before storing them, and only your treating provider can see them.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How do I select a pharmacy?</button>
-      <div class="th-faq__a">During booking, you search for pharmacies by name and ZIP code. If your provider prescribes anything, the e-prescription is sent to whichever pharmacy you picked.</div>
+      <div class="th-faq__a"><p>During booking, you search for pharmacies by name and ZIP code. If your provider prescribes anything, the e-prescription is sent to whichever pharmacy you picked.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">What payment methods do you accept?</button>
-      <div class="th-faq__a">All payments run through Stripe. We take major credit and debit cards (Visa, Mastercard, Amex, Discover), plus Apple Pay and Google Pay.</div>
+      <div class="th-faq__a"><p>All payments run through Stripe. We take major credit and debit cards (Visa, Mastercard, Amex, Discover), plus Apple Pay and Google Pay.</p></div>
     </div>
+    <!-- FAQ:END -->
   </div>
 </section>
 
