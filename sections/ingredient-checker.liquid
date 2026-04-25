@@ -2916,7 +2916,7 @@
       } catch (e) { /* ignore encoding errors */ }
     }
 
-    // Read URL hash on page load to restore shared results
+    // #r= restores shared results; ?q= seeds the checker from sitelinks searchbox + external deep links
     function checkUrlHash() {
       const hash = window.location.hash;
       if (hash.startsWith('#r=')) {
@@ -2926,8 +2926,15 @@
             $('#productName').value = decoded.n || '';
             $('#inciInput').value = decoded.i;
             runCheck(decoded.i, decoded.n, decoded.b, true);
+            return;
           }
         } catch (e) { /* ignore bad hash */ }
+      }
+
+      const q = new URLSearchParams(window.location.search).get('q');
+      if (q && q.trim()) {
+        $('#inciInput').value = q.trim();
+        runCheck(q.trim(), '', '');
       }
     }
 

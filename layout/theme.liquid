@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#641220">
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
   {%- capture seo_title -%}
-    {%- if template == 'index' -%}{{ shop.name }} — Skincare for fungus-prone skin
+    {%- if template == 'index' -%}{{ shop.name }} — Skincare for Fungal Acne, Seb Derm & Malassezia-Prone Skin
     {%- elsif page_title contains shop.name -%}{{ page_title }}
     {%- else -%}{{ page_title }} — {{ shop.name }}
     {%- endif -%}
@@ -22,7 +24,7 @@
   <meta property="og:site_name" content="{{ shop.name }}">
   <meta property="og:title" content="{{ seo_title }}">
   <meta property="og:description" content="{{ seo_description }}">
-  <meta property="og:type" content="{% if template contains 'page' %}article{% else %}website{% endif %}">
+  <meta property="og:type" content="{% if page.handle == 'handbook' %}article{% else %}website{% endif %}">
   <meta property="og:url" content="{{ canonical_url }}">
   <meta property="og:image" content="{{ 'group.jpg' | asset_url | prepend: 'https:' }}">
   <meta name="twitter:card" content="summary_large_image">
@@ -44,6 +46,23 @@
       "https://instagram.com/kynskyn",
       "https://tiktok.com/@kynskyn"
     ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Kyn Skyn",
+    "url": "https://kynskyn.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://kynskyn.com/pages/ingredient-checker?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
   }
   </script>
 
