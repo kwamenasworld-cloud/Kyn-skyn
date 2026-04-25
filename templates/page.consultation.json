@@ -1,7 +1,90 @@
 {
   "sections": {
     "consultation": {
-      "type": "consultation"
+      "type": "consultation",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What conditions can I get diagnosed for?",
+            "answer": "<p>Our providers focus on Malassezia-related skin conditions: fungal acne (Malassezia folliculitis), seborrheic dermatitis, and tinea versicolor. They all trace back to the same yeast overgrowth, which is why generic acne or eczema treatments tend to miss.</p>",
+            "enable_dynamic_pricing": false
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "How does the consultation work?",
+            "answer": "<p>You fill out a thorough intake and upload photos of your skin — no scheduling, no video call. A licensed provider (MD, DO, or NP) reviews everything and sends you a written diagnosis and treatment plan, usually within 24 hours. You can ask follow-up questions in the same thread.</p>",
+            "enable_dynamic_pricing": false
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get a prescription?",
+            "answer": "<p>Yes. If your provider decides a prescription is the right call, they e-prescribe it straight to your pharmacy. That typically means a topical or oral antifungal, depending on what you have.</p>",
+            "enable_dynamic_pricing": false
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this covered by insurance?",
+            "answer": "<p>It depends on your plan. A lot of insurers do cover virtual dermatology visits, but some don't — call yours before you book. We'll hand you an itemized receipt so you can file a claim yourself.</p>",
+            "enable_dynamic_pricing": false
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "How is my health information protected?",
+            "answer": "<p>All consultations run on a HIPAA-compliant platform. Your medical records are encrypted at rest and in transit, and we don't share them with third parties. We also keep the care platform entirely separate from the shop — your clinical data never sits next to your order history.</p>",
+            "enable_dynamic_pricing": false
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "I already used the Ingredient Checker. Should I still book?",
+            "answer": "<p>The Ingredient Checker flags products that may be feeding Malassezia, but it can't diagnose you. A provider can tell you whether it's actually fungal acne, seb derm, or tinea versicolor — and can prescribe the antifungals you can't buy over the counter.</p>",
+            "enable_dynamic_pricing": false
+          }
+        },
+        "faq_7": {
+          "type": "faq",
+          "settings": {
+            "question": "How much does a consultation cost?",
+            "answer": "<p>Treatment Plans are $59.99/month, $69.99 every 2 months, or $149 quarterly. All include your provider consultation and prescription sent to your pharmacy. A one-time consult is $79. Payment runs securely through Stripe.</p>",
+            "enable_dynamic_pricing": true
+          }
+        },
+        "faq_8": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to upload photos of my skin?",
+            "answer": "<p>Photos are optional, but please upload them if you can — they make a real difference for your provider. You can attach up to 5 during intake. We strip GPS and device metadata before storing them, and only your treating provider can see them.</p>",
+            "enable_dynamic_pricing": false
+          }
+        },
+        "faq_9": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I select a pharmacy?",
+            "answer": "<p>During booking, you search for pharmacies by name and ZIP code. If your provider prescribes anything, the e-prescription is sent to whichever pharmacy you picked.</p>",
+            "enable_dynamic_pricing": false
+          }
+        },
+        "faq_10": {
+          "type": "faq",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "<p>All payments run through Stripe. We take major credit and debit cards (Visa, Mastercard, Amex, Discover), plus Apple Pay and Google Pay.</p>",
+            "enable_dynamic_pricing": false
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6", "faq_7", "faq_8", "faq_9", "faq_10"]
     }
   },
   "order": ["consultation"]
