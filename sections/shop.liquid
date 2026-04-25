@@ -233,12 +233,70 @@
     transition: background 0.2s;
   }
   .shop-featured__btn:hover { background: var(--amber-light); }
+  .shop-featured__btn:disabled { opacity: 0.6; cursor: not-allowed; }
   .shop-featured__note {
     font-family: var(--font-sans);
     font-size: 0.75rem;
     color: var(--cream);
     opacity: 0.7;
     margin: 0.85rem 0 0 0;
+  }
+
+  /* Restock waitlist — shown when product is unavailable */
+  .shop-featured__cta-wrap--restock {
+    display: block;
+    max-width: 400px;
+  }
+  .shop-restock-form {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.5rem 0 0 0;
+    flex-wrap: wrap;
+  }
+  .shop-restock-form__input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.9rem 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 244, 206, 0.25);
+    border-radius: 10px;
+    background: rgba(255, 244, 206, 0.05);
+    color: var(--cream);
+    outline: none;
+  }
+  .shop-restock-form__input::placeholder { color: rgba(255, 244, 206, 0.4); }
+  .shop-restock-form__input:focus { border-color: var(--amber); }
+  .shop-restock-form__btn {
+    padding: 0.9rem 1.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    background: var(--amber);
+    color: var(--maroon);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .shop-restock-form__btn:hover { background: var(--amber-light); }
+  .shop-restock-form__btn:disabled { opacity: 0.85; cursor: default; }
+  .shop-restock-form__note {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--cream);
+    opacity: 0.6;
+    line-height: 1.5;
+    margin: 0.65rem 0 0 0;
+  }
+  .shop-restock-form__note--success { color: #b6e4c2; opacity: 0.95; }
+  .shop-restock-form__note--error { color: #e8725a; opacity: 0.95; }
+
+  @media (max-width: 640px) {
+    .shop-restock-form { flex-direction: column; }
+    .shop-restock-form__input { width: 100%; }
+    .shop-restock-form__btn { width: 100%; }
   }
 
   /* Values strip — cream section, high contrast */
@@ -337,23 +395,29 @@
         <h2 class="shop-featured__name">{% if featured_product != blank %}{{ featured_product.title }}{% else %}Steady Serum{% endif %}</h2>
         <p class="shop-featured__price">{% if featured_variant != blank %}{{ featured_variant.price | money_without_trailing_zeros }}{% else %}$38{% endif %}</p>
         <div class="shop-featured__desc">{% if featured_product != blank and featured_product.description != blank %}{{ featured_product.description }}{% else %}<p>Steady Serum hydrates with lightweight MCT oil, which Malassezia yeast can't digest. Coconut, olive, and most plant oils make fungal acne worse. MCT is one of the few exceptions, and it absorbs fast without a greasy finish.</p>{% endif %}</div>
-        <div class="shop-featured__cta-wrap">
-          {%- unless featured_variant != blank and featured_variant.available -%}
-            <span class="shop-featured__sticker" aria-hidden="true">Coming Soon</span>
-          {%- endunless -%}
-          {%- if featured_product != blank -%}
+        {%- assign is_available = false -%}
+        {%- if featured_product != blank and featured_variant.available -%}
+          {%- assign is_available = true -%}
+        {%- endif -%}
+        <div class="shop-featured__cta-wrap{% unless is_available %} shop-featured__cta-wrap--restock{% endunless %}">
+          {%- if is_available -%}
             <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="shop-featured__form">
               <input type="hidden" name="id" value="{{ featured_variant.id }}">
               <input type="hidden" name="quantity" value="1">
-              <button type="submit" class="shop-featured__btn"{% unless featured_variant.available %} disabled{% endunless %}>
-                {%- if featured_variant.available -%}Add to Cart — {{ featured_variant.price | money_without_trailing_zeros }}{%- else -%}Sold out{%- endif -%}
-              </button>
+              <button type="submit" class="shop-featured__btn">Add to Cart · {{ featured_variant.price | money_without_trailing_zeros }}</button>
             </form>
           {%- else -%}
-            <a href="/products/steady-serum" class="shop-featured__btn">Add to Cart — $38</a>
+            <span class="shop-featured__sticker" aria-hidden="true">Coming Soon</span>
+            <form class="shop-restock-form" id="shopRestockForm" novalidate>
+              <input class="shop-restock-form__input" type="email" name="EMAIL" placeholder="you@email.com" required aria-label="Email address">
+              <button class="shop-restock-form__btn" type="submit">Notify me</button>
+            </form>
+            <p class="shop-restock-form__note" id="shopRestockNote">We'll email you once when it ships. Nothing else.</p>
           {%- endif -%}
         </div>
-        <p class="shop-featured__note">Free shipping on every order.</p>
+        {%- if is_available -%}
+          <p class="shop-featured__note">Free shipping on every order.</p>
+        {%- endif -%}
       </div>
     </div>
   </div>
@@ -390,6 +454,49 @@
     </div>
   </div>
 </section>
+
+<script>
+  (function() {
+    var form = document.getElementById('shopRestockForm');
+    if (!form) return;
+    var input = form.querySelector('input[type="email"]');
+    var btn   = form.querySelector('.shop-restock-form__btn');
+    var note  = document.getElementById('shopRestockNote');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var email = (input.value || '').trim();
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Joining...';
+      note.className = 'shop-restock-form__note';
+
+      try {
+        var formData = new FormData();
+        formData.append('EMAIL', email);
+        formData.append('SOURCE', 'steady-serum-restock');
+        formData.append('b_61338503f23a719d2d581c864_051996d936', '');
+
+        await fetch('https://kynskyn.us15.list-manage.com/subscribe/post?u=61338503f23a719d2d581c864&id=051996d936', {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
+
+        btn.textContent = "You're on the list";
+        input.value = '';
+        note.textContent = "We'll email you the moment Steady Serum ships.";
+        note.className = 'shop-restock-form__note shop-restock-form__note--success';
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Notify me';
+        note.textContent = 'Something went wrong. Please try again.';
+        note.className = 'shop-restock-form__note shop-restock-form__note--error';
+      }
+    });
+  })();
+</script>
 
 {% schema %}
 {

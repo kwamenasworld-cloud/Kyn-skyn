@@ -2,28 +2,27 @@
   <section class="contact">
     <div class="contact__container fade-in">
       <p class="contact__eyebrow">Get in touch</p>
-      <h2 class="contact__heading">Let's work together.</h2>
-      <p class="contact__desc">Creators interested in brand collaborations and retailers looking to stock Kyn Skyn, send us a note.</p>
+      <h2 class="contact__heading">How can we help?</h2>
+      <p class="contact__desc">Customer questions, press, brand collaborations, retail inquiries. Start here. Most messages get a reply within 1-2 business days.</p>
 
       <div class="contact__type-selector">
-        <button class="contact__type-btn active" data-type="influencer" type="button">Influencer / Creator</button>
+        <button class="contact__type-btn active" data-type="customer" type="button">Customer support</button>
+        <button class="contact__type-btn" data-type="press" type="button">Press / Creator</button>
         <button class="contact__type-btn" data-type="retailer" type="button">Retailer / Stockist</button>
-        <button class="contact__type-btn" data-type="other" type="button">General Inquiry</button>
       </div>
 
       <form class="contact__form" id="contactForm">
         <input type="hidden" name="access_key" value="247dfa8d-cc76-4f13-ae64-e916737ac782">
-        <input type="hidden" name="subject" value="Kyn Skyn Contact Form">
         <input type="hidden" name="from_name" value="Kyn Skyn Website">
+        <input type="hidden" id="contactSubject" name="subject" value="Customer Support">
         <div class="contact__row">
-          <input class="contact__field" type="text" name="name" placeholder="Your name" required>
-          <input class="contact__field" type="email" name="email" placeholder="Email address" required>
+          <input class="contact__field" type="text" name="name" placeholder="Your name" aria-label="Your name" required>
+          <input class="contact__field" type="email" name="email" placeholder="Email address" aria-label="Email address" required>
         </div>
-        <input class="contact__field" type="text" name="company" placeholder="Company / Brand / Handle">
-        <input class="contact__field" id="contactSubject" type="text" name="subject" placeholder="Subject" readonly value="Influencer / Creator Collaboration">
-        <textarea class="contact__field" name="message" placeholder="Tell us about yourself and what you have in mind..." required></textarea>
+        <input class="contact__field" type="text" name="company" placeholder="Company / Brand / Handle (if applicable)" aria-label="Company, brand, or handle">
+        <textarea class="contact__field" name="message" placeholder="Tell us what's going on. For order issues, please include your order number." aria-label="Your message" required></textarea>
         <button class="contact__submit" type="submit">Send Message</button>
-        <p class="contact__confirmation" id="contactConfirmation">Message sent. We usually reply within a few business days.</p>
+        <p class="contact__confirmation" id="contactConfirmation">Message sent. Most messages get a reply within 1-2 business days.</p>
       </form>
     </div>
   </section>
@@ -34,9 +33,9 @@
   const typeBtns = document.querySelectorAll('.contact__type-btn');
   const contactSubject = document.getElementById('contactSubject');
   const subjectMap = {
-    influencer: 'Influencer / Creator Collaboration',
-    retailer: 'Retailer / Stockist Inquiry',
-    other: 'General Inquiry'
+    customer: 'Customer Support',
+    press: 'Press / Creator Inquiry',
+    retailer: 'Retailer / Stockist Inquiry'
   };
 
   typeBtns.forEach(btn => {
@@ -56,21 +55,22 @@
       e.preventDefault();
       const submitBtn = contactForm.querySelector('.contact__submit');
 
-      contactForm.querySelector('input[name="subject"]').value = 'Kyn Skyn: ' + contactSubject.value;
-
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
+
+      const payload = Object.fromEntries(new FormData(contactForm));
+      payload.subject = 'Kyn Skyn: ' + contactSubject.value;
 
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+        body: JSON.stringify(payload)
       })
       .then(res => res.json())
       .then(data => {
         if (data.success) {
           contactForm.reset();
-          contactSubject.value = subjectMap.influencer;
+          contactSubject.value = subjectMap.customer;
           typeBtns.forEach(b => b.classList.remove('active'));
           typeBtns[0].classList.add('active');
           submitBtn.textContent = 'Sent!';
