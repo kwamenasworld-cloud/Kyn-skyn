@@ -1,17 +1,7 @@
 {
   "sections": {
     "consultation": {
-      "type": "consultation",
-      "blocks": {
-        "test_block": {
-          "type": "faq",
-          "settings": {
-            "question": "Test question",
-            "answer": "Test answer"
-          }
-        }
-      },
-      "block_order": ["test_block"]
+      "type": "consultation"
     }
   },
   "order": ["consultation"]
