@@ -238,6 +238,80 @@
 
     .header-nav a:hover { opacity: 1; }
 
+    /* Dropdown nav (Consultation → conditions) */
+    .header-nav__group { position: relative; }
+
+    .header-nav__group > a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .header-nav__caret {
+      width: 10px; height: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .header-nav__group:hover .header-nav__caret,
+    .header-nav__group:focus-within .header-nav__caret {
+      transform: rotate(-180deg);
+    }
+
+    .header-nav__dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(0.4rem);
+      list-style: none;
+      min-width: 14rem;
+      padding: 0.5rem 0;
+      margin: 0.6rem 0 0;
+      background: rgba(42, 2, 8, 0.95);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 244, 206, 0.08);
+      border-radius: 6px;
+      box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.55);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+    }
+
+    .header-nav__group:hover .header-nav__dropdown,
+    .header-nav__group:focus-within .header-nav__dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s;
+    }
+
+    /* Hover bridge: prevents the dropdown from closing as the cursor crosses the gap */
+    .header-nav__dropdown::before {
+      content: "";
+      position: absolute;
+      top: -0.6rem; left: 0; right: 0;
+      height: 0.6rem;
+    }
+
+    .header-nav__dropdown li { margin: 0; }
+
+    .header-nav__dropdown a {
+      display: block;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      white-space: nowrap;
+      opacity: 0.75;
+      transition: background 0.2s ease, opacity 0.2s ease;
+    }
+
+    .header-nav__dropdown a:hover {
+      opacity: 1;
+      background: rgba(212, 149, 42, 0.08);
+    }
+
     .header-logo {
       position: absolute;
       left: 50%;
