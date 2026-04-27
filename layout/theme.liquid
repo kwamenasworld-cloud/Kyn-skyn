@@ -24,14 +24,23 @@
   <meta property="og:site_name" content="{{ shop.name }}">
   <meta property="og:title" content="{{ seo_title }}">
   <meta property="og:description" content="{{ seo_description }}">
-  <meta property="og:type" content="{% if page.handle == 'handbook' %}article{% else %}website{% endif %}">
+  {%- assign article_handles = 'handbook,fungal-acne' | split: ',' -%}
+  <meta property="og:type" content="{% if article_handles contains page.handle %}article{% else %}website{% endif %}">
   <meta property="og:url" content="{{ canonical_url }}">
   <meta property="og:image" content="{{ 'chandani-closeup.jpg' | asset_url | prepend: 'https:' }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@kynskyn">
+  <meta name="twitter:creator" content="@kynskyn">
   <meta name="twitter:title" content="{{ seo_title }}">
   <meta name="twitter:description" content="{{ seo_description }}">
   <meta name="twitter:image" content="{{ 'chandani-closeup.jpg' | asset_url | prepend: 'https:' }}">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="icon" type="image/svg+xml" href="{{ 'logomark.svg' | asset_url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ shop.name }}" href="{{ shop.url }}/blogs/news.atom">
+  <link rel="sitemap" type="application/xml" href="{{ shop.url }}/sitemap.xml">
   <meta name="p:domain_verify" content="1f3e5bcbadcea3d6b041f467d71749d5"/>
 
   <script type="application/ld+json">
@@ -39,9 +48,40 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Kyn Skyn",
+    "alternateName": "Kyn Skyn Care",
     "url": "https://kynskyn.com",
     "logo": "https:{{ 'logomark.svg' | asset_url }}",
-    "description": "Skincare and telehealth for people with fungus-prone skin — fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor.",
+    "image": "https:{{ 'chandani-closeup.jpg' | asset_url }}",
+    "description": "Skincare and telehealth for people with fungus-prone skin: fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor.",
+    "foundingDate": "2026",
+    "knowsAbout": [
+      "Malassezia folliculitis",
+      "Fungal acne",
+      "Seborrheic dermatitis",
+      "Tinea versicolor",
+      "Dandruff",
+      "Pityrosporum folliculitis",
+      "Sensitive skin care",
+      "Teledermatology"
+    ],
+    "areaServed": {
+      "@type": "Country",
+      "name": "United States"
+    },
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://kynskyn.com/pages/contact-1",
+        "availableLanguage": "English"
+      },
+      {
+        "@type": "ContactPoint",
+        "contactType": "press",
+        "email": "press@kynskyn.com",
+        "availableLanguage": "English"
+      }
+    ],
     "sameAs": [
       "https://instagram.com/kynskyn",
       "https://tiktok.com/@kynskyn"
@@ -55,6 +95,12 @@
     "@type": "WebSite",
     "name": "Kyn Skyn",
     "url": "https://kynskyn.com",
+    "inLanguage": "en-US",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kyn Skyn",
+      "logo": "https:{{ 'logomark.svg' | asset_url }}"
+    },
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
@@ -65,6 +111,29 @@
     }
   }
   </script>
+
+  {%- if template != 'index' and page.handle != blank -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://kynskyn.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ page.title | json }},
+        "item": {{ canonical_url | json }}
+      }
+    ]
+  }
+  </script>
+  {%- endif -%}
 
   {{ content_for_header }}
 

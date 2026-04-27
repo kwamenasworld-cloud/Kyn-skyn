@@ -510,7 +510,7 @@
       <div class="th-step fade-in">
         <div class="th-step__num">03</div>
         <h3 class="th-step__title">Get diagnosed</h3>
-        <p class="th-step__desc">A licensed provider reviews everything and sends you a diagnosis and plan, usually within 24 hours.</p>
+        <p class="th-step__desc">A licensed provider reviews everything and sends you a diagnosis and plan, usually within 48 hours.</p>
       </div>
 
       <div class="th-step fade-in">
@@ -896,22 +896,22 @@
     <!-- FAQ:START -->
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">What conditions can I get diagnosed for?</button>
-      <div class="th-faq__a"><p>Our providers focus on Malassezia-related skin conditions: fungal acne (Malassezia folliculitis), seborrheic dermatitis, and tinea versicolor. They all trace back to the same yeast overgrowth, which is why generic acne or eczema treatments tend to miss.</p></div>
+      <div class="th-faq__a"><p>Our providers focus on Malassezia-related skin conditions: fungal acne (Malassezia folliculitis), seborrheic dermatitis, dandruff (scalp seborrheic dermatitis), and tinea versicolor. They all trace back to the same yeast overgrowth, which is why generic acne or eczema treatments tend to miss.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How does the consultation work?</button>
-      <div class="th-faq__a"><p>You fill out a thorough intake and upload photos of your skin. No scheduling, no video call. A licensed provider (MD, DO, or NP) reviews everything and sends you a written diagnosis and treatment plan, usually within 24 hours. You can ask follow-up questions in the same thread.</p></div>
+      <div class="th-faq__a"><p>You fill out a thorough intake and upload photos of your skin. The default consultation is fully async, no scheduling required. A licensed provider (MD, DO, or NP) reviews everything and sends you a written diagnosis and treatment plan, usually within 48 hours. You can ask follow-up questions in the same thread. If you prefer live video visits, those are available as an optional add-on on the Monthly and Quarterly Treatment Plans.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">Can I get a prescription?</button>
-      <div class="th-faq__a"><p>Yes. If your provider decides a prescription is the right call, they e-prescribe it straight to your pharmacy. That typically means a topical or oral antifungal, depending on what you have.</p></div>
+      <div class="th-faq__a"><p>Yes. If your provider decides a prescription is the right call, they e-prescribe it straight to your pharmacy. That typically means a topical antifungal (e.g., ketoconazole), depending on what you have.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">Is this covered by insurance?</button>
-      <div class="th-faq__a"><p>It depends on your plan. A lot of insurers do cover virtual dermatology visits, but some don't, so call yours before you book. We'll hand you an itemized receipt so you can file a claim yourself.</p></div>
+      <div class="th-faq__a"><p>It depends on your plan. A lot of insurers do cover virtual dermatology visits, but some don't, so call yours before you book.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -926,12 +926,12 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing"><p>Treatment Plans are $34.99 a month, or $89.99 quarterly (about $30 a month). Both cover your provider consultation and a 15g prescription you pick up monthly at the pharmacy you select during booking. A one-time consult is $39.99. Payment runs securely through Stripe.</p></div>
+      <div class="th-faq__a" data-price="faq_pricing"><p>Treatment Plans are $34.99 a month, or $89.99 quarterly (about $30 a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during booking. A one-time consult is $39.99. Payment runs securely through Stripe.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">Do I need to upload photos of my skin?</button>
-      <div class="th-faq__a"><p>Yes. Please add at least 2 photos during intake; you can attach up to 5. If you skip them, your clinician will likely message you for photos before they can diagnose, which adds 1 to 2 days to your wait. We strip GPS and device metadata before storing them, and only your treating provider can see them.</p></div>
+      <div class="th-faq__a"><p>Yes. Please add at least 2 photos during intake; you can attach up to 5. If you skip them, your clinician will likely message you for photos before they can diagnose, which adds 1 to 2 days to your wait. We strip GPS and device metadata before storing them. Access is limited to your treating clinician and authorized Kyn Skyn care staff.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -997,7 +997,7 @@
       var faqEl = document.querySelector('[data-price="faq_pricing"]');
       if (faqEl && p.treatment_monthly && p.treatment_onetime && p.treatment_quarterly) {
         var perMonth = Math.round(p.treatment_quarterly / 3);
-        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + ' a month, or $' + p.treatment_quarterly + ' quarterly (about $' + perMonth + ' a month). Both cover your provider consultation and a 15g prescription you pick up monthly at the pharmacy you select during booking. A one-time consult is $' + p.treatment_onetime + '. Payment runs securely through Stripe.';
+        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + ' a month, or $' + p.treatment_quarterly + ' quarterly (about $' + perMonth + ' a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during booking. A one-time consult is $' + p.treatment_onetime + '. Payment runs securely through Stripe.';
       }
     })
     .catch(function() { /* keep hardcoded defaults */ });

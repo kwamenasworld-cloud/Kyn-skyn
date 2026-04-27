@@ -1,0 +1,783 @@
+{% comment %}
+  Canonical fungal acne explainer. Written to be the link Reddit moderators,
+  derms, and journalists share. Keep claims sourced. Soft CTAs only.
+{% endcomment %}
+
+<style>
+  /* ====== HERO ====== */
+  .fa-hero {
+    position: relative;
+    background: var(--dark);
+    color: var(--cream);
+    padding: 10rem 3rem 6rem;
+    overflow: hidden;
+  }
+
+  .fa-hero__molecule {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44rem; height: 44rem;
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
+  .fa-hero__container {
+    position: relative;
+    z-index: 1;
+    max-width: 56rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .fa-hero__eyebrow {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .fa-hero__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .fa-hero__sub {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    line-height: 1.7;
+    opacity: 0.7;
+    max-width: 38rem;
+    margin: 0 auto;
+  }
+
+  .fa-hero__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 2.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.4;
+  }
+
+  .fa-hero__meta-dot { width: 4px; height: 4px; border-radius: 999px; background: var(--terracotta); }
+
+  /* ====== TLDR ====== */
+  .fa-tldr {
+    background: var(--cream);
+    padding: 5rem 3rem 2rem;
+  }
+
+  .fa-tldr__container {
+    max-width: 52rem;
+    margin: 0 auto;
+    background: rgba(100, 18, 32, 0.04);
+    border: 1px solid rgba(100, 18, 32, 0.12);
+    border-radius: 12px;
+    padding: 2.5rem 2.5rem 2rem;
+  }
+
+  .fa-tldr__label {
+    font-family: var(--font-accent);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.55;
+    margin-bottom: 1.25rem;
+  }
+
+  .fa-tldr__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .fa-tldr__list li {
+    display: flex;
+    gap: 0.85rem;
+    padding: 0.55rem 0;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--maroon);
+  }
+
+  .fa-tldr__list li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 6px; height: 6px;
+    border-radius: 999px;
+    background: var(--terracotta);
+    margin-top: 0.6rem;
+  }
+
+  /* ====== CONTENT ====== */
+  .fa-body {
+    background: var(--cream);
+    padding: 3rem 3rem 6rem;
+  }
+
+  .fa-body__container {
+    max-width: 44rem;
+    margin: 0 auto;
+  }
+
+  .fa-section { padding: 3.5rem 0; border-bottom: 1px solid rgba(100, 18, 32, 0.08); }
+  .fa-section:last-of-type { border-bottom: none; }
+
+  .fa-section__num {
+    font-family: var(--font-accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.45;
+    margin-bottom: 1rem;
+  }
+
+  .fa-section__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--maroon);
+    margin-bottom: 1.5rem;
+  }
+
+  .fa-section__body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--maroon);
+    opacity: 0.85;
+  }
+
+  .fa-section__body p + p { margin-top: 1.2rem; }
+
+  .fa-section__body strong { color: var(--maroon); opacity: 1; font-weight: 500; }
+
+  .fa-section__body em { font-style: italic; }
+
+  .fa-section__body sup a {
+    color: var(--terracotta);
+    text-decoration: none;
+    font-size: 0.7em;
+    padding: 0 0.1em;
+  }
+
+  .fa-section__body sup a:hover { text-decoration: underline; }
+
+  /* Compare grid */
+  .fa-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .fa-compare__col {
+    padding: 1.5rem 1.6rem;
+    border-radius: 8px;
+    background: rgba(100, 18, 32, 0.04);
+    border: 1px solid rgba(100, 18, 32, 0.1);
+  }
+
+  .fa-compare__label {
+    font-family: var(--font-accent);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.55;
+    margin-bottom: 0.8rem;
+  }
+
+  .fa-compare__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--maroon);
+  }
+
+  .fa-compare__list li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(100, 18, 32, 0.08);
+  }
+
+  .fa-compare__list li:last-child { border-bottom: none; }
+
+  /* Avoid / Allow lists */
+  .fa-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+
+  .fa-list li {
+    display: flex;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(100, 18, 32, 0.08);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--maroon);
+  }
+
+  .fa-list li:last-child { border-bottom: none; }
+
+  .fa-list__name { flex: 0 0 14rem; font-weight: 500; }
+  .fa-list__why { flex: 1; opacity: 0.75; }
+
+  @media (max-width: 640px) {
+    .fa-list li { flex-direction: column; gap: 0.2rem; padding: 0.8rem 0; }
+    .fa-list__name { flex: none; }
+  }
+
+  /* ====== FAQ ====== */
+  .fa-faq {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 6rem 3rem;
+  }
+
+  .fa-faq__container { max-width: 44rem; margin: 0 auto; }
+
+  .fa-faq__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .fa-faq__item {
+    border-bottom: 1px solid rgba(255, 244, 206, 0.12);
+  }
+
+  .fa-faq__item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1.5rem 0;
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--cream);
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .fa-faq__item summary::-webkit-details-marker { display: none; }
+
+  .fa-faq__icon {
+    flex-shrink: 0;
+    width: 18px; height: 18px;
+    transition: transform 0.3s;
+    opacity: 0.6;
+  }
+
+  .fa-faq__item[open] .fa-faq__icon { transform: rotate(45deg); opacity: 1; }
+
+  .fa-faq__answer {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--cream);
+    opacity: 0.7;
+    padding: 0 0 1.8rem;
+  }
+
+  .fa-faq__answer p + p { margin-top: 1rem; }
+
+  /* ====== CTA STRIP ====== */
+  .fa-cta {
+    background: var(--cream);
+    padding: 5rem 3rem;
+    text-align: center;
+  }
+
+  .fa-cta__container {
+    max-width: 36rem;
+    margin: 0 auto;
+  }
+
+  .fa-cta__eyebrow {
+    font-family: var(--font-accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.5;
+    margin-bottom: 1.2rem;
+  }
+
+  .fa-cta__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--maroon);
+    margin-bottom: 2rem;
+  }
+
+  .fa-cta__buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .fa-cta__btn {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .fa-cta__btn--primary {
+    background: var(--button);
+    color: var(--cream);
+  }
+
+  .fa-cta__btn--primary:hover { background: var(--maroon); transform: translateY(-1px); }
+
+  .fa-cta__btn--secondary {
+    background: transparent;
+    color: var(--maroon);
+    border: 1px solid rgba(100, 18, 32, 0.4);
+  }
+
+  .fa-cta__btn--secondary:hover { border-color: var(--maroon); background: rgba(100, 18, 32, 0.05); }
+
+  /* ====== REFERENCES ====== */
+  .fa-refs {
+    background: var(--cream);
+    padding: 3rem 3rem 6rem;
+    border-top: 1px solid rgba(100, 18, 32, 0.08);
+  }
+
+  .fa-refs__container {
+    max-width: 44rem;
+    margin: 0 auto;
+  }
+
+  .fa-refs__label {
+    font-family: var(--font-accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .fa-refs__list {
+    list-style: none;
+    counter-reset: ref;
+    padding: 0;
+  }
+
+  .fa-refs__list li {
+    counter-increment: ref;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--maroon);
+    opacity: 0.65;
+    padding: 0.6rem 0 0.6rem 2rem;
+    position: relative;
+  }
+
+  .fa-refs__list li::before {
+    content: counter(ref) ".";
+    position: absolute;
+    left: 0;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--terracotta);
+    opacity: 0.7;
+  }
+
+  .fa-refs__list a { color: var(--maroon); text-decoration: underline; text-decoration-color: rgba(100, 18, 32, 0.3); }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    .fa-hero { padding: 7rem 1.5rem 4rem; }
+    .fa-tldr { padding: 3rem 1.5rem 1rem; }
+    .fa-tldr__container { padding: 1.8rem 1.6rem 1.4rem; }
+    .fa-body { padding: 2rem 1.5rem 4rem; }
+    .fa-section { padding: 2.5rem 0; }
+    .fa-compare { grid-template-columns: 1fr; }
+    .fa-faq { padding: 4rem 1.5rem; }
+    .fa-cta { padding: 4rem 1.5rem; }
+    .fa-refs { padding: 2rem 1.5rem 4rem; }
+  }
+</style>
+
+<!-- Article schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "What is fungal acne? A complete guide to Malassezia folliculitis",
+  "description": "Fungal acne, properly called Malassezia folliculitis, is a yeast-driven condition often misdiagnosed as bacterial acne. Learn what it is, how to identify it, and what actually works.",
+  "url": "https://kynskyn.com/pages/fungal-acne",
+  "image": "https://kynskyn.com{{ 'molecule.svg' | asset_url }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Kyn Skyn",
+    "logo": "https://kynskyn.com{{ 'logomark.svg' | asset_url }}"
+  },
+  "datePublished": "2026-04-26",
+  "dateModified": "2026-04-26",
+  "audience": { "@type": "PeopleAudience", "audienceType": "people with fungal acne, seborrheic dermatitis, or Malassezia-related skin conditions" },
+  "about": {
+    "@type": "MedicalCondition",
+    "name": "Malassezia folliculitis",
+    "alternateName": ["Fungal acne", "Pityrosporum folliculitis"]
+  }
+}
+</script>
+
+<!-- FAQ schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is fungal acne actually acne?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Fungal acne is the common name for Malassezia folliculitis, an infection of the hair follicle caused by Malassezia yeast. Acne vulgaris is driven by sebum, dead skin, and Cutibacterium acnes bacteria. They look similar but the underlying biology is different, which is why most acne treatments do not work on it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I tell if I have fungal acne instead of regular acne?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common signs: uniform small bumps that look almost identical in size, itchiness, breakouts on the chest, back, shoulders, hairline, and jawline, flares in heat or after sweating, and not responding to acne treatments like benzoyl peroxide or salicylic acid. A clinician can confirm with a skin scraping and KOH preparation or a biopsy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do my acne products make it worse?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Malassezia is lipid-dependent. It feeds on certain fatty acids and oils in the C11 to C24 range. Many moisturizers and acne products contain ingredients in that range, so applying them to skin colonized by Malassezia gives the yeast more fuel."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What ingredients should I avoid?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most fatty acids and esters in the C11 to C24 range, including lauric acid, myristic acid, palmitic acid, stearic acid, oleic acid, and many esters of these. Also coconut oil, olive oil, and most natural plant oils. Polyethylene glycols and most fermented ingredients (like Galactomyces) are also flagged."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What actually treats fungal acne?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A clinician may prescribe a topical antifungal (e.g., ketoconazole). Pair it with a routine that does not feed the yeast, meaning ingredients outside the C11 to C24 range."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will fungal acne come back after I treat it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Often, yes. Malassezia is a normal resident of human skin, so the goal is not to eradicate it but to keep it in balance. Most people stay clear with periodic antifungal washes, sweat hygiene, and a malassezia-safe routine. Heat, humidity, and broad-spectrum antibiotics are common triggers for recurrence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is fungal acne contagious?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Malassezia is part of the normal skin microbiome on nearly all adults. Folliculitis happens when the local environment lets it overgrow, not because it spread from someone else."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does diet affect fungal acne?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There is no strong evidence that diet drives Malassezia folliculitis. The yeast feeds on lipids on the skin, not lipids in your bloodstream. Some people report flares with specific foods, but this is anecdotal. Topical care is the lever that has been studied and shown to work."
+      }
+    }
+  ]
+}
+</script>
+
+<section class="fa-hero">
+  <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="fa-hero__molecule">
+  <div class="fa-hero__container">
+    <p class="fa-hero__eyebrow">The Guide</p>
+    <h1 class="fa-hero__heading">What is fungal acne?</h1>
+    <p class="fa-hero__sub">A clinical, skimmable guide to Malassezia folliculitis. Why it is misdiagnosed, how to tell it apart from bacterial acne, what makes it worse, and what actually works. Written for people who have spent years getting wrong answers.</p>
+    <div class="fa-hero__meta">
+      <span>Reviewed by clinicians</span>
+      <span class="fa-hero__meta-dot"></span>
+      <span>Updated 2026</span>
+    </div>
+  </div>
+</section>
+
+<section class="fa-tldr">
+  <div class="fa-tldr__container">
+    <p class="fa-tldr__label">If you only read this</p>
+    <ul class="fa-tldr__list">
+      <li>Fungal acne is not acne. It is a yeast infection of the hair follicle, caused by <em>Malassezia</em>.</li>
+      <li>Standard acne treatments often make it worse because they do not target yeast and may contain ingredients that feed it.</li>
+      <li>It usually shows up as uniform itchy bumps on the forehead, jawline, chest, back, or shoulders, often after sweat or heat.</li>
+      <li>Topical antifungals are first line, used short-contact on affected areas.</li>
+      <li>The lasting fix is a routine that does not feed <em>Malassezia</em>: skip lipids in the C11 to C24 range and most natural oils.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="fa-body">
+  <div class="fa-body__container">
+
+    <section class="fa-section" id="what-it-is">
+      <p class="fa-section__num">01 / What it actually is</p>
+      <h2 class="fa-section__heading">A yeast condition that looks like acne</h2>
+      <div class="fa-section__body">
+        <p><strong>Fungal acne</strong> is the popular name for <em>Malassezia folliculitis</em> (formerly <em>Pityrosporum folliculitis</em>). It is an inflammatory infection of the hair follicle caused by <em>Malassezia</em>, a genus of yeast that lives on nearly all human skin from infancy onward.<sup><a href="#ref-1">1</a></sup></p>
+        <p>Under normal conditions <em>Malassezia</em> is harmless. When the local environment changes (heat, occlusion, antibiotic use, immune shifts, oil-rich skincare), it can overgrow inside the follicle and trigger an immune response. The result is the cluster of small, often itchy papules and pustules people mistake for acne.<sup><a href="#ref-2">2</a></sup></p>
+        <p>The condition is genuinely common but underdiagnosed. One review of clinic-attending acne patients found <em>Malassezia</em> folliculitis present in a meaningful subset of cases that had been treated as acne vulgaris and were not responding.<sup><a href="#ref-3">3</a></sup></p>
+      </div>
+    </section>
+
+    <section class="fa-section" id="vs-acne">
+      <p class="fa-section__num">02 / How to tell it apart</p>
+      <h2 class="fa-section__heading">Fungal acne vs. bacterial acne</h2>
+      <div class="fa-section__body">
+        <p>The two conditions share an appearance but differ in pattern. The simplest way to tell them apart is to look at the <strong>uniformity, location, and itch</strong>.</p>
+        <div class="fa-compare">
+          <div class="fa-compare__col">
+            <p class="fa-compare__label">Fungal acne</p>
+            <ul class="fa-compare__list">
+              <li>Small uniform bumps, similar size</li>
+              <li>Often itchy</li>
+              <li>Forehead, jawline, chest, back, shoulders</li>
+              <li>Worse with sweat and heat</li>
+              <li>Does not respond to typical acne treatments</li>
+              <li>May follow antibiotic use</li>
+            </ul>
+          </div>
+          <div class="fa-compare__col">
+            <p class="fa-compare__label">Bacterial acne</p>
+            <ul class="fa-compare__list">
+              <li>Mixed sizes and types (whiteheads, blackheads, cysts)</li>
+              <li>Rarely itchy</li>
+              <li>Tends to cluster on cheeks, nose, chin</li>
+              <li>Driven by sebum, dead skin, and <em>C. acnes</em></li>
+              <li>Responds to benzoyl peroxide, salicylic acid, retinoids</li>
+              <li>Often hormonal in pattern</li>
+            </ul>
+          </div>
+        </div>
+        <p>Definitive diagnosis is clinical. A dermatologist can confirm with a KOH skin scraping or a punch biopsy, both of which look for the yeast in the follicle.<sup><a href="#ref-4">4</a></sup></p>
+      </div>
+    </section>
+
+    <section class="fa-section" id="why-products-fail">
+      <p class="fa-section__num">03 / Why most products make it worse</p>
+      <h2 class="fa-section__heading">The lipid problem</h2>
+      <div class="fa-section__body">
+        <p><em>Malassezia</em> is <strong>lipid-dependent</strong>. The yeast cannot synthesize its own fatty acids and instead scavenges them from skin surface oils. In lab studies it grows on a relatively narrow band of fatty acid chain lengths, roughly <strong>C11 to C24</strong>.<sup><a href="#ref-5">5</a></sup></p>
+        <p>Most moisturizers, sunscreens, and "non-comedogenic" acne creams contain at least one ingredient in that range. Coconut oil, olive oil, sweet almond oil, shea butter, and the bulk of natural plant oils sit squarely in the feeding range. Many emulsifiers and esters do too. Apply them to colonized skin and the yeast has more fuel.</p>
+        <p>This is why a routine that "should" be calming, like a cream cleanser plus a rich moisturizer, often makes fungal acne flare. The skin barrier improves, but the yeast eats well.</p>
+      </div>
+    </section>
+
+    <section class="fa-section" id="ingredients-to-avoid">
+      <p class="fa-section__num">04 / Ingredients to avoid</p>
+      <h2 class="fa-section__heading">The known feeders</h2>
+      <div class="fa-section__body">
+        <p>This is not exhaustive, and some lists circulating online are overcautious. The reasonably-supported ones to skip:</p>
+        <ul class="fa-list">
+          <li><span class="fa-list__name">Lauric acid (C12)</span><span class="fa-list__why">Direct fuel. Common in coconut-derived ingredients.</span></li>
+          <li><span class="fa-list__name">Myristic acid (C14)</span><span class="fa-list__why">In nutmeg butter, palm oil, dairy fats.</span></li>
+          <li><span class="fa-list__name">Palmitic acid (C16)</span><span class="fa-list__why">In palm oil, shea butter, many cleansers.</span></li>
+          <li><span class="fa-list__name">Stearic acid (C18)</span><span class="fa-list__why">In most creams as an emulsifier.</span></li>
+          <li><span class="fa-list__name">Oleic acid (C18:1)</span><span class="fa-list__why">In olive oil, avocado oil, almond oil. Among the most studied feeders.</span></li>
+          <li><span class="fa-list__name">Coconut oil</span><span class="fa-list__why">Mostly C12 and C14. Worst offender by reputation.</span></li>
+          <li><span class="fa-list__name">Most natural plant oils</span><span class="fa-list__why">Olive, almond, jojoba (debated), avocado, sunflower.</span></li>
+          <li><span class="fa-list__name">Galactomyces ferment</span><span class="fa-list__why">Yeast-derived ferments are routinely flagged.</span></li>
+          <li><span class="fa-list__name">PEG-derived emulsifiers</span><span class="fa-list__why">Some PEGs are reported feeders, especially when paired with fatty acids.</span></li>
+          <li><span class="fa-list__name">Esters of the above</span><span class="fa-list__why">Isopropyl palmitate, glyceryl stearate, polysorbate 60, etc.</span></li>
+        </ul>
+        <p>Useful shortcut: paste any ingredient list into the <a href="/pages/ingredient-checker" style="color: var(--terracotta); text-decoration: underline;">Kyn Skyn ingredient checker</a> and it flags the common feeders for you.</p>
+      </div>
+    </section>
+
+    <section class="fa-section" id="what-works">
+      <p class="fa-section__num">05 / What actually works</p>
+      <h2 class="fa-section__heading">Treat the yeast, then maintain</h2>
+      <div class="fa-section__body">
+        <p>Treatment has two parts: <strong>knock down the overgrowth</strong>, then <strong>stop feeding it</strong>. Both matter. Skipping either is why people relapse.</p>
+        <p><strong>Topical antifungals (first line):</strong></p>
+        <ul class="fa-list">
+          <li><span class="fa-list__name">Ketoconazole 2%</span><span class="fa-list__why">Shampoo or cream. Used as a short-contact cleanser on affected areas.</span></li>
+          <li><span class="fa-list__name">Selenium sulfide 2.25 to 2.5%</span><span class="fa-list__why">Common in dandruff shampoos. Effective short-contact wash.</span></li>
+          <li><span class="fa-list__name">Ciclopirox</span><span class="fa-list__why">Broad-spectrum antifungal in shampoo or cream form.</span></li>
+          <li><span class="fa-list__name">Zinc pyrithione</span><span class="fa-list__why">Mild option. Often used long-term for maintenance.</span></li>
+        </ul>
+        <p><strong>Maintenance after clearance:</strong> a malassezia-safe routine, periodic antifungal washes (once or twice weekly is common), and managing sweat. Most people who treat without changing their routine relapse within weeks.</p>
+      </div>
+    </section>
+
+    <section class="fa-section" id="body">
+      <p class="fa-section__num">06 / On the body</p>
+      <h2 class="fa-section__heading">Chest, back, scalp, and shoulders</h2>
+      <div class="fa-section__body">
+        <p>Body fungal acne is often clearer-cut than face fungal acne because acne vulgaris is less common in those locations in adults. Persistent itchy bumps along the upper back, chest, shoulders, or hairline that flare after workouts and do not respond to body acne treatments are a strong signal for <em>Malassezia</em> folliculitis.</p>
+        <p>The hairline and scalp are particular hot spots because of sebum production and occlusion from hair products. Many cases of "scalp acne" are actually a related condition on the same yeast spectrum.</p>
+        <p>Practical sweat hygiene matters here: rinsing or showering soon after exercise, avoiding tight non-breathable layers in heat, and washing affected areas with an antifungal cleanser two or three times a week during a flare.</p>
+      </div>
+    </section>
+
+    <section class="fa-section" id="myths">
+      <p class="fa-section__num">07 / Common myths</p>
+      <h2 class="fa-section__heading">What the internet gets wrong</h2>
+      <div class="fa-section__body">
+        <p><strong>"Cut sugar to clear fungal acne."</strong> No good evidence supports this. <em>Malassezia</em> feeds on lipids on the skin, not sugar in your bloodstream. Some people report flares with specific foods, but this is anecdotal and shaky as a general recommendation.</p>
+        <p><strong>"It is contagious."</strong> No. <em>Malassezia</em> lives on almost all human skin. The condition is about local overgrowth, not transmission.</p>
+        <p><strong>"All natural products are safe."</strong> The opposite is closer to true. Natural plant oils are some of the most reliable feeders for <em>Malassezia</em>.</p>
+        <p><strong>"Tea tree oil cures it."</strong> Tea tree oil has antifungal activity in vitro but is irritating in concentrations high enough to matter, and is not first-line. Standard antifungals have actual clinical data behind them.</p>
+        <p><strong>"You just need to exfoliate harder."</strong> Aggressive exfoliation tends to disrupt the barrier and worsen the inflammatory response, without addressing the yeast.</p>
+      </div>
+    </section>
+
+    <section class="fa-section" id="when-to-see-doctor">
+      <p class="fa-section__num">08 / When to see a clinician</p>
+      <h2 class="fa-section__heading">The case for getting a real diagnosis</h2>
+      <div class="fa-section__body">
+        <p>Self-treatment with over-the-counter antifungal washes and a careful routine is reasonable for mild cases. See a clinician if you have:</p>
+        <ul class="fa-list">
+          <li><span class="fa-list__name">Persistence</span><span class="fa-list__why">No improvement after 4 to 6 weeks of consistent topical treatment.</span></li>
+          <li><span class="fa-list__name">Severity</span><span class="fa-list__why">Widespread involvement, scarring risk, or significant itch.</span></li>
+          <li><span class="fa-list__name">Recurrence</span><span class="fa-list__why">Repeated flares despite a malassezia-safe routine.</span></li>
+          <li><span class="fa-list__name">Uncertainty</span><span class="fa-list__why">Not sure whether it is fungal acne, seborrheic dermatitis, true acne, or something else.</span></li>
+        </ul>
+        <p>A clinical visit confirms the diagnosis (or finds the real one) and gets you a treatment plan suited to your skin. Most insurance treats this as a standard dermatology visit.</p>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<section class="fa-faq">
+  <div class="fa-faq__container">
+    <h2 class="fa-faq__heading">Questions people actually ask</h2>
+
+    <details class="fa-faq__item">
+      <summary>Is fungal acne actually acne? <svg class="fa-faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
+      <div class="fa-faq__answer">
+        <p>No. Fungal acne is the common name for <em>Malassezia folliculitis</em>, an infection of the hair follicle caused by <em>Malassezia</em> yeast. Acne vulgaris is driven by sebum, dead skin, and <em>Cutibacterium acnes</em> bacteria. They look similar but the underlying biology is different, which is why most acne treatments do not work on it.</p>
+      </div>
+    </details>
+
+    <details class="fa-faq__item">
+      <summary>How can I tell if I have fungal acne instead of regular acne? <svg class="fa-faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
+      <div class="fa-faq__answer">
+        <p>Common signs: uniform small bumps that look almost identical in size, itchiness, breakouts on the chest, back, shoulders, hairline, and jawline, flares in heat or after sweating, and not responding to acne treatments like benzoyl peroxide or salicylic acid. A clinician can confirm with a skin scraping and KOH preparation or a biopsy.</p>
+      </div>
+    </details>
+
+    <details class="fa-faq__item">
+      <summary>Why do my acne products make it worse? <svg class="fa-faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
+      <div class="fa-faq__answer">
+        <p><em>Malassezia</em> is lipid-dependent. It feeds on certain fatty acids and oils in the C11 to C24 range. Many moisturizers and acne products contain ingredients in that range, so applying them to skin colonized by <em>Malassezia</em> gives the yeast more fuel.</p>
+      </div>
+    </details>
+
+    <details class="fa-faq__item">
+      <summary>What ingredients should I avoid? <svg class="fa-faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
+      <div class="fa-faq__answer">
+        <p>Most fatty acids and esters in the C11 to C24 range, including lauric acid, myristic acid, palmitic acid, stearic acid, oleic acid, and many esters of these. Also coconut oil, olive oil, and most natural plant oils. Polyethylene glycols and most fermented ingredients (like Galactomyces) are also flagged.</p>
+        <p>Use the <a href="/pages/ingredient-checker" style="color: var(--gold);">ingredient checker</a> to scan a full product list at once.</p>
+      </div>
+    </details>
+
+    <details class="fa-faq__item">
+      <summary>What actually treats fungal acne? <svg class="fa-faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
+      <div class="fa-faq__answer">
+        <p>A clinician may prescribe a topical antifungal (e.g., ketoconazole). Pair it with a routine that does not feed the yeast, meaning ingredients outside the C11 to C24 range.</p>
+      </div>
+    </details>
+
+    <details class="fa-faq__item">
+      <summary>Will fungal acne come back after I treat it? <svg class="fa-faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
+      <div class="fa-faq__answer">
+        <p>Often, yes. <em>Malassezia</em> is a normal resident of human skin, so the goal is not to eradicate it but to keep it in balance. Most people stay clear with periodic antifungal washes, sweat hygiene, and a malassezia-safe routine. Heat, humidity, and broad-spectrum antibiotics are common triggers for recurrence.</p>
+      </div>
+    </details>
+
+    <details class="fa-faq__item">
+      <summary>Is fungal acne contagious? <svg class="fa-faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
+      <div class="fa-faq__answer">
+        <p>No. <em>Malassezia</em> is part of the normal skin microbiome on nearly all adults. Folliculitis happens when the local environment lets it overgrow, not because it spread from someone else.</p>
+      </div>
+    </details>
+
+    <details class="fa-faq__item">
+      <summary>Does diet affect fungal acne? <svg class="fa-faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
+      <div class="fa-faq__answer">
+        <p>There is no strong evidence that diet drives <em>Malassezia</em> folliculitis. The yeast feeds on lipids on the skin, not lipids in your bloodstream. Some people report flares with specific foods, but this is anecdotal. Topical care is the lever that has been studied and shown to work.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="fa-cta">
+  <div class="fa-cta__container">
+    <p class="fa-cta__eyebrow">Two next steps</p>
+    <h2 class="fa-cta__heading">Check your routine, or talk to a clinician.</h2>
+    <div class="fa-cta__buttons">
+      <a href="/pages/ingredient-checker" class="fa-cta__btn fa-cta__btn--secondary">Check products</a>
+      <a href="/pages/consultation" class="fa-cta__btn fa-cta__btn--primary">Book a consult</a>
+    </div>
+  </div>
+</section>
+
+<aside class="fa-refs" id="references">
+  <div class="fa-refs__container">
+    <p class="fa-refs__label">References</p>
+    <ol class="fa-refs__list">
+      <li id="ref-1">Gaitanis G, Magiatis P, Hantschke M, Bassukas ID, Velegraki A. The <em>Malassezia</em> genus in skin and systemic diseases. <em>Clin Microbiol Rev</em>. 2012;25(1):106-141.</li>
+      <li id="ref-2">Rubenstein RM, Malerich SA. <em>Malassezia</em> (pityrosporum) folliculitis. <em>J Clin Aesthet Dermatol</em>. 2014;7(3):37-41.</li>
+      <li id="ref-3">Ayers K, Sweeney SM, Wiss K. <em>Pityrosporum</em> folliculitis: diagnosis and management. <em>Arch Dermatol</em>. 2005;141(8):969-970.</li>
+      <li id="ref-4">Prindaville B, Belazarian L, Levin NA, Wiss K. <em>Pityrosporum</em> folliculitis: a retrospective review of 110 cases. <em>J Am Acad Dermatol</em>. 2018;78(3):511-514.</li>
+      <li id="ref-5">Ro BI, Dawson TL. The role of sebaceous gland activity and scalp microfloral metabolism in the etiology of seborrheic dermatitis and dandruff. <em>J Investig Dermatol Symp Proc</em>. 2005;10(3):194-197.</li>
+      <li id="ref-6">Suzuki C, Hase M, Shimoyama H, Sei Y. Treatment outcomes for <em>Malassezia</em> folliculitis in the dermatology department of a university hospital in Japan. <em>Med Mycol J</em>. 2016;57(3):E63-E66.</li>
+    </ol>
+  </div>
+</aside>

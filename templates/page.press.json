@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "press": {
+      "type": "press"
+    }
+  },
+  "order": ["press"]
+}

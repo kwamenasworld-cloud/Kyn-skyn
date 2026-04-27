@@ -89,7 +89,7 @@ Ola Telehealth was fully replaced by MD Integrations (DoseSpot-proxy e-prescribi
 - **Webhooks:** `POST /api/webhook/mdi` verifies HMAC-SHA256 `Signature` + pre-registered `Authorization`. All deliveries logged to `public.mdi_webhook_events`. Patient-facing email dispatch is stubbed as `TODO(email)` until sandbox smoke-testing confirms payload shapes.
 - **DB:** `ola_user_guid` column renamed to `mdi_patient_id` on `patients` + `user_order_refs` (migration `20260424000000_rename_ola_to_mdi.sql`). New table `mdi_webhook_events` (migration `20260424010000_mdi_webhook_events.sql`).
 - **Tests:** `src/lib/__tests__/mdi-mappers.test.ts` and `mdi-client.test.ts` (HMAC signature verification). 27 tests passing via vitest.
-- **Still TODO before launch:** apply the two migrations (`supabase db push`), wire patient-facing emails in the webhook `TODO(email)` branches once MDI payloads are confirmed in sandbox, sandbox smoke test with MDI creds.
+- **Still TODO before launch:** wire patient-facing emails in the webhook `TODO(email)` branches once MDI payloads are confirmed in sandbox, sandbox smoke test with MDI creds. (The two MDI migrations were applied on 2026-04-24.)
 
 Read `telehealth/MDI_INTEGRATION.md` for the full integration brief (endpoints hit, credentials needed, open questions for MDI).
 
