@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#641220">
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
   {%- capture seo_title -%}
-    {%- if template == 'index' -%}{{ shop.name }} — Skincare for Fungal Acne, Seb Derm & Malassezia-Prone Skin
+    {%- if template == 'index' -%}{{ shop.name }} | Skincare for Fungal Acne, Seb Derm & Malassezia-Prone Skin
     {%- elsif page_title contains shop.name -%}{{ page_title }}
-    {%- else -%}{{ page_title }} — {{ shop.name }}
+    {%- else -%}{{ page_title }} | {{ shop.name }}
     {%- endif -%}
   {%- endcapture -%}
   {%- capture seo_description -%}
