@@ -643,7 +643,7 @@
     <p class="cc-hero__eyebrow">{{ condition_subtitle }}</p>
     <h1 class="cc-hero__heading">{{ hero_heading }}</h1>
     <p class="cc-hero__sub">{{ hero_sub }}</p>
-    <a href="https://care.kynskyn.com/book?condition={{ condition_slug }}" class="cc-hero__cta">
+    <a href="#" data-waitlist-open class="cc-hero__cta">
       <span>Start consultation</span>
       <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
@@ -742,7 +742,7 @@
     <h2 class="cc-pricing__heading">{{ recommended_plan_label }}</h2>
     <p class="cc-pricing__reason">{{ recommended_reason }}</p>
     <div class="cc-pricing__buttons">
-      <a href="https://care.kynskyn.com/book?condition={{ condition_slug }}&plan={{ recommended_plan }}" class="cc-pricing__btn cc-pricing__btn--primary">Start with {{ recommended_plan_label }}</a>
+      <a href="#" data-waitlist-open class="cc-pricing__btn cc-pricing__btn--primary">Start with {{ recommended_plan_label }}</a>
       <a href="/pages/consultation#th-pricing" class="cc-pricing__btn cc-pricing__btn--secondary">See all plans</a>
     </div>
   </div>
@@ -802,7 +802,7 @@
       </details>
       <details class="cc-faq__item">
         <summary>Do I need a video call or in-person visit? <svg class="cc-faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
-        <div class="cc-faq__answer"><p>You choose. The async option is a written intake plus photos: a clinician reviews and replies within 48 hours, no scheduling needed. The sync option is a live video visit with a clinician, available as an add-on on recurring plans. Most people start async and add video later if they want it.</p></div>
+        <div class="cc-faq__answer"><p>No video call needed. Every consultation starts async: a written intake plus photos, with a clinician reply usually within 48 hours. If you'd rather speak live, you can request a video call from your dashboard anytime for an extra $15. Most people stay async; the video option is there if you want it.</p></div>
       </details>
     {% endif %}
 
@@ -859,12 +859,15 @@
   <div class="cc-final__container">
     <h2 class="cc-final__heading">{{ final_cta_heading }}</h2>
     <p class="cc-final__sub">{{ final_cta_sub }}</p>
-    <a href="https://care.kynskyn.com/book?condition={{ condition_slug }}" class="cc-final__cta">
+    <a href="#" data-waitlist-open class="cc-final__cta">
       <span>Start consultation</span>
       <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
   </div>
 </section>
+
+{%- assign cc_waitlist_source = 'condition-' | append: condition_slug | append: '-waitlist' -%}
+{% render 'waitlist-modal', source: cc_waitlist_source %}
 
 {% schema %}
 {

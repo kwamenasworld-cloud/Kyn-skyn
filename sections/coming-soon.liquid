@@ -133,22 +133,7 @@
 </section>
 
 <!-- ====== WAITLIST MODAL ====== -->
-<div class="waitlist-modal" id="waitlistModal" role="dialog" aria-modal="true" aria-labelledby="waitlistModalTitle" hidden>
-  <div class="waitlist-modal__backdrop" data-waitlist-close></div>
-  <div class="waitlist-modal__panel">
-    <button type="button" class="waitlist-modal__close" aria-label="Close" data-waitlist-close>&times;</button>
-    <p class="waitlist-modal__eyebrow">Opening June 1, 2026</p>
-    <h2 class="waitlist-modal__title" id="waitlistModalTitle">Get your Kyncultation.</h2>
-    <p class="waitlist-modal__desc">Online consultations with licensed providers who actually treat Malassezia conditions. Join the waitlist for <strong>$20 off your first quarterly plan</strong>.</p>
-
-    <form class="waitlist-modal__form" id="waitlistModalForm" novalidate>
-      <input class="waitlist-modal__input" type="email" name="EMAIL" placeholder="you@email.com" required aria-label="Email address">
-      <button class="waitlist-modal__button" type="submit">Join the waitlist</button>
-    </form>
-    <p class="waitlist-modal__note" id="waitlistModalNote"></p>
-    <p class="waitlist-modal__legal">One email when we launch. No spam. Unsubscribe anytime.</p>
-  </div>
-</div>
+{% render 'waitlist-modal', source: 'home-hero-kyncultation-waitlist' %}
 
 <script>
   (function() {
@@ -174,73 +159,6 @@
           btn.disabled = false;
         }, 4000);
       }, 1500);
-    });
-  })();
-
-  (function() {
-    var modal = document.getElementById('waitlistModal');
-    if (!modal) return;
-
-    var openers = document.querySelectorAll('[data-waitlist-open]');
-    var closers = modal.querySelectorAll('[data-waitlist-close]');
-    var form    = document.getElementById('waitlistModalForm');
-    var input   = modal.querySelector('.waitlist-modal__input');
-    var btn     = modal.querySelector('.waitlist-modal__button');
-    var note    = document.getElementById('waitlistModalNote');
-    var lastFocus = null;
-
-    function open(e) {
-      if (e) e.preventDefault();
-      lastFocus = document.activeElement;
-      modal.hidden = false;
-      document.documentElement.style.overflow = 'hidden';
-      setTimeout(function() { input && input.focus(); }, 60);
-    }
-    function close() {
-      modal.hidden = true;
-      document.documentElement.style.overflow = '';
-      if (lastFocus && lastFocus.focus) lastFocus.focus();
-    }
-
-    openers.forEach(function(el) { el.addEventListener('click', open); });
-    closers.forEach(function(el) { el.addEventListener('click', close); });
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && !modal.hidden) close();
-    });
-
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      var email = (input.value || '').trim();
-      if (!email) return;
-
-      btn.disabled = true;
-      btn.textContent = 'Joining...';
-      note.textContent = '';
-      note.style.color = '';
-
-      try {
-        var formData = new FormData();
-        formData.append('EMAIL', email);
-        formData.append('SOURCE', 'home-hero-kyncultation-waitlist');
-        formData.append('b_61338503f23a719d2d581c864_051996d936', '');
-
-        await fetch('https://kynskyn.us15.list-manage.com/subscribe/post?u=61338503f23a719d2d581c864&id=051996d936', {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors'
-        });
-
-        btn.textContent = "You're on the list";
-        btn.style.background = '#2a6e3f';
-        note.textContent = "We'll email you on June 1 with your $20-off code.";
-        note.style.color = '#2a6e3f';
-        input.value = '';
-      } catch (err) {
-        btn.disabled = false;
-        btn.textContent = 'Join the waitlist';
-        note.textContent = 'Something went wrong. Please try again.';
-        note.style.color = '#b02a2a';
-      }
     });
   })();
 </script>
