@@ -17,92 +17,207 @@
   </div>
 </section>
 
-<!-- ====== ABOUT ====== -->
-<section class="about" id="about">
-  <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="about__molecule">
-  <div class="about__container">
-    <div class="about__content fade-in">
-      <p class="about__eyebrow">About Kyn</p>
-      <h2 class="about__heading">Built for skin like yours.</h2>
-      <div class="about__body">
-        <p>We built Kyn Skyn for people with fungus-prone skin. Conditions like seborrheic dermatitis, fungal acne, and Malassezia-related irritation look different on darker skin, and the skincare industry rarely addresses them. Most products contain lipids that feed Malassezia and can make things worse. Ours don't.</p>
-        <p>Our name comes from kin, a nod to community and care. That idea shapes every formula and visual choice.</p>
-      </div>
-      <svg class="about__mark" viewBox="0 0 111 106" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M109.661 41.6249C98.2664 41.6249 87.4172 37.3581 79.14 29.6186C70.9252 21.957 65.8902 11.5703 64.9706 0.358164V0H45.1895V0.358164C44.2854 11.5703 39.2504 21.9726 30.9888 29.6497C22.6649 37.3892 11.8313 41.656 0.498814 41.656H0.0935277L0 60.6387H0.405287C25.2525 60.6387 45.4544 80.7737 45.4544 105.534V105.923H64.5029V105.534C64.5029 80.7893 84.7205 60.6387 109.568 60.6387H110.16V41.656H109.646L109.661 41.6249Z" fill="currentColor"/>
-      </svg>
+<!-- ====== CONDITIONS ====== -->
+<style>
+  .conditions {
+    background: var(--cream);
+    padding: 6rem 3rem;
+  }
+
+  .conditions__container {
+    max-width: 80rem;
+    margin: 0 auto;
+  }
+
+  .conditions__head {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .conditions__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.6;
+    margin: 0 0 1rem;
+  }
+
+  .conditions__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--maroon);
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .conditions__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .condition-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--cream);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .condition-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1.5rem 2.5rem rgba(42, 2, 8, 0.25);
+  }
+
+  .condition-card__bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .condition-card__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .condition-card:hover .condition-card__bg img {
+    transform: scale(1.05);
+  }
+
+  .condition-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(42, 2, 8, 0.15) 0%, rgba(42, 2, 8, 0.55) 50%, rgba(42, 2, 8, 0.92) 100%);
+  }
+
+  .condition-card__content {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 2rem;
+    z-index: 1;
+  }
+
+  .condition-card__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.85;
+    margin: 0 0 0.75rem;
+  }
+
+  .condition-card__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.4rem, 1.8vw, 1.65rem);
+    line-height: 1.2;
+    color: var(--cream);
+    margin: 0 0 0.75rem;
+  }
+
+  .condition-card__sub {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--cream);
+    opacity: 0.85;
+    margin: 0 0 1.5rem;
+  }
+
+  .condition-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--cream);
+  }
+
+  .condition-card__cta svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .condition-card:hover .condition-card__cta svg {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 900px) {
+    .conditions { padding: 4rem 1.5rem; }
+    .conditions__grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .condition-card {
+      aspect-ratio: 4 / 5;
+    }
+    .condition-card__content { padding: 1.5rem; }
+  }
+</style>
+
+<section class="conditions" id="conditions">
+  <div class="conditions__container">
+    <div class="conditions__head fade-in">
+      <p class="conditions__eyebrow">What we treat</p>
+      <h2 class="conditions__heading">Care for skin like yours.</h2>
     </div>
 
-    <div class="about__images fade-in">
-      <div class="about__image-wrap img-tall">
-        <img src="{{ 'gabby-closeup.jpg' | asset_url }}" alt="Gabby" style="object-position: center 15%;">
-        <div class="about__image-overlay">
-          <span class="about__image-overlay-title">The Kyn.</span>
-          <span class="about__image-overlay-sub">Made by us, for us.</span>
+    <div class="conditions__grid">
+      <a href="/pages/fungal-acne" class="condition-card fade-in">
+        <div class="condition-card__bg">
+          <img src="{{ 'gabby-closeup.jpg' | asset_url }}" alt="" style="object-position: center 15%;">
         </div>
-      </div>
-      <div class="about__image-wrap">
-        <img src="{{ 'kiiren-closeup.jpg' | asset_url }}" alt="Kiiren" style="object-position: center 20%;">
-        <div class="about__image-overlay">
-          <span class="about__image-overlay-title">Malassezia.</span>
-          <span class="about__image-overlay-sub">Doesn't run the show.</span>
+        <div class="condition-card__overlay" aria-hidden="true"></div>
+        <div class="condition-card__content">
+          <p class="condition-card__eyebrow">Tiny, itchy bumps</p>
+          <h3 class="condition-card__heading">Bumps that aren't really acne, no matter what you've tried.</h3>
+          <p class="condition-card__sub">A plan that clears them and keeps them gone.</p>
+          <span class="condition-card__cta">
+            Get treated
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
-      </div>
-      <div class="about__image-wrap">
-        <img src="{{ 'kwamena-smile.jpg' | asset_url }}" alt="Kwamena" style="object-position: center 15%;">
-        <div class="about__image-overlay">
-          <span class="about__image-overlay-title">The Skyn.</span>
-          <span class="about__image-overlay-sub">Built by people who get it,<br>because they have it.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </a>
 
-<!-- ====== HANDBOOK TEASER ====== -->
-<section class="handbook-teaser" id="handbook">
-  <div class="handbook-teaser__container fade-in">
-    <div class="handbook-teaser__content">
-      <p class="handbook-teaser__eyebrow">Free resource</p>
-      <h2 class="handbook-teaser__heading">The Fungal Skin Handbook.</h2>
-      <p class="handbook-teaser__desc">A plain-English guide to managing Malassezia skin conditions. Everything we wish someone had explained about seb derm, dandruff, fungal acne, tinea versicolor, and related conditions.</p>
-
-      <div class="handbook-teaser__topics">
-        <span class="handbook-teaser__tag">Seb Derm</span>
-        <span class="handbook-teaser__tag">Fungal Acne</span>
-        <span class="handbook-teaser__tag">Tinea Versicolor</span>
-        <span class="handbook-teaser__tag">Safe Ingredients</span>
-        <span class="handbook-teaser__tag">Skin of Color</span>
-        <span class="handbook-teaser__tag">Treatment Guides</span>
-      </div>
-
-      <a href="/pages/handbook" class="handbook-teaser__cta">Read the Handbook</a>
-    </div>
-
-    <div class="handbook-teaser__visual">
-      <div class="handbook-teaser__preview">
-        <p class="handbook-teaser__preview-label">What's inside</p>
-        <div class="handbook-teaser__preview-item">
-          <span class="handbook-teaser__preview-num">1</span>
-          <span class="handbook-teaser__preview-title">Understanding Malassezia</span>
+      <a href="/pages/seb-derm-dandruff" class="condition-card fade-in">
+        <div class="condition-card__bg">
+          <img src="{{ 'kiiren-closeup.jpg' | asset_url }}" alt="" style="object-position: center 20%;">
         </div>
-        <div class="handbook-teaser__preview-item">
-          <span class="handbook-teaser__preview-num">2</span>
-          <span class="handbook-teaser__preview-title">Condition deep dives</span>
+        <div class="condition-card__overlay" aria-hidden="true"></div>
+        <div class="condition-card__content">
+          <p class="condition-card__eyebrow">Flakes, redness, and itch</p>
+          <h3 class="condition-card__heading">Flaky patches and an itchy scalp that won't quit.</h3>
+          <p class="condition-card__sub">Clear it and stay ahead of flares with a routine that holds.</p>
+          <span class="condition-card__cta">
+            Get treated
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
-        <div class="handbook-teaser__preview-item">
-          <span class="handbook-teaser__preview-num">3</span>
-          <span class="handbook-teaser__preview-title">Practical guidance</span>
-        </div>
-        <div class="handbook-teaser__preview-item">
-          <span class="handbook-teaser__preview-num">4</span>
-          <span class="handbook-teaser__preview-title">Troubleshooting and long-term management</span>
-        </div>
-      </div>
+      </a>
 
-      <div class="handbook-teaser__preview" style="padding: 1.5rem 2.5rem;">
-        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: var(--cream); opacity: 0.5; line-height: 1.7; font-style: italic;">"This guide is educational, not a diagnosis. The goal is to help you recognize patterns, understand what the research does and doesn't support, and have better conversations with your clinician."</p>
-      </div>
+      <a href="/pages/tinea-versicolor" class="condition-card fade-in">
+        <div class="condition-card__bg">
+          <img src="{{ 'kwamena-smile.jpg' | asset_url }}" alt="" style="object-position: center 15%;">
+        </div>
+        <div class="condition-card__overlay" aria-hidden="true"></div>
+        <div class="condition-card__content">
+          <p class="condition-card__eyebrow">Discolored patches</p>
+          <h3 class="condition-card__heading">Light or dark spots on your chest, back, or shoulders.</h3>
+          <p class="condition-card__sub">A common skin condition that's very treatable. We'll get you sorted.</p>
+          <span class="condition-card__cta">
+            Get treated
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
