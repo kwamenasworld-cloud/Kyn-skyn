@@ -37,6 +37,7 @@
     {%- assign recommended_reason = 'Fungal acne almost always relapses without an ongoing routine. Most people stay clear with the Quarterly Plan, which covers the maintenance phase.' -%}
     {%- assign final_cta_heading = 'Ready to actually treat it?' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis from a licensed clinician, and start a treatment plan that targets the actual cause.' -%}
+    {%- assign payoff_csv = "Clear bumps, for real this time~A prescription that targets the actual cause, not the wrong category.|A routine that fits real life~Two products, not seven. Built to keep flares from coming back.|Skincare that doesn't fight your treatment~Products that won't feed the yeast you're working to clear." -%}
 
   {%- when 'seb-derm-dandruff' -%}
     {%- assign condition_name = 'Seb Derm & Dandruff' -%}
@@ -57,6 +58,7 @@
     {%- assign recommended_reason = "Seb derm and dandruff are chronic. The Quarterly Plan covers ongoing care so you're not starting over every flare." -%}
     {%- assign final_cta_heading = 'Get out of the flake-and-flare loop.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start a treatment plan that holds.' -%}
+    {%- assign payoff_csv = "Flakes and itch gone, not just hidden~An antifungal that hits the cause &mdash; plus a routine that holds long after.|Triggers stop wrecking your skin~A maintenance plan built for stress, weather, and product changes.|Care from someone who's seen it~A clinician who treats seb derm every day, not once a year." -%}
 
   {%- when 'tinea-versicolor' -%}
     {%- assign condition_name = 'Tinea Versicolor' -%}
@@ -77,6 +79,7 @@
     {%- assign recommended_reason = 'Tinea versicolor flares seasonally for most people, especially during heat and humidity. The Monthly Treatment Plan covers ongoing monitoring with your clinician, prescription refills as needed, and a maintenance routine that cuts down how often it comes back.' -%}
     {%- assign final_cta_heading = 'Clear the patches, keep them clear.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start an ongoing plan that clears the patches and keeps them from coming back.' -%}
+    {%- assign payoff_csv = "Patches even back out~The yeast clears, and your skin's pigment production catches up.|Stay clear through every summer~A maintenance plan built for the heat and humidity that bring it back.|A specialist who's seen this~A clinician familiar with how tinea looks across all skin tones." -%}
 
 {%- endcase -%}
 
@@ -160,6 +163,58 @@
 
   .cc-hero__cta svg { width: 18px; height: 18px; transition: transform 0.3s; }
   .cc-hero__cta:hover svg { transform: translateX(3px); }
+
+  /* ========== PAYOFF ========== */
+  .cc-payoff {
+    background: var(--cream);
+    padding: 4.5rem 3rem;
+  }
+
+  .cc-payoff__container {
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+
+  .cc-payoff__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.55;
+    margin: 0 0 2.5rem;
+    text-align: center;
+  }
+
+  .cc-payoff__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem 3rem;
+  }
+
+  .cc-payoff__item {
+    border-top: 1px solid rgba(100, 18, 32, 0.18);
+    padding-top: 1.5rem;
+  }
+
+  .cc-payoff__title {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    line-height: 1.25;
+    color: var(--maroon);
+    margin: 0 0 0.6rem;
+  }
+
+  .cc-payoff__desc {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--maroon);
+    opacity: 0.78;
+    margin: 0;
+  }
+
+  .cc-payoff__desc em { font-style: italic; }
 
   /* ========== TRUST BAR ========== */
   .cc-trust {
@@ -617,6 +672,8 @@
   /* ========== RESPONSIVE ========== */
   @media (max-width: 768px) {
     .cc-hero { padding: 6rem 1.5rem 4rem; }
+    .cc-payoff { padding: 3rem 1.5rem; }
+    .cc-payoff__grid { grid-template-columns: 1fr; gap: 2rem; }
     .cc-trust { padding: 1.5rem; }
     .cc-trust__container { gap: 1rem 1.5rem; }
     .cc-trust__item { font-size: 0.7rem; }
@@ -647,6 +704,23 @@
       <span>Get your Kyncultation</span>
       <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
+  </div>
+</section>
+
+<!-- ====== PAYOFF ====== -->
+<section class="cc-payoff">
+  <div class="cc-payoff__container">
+    <p class="cc-payoff__eyebrow">What changes for you</p>
+    <div class="cc-payoff__grid">
+      {%- assign payoff_items = payoff_csv | split: '|' -%}
+      {%- for item in payoff_items -%}
+        {%- assign parts = item | split: '~' -%}
+        <div class="cc-payoff__item">
+          <h3 class="cc-payoff__title">{{ parts[0] }}</h3>
+          <p class="cc-payoff__desc">{{ parts[1] }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
   </div>
 </section>
 
