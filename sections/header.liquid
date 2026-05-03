@@ -1,9 +1,16 @@
 <header class="site-header" id="siteHeader">
   <nav>
     <ul class="header-nav">
-      <li><a href="/#about">About</a></li>
-      <li><a href="/pages/handbook">Handbook</a></li>
-      <li><a href="/pages/ingredient-checker">Ingredient Checker</a></li>
+      <li class="header-nav__group">
+        <a href="/pages/handbook" aria-haspopup="true">
+          Resources
+          <svg class="header-nav__caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul class="header-nav__dropdown" role="menu">
+          <li role="none"><a role="menuitem" href="/pages/handbook">Handbook</a></li>
+          <li role="none"><a role="menuitem" href="/pages/ingredient-checker">Ingredient Checker</a></li>
+        </ul>
+      </li>
     </ul>
   </nav>
 
@@ -24,7 +31,7 @@
       <li><a href="/pages/shop">Shop</a></li>
       <li class="header-nav__group">
         <a href="/pages/consultation" aria-haspopup="true">
-          Consultation
+          Get Care
           <svg class="header-nav__caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
         <ul class="header-nav__dropdown" role="menu">
