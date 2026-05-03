@@ -83,7 +83,7 @@ async function main() {
   for (const page of PAGES) {
     const rows = await fetchPage(page.name);
     if (rows.length === 0) {
-      console.log(`No active FAQs for ${page.name} — skipping`);
+      console.log(`No active FAQs for ${page.name}, skipping`);
       continue;
     }
 
