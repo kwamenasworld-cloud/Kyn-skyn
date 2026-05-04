@@ -34,6 +34,7 @@
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole) where needed. From there, the treatment plan covers the routine that keeps the yeast in check long-term, not just clearing the current flare.' -%}
     {%- assign recommended_plan = 'quarterly' -%}
     {%- assign recommended_plan_label = 'Quarterly Treatment Plan' -%}
+    {%- assign recommended_price = '$89.99/qtr' -%}
     {%- assign recommended_reason = 'Fungal acne almost always relapses without an ongoing routine. Most people stay clear with the Quarterly Plan, which covers the maintenance phase.' -%}
     {%- assign final_cta_heading = 'Ready to actually treat it?' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis from a licensed clinician, and start a treatment plan that targets the actual cause.' -%}
@@ -55,6 +56,7 @@
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole) for the affected zones. The treatment plan also includes the maintenance schedule, scalp and skin care choices, and what to do when triggers hit.' -%}
     {%- assign recommended_plan = 'quarterly' -%}
     {%- assign recommended_plan_label = 'Quarterly Treatment Plan' -%}
+    {%- assign recommended_price = '$89.99/qtr' -%}
     {%- assign recommended_reason = "Seb derm and dandruff are chronic. The Quarterly Plan covers ongoing care so you're not starting over every flare." -%}
     {%- assign final_cta_heading = 'Get out of the flake-and-flare loop.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start a treatment plan that holds.' -%}
@@ -76,6 +78,7 @@
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole). The cause clears with a course of treatment. Pigment evens out gradually as your skin recovers, and an ongoing routine keeps the patches from coming back when humidity hits.' -%}
     {%- assign recommended_plan = 'monthly' -%}
     {%- assign recommended_plan_label = 'Monthly Treatment Plan' -%}
+    {%- assign recommended_price = '$34.99/mo' -%}
     {%- assign recommended_reason = 'Tinea versicolor flares seasonally for most people, especially during heat and humidity. The Monthly Treatment Plan covers ongoing monitoring with your clinician, prescription refills as needed, and a maintenance routine that cuts down how often it comes back.' -%}
     {%- assign final_cta_heading = 'Clear the patches, keep them clear.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start an ongoing plan that clears the patches and keeps them from coming back.' -%}
@@ -180,10 +183,47 @@
     line-height: 1.7;
     opacity: 0.78;
     max-width: 40rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.75rem;
   }
 
   .cc-hero__sub em { font-style: italic; }
+
+  .cc-hero__plan {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid rgba(212, 149, 42, 0.45);
+    border-radius: 999px;
+    background: rgba(212, 149, 42, 0.08);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: var(--gold);
+  }
+
+  .cc-hero__plan-label { font-weight: 500; }
+  .cc-hero__plan-divider { opacity: 0.5; }
+  .cc-hero__plan-price { opacity: 0.92; font-weight: 500; }
+
+  .cc-hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+  }
+
+  .cc-hero__plans-link {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .cc-hero__plans-link:hover { opacity: 1; }
 
   .cc-hero__cta {
     display: inline-flex;
@@ -293,321 +333,6 @@
 
   .cc-trust__item svg { width: 16px; height: 16px; color: var(--gold); }
 
-  /* ========== WHAT IT IS ========== */
-  .cc-what {
-    background: var(--cream);
-    padding: 6rem 3rem;
-  }
-
-  .cc-what__container {
-    max-width: 44rem;
-    margin: 0 auto;
-  }
-
-  .cc-what__eyebrow {
-    font-family: var(--font-accent);
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--maroon);
-    opacity: 0.55;
-    margin-bottom: 1rem;
-  }
-
-  .cc-what__heading {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 3.5vw, 2.6rem);
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--maroon);
-    margin-bottom: 2rem;
-  }
-
-  .cc-what__body {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--maroon);
-    opacity: 0.85;
-  }
-
-  .cc-what__body p + p { margin-top: 1.2rem; }
-  .cc-what__body em { font-style: italic; }
-
-  /* ========== SYMPTOMS ========== */
-  .cc-symptoms {
-    background: var(--dark);
-    color: var(--cream);
-    padding: 6rem 3rem;
-  }
-
-  .cc-symptoms__container {
-    max-width: 56rem;
-    margin: 0 auto;
-  }
-
-  .cc-symptoms__heading {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 3.5vw, 2.6rem);
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .cc-symptoms__sub {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    text-align: center;
-    opacity: 0.6;
-    margin-bottom: 3rem;
-  }
-
-  .cc-symptoms__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-width: 36rem;
-    margin: 0 auto;
-  }
-
-  .cc-symptoms__list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.15rem 0;
-    border-bottom: 1px solid rgba(255, 244, 206, 0.08);
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--cream);
-    opacity: 0.85;
-  }
-
-  .cc-symptoms__list li:last-child { border-bottom: none; }
-
-  .cc-symptoms__check {
-    flex-shrink: 0;
-    width: 22px; height: 22px;
-    border: 1.5px solid rgba(212, 149, 42, 0.6);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gold);
-    margin-top: 1px;
-  }
-
-  .cc-symptoms__check svg { width: 12px; height: 12px; }
-
-  .cc-symptoms__hint {
-    text-align: center;
-    margin-top: 2.5rem;
-    font-family: var(--font-sans);
-    font-size: 0.92rem;
-    color: var(--cream);
-    opacity: 0.55;
-    line-height: 1.6;
-  }
-
-  .cc-symptoms__hint strong { color: var(--gold); opacity: 1; font-weight: 500; }
-
-  /* ========== TREATMENT ========== */
-  .cc-treatment {
-    background: var(--cream);
-    padding: 6rem 3rem;
-  }
-
-  .cc-treatment__container {
-    max-width: 64rem;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .cc-treatment__heading {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 3.5vw, 2.6rem);
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--maroon);
-  }
-
-  .cc-treatment__body {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--maroon);
-    opacity: 0.85;
-  }
-
-  .cc-treatment__body em { font-style: italic; }
-
-  .cc-treatment__features {
-    margin-top: 2rem;
-    list-style: none;
-    padding: 0;
-  }
-
-  .cc-treatment__features li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.8rem;
-    padding: 0.9rem 0;
-    border-top: 1px solid rgba(100, 18, 32, 0.12);
-    font-family: var(--font-sans);
-    font-size: 0.92rem;
-    line-height: 1.55;
-    color: var(--maroon);
-  }
-
-  .cc-treatment__features li:last-child { border-bottom: 1px solid rgba(100, 18, 32, 0.12); }
-
-  .cc-treatment__feature-icon {
-    flex-shrink: 0;
-    width: 22px; height: 22px;
-    color: var(--terracotta);
-    margin-top: 1px;
-  }
-
-  /* ========== PRICING SUMMARY ========== */
-  .cc-pricing {
-    background: var(--dark);
-    color: var(--cream);
-    padding: 6rem 3rem;
-    text-align: center;
-  }
-
-  .cc-pricing__container {
-    max-width: 44rem;
-    margin: 0 auto;
-  }
-
-  .cc-pricing__eyebrow {
-    font-family: var(--font-accent);
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1rem;
-  }
-
-  .cc-pricing__heading {
-    font-family: var(--font-serif);
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    font-weight: 400;
-    line-height: 1.25;
-    margin-bottom: 1.4rem;
-  }
-
-  .cc-pricing__reason {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    opacity: 0.7;
-    margin-bottom: 2.5rem;
-  }
-
-  .cc-pricing__buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .cc-pricing__btn {
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 1rem 2rem;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background 0.3s, transform 0.2s;
-  }
-
-  .cc-pricing__btn--primary {
-    background: var(--button);
-    color: var(--cream);
-  }
-
-  .cc-pricing__btn--primary:hover { background: var(--maroon); transform: translateY(-1px); }
-
-  .cc-pricing__btn--secondary {
-    background: transparent;
-    color: var(--cream);
-    border: 1px solid rgba(255, 244, 206, 0.3);
-  }
-
-  .cc-pricing__btn--secondary:hover { border-color: rgba(255, 244, 206, 0.6); }
-
-  /* ========== PROCESS ========== */
-  .cc-process {
-    background: var(--cream);
-    padding: 6rem 3rem;
-  }
-
-  .cc-process__container { max-width: 64rem; margin: 0 auto; }
-
-  .cc-process__eyebrow {
-    font-family: var(--font-accent);
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--maroon);
-    opacity: 0.55;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .cc-process__heading {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 3.5vw, 2.6rem);
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--maroon);
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  .cc-process__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-  }
-
-  .cc-process__step {
-    background: rgba(100, 18, 32, 0.05);
-    border: 1px solid rgba(100, 18, 32, 0.12);
-    border-radius: 8px;
-    padding: 1.75rem 1.5rem;
-  }
-
-  .cc-process__num {
-    font-family: var(--font-serif);
-    font-size: 2rem;
-    color: var(--terracotta);
-    margin-bottom: 0.6rem;
-    line-height: 1;
-  }
-
-  .cc-process__step-title {
-    font-family: var(--font-serif);
-    font-size: 1.1rem;
-    color: var(--maroon);
-    margin-bottom: 0.5rem;
-  }
-
-  .cc-process__step-desc {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    line-height: 1.55;
-    color: var(--maroon);
-    opacity: 0.7;
-  }
-
   /* ========== FAQ ========== */
   .cc-faq {
     background: var(--dark);
@@ -663,58 +388,6 @@
 
   .cc-faq__answer p + p { margin-top: 0.9rem; }
 
-  /* ========== FINAL CTA ========== */
-  .cc-final {
-    background: var(--cream);
-    padding: 7rem 3rem;
-    text-align: center;
-  }
-
-  .cc-final__container { max-width: 40rem; margin: 0 auto; }
-
-  .cc-final__heading {
-    font-family: var(--font-serif);
-    font-size: clamp(2.2rem, 4vw, 3rem);
-    font-weight: 400;
-    line-height: 1.15;
-    color: var(--maroon);
-    margin-bottom: 1.4rem;
-  }
-
-  .cc-final__sub {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--maroon);
-    opacity: 0.7;
-    margin-bottom: 2.5rem;
-  }
-
-  .cc-final__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 1.1rem 2.4rem;
-    background: var(--button);
-    color: var(--cream);
-    font-family: var(--font-accent);
-    font-size: 0.95rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 999px;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-  }
-
-  .cc-final__cta:hover {
-    background: var(--maroon);
-    transform: translateY(-2px);
-    box-shadow: 0 18px 36px -14px rgba(100, 18, 32, 0.5);
-  }
-
-  .cc-final__cta svg { width: 18px; height: 18px; transition: transform 0.3s; }
-  .cc-final__cta:hover svg { transform: translateX(3px); }
-
   /* ========== RESPONSIVE ========== */
   @media (max-width: 1024px) {
     .cc-hero__motif { display: none; }
@@ -727,19 +400,7 @@
     .cc-trust { padding: 1.5rem; }
     .cc-trust__container { gap: 1rem 1.5rem; }
     .cc-trust__item { font-size: 0.7rem; }
-    .cc-what { padding: 4rem 1.5rem; }
-    .cc-symptoms { padding: 4rem 1.5rem; }
-    .cc-treatment { padding: 4rem 1.5rem; }
-    .cc-treatment__container { grid-template-columns: 1fr; gap: 2rem; }
-    .cc-pricing { padding: 4rem 1.5rem; }
-    .cc-process { padding: 4rem 1.5rem; }
-    .cc-process__grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
     .cc-faq { padding: 4rem 1.5rem; }
-    .cc-final { padding: 5rem 1.5rem; }
-  }
-
-  @media (max-width: 520px) {
-    .cc-process__grid { grid-template-columns: 1fr; }
   }
 </style>
 
@@ -758,26 +419,17 @@
     <p class="cc-hero__eyebrow">{{ condition_subtitle }}</p>
     <h1 class="cc-hero__heading">{{ hero_heading }}</h1>
     <p class="cc-hero__sub">{{ hero_sub }}</p>
-    <a href="#" data-waitlist-open class="cc-hero__cta">
-      <span>Get your Kyncultation</span>
-      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </div>
-</section>
-
-<!-- ====== PAYOFF ====== -->
-<section class="cc-payoff">
-  <div class="cc-payoff__container">
-    <p class="cc-payoff__eyebrow">What changes for you</p>
-    <div class="cc-payoff__grid">
-      {%- assign payoff_items = payoff_csv | split: '|' -%}
-      {%- for item in payoff_items -%}
-        {%- assign parts = item | split: '~' -%}
-        <div class="cc-payoff__item">
-          <h3 class="cc-payoff__title">{{ parts[0] }}</h3>
-          <p class="cc-payoff__desc">{{ parts[1] }}</p>
-        </div>
-      {%- endfor -%}
+    <div class="cc-hero__plan">
+      <span class="cc-hero__plan-label">{{ recommended_plan_label }}</span>
+      <span class="cc-hero__plan-divider">·</span>
+      <span class="cc-hero__plan-price">{{ recommended_price }}</span>
+    </div>
+    <div class="cc-hero__actions">
+      <a href="#" data-waitlist-open class="cc-hero__cta">
+        <span>Get your Kyncultation</span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="/pages/consultation#th-pricing" class="cc-hero__plans-link">See all plans &rarr;</a>
     </div>
   </div>
 </section>
@@ -804,62 +456,19 @@
   </div>
 </section>
 
-<!-- ====== SYMPTOMS ====== -->
-<section class="cc-symptoms">
-  <div class="cc-symptoms__container">
-    <h2 class="cc-symptoms__heading">{{ symptoms_heading }}</h2>
-    <p class="cc-symptoms__sub">If three or more sound familiar, a Kyn Skyn consult can confirm and treat it.</p>
-    <ul class="cc-symptoms__list">
-      {% for sym in symptoms %}
-      <li>
-        <span class="cc-symptoms__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
-        <span>{{ sym }}</span>
-      </li>
-      {% endfor %}
-    </ul>
-    <p class="cc-symptoms__hint"><strong>Not sure?</strong> Submit your photos and intake. A licensed provider reviews and tells you whether this is what you're dealing with.</p>
-  </div>
-</section>
-
-<!-- ====== PRICING SUMMARY ====== -->
-<section class="cc-pricing">
-  <div class="cc-pricing__container">
-    <p class="cc-pricing__eyebrow">Recommended plan</p>
-    <h2 class="cc-pricing__heading">{{ recommended_plan_label }}</h2>
-    <p class="cc-pricing__reason">{{ recommended_reason }}</p>
-    <div class="cc-pricing__buttons">
-      <a href="#" data-waitlist-open class="cc-pricing__btn cc-pricing__btn--primary">Start with {{ recommended_plan_label }}</a>
-      <a href="/pages/consultation#th-pricing" class="cc-pricing__btn cc-pricing__btn--secondary">See all plans</a>
-    </div>
-  </div>
-</section>
-
-<!-- ====== PROCESS ====== -->
-<section class="cc-process">
-  <div class="cc-process__container">
-    <p class="cc-process__eyebrow">The process</p>
-    <h2 class="cc-process__heading">How it works</h2>
-    <div class="cc-process__grid">
-      <div class="cc-process__step">
-        <div class="cc-process__num">01</div>
-        <h3 class="cc-process__step-title">Tell us what's going on</h3>
-        <p class="cc-process__step-desc">A guided intake walks you through your skin, your history, and a few photos. Around 3 minutes.</p>
-      </div>
-      <div class="cc-process__step">
-        <div class="cc-process__num">02</div>
-        <h3 class="cc-process__step-title">A clinician reviews</h3>
-        <p class="cc-process__step-desc">Licensed providers review everything and confirm the diagnosis. Usually within 48 hours.</p>
-      </div>
-      <div class="cc-process__step">
-        <div class="cc-process__num">03</div>
-        <h3 class="cc-process__step-title">Get your treatment plan</h3>
-        <p class="cc-process__step-desc">A written plan with the specifics of your prescription and how to use it, plus the routine that holds.</p>
-      </div>
-      <div class="cc-process__step">
-        <div class="cc-process__num">04</div>
-        <h3 class="cc-process__step-title">Pick up at your pharmacy</h3>
-        <p class="cc-process__step-desc">If you got a prescription, it's already at the pharmacy you chose. Pick it up and start.</p>
-      </div>
+<!-- ====== PAYOFF ====== -->
+<section class="cc-payoff">
+  <div class="cc-payoff__container">
+    <p class="cc-payoff__eyebrow">What changes for you</p>
+    <div class="cc-payoff__grid">
+      {%- assign payoff_items = payoff_csv | split: '|' -%}
+      {%- for item in payoff_items -%}
+        {%- assign parts = item | split: '~' -%}
+        <div class="cc-payoff__item">
+          <h3 class="cc-payoff__title">{{ parts[0] }}</h3>
+          <p class="cc-payoff__desc">{{ parts[1] }}</p>
+        </div>
+      {%- endfor -%}
     </div>
   </div>
 </section>
@@ -937,18 +546,6 @@
         <div class="cc-faq__answer"><p>Sun makes the patches more visible, since the affected areas can't tan with the rest of your skin. The condition itself is mostly driven by heat, humidity, and oil production, not sunlight directly.</p></div>
       </details>
     {% endif %}
-  </div>
-</section>
-
-<!-- ====== FINAL CTA ====== -->
-<section class="cc-final">
-  <div class="cc-final__container">
-    <h2 class="cc-final__heading">{{ final_cta_heading }}</h2>
-    <p class="cc-final__sub">{{ final_cta_sub }}</p>
-    <a href="#" data-waitlist-open class="cc-final__cta">
-      <span>Get your Kyncultation</span>
-      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
   </div>
 </section>
 
