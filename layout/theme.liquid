@@ -239,7 +239,7 @@
     .header-nav a:hover { opacity: 1; }
 
     /* Dropdown nav (Resources, Get Care) */
-    .header-nav__group { position: relative; }
+    .header-nav__group { position: static; }
 
     .header-nav__group > a {
       display: inline-flex;
@@ -257,10 +257,10 @@
       transform: rotate(-180deg);
     }
 
-    /* Full-width dropdown panel anchored below the fixed header */
+    /* Full-width dropdown panel, flush with the bottom of the fixed header */
     .header-nav__dropdown {
-      position: fixed;
-      top: 4.75rem;
+      position: absolute;
+      top: 100%;
       left: 0;
       right: 0;
       z-index: 99;
@@ -298,12 +298,14 @@
       backdrop-filter: blur(14px);
     }
 
-    /* Hover bridge: keeps the dropdown open as the cursor crosses the gap */
+    /* Generous hover bridge so the dropdown stays open while the cursor
+       crosses from the trigger link down to the panel. Spans the full
+       header height above the dropdown. */
     .header-nav__dropdown::before {
       content: "";
       position: absolute;
-      top: -0.6rem; left: 0; right: 0;
-      height: 0.6rem;
+      top: -3rem; left: 0; right: 0;
+      height: 3rem;
     }
 
     .header-nav__dropdown li { margin: 0; flex: 0 0 auto; }
