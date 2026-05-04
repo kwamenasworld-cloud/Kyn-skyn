@@ -511,39 +511,68 @@
   <div class="cc-hero__condition-icon" aria-hidden="true">
     <svg viewBox="0 0 100 100" aria-hidden="true">
       <defs>
-        <radialGradient id="ccAtom" cx="32%" cy="28%" r="68%">
-          <stop offset="0%" stop-color="#fff7d6"/>
-          <stop offset="20%" stop-color="#f3c46a"/>
-          <stop offset="65%" stop-color="#a86d10"/>
-          <stop offset="100%" stop-color="#3d2400"/>
+        {%- comment -%}
+          High-contrast glass-ball gradient: pure white catch -> bright gold ->
+          deep gold-black edge. Reads as a polished sphere, not amber resin.
+        {%- endcomment -%}
+        <radialGradient id="ccAtom" cx="30%" cy="25%" r="72%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="10%" stop-color="#fff8de"/>
+          <stop offset="34%" stop-color="#f8d68a"/>
+          <stop offset="62%" stop-color="#c7891f"/>
+          <stop offset="86%" stop-color="#3d2400"/>
+          <stop offset="100%" stop-color="#080300"/>
         </radialGradient>
-        <radialGradient id="ccAtomSm" cx="32%" cy="28%" r="68%">
-          <stop offset="0%" stop-color="#fff4c8"/>
-          <stop offset="22%" stop-color="#dba84a"/>
-          <stop offset="70%" stop-color="#7a4d00"/>
-          <stop offset="100%" stop-color="#2d1900"/>
+        <radialGradient id="ccAtomSm" cx="30%" cy="25%" r="72%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="12%" stop-color="#fff4c8"/>
+          <stop offset="38%" stop-color="#f3c46a"/>
+          <stop offset="65%" stop-color="#a06814"/>
+          <stop offset="90%" stop-color="#2d1900"/>
+          <stop offset="100%" stop-color="#080300"/>
         </radialGradient>
-        <filter id="ccDrop" x="-25%" y="-15%" width="150%" height="140%">
-          <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#1a0104" flood-opacity="0.6"/>
+        {%- comment -%} Soft white catchlight that fades to fully transparent. {%- endcomment -%}
+        <radialGradient id="ccCatch" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+          <stop offset="55%" stop-color="#ffffff" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </radialGradient>
+        {%- comment -%}
+          Combined filter: gold halo glow behind, drop shadow further behind,
+          original on top. Atoms look luminous instead of decorative.
+        {%- endcomment -%}
+        <filter id="ccMolFx" x="-40%" y="-30%" width="180%" height="160%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="dropBlur"/>
+          <feOffset in="dropBlur" dx="0" dy="5" result="dropOff"/>
+          <feFlood flood-color="#1a0104" flood-opacity="0.65"/>
+          <feComposite in2="dropOff" operator="in" result="dropShadow"/>
+          <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="glowBlur"/>
+          <feFlood flood-color="#f3c46a" flood-opacity="0.55"/>
+          <feComposite in2="glowBlur" operator="in" result="goldGlow"/>
+          <feMerge>
+            <feMergeNode in="dropShadow"/>
+            <feMergeNode in="goldGlow"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
         </filter>
       </defs>
       {%- comment -%} Cylindrical bond — 3 concentric strokes so each bond reads as a lit cylinder rather than a flat ribbon. Coords substituted per bond below. {%- endcomment -%}
-      {%- capture cc_bond -%}<g><line stroke="#3d2400" stroke-width="6" stroke-linecap="round" x1="X1" y1="Y1" x2="X2" y2="Y2"/><line stroke="#a86d10" stroke-width="3.5" stroke-linecap="round" x1="X1" y1="Y1" x2="X2" y2="Y2"/><line stroke="#f8d68a" stroke-width="1.4" stroke-linecap="round" opacity="0.95" x1="X1" y1="Y1" x2="X2" y2="Y2"/></g>{%- endcapture -%}
+      {%- capture cc_bond -%}<g><line stroke="#080300" stroke-width="6" stroke-linecap="round" x1="X1" y1="Y1" x2="X2" y2="Y2"/><line stroke="#c7891f" stroke-width="3.4" stroke-linecap="round" x1="X1" y1="Y1" x2="X2" y2="Y2"/><line stroke="#fffaf0" stroke-width="1.2" stroke-linecap="round" opacity="1" x1="X1" y1="Y1" x2="X2" y2="Y2"/></g>{%- endcapture -%}
       {%- if page.handle == 'fungal-acne' -%}
-        <g filter="url(#ccDrop)">
+        <g filter="url(#ccMolFx)">
           {%- comment -%} Tetrahedral molecule — central atom with four satellites {%- endcomment -%}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '50' | replace: 'X2', '22' | replace: 'Y2', '24' }}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '50' | replace: 'X2', '78' | replace: 'Y2', '24' }}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '50' | replace: 'X2', '22' | replace: 'Y2', '78' }}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '50' | replace: 'X2', '78' | replace: 'Y2', '78' }}
-          <g><circle cx="22" cy="24" r="9" fill="url(#ccAtomSm)"/><circle cx="19.4" cy="21.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="78" cy="24" r="9" fill="url(#ccAtomSm)"/><circle cx="75.4" cy="21.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="22" cy="78" r="9" fill="url(#ccAtomSm)"/><circle cx="19.4" cy="75.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="78" cy="78" r="9" fill="url(#ccAtomSm)"/><circle cx="75.4" cy="75.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="50" cy="50" r="15" fill="url(#ccAtom)"/><circle cx="45.5" cy="46" r="3.5" fill="#fff" opacity="0.55"/></g>
+          <g><circle cx="22" cy="24" r="9" fill="url(#ccAtomSm)"/><circle cx="18.5" cy="20.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="78" cy="24" r="9" fill="url(#ccAtomSm)"/><circle cx="74.5" cy="20.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="22" cy="78" r="9" fill="url(#ccAtomSm)"/><circle cx="18.5" cy="74.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="78" cy="78" r="9" fill="url(#ccAtomSm)"/><circle cx="74.5" cy="74.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="50" cy="50" r="15" fill="url(#ccAtom)"/><circle cx="44" cy="44" r="5.5" fill="url(#ccCatch)"/></g>
         </g>
       {%- elsif page.handle == 'seb-derm-dandruff' -%}
-        <g filter="url(#ccDrop)">
+        <g filter="url(#ccMolFx)">
           {%- comment -%} Hexagonal ring — benzene-style with two side substituents {%- endcomment -%}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '14' | replace: 'X2', '78' | replace: 'Y2', '30' }}
           {{ cc_bond | replace: 'X1', '78' | replace: 'Y1', '30' | replace: 'X2', '78' | replace: 'Y2', '62' }}
@@ -553,29 +582,29 @@
           {{ cc_bond | replace: 'X1', '22' | replace: 'Y1', '30' | replace: 'X2', '50' | replace: 'Y2', '14' }}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '14' | replace: 'X2', '50' | replace: 'Y2', '4' }}
           {{ cc_bond | replace: 'X1', '78' | replace: 'Y1', '62' | replace: 'X2', '90' | replace: 'Y2', '70' }}
-          <g><circle cx="50" cy="14" r="9" fill="url(#ccAtomSm)"/><circle cx="47.4" cy="11.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="78" cy="30" r="9" fill="url(#ccAtomSm)"/><circle cx="75.4" cy="27.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="78" cy="62" r="9" fill="url(#ccAtomSm)"/><circle cx="75.4" cy="59.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="50" cy="78" r="9" fill="url(#ccAtomSm)"/><circle cx="47.4" cy="75.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="22" cy="62" r="9" fill="url(#ccAtomSm)"/><circle cx="19.4" cy="59.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="22" cy="30" r="9" fill="url(#ccAtomSm)"/><circle cx="19.4" cy="27.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="50" cy="4" r="6" fill="url(#ccAtomSm)"/><circle cx="48.2" cy="2.5" r="1.4" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="90" cy="70" r="6" fill="url(#ccAtomSm)"/><circle cx="88.2" cy="68.5" r="1.4" fill="#fff" opacity="0.5"/></g>
+          <g><circle cx="50" cy="14" r="9" fill="url(#ccAtomSm)"/><circle cx="46.5" cy="10.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="78" cy="30" r="9" fill="url(#ccAtomSm)"/><circle cx="74.5" cy="26.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="78" cy="62" r="9" fill="url(#ccAtomSm)"/><circle cx="74.5" cy="58.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="50" cy="78" r="9" fill="url(#ccAtomSm)"/><circle cx="46.5" cy="74.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="22" cy="62" r="9" fill="url(#ccAtomSm)"/><circle cx="18.5" cy="58.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="22" cy="30" r="9" fill="url(#ccAtomSm)"/><circle cx="18.5" cy="26.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="50" cy="4" r="6" fill="url(#ccAtomSm)"/><circle cx="47.5" cy="2" r="2" fill="url(#ccCatch)"/></g>
+          <g><circle cx="90" cy="70" r="6" fill="url(#ccAtomSm)"/><circle cx="87.5" cy="68" r="2" fill="url(#ccCatch)"/></g>
         </g>
       {%- elsif page.handle == 'tinea-versicolor' -%}
-        <g filter="url(#ccDrop)">
+        <g filter="url(#ccMolFx)">
           {%- comment -%} Branched chain — pigment-like structure {%- endcomment -%}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '50' | replace: 'X2', '50' | replace: 'Y2', '18' }}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '50' | replace: 'X2', '22' | replace: 'Y2', '68' }}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '50' | replace: 'X2', '78' | replace: 'Y2', '68' }}
           {{ cc_bond | replace: 'X1', '22' | replace: 'Y1', '68' | replace: 'X2', '22' | replace: 'Y2', '92' }}
           {{ cc_bond | replace: 'X1', '78' | replace: 'Y1', '68' | replace: 'X2', '92' | replace: 'Y2', '84' }}
-          <g><circle cx="50" cy="50" r="13" fill="url(#ccAtom)"/><circle cx="46" cy="46.5" r="3" fill="#fff" opacity="0.55"/></g>
-          <g><circle cx="50" cy="18" r="9" fill="url(#ccAtomSm)"/><circle cx="47.4" cy="15.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="22" cy="68" r="9" fill="url(#ccAtomSm)"/><circle cx="19.4" cy="65.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="78" cy="68" r="9" fill="url(#ccAtomSm)"/><circle cx="75.4" cy="65.5" r="2" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="22" cy="92" r="6" fill="url(#ccAtomSm)"/><circle cx="20.2" cy="90.5" r="1.4" fill="#fff" opacity="0.5"/></g>
-          <g><circle cx="92" cy="84" r="6" fill="url(#ccAtomSm)"/><circle cx="90.2" cy="82.5" r="1.4" fill="#fff" opacity="0.5"/></g>
+          <g><circle cx="50" cy="50" r="13" fill="url(#ccAtom)"/><circle cx="44.5" cy="44.5" r="4.5" fill="url(#ccCatch)"/></g>
+          <g><circle cx="50" cy="18" r="9" fill="url(#ccAtomSm)"/><circle cx="46.5" cy="14.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="22" cy="68" r="9" fill="url(#ccAtomSm)"/><circle cx="18.5" cy="64.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="78" cy="68" r="9" fill="url(#ccAtomSm)"/><circle cx="74.5" cy="64.5" r="3" fill="url(#ccCatch)"/></g>
+          <g><circle cx="22" cy="92" r="6" fill="url(#ccAtomSm)"/><circle cx="19.5" cy="90" r="2" fill="url(#ccCatch)"/></g>
+          <g><circle cx="92" cy="84" r="6" fill="url(#ccAtomSm)"/><circle cx="89.5" cy="82" r="2" fill="url(#ccCatch)"/></g>
         </g>
       {%- endif -%}
     </svg>
