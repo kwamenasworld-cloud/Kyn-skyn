@@ -159,20 +159,20 @@
     filter: drop-shadow(0 24px 40px rgba(199, 91, 42, 0.4));
   }
 
-  /* Condition-specific 3D object on the left of the hero. Single SVG
-     using a radial gradient (highlight -> mid -> shadow) plus a drop-
-     shadow filter — reads as one glossy object, not three layered
-     pieces. */
+  /* Condition-specific molecule on the left of the hero. Brand-palette
+     only (cream / gold / deep-gold), single drop-shadow matching the
+     plus-grid motif's front layer so the two background objects sit in
+     the same visual world. */
   .cc-hero__condition-icon {
     position: absolute;
     top: 50%;
-    left: -3rem;
-    width: clamp(12rem, 16vw, 18rem);
+    left: 2rem;
+    width: clamp(10rem, 13vw, 15rem);
     aspect-ratio: 1;
     transform: translateY(-50%);
     z-index: 2;
     pointer-events: none;
-    opacity: 0.75;
+    opacity: 0.5;
   }
 
   .cc-hero__condition-icon svg {
@@ -512,52 +512,31 @@
     <svg viewBox="0 0 100 100" aria-hidden="true">
       <defs>
         {%- comment -%}
-          High-contrast glass-ball gradient: pure white catch -> bright gold ->
-          deep gold-black edge. Reads as a polished sphere, not amber resin.
+          Brand-palette gradient: cream highlight (--cream) -> gold (--gold)
+          -> deep-gold edge. No white, no black. Matches the plus-grid
+          motif's restraint.
         {%- endcomment -%}
-        <radialGradient id="ccAtom" cx="30%" cy="25%" r="72%">
-          <stop offset="0%" stop-color="#ffffff"/>
-          <stop offset="10%" stop-color="#fff8de"/>
-          <stop offset="34%" stop-color="#f8d68a"/>
-          <stop offset="62%" stop-color="#c7891f"/>
-          <stop offset="86%" stop-color="#3d2400"/>
-          <stop offset="100%" stop-color="#080300"/>
+        <radialGradient id="ccAtom" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#fff4ce"/>
+          <stop offset="45%" stop-color="#d4952a"/>
+          <stop offset="100%" stop-color="#7a4a14"/>
         </radialGradient>
-        <radialGradient id="ccAtomSm" cx="30%" cy="25%" r="72%">
-          <stop offset="0%" stop-color="#ffffff"/>
-          <stop offset="12%" stop-color="#fff4c8"/>
-          <stop offset="38%" stop-color="#f3c46a"/>
-          <stop offset="65%" stop-color="#a06814"/>
-          <stop offset="90%" stop-color="#2d1900"/>
-          <stop offset="100%" stop-color="#080300"/>
-        </radialGradient>
-        {%- comment -%} Soft white catchlight that fades to fully transparent. {%- endcomment -%}
-        <radialGradient id="ccCatch" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
-          <stop offset="55%" stop-color="#ffffff" stop-opacity="0.45"/>
-          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        <radialGradient id="ccAtomSm" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#fff4ce"/>
+          <stop offset="45%" stop-color="#d4952a"/>
+          <stop offset="100%" stop-color="#7a4a14"/>
         </radialGradient>
         {%- comment -%}
-          Combined filter: gold halo glow behind, drop shadow further behind,
-          original on top. Atoms look luminous instead of decorative.
+          Single soft terracotta drop-shadow — same recipe as
+          .cc-hero__motif-layer--front so both background objects share
+          one source of depth.
         {%- endcomment -%}
-        <filter id="ccMolFx" x="-40%" y="-30%" width="180%" height="160%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="dropBlur"/>
-          <feOffset in="dropBlur" dx="0" dy="5" result="dropOff"/>
-          <feFlood flood-color="#1a0104" flood-opacity="0.65"/>
-          <feComposite in2="dropOff" operator="in" result="dropShadow"/>
-          <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="glowBlur"/>
-          <feFlood flood-color="#f3c46a" flood-opacity="0.55"/>
-          <feComposite in2="glowBlur" operator="in" result="goldGlow"/>
-          <feMerge>
-            <feMergeNode in="dropShadow"/>
-            <feMergeNode in="goldGlow"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
+        <filter id="ccMolFx" x="-30%" y="-20%" width="160%" height="150%">
+          <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#c75b2a" flood-opacity="0.4"/>
         </filter>
       </defs>
       {%- comment -%} Cylindrical bond — 3 concentric strokes so each bond reads as a lit cylinder rather than a flat ribbon. Coords substituted per bond below. {%- endcomment -%}
-      {%- capture cc_bond -%}<g><line stroke="#080300" stroke-width="6" stroke-linecap="round" x1="X1" y1="Y1" x2="X2" y2="Y2"/><line stroke="#c7891f" stroke-width="3.4" stroke-linecap="round" x1="X1" y1="Y1" x2="X2" y2="Y2"/><line stroke="#fffaf0" stroke-width="1.2" stroke-linecap="round" opacity="1" x1="X1" y1="Y1" x2="X2" y2="Y2"/></g>{%- endcapture -%}
+      {%- capture cc_bond -%}<g><line stroke="#7a4a14" stroke-width="4" stroke-linecap="round" x1="X1" y1="Y1" x2="X2" y2="Y2"/><line stroke="#d4952a" stroke-width="2" stroke-linecap="round" x1="X1" y1="Y1" x2="X2" y2="Y2"/></g>{%- endcapture -%}
       {%- if page.handle == 'fungal-acne' -%}
         <g filter="url(#ccMolFx)">
           {%- comment -%} Tetrahedral molecule — central atom with four satellites {%- endcomment -%}
@@ -565,11 +544,11 @@
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '50' | replace: 'X2', '78' | replace: 'Y2', '24' }}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '50' | replace: 'X2', '22' | replace: 'Y2', '78' }}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '50' | replace: 'X2', '78' | replace: 'Y2', '78' }}
-          <g><circle cx="22" cy="24" r="9" fill="url(#ccAtomSm)"/><circle cx="18.5" cy="20.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="78" cy="24" r="9" fill="url(#ccAtomSm)"/><circle cx="74.5" cy="20.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="22" cy="78" r="9" fill="url(#ccAtomSm)"/><circle cx="18.5" cy="74.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="78" cy="78" r="9" fill="url(#ccAtomSm)"/><circle cx="74.5" cy="74.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="50" cy="50" r="15" fill="url(#ccAtom)"/><circle cx="44" cy="44" r="5.5" fill="url(#ccCatch)"/></g>
+          <g><circle cx="22" cy="24" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="78" cy="24" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="22" cy="78" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="78" cy="78" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="50" cy="50" r="15" fill="url(#ccAtom)"/></g>
         </g>
       {%- elsif page.handle == 'seb-derm-dandruff' -%}
         <g filter="url(#ccMolFx)">
@@ -582,14 +561,14 @@
           {{ cc_bond | replace: 'X1', '22' | replace: 'Y1', '30' | replace: 'X2', '50' | replace: 'Y2', '14' }}
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '14' | replace: 'X2', '50' | replace: 'Y2', '4' }}
           {{ cc_bond | replace: 'X1', '78' | replace: 'Y1', '62' | replace: 'X2', '90' | replace: 'Y2', '70' }}
-          <g><circle cx="50" cy="14" r="9" fill="url(#ccAtomSm)"/><circle cx="46.5" cy="10.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="78" cy="30" r="9" fill="url(#ccAtomSm)"/><circle cx="74.5" cy="26.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="78" cy="62" r="9" fill="url(#ccAtomSm)"/><circle cx="74.5" cy="58.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="50" cy="78" r="9" fill="url(#ccAtomSm)"/><circle cx="46.5" cy="74.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="22" cy="62" r="9" fill="url(#ccAtomSm)"/><circle cx="18.5" cy="58.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="22" cy="30" r="9" fill="url(#ccAtomSm)"/><circle cx="18.5" cy="26.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="50" cy="4" r="6" fill="url(#ccAtomSm)"/><circle cx="47.5" cy="2" r="2" fill="url(#ccCatch)"/></g>
-          <g><circle cx="90" cy="70" r="6" fill="url(#ccAtomSm)"/><circle cx="87.5" cy="68" r="2" fill="url(#ccCatch)"/></g>
+          <g><circle cx="50" cy="14" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="78" cy="30" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="78" cy="62" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="50" cy="78" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="22" cy="62" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="22" cy="30" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="50" cy="4" r="6" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="90" cy="70" r="6" fill="url(#ccAtomSm)"/></g>
         </g>
       {%- elsif page.handle == 'tinea-versicolor' -%}
         <g filter="url(#ccMolFx)">
@@ -599,12 +578,12 @@
           {{ cc_bond | replace: 'X1', '50' | replace: 'Y1', '50' | replace: 'X2', '78' | replace: 'Y2', '68' }}
           {{ cc_bond | replace: 'X1', '22' | replace: 'Y1', '68' | replace: 'X2', '22' | replace: 'Y2', '92' }}
           {{ cc_bond | replace: 'X1', '78' | replace: 'Y1', '68' | replace: 'X2', '92' | replace: 'Y2', '84' }}
-          <g><circle cx="50" cy="50" r="13" fill="url(#ccAtom)"/><circle cx="44.5" cy="44.5" r="4.5" fill="url(#ccCatch)"/></g>
-          <g><circle cx="50" cy="18" r="9" fill="url(#ccAtomSm)"/><circle cx="46.5" cy="14.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="22" cy="68" r="9" fill="url(#ccAtomSm)"/><circle cx="18.5" cy="64.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="78" cy="68" r="9" fill="url(#ccAtomSm)"/><circle cx="74.5" cy="64.5" r="3" fill="url(#ccCatch)"/></g>
-          <g><circle cx="22" cy="92" r="6" fill="url(#ccAtomSm)"/><circle cx="19.5" cy="90" r="2" fill="url(#ccCatch)"/></g>
-          <g><circle cx="92" cy="84" r="6" fill="url(#ccAtomSm)"/><circle cx="89.5" cy="82" r="2" fill="url(#ccCatch)"/></g>
+          <g><circle cx="50" cy="50" r="13" fill="url(#ccAtom)"/></g>
+          <g><circle cx="50" cy="18" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="22" cy="68" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="78" cy="68" r="9" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="22" cy="92" r="6" fill="url(#ccAtomSm)"/></g>
+          <g><circle cx="92" cy="84" r="6" fill="url(#ccAtomSm)"/></g>
         </g>
       {%- endif -%}
     </svg>
