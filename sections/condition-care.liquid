@@ -391,12 +391,12 @@
        — affirmative checkmark reinforces positive framing). */
   }
 
-  .cc-payoff__check {
+  .cc-payoff__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
     margin-bottom: 1.1rem;
     border-radius: 50%;
     background: rgba(212, 149, 42, 0.14);
@@ -404,9 +404,9 @@
     box-shadow: 0 0 0 1px rgba(212, 149, 42, 0.3) inset;
   }
 
-  .cc-payoff__check svg {
-    width: 20px;
-    height: 20px;
+  .cc-payoff__icon svg {
+    width: 22px;
+    height: 22px;
   }
 
   .cc-payoff__title {
@@ -685,10 +685,29 @@
       {%- for item in payoff_items -%}
         {%- assign parts = item | split: '~' -%}
         <div class="cc-payoff__item">
-          <div class="cc-payoff__check" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
+          <div class="cc-payoff__icon" aria-hidden="true">
+            {%- if forloop.index == 1 -%}
+              {%- comment -%} Outcome reached: target with check at center. {%- endcomment -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="5"/>
+                <polyline points="9.5 12 11 13.5 14.5 10"/>
+              </svg>
+            {%- elsif forloop.index == 2 -%}
+              {%- comment -%} Ongoing routine / maintenance: cycle. {%- endcomment -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3.5 13a8.5 8.5 0 0 1 14.7-5.5"/>
+                <path d="M20.5 11a8.5 8.5 0 0 1-14.7 5.5"/>
+                <polyline points="18.2 3.5 18.2 7.5 14.2 7.5"/>
+                <polyline points="5.8 20.5 5.8 16.5 9.8 16.5"/>
+              </svg>
+            {%- else -%}
+              {%- comment -%} Expert care / protection: shield with check. {%- endcomment -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.8L4.5 6v6c0 4.4 3.2 8.3 7.5 9.4 4.3-1.1 7.5-5 7.5-9.4V6L12 2.8z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+            {%- endif -%}
           </div>
           <h3 class="cc-payoff__title">{{ parts[0] }}</h3>
           <p class="cc-payoff__desc">{{ parts[1] }}</p>
