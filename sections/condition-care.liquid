@@ -188,23 +188,72 @@
 
   .cc-hero__sub em { font-style: italic; }
 
-  .cc-hero__plan {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 2rem;
-    padding: 0.55rem 1.1rem;
-    border: 1px solid rgba(212, 149, 42, 0.45);
-    border-radius: 999px;
-    background: rgba(212, 149, 42, 0.08);
-    font-family: var(--font-sans);
-    font-size: 0.88rem;
-    color: var(--gold);
+  .cc-hero__plans {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+    max-width: 32rem;
+    margin: 0 0 2rem;
   }
 
-  .cc-hero__plan-label { font-weight: 500; }
-  .cc-hero__plan-divider { opacity: 0.5; }
-  .cc-hero__plan-price { opacity: 0.92; font-weight: 500; }
+  .cc-hero__plan-card {
+    position: relative;
+    padding: 0.95rem 0.8rem 0.85rem;
+    border: 1px solid rgba(255, 244, 206, 0.18);
+    border-radius: 10px;
+    background: rgba(255, 244, 206, 0.03);
+    text-align: center;
+  }
+
+  .cc-hero__plan-card--recommended {
+    border-color: var(--gold);
+    background: rgba(212, 149, 42, 0.1);
+  }
+
+  .cc-hero__plan-badge {
+    position: absolute;
+    top: -0.55rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-sans);
+    font-size: 0.55rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.22rem 0.6rem;
+    border-radius: 999px;
+    background: var(--gold);
+    color: var(--maroon);
+    white-space: nowrap;
+  }
+
+  .cc-hero__plan-name {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.7;
+    margin: 0 0 0.35rem;
+  }
+
+  .cc-hero__plan-cost {
+    font-family: var(--font-accent);
+    font-size: 1.15rem;
+    color: var(--cream);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .cc-hero__plan-cost-suffix {
+    font-size: 0.65em;
+    opacity: 0.6;
+    margin-left: 0.15em;
+  }
+
+  @media (max-width: 540px) {
+    .cc-hero__plans { grid-template-columns: 1fr; max-width: 18rem; }
+  }
 
   .cc-hero__actions {
     display: flex;
@@ -419,10 +468,21 @@
     <p class="cc-hero__eyebrow">{{ condition_subtitle }}</p>
     <h1 class="cc-hero__heading">{{ hero_heading }}</h1>
     <p class="cc-hero__sub">{{ hero_sub }}</p>
-    <div class="cc-hero__plan">
-      <span class="cc-hero__plan-label">{{ recommended_plan_label }}</span>
-      <span class="cc-hero__plan-divider">·</span>
-      <span class="cc-hero__plan-price">{{ recommended_price }}</span>
+    <div class="cc-hero__plans" role="group" aria-label="Treatment plans">
+      <div class="cc-hero__plan-card{% if recommended_plan == 'monthly' %} cc-hero__plan-card--recommended{% endif %}">
+        {% if recommended_plan == 'monthly' %}<span class="cc-hero__plan-badge">Recommended</span>{% endif %}
+        <p class="cc-hero__plan-name">Monthly</p>
+        <p class="cc-hero__plan-cost">$34.99<span class="cc-hero__plan-cost-suffix">/mo</span></p>
+      </div>
+      <div class="cc-hero__plan-card{% if recommended_plan == 'quarterly' %} cc-hero__plan-card--recommended{% endif %}">
+        {% if recommended_plan == 'quarterly' %}<span class="cc-hero__plan-badge">Recommended</span>{% endif %}
+        <p class="cc-hero__plan-name">Quarterly</p>
+        <p class="cc-hero__plan-cost">$89.99<span class="cc-hero__plan-cost-suffix">/qtr</span></p>
+      </div>
+      <div class="cc-hero__plan-card">
+        <p class="cc-hero__plan-name">One-time</p>
+        <p class="cc-hero__plan-cost">$39.99</p>
+      </div>
     </div>
     <div class="cc-hero__actions">
       <a href="#" data-waitlist-open class="cc-hero__cta">
