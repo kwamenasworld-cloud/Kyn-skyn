@@ -24,6 +24,8 @@
     {%- assign hero_heading = 'Clear the bumps.' -%}
     {%- assign hero_sub = "It's a yeast condition, not acne. The right antifungal clears it. A simple routine keeps it clear." -%}
     {%- assign condition_slug = 'fungal-acne' -%}
+    {%- assign condition_photo = 'kiiren-closeup.jpg' -%}
+    {%- assign condition_photo_position = 'right 30%' -%}
     {%- assign whatitis_heading = 'A yeast condition that looks like acne' -%}
     {%- assign whatitis_p1 = '<em>Malassezia folliculitis</em> is an inflammatory infection of the hair follicle caused by <em>Malassezia</em>, a yeast that lives on nearly all human skin. When the local environment shifts, the yeast can overgrow inside the follicle and trigger an immune response. The result is a cluster of small, often itchy bumps people mistake for acne.' -%}
     {%- assign whatitis_p2 = 'Standard acne treatments do not target yeast and often make fungal acne worse. Many of them also contain ingredients <em>Malassezia</em> feeds on. Years of misdiagnosis is the rule, not the exception.' -%}
@@ -45,6 +47,8 @@
     {%- assign hero_heading = 'Stop the flakes.' -%}
     {%- assign hero_sub = "It's a yeast that thrives on oily skin. The right antifungal clears it. A simple routine keeps it clear." -%}
     {%- assign condition_slug = 'seb-derm-dandruff' -%}
+    {%- assign condition_photo = 'gabby-closeup.jpg' -%}
+    {%- assign condition_photo_position = 'right 25%' -%}
     {%- assign whatitis_heading = 'Inflammation triggered by yeast in oily skin' -%}
     {%- assign whatitis_p1 = 'Seborrheic dermatitis is a chronic inflammatory condition driven by <em>Malassezia</em>, the same yeast behind fungal acne and dandruff. It typically shows up where your skin produces the most oil: scalp, around the nose, eyebrows, behind the ears, and the upper chest.' -%}
     {%- assign whatitis_p2 = 'Dandruff is essentially scalp seb derm with less inflammation. They sit on the same spectrum, respond to the same treatment, and the line between them is fuzzy.' -%}
@@ -66,6 +70,8 @@
     {%- assign hero_heading = 'Even out the patches.' -%}
     {%- assign hero_sub = "It's a yeast condition that flares with heat. We treat the cause and keep it from coming back." -%}
     {%- assign condition_slug = 'tinea-versicolor' -%}
+    {%- assign condition_photo = 'kwamena-smile.jpg' -%}
+    {%- assign condition_photo_position = 'right 20%' -%}
     {%- assign whatitis_heading = "Yeast that disrupts the skin's pigment production" -%}
     {%- assign whatitis_p1 = 'Tinea versicolor is caused by <em>Malassezia</em> overgrowing on the skin and producing compounds that interfere with melanin production in the affected areas. The result is patches that are lighter or darker than your surrounding skin, often most visible after sun exposure.' -%}
     {%- assign whatitis_p2 = "It's common, harmless to your overall health, and very treatable. With the right antifungal, the yeast clears. The discoloration itself takes time to even out, since pigment production needs time to recover." -%}
@@ -90,24 +96,44 @@
   .cc-hero {
     position: relative;
     padding: 9rem 3rem 6rem;
-    background: linear-gradient(165deg, var(--dark) 0%, var(--maroon) 130%);
+    background: var(--dark);
     color: var(--cream);
     overflow: hidden;
+    min-height: 32rem;
+    display: flex;
+    align-items: center;
   }
 
-  .cc-hero__molecule {
+  .cc-hero__bg {
     position: absolute;
-    top: 0; right: -10%;
-    width: 50rem; height: 50rem;
-    opacity: 0.05;
-    pointer-events: none;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .cc-hero__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cc-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(95deg,
+      rgba(42, 2, 8, 0.92) 0%,
+      rgba(42, 2, 8, 0.82) 35%,
+      rgba(100, 18, 32, 0.55) 75%,
+      rgba(100, 18, 32, 0.35) 100%
+    );
   }
 
   .cc-hero__container {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     max-width: 64rem;
     margin: 0 auto;
+    width: 100%;
   }
 
   .cc-hero__eyebrow {
@@ -671,7 +697,7 @@
 
   /* ========== RESPONSIVE ========== */
   @media (max-width: 768px) {
-    .cc-hero { padding: 6rem 1.5rem 4rem; }
+    .cc-hero { padding: 6rem 1.5rem 4rem; min-height: 0; }
     .cc-payoff { padding: 3rem 1.5rem; }
     .cc-payoff__grid { grid-template-columns: 1fr; gap: 2rem; }
     .cc-trust { padding: 1.5rem; }
@@ -695,7 +721,10 @@
 
 <!-- ====== HERO ====== -->
 <section class="cc-hero">
-  <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="cc-hero__molecule">
+  <div class="cc-hero__bg">
+    <img src="{{ condition_photo | asset_url }}" alt="" aria-hidden="true" style="object-position: {{ condition_photo_position }};">
+  </div>
+  <div class="cc-hero__overlay"></div>
   <div class="cc-hero__container">
     <p class="cc-hero__eyebrow">{{ condition_subtitle }}</p>
     <h1 class="cc-hero__heading">{{ hero_heading }}</h1>
