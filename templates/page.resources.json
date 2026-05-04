@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "resources": {
+      "type": "resources"
+    }
+  },
+  "order": ["resources"]
+}

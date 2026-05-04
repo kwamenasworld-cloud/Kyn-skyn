@@ -1,0 +1,191 @@
+<style>
+  /* ========== RESOURCES HUB ========== */
+  .resources-hub {
+    background: var(--cream);
+    padding: 8rem 3rem 6rem;
+    min-height: calc(100vh - 4rem);
+  }
+
+  .resources-hub__container {
+    max-width: 80rem;
+    margin: 0 auto;
+  }
+
+  .resources-hub__head {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .resources-hub__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.55;
+    margin: 0 0 1rem;
+  }
+
+  .resources-hub__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--maroon);
+    line-height: 1.1;
+    margin: 0 0 1rem;
+  }
+
+  .resources-hub__sub {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    color: var(--maroon);
+    opacity: 0.75;
+    line-height: 1.55;
+    max-width: 36rem;
+    margin: 0 auto;
+  }
+
+  .resources-hub__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .resource-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--maroon);
+    color: var(--cream);
+    border-radius: 0.5rem;
+    padding: 3rem 2.5rem;
+    text-decoration: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden;
+    min-height: 22rem;
+  }
+
+  .resource-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1.5rem 2.5rem rgba(42, 2, 8, 0.25);
+  }
+
+  .resource-card__molecule {
+    position: absolute;
+    bottom: -4rem;
+    right: -4rem;
+    width: 16rem;
+    height: 16rem;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  .resource-card__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.65;
+    margin: 0 0 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .resource-card__title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 2.4vw, 2.1rem);
+    color: var(--cream);
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .resource-card__desc {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--cream);
+    opacity: 0.85;
+    margin: 0 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .resource-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--cream);
+    position: relative;
+    z-index: 1;
+  }
+
+  .resource-card__cta svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .resource-card:hover .resource-card__cta svg {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 768px) {
+    .resources-hub { padding: 6rem 1.5rem 4rem; }
+    .resources-hub__head { margin-bottom: 2.5rem; }
+    .resources-hub__grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .resource-card {
+      min-height: 18rem;
+      padding: 2.5rem 2rem;
+    }
+  }
+</style>
+
+<section class="resources-hub">
+  <div class="resources-hub__container">
+    <div class="resources-hub__head fade-in">
+      <p class="resources-hub__eyebrow">Resources</p>
+      <h1 class="resources-hub__heading">Figure out what's on your skin.</h1>
+      <p class="resources-hub__sub">Two free tools to read your skin and your skincare.</p>
+    </div>
+
+    <div class="resources-hub__grid">
+      <a href="/pages/handbook" class="resource-card fade-in">
+        <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="resource-card__molecule">
+        <p class="resource-card__eyebrow">Free Guide</p>
+        <h2 class="resource-card__title">The Fungal Skin Handbook</h2>
+        <p class="resource-card__desc">A plain-English guide to fungal acne, seb derm, dandruff, tinea versicolor, and the rest. What to stop using tonight, what actually works, and how to tell them apart.</p>
+        <span class="resource-card__cta">
+          Read the Handbook
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+
+      <a href="/pages/ingredient-checker" class="resource-card fade-in">
+        <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="resource-card__molecule">
+        <p class="resource-card__eyebrow">Free Tool</p>
+        <h2 class="resource-card__title">Ingredient Checker</h2>
+        <p class="resource-card__desc">Paste a label. Find out in 10 seconds if your skincare is feeding the yeast behind fungal acne, seb derm, and tinea versicolor.</p>
+        <span class="resource-card__cta">
+          Check a label
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Resources",
+  "class": "resources-section"
+}
+{% endschema %}
