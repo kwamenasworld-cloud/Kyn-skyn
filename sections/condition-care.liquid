@@ -159,6 +159,19 @@
     filter: drop-shadow(0 24px 40px rgba(199, 91, 42, 0.4));
   }
 
+  .cc-hero__icon {
+    width: 64px;
+    height: 64px;
+    color: var(--gold);
+    margin-bottom: 1.6rem;
+  }
+
+  .cc-hero__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
   .cc-hero__eyebrow {
     font-family: var(--font-accent);
     font-size: 0.78rem;
@@ -203,11 +216,31 @@
     border-radius: 10px;
     background: rgba(255, 244, 206, 0.03);
     text-align: center;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+  }
+
+  .cc-hero__plan-card:hover {
+    border-color: rgba(255, 244, 206, 0.45);
+    background: rgba(255, 244, 206, 0.07);
+    transform: translateY(-2px);
+  }
+
+  .cc-hero__plan-card:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
   }
 
   .cc-hero__plan-card--recommended {
     border-color: var(--gold);
     background: rgba(212, 149, 42, 0.1);
+  }
+
+  .cc-hero__plan-card--recommended:hover {
+    border-color: var(--gold);
+    background: rgba(212, 149, 42, 0.18);
   }
 
   .cc-hero__plan-badge {
@@ -465,24 +498,55 @@
     </div>
   </div>
   <div class="cc-hero__container">
+    <div class="cc-hero__icon" aria-hidden="true">
+      {%- if page.handle == 'fungal-acne' -%}
+        <svg viewBox="0 0 64 64" fill="currentColor">
+          <circle cx="14" cy="15" r="5"/>
+          <circle cx="32" cy="22" r="4"/>
+          <circle cx="50" cy="14" r="5.5"/>
+          <circle cx="20" cy="36" r="4.5"/>
+          <circle cx="42" cy="38" r="5"/>
+          <circle cx="18" cy="50" r="4"/>
+          <circle cx="48" cy="51" r="3.5"/>
+        </svg>
+      {%- elsif page.handle == 'seb-derm-dandruff' -%}
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="32" y1="6" x2="32" y2="58"/>
+          <line x1="6" y1="32" x2="58" y2="32"/>
+          <line x1="13.6" y1="13.6" x2="50.4" y2="50.4"/>
+          <line x1="50.4" y1="13.6" x2="13.6" y2="50.4"/>
+          <path d="M32 14l4 4m-4-4l-4 4"/>
+          <path d="M32 50l4-4m-4 4l-4-4"/>
+          <path d="M14 32l4 4m-4-4l4-4"/>
+          <path d="M50 32l-4 4m4-4l-4-4"/>
+        </svg>
+      {%- elsif page.handle == 'tinea-versicolor' -%}
+        <svg viewBox="0 0 64 64" fill="currentColor">
+          <ellipse cx="18" cy="20" rx="9" ry="7" transform="rotate(-15 18 20)"/>
+          <ellipse cx="44" cy="32" rx="11" ry="8" transform="rotate(20 44 32)"/>
+          <ellipse cx="22" cy="46" rx="7" ry="6" transform="rotate(-25 22 46)"/>
+          <ellipse cx="48" cy="50" rx="5" ry="4" transform="rotate(15 48 50)"/>
+        </svg>
+      {%- endif -%}
+    </div>
     <p class="cc-hero__eyebrow">{{ condition_subtitle }}</p>
     <h1 class="cc-hero__heading">{{ hero_heading }}</h1>
     <p class="cc-hero__sub">{{ hero_sub }}</p>
     <div class="cc-hero__plans" role="group" aria-label="Treatment plans">
-      <div class="cc-hero__plan-card{% if recommended_plan == 'monthly' %} cc-hero__plan-card--recommended{% endif %}">
+      <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'monthly' %} cc-hero__plan-card--recommended{% endif %}" data-waitlist-open data-plan="monthly">
         {% if recommended_plan == 'monthly' %}<span class="cc-hero__plan-badge">Recommended</span>{% endif %}
         <p class="cc-hero__plan-name">Monthly</p>
         <p class="cc-hero__plan-cost">$34.99<span class="cc-hero__plan-cost-suffix">/mo</span></p>
-      </div>
-      <div class="cc-hero__plan-card{% if recommended_plan == 'quarterly' %} cc-hero__plan-card--recommended{% endif %}">
-        {% if recommended_plan == 'quarterly' %}<span class="cc-hero__plan-badge">Recommended</span>{% endif %}
+      </button>
+      <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'quarterly' %} cc-hero__plan-card--recommended{% endif %}" data-waitlist-open data-plan="quarterly">
+        <span class="cc-hero__plan-badge">Save ~$5/mo</span>
         <p class="cc-hero__plan-name">Quarterly</p>
         <p class="cc-hero__plan-cost">$89.99<span class="cc-hero__plan-cost-suffix">/qtr</span></p>
-      </div>
-      <div class="cc-hero__plan-card">
+      </button>
+      <button type="button" class="cc-hero__plan-card" data-waitlist-open data-plan="one-time">
         <p class="cc-hero__plan-name">One-time</p>
         <p class="cc-hero__plan-cost">$39.99</p>
-      </div>
+      </button>
     </div>
     <div class="cc-hero__actions">
       <a href="#" data-waitlist-open class="cc-hero__cta">
