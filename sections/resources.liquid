@@ -1,14 +1,18 @@
 <style>
   /* ========== RESOURCES HUB ========== */
   .resources-hub {
-    background: var(--cream);
-    padding: 8rem 3rem 6rem;
+    background: linear-gradient(180deg, var(--cream) 0%, #fdf0c4 100%);
+    padding: 7rem 3rem 6rem;
     min-height: calc(100vh - 4rem);
+    position: relative;
+    overflow: hidden;
   }
 
   .resources-hub__container {
     max-width: 80rem;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
   }
 
   .resources-hub__head {
@@ -19,7 +23,7 @@
   .resources-hub__eyebrow {
     font-family: var(--font-sans);
     font-size: 0.85rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--maroon);
     opacity: 0.55;
@@ -50,66 +54,61 @@
     gap: 2rem;
   }
 
+  /* ========== RESOURCE CARDS ========== */
   .resource-card {
     position: relative;
     display: flex;
     flex-direction: column;
-    background: var(--maroon);
-    color: var(--cream);
-    border-radius: 0.5rem;
-    padding: 3rem 2.5rem;
+    border-radius: 1rem;
+    padding: 2.75rem 2.5rem;
     text-decoration: none;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
     overflow: hidden;
-    min-height: 22rem;
+    min-height: 28rem;
   }
 
   .resource-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 1.5rem 2.5rem rgba(42, 2, 8, 0.25);
-  }
-
-  .resource-card__molecule {
-    position: absolute;
-    bottom: -4rem;
-    right: -4rem;
-    width: 16rem;
-    height: 16rem;
-    opacity: 0.06;
-    pointer-events: none;
+    transform: translateY(-6px) rotate(-0.35deg);
+    box-shadow: 0 2rem 3rem rgba(42, 2, 8, 0.2);
   }
 
   .resource-card__eyebrow {
     font-family: var(--font-sans);
-    font-size: 0.8rem;
-    letter-spacing: 0.18em;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--cream);
-    opacity: 0.65;
     margin: 0 0 1rem;
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .resource-card__eyebrow::before {
+    content: '';
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: currentColor;
   }
 
   .resource-card__title {
     font-family: var(--font-serif);
-    font-size: clamp(1.75rem, 2.4vw, 2.1rem);
-    color: var(--cream);
-    line-height: 1.15;
+    font-size: clamp(1.85rem, 2.6vw, 2.4rem);
+    line-height: 1.1;
     margin: 0 0 1rem;
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
 
   .resource-card__desc {
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.55;
-    color: var(--cream);
-    opacity: 0.85;
-    margin: 0 0 2rem;
+    margin: 0 0 1.25rem;
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
 
   .resource-card__cta {
@@ -120,9 +119,9 @@
     font-family: var(--font-sans);
     font-size: 0.95rem;
     font-weight: 500;
-    color: var(--cream);
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    padding-top: 1.5rem;
   }
 
   .resource-card__cta svg {
@@ -132,7 +131,154 @@
   }
 
   .resource-card:hover .resource-card__cta svg {
-    transform: translateX(4px);
+    transform: translateX(6px);
+  }
+
+  .resource-card__mark {
+    position: absolute;
+    bottom: -3rem;
+    right: -3rem;
+    width: 14rem;
+    height: 14rem;
+    pointer-events: none;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+  }
+
+  .resource-card:hover .resource-card__mark {
+    transform: rotate(15deg) scale(1.05);
+  }
+
+  /* ----- Handbook variant ----- */
+  .resource-card--handbook {
+    background: linear-gradient(135deg, var(--maroon) 0%, var(--dark) 100%);
+    color: var(--cream);
+  }
+
+  .resource-card--handbook .resource-card__desc { opacity: 0.78; }
+  .resource-card--handbook .resource-card__mark { opacity: 0.05; }
+
+  .handbook-toc {
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(255, 244, 206, 0.18);
+    padding-top: 1.25rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .handbook-toc__item {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255, 244, 206, 0.08);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--cream);
+    opacity: 0.6;
+    transform: translateX(0);
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  .handbook-toc__item:last-child { border-bottom: none; }
+
+  .resource-card--handbook:hover .handbook-toc__item {
+    opacity: 0.9;
+    transform: translateX(6px);
+  }
+
+  .resource-card--handbook:hover .handbook-toc__item:nth-child(1) { transition-delay: 0s; }
+  .resource-card--handbook:hover .handbook-toc__item:nth-child(2) { transition-delay: 0.05s; }
+  .resource-card--handbook:hover .handbook-toc__item:nth-child(3) { transition-delay: 0.1s; }
+  .resource-card--handbook:hover .handbook-toc__item:nth-child(4) { transition-delay: 0.15s; }
+
+  .handbook-toc__num {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0.5;
+    min-width: 1.5rem;
+  }
+
+  .handbook-toc__title { flex: 1; }
+
+  /* ----- Checker variant ----- */
+  .resource-card--checker {
+    background: var(--cream);
+    color: var(--maroon);
+    border: 1px solid rgba(100, 18, 32, 0.12);
+  }
+
+  .resource-card--checker .resource-card__mark { opacity: 0.06; }
+
+  .checker-mock {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--maroon);
+    color: var(--cream);
+    border-radius: 0.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+  }
+
+  .checker-mock__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(255, 244, 206, 0.18);
+  }
+
+  .checker-mock__product { opacity: 0.85; }
+
+  .checker-mock__score {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--cream);
+  }
+
+  .checker-mock__score-suffix { opacity: 0.55; }
+
+  .checker-mock__row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0;
+    opacity: 0.88;
+  }
+
+  .checker-mock__row svg { width: 0.95rem; height: 0.95rem; flex-shrink: 0; }
+  .checker-mock__row--bad svg { color: #f9a482; }
+  .checker-mock__row--good svg { color: #b6e3b6; }
+
+  /* Scan-line sweep on hover */
+  .checker-mock::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 244, 206, 0.1) 50%, transparent 100%);
+    transition: left 0.9s ease;
+    pointer-events: none;
+  }
+
+  .resource-card--checker:hover .checker-mock::after { left: 150%; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .resource-card,
+    .resource-card__cta svg,
+    .resource-card__mark,
+    .handbook-toc__item,
+    .checker-mock::after {
+      transition: none !important;
+    }
+    .resource-card:hover { transform: none; }
+    .resource-card:hover .resource-card__mark { transform: none; }
   }
 
   @media (max-width: 768px) {
@@ -140,12 +286,13 @@
     .resources-hub__head { margin-bottom: 2.5rem; }
     .resources-hub__grid {
       grid-template-columns: 1fr;
-      gap: 1rem;
+      gap: 1.25rem;
     }
     .resource-card {
-      min-height: 18rem;
-      padding: 2.5rem 2rem;
+      min-height: 0;
+      padding: 2.25rem 1.75rem;
     }
+    .resource-card__mark { width: 10rem; height: 10rem; bottom: -2rem; right: -2rem; }
   }
 </style>
 
@@ -158,26 +305,68 @@
     </div>
 
     <div class="resources-hub__grid">
-      <a href="/pages/handbook" class="resource-card fade-in">
-        <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="resource-card__molecule">
+      <a href="/pages/handbook" class="resource-card resource-card--handbook fade-in">
         <p class="resource-card__eyebrow">Free Guide</p>
         <h2 class="resource-card__title">The Fungal Skin Handbook</h2>
-        <p class="resource-card__desc">A plain-English guide to fungal acne, seb derm, dandruff, tinea versicolor, and the rest. What to stop using tonight, what actually works, and how to tell them apart.</p>
+        <p class="resource-card__desc">Plain-English answers for fungal acne, seb derm, dandruff, tinea versicolor, and the rest. Skip the misdiagnosis spiral.</p>
+
+        <div class="handbook-toc" aria-hidden="true">
+          <div class="handbook-toc__item">
+            <span class="handbook-toc__num">01</span>
+            <span class="handbook-toc__title">Understanding Malassezia</span>
+          </div>
+          <div class="handbook-toc__item">
+            <span class="handbook-toc__num">02</span>
+            <span class="handbook-toc__title">Condition deep dives</span>
+          </div>
+          <div class="handbook-toc__item">
+            <span class="handbook-toc__num">03</span>
+            <span class="handbook-toc__title">Practical guidance</span>
+          </div>
+          <div class="handbook-toc__item">
+            <span class="handbook-toc__num">04</span>
+            <span class="handbook-toc__title">Troubleshooting</span>
+          </div>
+        </div>
+
         <span class="resource-card__cta">
           Read the Handbook
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
+
+        <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="resource-card__mark">
       </a>
 
-      <a href="/pages/ingredient-checker" class="resource-card fade-in">
-        <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="resource-card__molecule">
+      <a href="/pages/ingredient-checker" class="resource-card resource-card--checker fade-in">
         <p class="resource-card__eyebrow">Free Tool</p>
         <h2 class="resource-card__title">Ingredient Checker</h2>
-        <p class="resource-card__desc">Paste a label. Find out in 10 seconds if your skincare is feeding the yeast behind fungal acne, seb derm, and tinea versicolor.</p>
+        <p class="resource-card__desc">Paste a label. We flag the ingredients that feed the yeast behind fungal acne, seb derm, and tinea versicolor.</p>
+
+        <div class="checker-mock" aria-hidden="true">
+          <div class="checker-mock__head">
+            <span class="checker-mock__product">Sample product</span>
+            <span class="checker-mock__score">73<span class="checker-mock__score-suffix">/100</span></span>
+          </div>
+          <div class="checker-mock__row checker-mock__row--bad">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+            <span>Glyceryl stearate</span>
+          </div>
+          <div class="checker-mock__row checker-mock__row--bad">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+            <span>Polysorbate 60</span>
+          </div>
+          <div class="checker-mock__row checker-mock__row--good">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Niacinamide</span>
+          </div>
+        </div>
+
         <span class="resource-card__cta">
           Check a label
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
+
+        <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="resource-card__mark">
       </a>
     </div>
   </div>
