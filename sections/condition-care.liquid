@@ -159,17 +159,53 @@
     filter: drop-shadow(0 24px 40px rgba(199, 91, 42, 0.4));
   }
 
-  .cc-hero__icon {
-    width: 64px;
-    height: 64px;
-    color: var(--gold);
-    margin-bottom: 1.6rem;
+  /* Condition-specific 3D background object on the left of the hero */
+  .cc-hero__condition-icon {
+    position: absolute;
+    top: 0;
+    left: -4rem;
+    bottom: 0;
+    width: clamp(20rem, 32vw, 32rem);
+    z-index: 2;
+    pointer-events: none;
+    perspective: 1400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .cc-hero__icon svg {
+  .cc-hero__condition-icon-stack {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    transform-style: preserve-3d;
+    transform: rotateX(15deg) rotateY(22deg);
+  }
+
+  .cc-hero__condition-icon-layer {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    display: block;
+  }
+
+  .cc-hero__condition-icon-layer--back {
+    color: var(--terracotta);
+    opacity: 0.18;
+    transform: translateZ(-70px) scale(1.18);
+    filter: blur(5px);
+  }
+
+  .cc-hero__condition-icon-layer--mid {
+    color: var(--gold);
+    opacity: 0.32;
+    transform: translateZ(-30px) scale(1.07);
+  }
+
+  .cc-hero__condition-icon-layer--front {
+    color: var(--gold);
+    opacity: 0.55;
+    filter: drop-shadow(0 20px 40px rgba(199, 91, 42, 0.3));
   }
 
   .cc-hero__eyebrow {
@@ -472,7 +508,8 @@
 
   /* ========== RESPONSIVE ========== */
   @media (max-width: 1024px) {
-    .cc-hero__motif { display: none; }
+    .cc-hero__motif,
+    .cc-hero__condition-icon { display: none; }
   }
 
   @media (max-width: 768px) {
@@ -497,38 +534,23 @@
       <svg class="cc-hero__motif-layer cc-hero__motif-layer--front" viewBox="0 0 462 462" aria-hidden="true"><path d="{{ cc_motif_path }}" fill="currentColor"/></svg>
     </div>
   </div>
-  <div class="cc-hero__container">
-    <div class="cc-hero__icon" aria-hidden="true">
-      {%- if page.handle == 'fungal-acne' -%}
-        <svg viewBox="0 0 64 64" fill="currentColor">
-          <circle cx="14" cy="15" r="5"/>
-          <circle cx="32" cy="22" r="4"/>
-          <circle cx="50" cy="14" r="5.5"/>
-          <circle cx="20" cy="36" r="4.5"/>
-          <circle cx="42" cy="38" r="5"/>
-          <circle cx="18" cy="50" r="4"/>
-          <circle cx="48" cy="51" r="3.5"/>
-        </svg>
-      {%- elsif page.handle == 'seb-derm-dandruff' -%}
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="32" y1="6" x2="32" y2="58"/>
-          <line x1="6" y1="32" x2="58" y2="32"/>
-          <line x1="13.6" y1="13.6" x2="50.4" y2="50.4"/>
-          <line x1="50.4" y1="13.6" x2="13.6" y2="50.4"/>
-          <path d="M32 14l4 4m-4-4l-4 4"/>
-          <path d="M32 50l4-4m-4 4l-4-4"/>
-          <path d="M14 32l4 4m-4-4l4-4"/>
-          <path d="M50 32l-4 4m4-4l-4-4"/>
-        </svg>
-      {%- elsif page.handle == 'tinea-versicolor' -%}
-        <svg viewBox="0 0 64 64" fill="currentColor">
-          <ellipse cx="18" cy="20" rx="9" ry="7" transform="rotate(-15 18 20)"/>
-          <ellipse cx="44" cy="32" rx="11" ry="8" transform="rotate(20 44 32)"/>
-          <ellipse cx="22" cy="46" rx="7" ry="6" transform="rotate(-25 22 46)"/>
-          <ellipse cx="48" cy="50" rx="5" ry="4" transform="rotate(15 48 50)"/>
-        </svg>
-      {%- endif -%}
+  {%- if page.handle == 'fungal-acne' -%}
+    {%- capture cc_condition_icon -%}<g fill="currentColor"><circle cx="14" cy="15" r="5"/><circle cx="32" cy="22" r="4"/><circle cx="50" cy="14" r="5.5"/><circle cx="20" cy="36" r="4.5"/><circle cx="42" cy="38" r="5"/><circle cx="18" cy="50" r="4"/><circle cx="48" cy="51" r="3.5"/></g>{%- endcapture -%}
+  {%- elsif page.handle == 'seb-derm-dandruff' -%}
+    {%- capture cc_condition_icon -%}<g fill="currentColor"><rect x="30" y="4" width="4" height="56" rx="2"/><rect x="4" y="30" width="56" height="4" rx="2"/><rect x="30" y="4" width="4" height="56" rx="2" transform="rotate(45 32 32)"/><rect x="30" y="4" width="4" height="56" rx="2" transform="rotate(-45 32 32)"/></g>{%- endcapture -%}
+  {%- elsif page.handle == 'tinea-versicolor' -%}
+    {%- capture cc_condition_icon -%}<g fill="currentColor"><ellipse cx="18" cy="20" rx="9" ry="7" transform="rotate(-15 18 20)"/><ellipse cx="44" cy="32" rx="11" ry="8" transform="rotate(20 44 32)"/><ellipse cx="22" cy="46" rx="7" ry="6" transform="rotate(-25 22 46)"/><ellipse cx="48" cy="50" rx="5" ry="4" transform="rotate(15 48 50)"/></g>{%- endcapture -%}
+  {%- endif -%}
+
+  <div class="cc-hero__condition-icon" aria-hidden="true">
+    <div class="cc-hero__condition-icon-stack">
+      <svg class="cc-hero__condition-icon-layer cc-hero__condition-icon-layer--back" viewBox="0 0 64 64" aria-hidden="true">{{ cc_condition_icon }}</svg>
+      <svg class="cc-hero__condition-icon-layer cc-hero__condition-icon-layer--mid" viewBox="0 0 64 64" aria-hidden="true">{{ cc_condition_icon }}</svg>
+      <svg class="cc-hero__condition-icon-layer cc-hero__condition-icon-layer--front" viewBox="0 0 64 64" aria-hidden="true">{{ cc_condition_icon }}</svg>
     </div>
+  </div>
+
+  <div class="cc-hero__container">
     <p class="cc-hero__eyebrow">{{ condition_subtitle }}</p>
     <h1 class="cc-hero__heading">{{ hero_heading }}</h1>
     <p class="cc-hero__sub">{{ hero_sub }}</p>
