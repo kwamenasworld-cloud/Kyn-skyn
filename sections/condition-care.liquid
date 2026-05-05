@@ -356,6 +356,208 @@
   .cc-hero__cta svg { width: 18px; height: 18px; transition: transform 0.3s; }
   .cc-hero__cta:hover svg { transform: translateX(3px); }
 
+  /* ========== PLAN COMPARISON ========== */
+  .cc-plans {
+    background: var(--cream);
+    padding: 5rem 3rem 5.5rem;
+  }
+
+  .cc-plans__container {
+    max-width: 60rem;
+    margin: 0 auto;
+  }
+
+  .cc-plans__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.55;
+    margin: 0 0 1rem;
+    text-align: center;
+  }
+
+  .cc-plans__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--maroon);
+    text-align: center;
+    margin: 0 0 1.1rem;
+  }
+
+  .cc-plans__lede {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--maroon);
+    opacity: 0.78;
+    text-align: center;
+    max-width: 38rem;
+    margin: 0 auto 3rem;
+  }
+
+  .cc-plans__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+
+  .cc-plans__card {
+    background: rgba(100, 18, 32, 0.025);
+    border: 1px solid rgba(100, 18, 32, 0.14);
+    border-radius: 16px;
+    padding: 2rem 1.85rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cc-plans__card--featured {
+    border: 2px solid var(--gold);
+    background: rgba(212, 149, 42, 0.08);
+  }
+
+  .cc-plans__badge {
+    position: absolute;
+    top: -0.7rem;
+    left: 1.65rem;
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--gold);
+    color: var(--maroon);
+  }
+
+  .cc-plans__card-head {
+    border-bottom: 1px solid rgba(100, 18, 32, 0.1);
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.3rem;
+  }
+
+  .cc-plans__name {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.7;
+    margin: 0 0 0.6rem;
+  }
+
+  .cc-plans__price {
+    font-family: var(--font-accent);
+    font-size: 2.4rem;
+    color: var(--maroon);
+    margin: 0 0 0.5rem;
+    line-height: 1;
+  }
+
+  .cc-plans__price-suffix {
+    font-family: var(--font-sans);
+    font-size: 0.5em;
+    opacity: 0.55;
+    margin-left: 0.15em;
+  }
+
+  .cc-plans__pitch {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--maroon);
+    opacity: 0.7;
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  .cc-plans__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    font-family: var(--font-sans);
+    flex: 1;
+  }
+
+  .cc-plans__features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 0.45rem 0;
+    font-size: 0.92rem;
+    color: var(--maroon);
+    line-height: 1.5;
+  }
+
+  .cc-plans__features li svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  .cc-plans__check { color: var(--gold); }
+
+  .cc-plans__feat--off { opacity: 0.5; }
+  .cc-plans__feat--off .cc-plans__dash { color: var(--maroon); opacity: 0.6; }
+
+  .cc-plans__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.95rem 1.5rem;
+    background: transparent;
+    color: var(--maroon);
+    border: 1.5px solid var(--maroon);
+    border-radius: 999px;
+    font-family: var(--font-accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    width: 100%;
+  }
+
+  .cc-plans__cta:hover {
+    background: var(--maroon);
+    color: var(--cream);
+    transform: translateY(-1px);
+  }
+
+  .cc-plans__cta:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  .cc-plans__cta--primary {
+    background: var(--maroon);
+    color: var(--cream);
+  }
+
+  .cc-plans__cta--primary:hover {
+    background: var(--gold);
+    color: var(--maroon);
+    border-color: var(--gold);
+  }
+
+  .cc-plans__fineprint {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--maroon);
+    opacity: 0.65;
+    text-align: center;
+    margin: 0.85rem 0 0;
+    line-height: 1.5;
+  }
+
   /* ========== PAYOFF ========== */
   .cc-payoff {
     background: var(--cream);
@@ -522,6 +724,9 @@
 
   @media (max-width: 768px) {
     .cc-hero { padding: 6rem 1.5rem 4rem; min-height: 0; }
+    .cc-plans { padding: 3.5rem 1.5rem 4rem; }
+    .cc-plans__grid { grid-template-columns: 1fr; gap: 2rem; }
+    .cc-plans__card { padding: 1.85rem 1.5rem; }
     .cc-payoff { padding: 3rem 1.5rem; }
     .cc-payoff__grid { grid-template-columns: 1fr; gap: 2rem; }
     .cc-trust { padding: 1.5rem; }
@@ -649,7 +854,94 @@
         <span>Get your Kyncultation</span>
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a href="/pages/consultation#th-pricing" class="cc-hero__plans-link">See all plans &rarr;</a>
+      <a href="#cc-plans" class="cc-hero__plans-link">Compare plans &darr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PLAN COMPARISON ====== -->
+<section class="cc-plans" id="cc-plans">
+  <div class="cc-plans__container">
+    <p class="cc-plans__eyebrow">What's included</p>
+    <h2 class="cc-plans__heading">Two ways to start</h2>
+    <p class="cc-plans__lede">{{ recommended_reason }}</p>
+
+    <div class="cc-plans__grid">
+      <article class="cc-plans__card{% if recommended_plan != 'one-time' %} cc-plans__card--featured{% endif %}">
+        {% if recommended_plan != 'one-time' %}<span class="cc-plans__badge">Recommended</span>{% endif %}
+        <div class="cc-plans__card-head">
+          <p class="cc-plans__name">Treatment Plan</p>
+          <p class="cc-plans__price">$34.99<span class="cc-plans__price-suffix">/mo</span></p>
+          <p class="cc-plans__pitch">Ongoing care for a chronic condition.</p>
+        </div>
+        <ul class="cc-plans__features">
+          <li>
+            <svg class="cc-plans__check" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 11 8 15 16 6"/></svg>
+            Provider consultation &amp; written diagnosis
+          </li>
+          <li>
+            <svg class="cc-plans__check" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 11 8 15 16 6"/></svg>
+            Prescription sent to your pharmacy
+          </li>
+          <li>
+            <svg class="cc-plans__check" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 11 8 15 16 6"/></svg>
+            <strong>Refills</strong> handled as needed
+          </li>
+          <li>
+            <svg class="cc-plans__check" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 11 8 15 16 6"/></svg>
+            <strong>Routine adjustments</strong> month over month
+          </li>
+          <li>
+            <svg class="cc-plans__check" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 11 8 15 16 6"/></svg>
+            <strong>Message your provider</strong> when triggers hit
+          </li>
+          <li>
+            <svg class="cc-plans__check" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 11 8 15 16 6"/></svg>
+            Cancel anytime
+          </li>
+        </ul>
+        <button type="button" class="cc-plans__cta cc-plans__cta--primary" data-waitlist-open data-plan="monthly">
+          Start Treatment Plan
+        </button>
+        <p class="cc-plans__fineprint">Or save ~$5/mo with quarterly billing &mdash; $89.99 every 3 months.</p>
+      </article>
+
+      <article class="cc-plans__card">
+        <div class="cc-plans__card-head">
+          <p class="cc-plans__name">One-time Consult</p>
+          <p class="cc-plans__price">$39.99<span class="cc-plans__price-suffix"> once</span></p>
+          <p class="cc-plans__pitch">A single visit, no commitment.</p>
+        </div>
+        <ul class="cc-plans__features">
+          <li>
+            <svg class="cc-plans__check" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 11 8 15 16 6"/></svg>
+            Provider consultation &amp; written diagnosis
+          </li>
+          <li>
+            <svg class="cc-plans__check" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 11 8 15 16 6"/></svg>
+            Prescription sent to your pharmacy
+          </li>
+          <li class="cc-plans__feat--off">
+            <svg class="cc-plans__dash" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="10" x2="15" y2="10"/></svg>
+            No refills after the first fill
+          </li>
+          <li class="cc-plans__feat--off">
+            <svg class="cc-plans__dash" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="10" x2="15" y2="10"/></svg>
+            No ongoing routine adjustments
+          </li>
+          <li class="cc-plans__feat--off">
+            <svg class="cc-plans__dash" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="10" x2="15" y2="10"/></svg>
+            No follow-up messaging
+          </li>
+          <li class="cc-plans__feat--off">
+            <svg class="cc-plans__dash" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="10" x2="15" y2="10"/></svg>
+            Re-book to continue care
+          </li>
+        </ul>
+        <button type="button" class="cc-plans__cta" data-waitlist-open data-plan="one-time">
+          Book One-time Consult
+        </button>
+      </article>
     </div>
   </div>
 </section>
