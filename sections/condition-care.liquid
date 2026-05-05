@@ -33,9 +33,9 @@
     {%- assign treatment_heading = 'How we treat fungal acne' -%}
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole) where needed. From there, the treatment plan covers the routine that keeps the yeast in check long-term, not just clearing the current flare.' -%}
     {%- assign recommended_plan = 'quarterly' -%}
-    {%- assign recommended_plan_label = 'Quarterly Treatment Plan' -%}
-    {%- assign recommended_price = '$89.99/qtr' -%}
-    {%- assign recommended_reason = 'Fungal acne almost always relapses without an ongoing routine. Most people stay clear with the Quarterly Plan, which covers the maintenance phase.' -%}
+    {%- assign recommended_plan_label = '3-Month Treatment Plan' -%}
+    {%- assign recommended_price = '$74.99/3 mo' -%}
+    {%- assign recommended_reason = 'Fungal acne almost always relapses without an ongoing routine. Most people stay clear with the 3-Month Plan, which covers the maintenance phase.' -%}
     {%- assign final_cta_heading = 'Ready to actually treat it?' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis from a licensed clinician, and start a treatment plan that targets the actual cause.' -%}
     {%- assign payoff_csv = "Clear bumps, for real this time~A prescription that targets the actual cause, not the wrong category.|A routine that fits real life~Two products, not seven. Built to keep flares from coming back.|Skincare that doesn't fight your treatment~Products that won't feed the yeast you're working to clear." -%}
@@ -55,9 +55,9 @@
     {%- assign treatment_heading = 'How we treat seb derm and dandruff' -%}
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole) for the affected zones. The treatment plan also includes the maintenance schedule, scalp and skin care choices, and what to do when triggers hit.' -%}
     {%- assign recommended_plan = 'quarterly' -%}
-    {%- assign recommended_plan_label = 'Quarterly Treatment Plan' -%}
-    {%- assign recommended_price = '$89.99/qtr' -%}
-    {%- assign recommended_reason = "Seb derm and dandruff are chronic. The Quarterly Plan covers ongoing care so you're not starting over every flare." -%}
+    {%- assign recommended_plan_label = '3-Month Treatment Plan' -%}
+    {%- assign recommended_price = '$74.99/3 mo' -%}
+    {%- assign recommended_reason = "Seb derm and dandruff are chronic. The 3-Month Plan covers ongoing care so you're not starting over every flare." -%}
     {%- assign final_cta_heading = 'Get out of the flake-and-flare loop.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start a treatment plan that holds.' -%}
     {%- assign payoff_csv = "Flakes and itch gone, not just hidden~An antifungal that hits the cause, plus a routine that holds long after.|Triggers stop wrecking your skin~A maintenance plan built for stress, weather, and product changes.|Care from someone who's seen it~A clinician who treats seb derm every day, not once a year." -%}
@@ -78,7 +78,7 @@
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole). The cause clears with a course of treatment. Pigment evens out gradually as your skin recovers, and an ongoing routine keeps the patches from coming back when humidity hits.' -%}
     {%- assign recommended_plan = 'monthly' -%}
     {%- assign recommended_plan_label = 'Monthly Treatment Plan' -%}
-    {%- assign recommended_price = '$34.99/mo' -%}
+    {%- assign recommended_price = '$29.99/mo' -%}
     {%- assign recommended_reason = 'Tinea versicolor flares seasonally for most people, especially during heat and humidity. The Monthly Treatment Plan covers ongoing monitoring with your clinician, prescription refills as needed, and a maintenance routine that cuts down how often it comes back.' -%}
     {%- assign final_cta_heading = 'Clear the patches, keep them clear.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start an ongoing plan that clears the patches and keeps them from coming back.' -%}
@@ -887,7 +887,7 @@
       <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'monthly' %} cc-hero__plan-card--recommended{% endif %}" data-waitlist-open data-plan="monthly">
         {% if recommended_plan == 'monthly' %}<span class="cc-hero__plan-badge">Recommended</span>{% endif %}
         <p class="cc-hero__plan-name">Monthly</p>
-        <p class="cc-hero__plan-cost">$34.99<span class="cc-hero__plan-cost-suffix">/mo</span></p>
+        <p class="cc-hero__plan-cost">$29.99<span class="cc-hero__plan-cost-suffix">/mo</span></p>
         <ul class="cc-hero__plan-feats">
           <li>Refills as needed</li>
           <li>Routine adjustments</li>
@@ -896,8 +896,8 @@
       </button>
       <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'quarterly' %} cc-hero__plan-card--recommended{% endif %}" data-waitlist-open data-plan="quarterly">
         <span class="cc-hero__plan-badge">Save ~$5/mo</span>
-        <p class="cc-hero__plan-name">Quarterly</p>
-        <p class="cc-hero__plan-cost">$89.99<span class="cc-hero__plan-cost-suffix">/qtr</span></p>
+        <p class="cc-hero__plan-name">3 months</p>
+        <p class="cc-hero__plan-cost">$74.99<span class="cc-hero__plan-cost-suffix">/3 mo</span></p>
         <ul class="cc-hero__plan-feats">
           <li>Everything in Monthly</li>
           <li>Billed every 3 mo</li>
@@ -906,7 +906,7 @@
       </button>
       <button type="button" class="cc-hero__plan-card" data-waitlist-open data-plan="one-time">
         <p class="cc-hero__plan-name">One-time</p>
-        <p class="cc-hero__plan-cost">$39.99</p>
+        <p class="cc-hero__plan-cost">$34.99</p>
         <ul class="cc-hero__plan-feats">
           <li>Single visit</li>
           <li class="is-off">No refills</li>
@@ -936,7 +936,7 @@
         {% if recommended_plan != 'one-time' %}<span class="cc-plans__badge">Recommended</span>{% endif %}
         <div class="cc-plans__card-head">
           <p class="cc-plans__name">Treatment Plan</p>
-          <p class="cc-plans__price">$34.99<span class="cc-plans__price-suffix">/mo</span></p>
+          <p class="cc-plans__price">$29.99<span class="cc-plans__price-suffix">/mo</span></p>
           <p class="cc-plans__pitch">Ongoing care for a chronic condition.</p>
         </div>
         <ul class="cc-plans__features">
@@ -968,13 +968,13 @@
         <button type="button" class="cc-plans__cta cc-plans__cta--primary" data-waitlist-open data-plan="monthly">
           Start Treatment Plan
         </button>
-        <p class="cc-plans__fineprint">Or save ~$5/mo with quarterly billing &mdash; $89.99 every 3 months.</p>
+        <p class="cc-plans__fineprint">Or save ~$5/mo with 3-month billing &mdash; $74.99 every 3 months.</p>
       </article>
 
       <article class="cc-plans__card">
         <div class="cc-plans__card-head">
           <p class="cc-plans__name">One-time Consult</p>
-          <p class="cc-plans__price">$39.99<span class="cc-plans__price-suffix"> once</span></p>
+          <p class="cc-plans__price">$34.99<span class="cc-plans__price-suffix"> once</span></p>
           <p class="cc-plans__pitch">A single visit, no commitment.</p>
         </div>
         <ul class="cc-plans__features">

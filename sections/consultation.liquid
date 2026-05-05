@@ -34,7 +34,7 @@
   "@type": "Service",
   "serviceType": "Dermatology telehealth consultation",
   "name": "Fungal-skin telehealth consultation",
-  "description": "Async or sync online consultation with a licensed provider for fungal-prone skin conditions. Includes diagnosis and a prescription you pick up at your pharmacy. Monthly, quarterly, and one-time plans available.",
+  "description": "Async or sync online consultation with a licensed provider for fungal-prone skin conditions. Includes diagnosis and a prescription you pick up at your pharmacy. Monthly, 3-month, and one-time plans available.",
   "provider": {
     "@type": "MedicalBusiness",
     "name": "Kyn Skyn",
@@ -43,9 +43,9 @@
   "audience": { "@type": "PeopleAudience", "suggestedMinAge": 18 },
   "areaServed": { "@type": "Country", "name": "United States" },
   "offers": [
-    { "@type": "Offer", "name": "Monthly Treatment Plan", "price": "34.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://kynskyn.com/pages/consultation?plan=monthly" },
-    { "@type": "Offer", "name": "Quarterly Treatment Plan", "price": "89.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://kynskyn.com/pages/consultation?plan=quarterly" },
-    { "@type": "Offer", "name": "One-time Consult", "price": "39.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://kynskyn.com/pages/consultation?plan=one-time" }
+    { "@type": "Offer", "name": "Monthly Treatment Plan", "price": "29.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://kynskyn.com/pages/consultation?plan=monthly" },
+    { "@type": "Offer", "name": "3-Month Treatment Plan", "price": "74.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://kynskyn.com/pages/consultation?plan=quarterly" },
+    { "@type": "Offer", "name": "One-time Consult", "price": "34.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://kynskyn.com/pages/consultation?plan=one-time" }
   ]
 }
 </script>
@@ -480,7 +480,7 @@
   <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="th-hero__molecule">
   <p class="th-hero__eyebrow fade-in">Opening June 1, 2026 · Waitlist open</p>
   <h1 class="th-hero__heading fade-in">Skip the wrong creams.<br>Get the prescription that works.</h1>
-  <p class="th-hero__desc fade-in">A licensed clinician confirms what's actually wrong and prescribes treatment that works. Opens June 1. Join the waitlist for $20 off your first quarterly plan.</p>
+  <p class="th-hero__desc fade-in">A licensed clinician confirms what's actually wrong and prescribes treatment that works. Opens June 1. Join the waitlist for $20 off your first 3-month plan.</p>
   <a href="#th-waitlist" class="th-hero__cta fade-in">Join the waitlist &middot; Save $20</a>
 </section>
 
@@ -569,10 +569,10 @@
   <div class="th-cta__container fade-in" style="max-width: 500px;">
     <h2 class="th-cta__heading">Choose your plan</h2>
     <div class="th-pricing__grid" role="radiogroup" aria-label="Choose your plan">
-      <!-- Monthly $34.99 (with quarterly billing toggle as an augment) -->
+      <!-- Monthly $29.99 (with 3-month billing toggle as an augment) -->
       <button type="button" class="th-plan th-plan--selected" data-plan="monthly" role="radio" aria-checked="true">
         <span class="th-plan__badge th-plan__badge--amber">Recommended</span>
-        <p class="th-plan__price" data-price="treatment_monthly">$34.99<span class="th-plan__price-suffix">/mo</span></p>
+        <p class="th-plan__price" data-price="treatment_monthly">$29.99<span class="th-plan__price-suffix">/mo</span></p>
         <p class="th-plan__label">Monthly</p>
         <div class="th-plan__features">
           <p>&#10003; Provider consultation</p>
@@ -580,20 +580,20 @@
           <p>&#10003; Monthly adjustments</p>
           <p>&#10003; Cancel anytime</p>
         </div>
-        <!-- Quarterly billing toggle - augments the Monthly plan -->
+        <!-- 3-month billing toggle - augments the Monthly plan -->
         <div class="th-plan__augment" aria-hidden="true">
           <label class="th-plan__augment-toggle">
             <input type="checkbox" class="th-plan__augment-input" data-augment="quarterly">
             <span class="th-plan__augment-label">
-              <span class="th-plan__augment-title">Pay quarterly, save ~$5/mo</span>
-              <span class="th-plan__augment-detail"><span data-price="treatment_quarterly">$89.99<span class="th-plan__price-suffix">/qtr</span></span> · billed every 3 months</span>
+              <span class="th-plan__augment-title">Switch to 3-month, save ~$5/mo</span>
+              <span class="th-plan__augment-detail"><span data-price="treatment_quarterly">$74.99<span class="th-plan__price-suffix">/3 mo</span></span> · billed every 3 months</span>
             </span>
           </label>
         </div>
       </button>
-      <!-- One-time Consult $39.99 -->
+      <!-- One-time Consult $34.99 -->
       <button type="button" class="th-plan" data-plan="one-time" role="radio" aria-checked="false">
-        <p class="th-plan__price" data-price="treatment_onetime">$39.99</p>
+        <p class="th-plan__price" data-price="treatment_onetime">$34.99</p>
         <p class="th-plan__label">One-time Consult</p>
         <div class="th-plan__features">
           <p>&#10003; Provider consultation</p>
@@ -604,7 +604,7 @@
       </button>
     </div>
     <p class="th-cta__desc" style="font-size: 0.85rem;">Every plan includes a provider consultation and a prescription you pick up at the pharmacy you choose during booking. You pay the pharmacy for the medication itself. Care runs through a HIPAA-compliant platform with licensed providers.</p>
-    <a href="#th-waitlist" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Join the waitlist for $20 off quarterly</a>
+    <a href="#th-waitlist" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Join the waitlist for $20 off the 3-month plan</a>
   </div>
 </section>
 
@@ -808,7 +808,7 @@
     var augmentInput = document.querySelector('.th-plan__augment-input[data-augment="quarterly"]');
     var CTA_LABELS = {
       'monthly': 'Continue with Monthly · $[price]/mo',
-      'quarterly': 'Continue with Quarterly · $[price]/qtr',
+      'quarterly': 'Continue with 3-Month Plan · $[price]/3 mo',
       'one-time': 'Book One-time Consult · $[price]'
     };
 
@@ -874,7 +874,7 @@
   <div class="th-cta__container fade-in">
     <p class="th-waitlist__eyebrow">Opening June 1, 2026</p>
     <h2 class="th-cta__heading">Be first in line.</h2>
-    <p class="th-cta__desc">Join the Kyn Skyn Rx waitlist and we'll email you the moment booking opens. Waitlist members get <strong>$20 off their first quarterly plan</strong>: $89.99 becomes $69.99 for your provider consultation and ongoing care. If your clinician writes a prescription, it's sent to your pharmacy of choice and billed there.</p>
+    <p class="th-cta__desc">Join the Kyn Skyn Rx waitlist and we'll email you the moment booking opens. Waitlist members get <strong>$20 off their first 3-month plan</strong>: $74.99 becomes $54.99 for your provider consultation and ongoing care. If your clinician writes a prescription, it's sent to your pharmacy of choice and billed there.</p>
     <form class="th-waitlist__form" id="thWaitlistForm">
       <input type="email" class="th-waitlist__input" placeholder="you@email.com" required aria-label="Email address">
       <button type="submit" class="th-waitlist__button">Join the waitlist</button>
@@ -968,7 +968,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing"><p>Treatment Plans are $34.99 a month, or $89.99 quarterly (about $30 a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during booking. A one-time consult is $39.99. Payment runs securely through Stripe.</p></div>
+      <div class="th-faq__a" data-price="faq_pricing"><p>Treatment Plans are $29.99 a month, or $74.99 every 3 months (about $25 a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during booking. A one-time consult is $34.99. Payment runs securely through Stripe.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -1028,7 +1028,7 @@
       }
       var qtrEl = document.querySelector('[data-price="treatment_quarterly"]');
       if (qtrEl && p.treatment_quarterly) {
-        qtrEl.innerHTML = '$' + p.treatment_quarterly + '<span class="th-plan__price-suffix">/qtr</span>';
+        qtrEl.innerHTML = '$' + p.treatment_quarterly + '<span class="th-plan__price-suffix">/3 mo</span>';
       }
       var otEl = document.querySelector('[data-price="treatment_onetime"]');
       if (otEl && p.treatment_onetime) {
@@ -1039,7 +1039,7 @@
       var faqEl = document.querySelector('[data-price="faq_pricing"]');
       if (faqEl && p.treatment_monthly && p.treatment_onetime && p.treatment_quarterly) {
         var perMonth = Math.round(p.treatment_quarterly / 3);
-        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + ' a month, or $' + p.treatment_quarterly + ' quarterly (about $' + perMonth + ' a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during booking. A one-time consult is $' + p.treatment_onetime + '. Payment runs securely through Stripe.';
+        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + ' a month, or $' + p.treatment_quarterly + ' every 3 months (about $' + perMonth + ' a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during booking. A one-time consult is $' + p.treatment_onetime + '. Payment runs securely through Stripe.';
       }
     })
     .catch(function() { /* keep hardcoded defaults */ });
