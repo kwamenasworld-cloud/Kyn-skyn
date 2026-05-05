@@ -308,6 +308,56 @@
     margin-left: 0.15em;
   }
 
+  .cc-hero__plan-feats {
+    list-style: none;
+    padding: 0.6rem 0 0;
+    margin: 0.6rem 0 0;
+    border-top: 1px solid rgba(255, 244, 206, 0.1);
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    color: var(--cream);
+    opacity: 0.7;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    text-align: left;
+  }
+
+  .cc-hero__plan-feats li {
+    position: relative;
+    padding: 0.1rem 0 0.1rem 0.85rem;
+  }
+
+  .cc-hero__plan-feats li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.45em;
+    width: 0.5rem;
+    height: 0.28rem;
+    border-left: 1.4px solid var(--gold);
+    border-bottom: 1.4px solid var(--gold);
+    transform: rotate(-45deg);
+  }
+
+  .cc-hero__plan-feats li.is-off {
+    opacity: 0.55;
+  }
+
+  .cc-hero__plan-feats li.is-off::before {
+    content: "";
+    width: 0.5rem;
+    height: 0;
+    border: none;
+    border-top: 1.4px solid rgba(255, 244, 206, 0.5);
+    transform: none;
+    top: 0.7em;
+  }
+
+  .cc-hero__plan-card--recommended .cc-hero__plan-feats {
+    opacity: 0.85;
+    border-top-color: rgba(212, 149, 42, 0.25);
+  }
+
   @media (max-width: 540px) {
     .cc-hero__plans { grid-template-columns: 1fr; max-width: 18rem; }
   }
@@ -838,15 +888,30 @@
         {% if recommended_plan == 'monthly' %}<span class="cc-hero__plan-badge">Recommended</span>{% endif %}
         <p class="cc-hero__plan-name">Monthly</p>
         <p class="cc-hero__plan-cost">$34.99<span class="cc-hero__plan-cost-suffix">/mo</span></p>
+        <ul class="cc-hero__plan-feats">
+          <li>Refills as needed</li>
+          <li>Routine adjustments</li>
+          <li>Cancel anytime</li>
+        </ul>
       </button>
       <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'quarterly' %} cc-hero__plan-card--recommended{% endif %}" data-waitlist-open data-plan="quarterly">
         <span class="cc-hero__plan-badge">Save ~$5/mo</span>
         <p class="cc-hero__plan-name">Quarterly</p>
         <p class="cc-hero__plan-cost">$89.99<span class="cc-hero__plan-cost-suffix">/qtr</span></p>
+        <ul class="cc-hero__plan-feats">
+          <li>Everything in Monthly</li>
+          <li>Billed every 3 mo</li>
+          <li>Best for chronic care</li>
+        </ul>
       </button>
       <button type="button" class="cc-hero__plan-card" data-waitlist-open data-plan="one-time">
         <p class="cc-hero__plan-name">One-time</p>
         <p class="cc-hero__plan-cost">$39.99</p>
+        <ul class="cc-hero__plan-feats">
+          <li>Single visit</li>
+          <li class="is-off">No refills</li>
+          <li class="is-off">No follow-ups</li>
+        </ul>
       </button>
     </div>
     <div class="cc-hero__actions">
