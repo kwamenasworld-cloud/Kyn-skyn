@@ -64,97 +64,73 @@
     gap: 1.5rem;
   }
 
-  .condition-card {
-    position: relative;
-    display: block;
-    aspect-ratio: 3 / 4;
-    border-radius: 0.5rem;
+  .cond-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.5rem;
     overflow: hidden;
     text-decoration: none;
-    color: var(--cream);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    color: var(--maroon);
+    background: #fffdf3;
+    box-shadow: 0 1px 2px rgba(42, 2, 8, 0.04), 0 8px 24px -10px rgba(42, 2, 8, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .condition-card:hover {
+  .cond-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 1.5rem 2.5rem rgba(42, 2, 8, 0.25);
+    box-shadow: 0 1px 2px rgba(42, 2, 8, 0.06), 0 18px 40px -12px rgba(42, 2, 8, 0.22);
   }
 
-  .condition-card__bg {
-    position: absolute;
-    inset: 0;
+  .cond-card__top {
+    position: relative;
+    aspect-ratio: 5 / 4;
+    overflow: hidden;
   }
 
-  .condition-card__bg img {
+  .cond-card__top img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
+    display: block;
   }
 
-  .condition-card:hover .condition-card__bg img {
-    transform: scale(1.05);
+  .cond-card__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.4rem 1.6rem 1.4rem 1.8rem;
+    background: #fffdf3;
+    border-top: 1px solid rgba(100, 18, 32, 0.08);
   }
 
-  .condition-card__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(42, 2, 8, 0.15) 0%, rgba(42, 2, 8, 0.55) 50%, rgba(42, 2, 8, 0.92) 100%);
-  }
-
-  .condition-card__content {
-    position: absolute;
-    inset: auto 0 0 0;
-    padding: 2rem;
-    z-index: 1;
-  }
-
-  .condition-card__eyebrow {
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--cream);
-    opacity: 0.85;
-    margin: 0 0 0.75rem;
-  }
-
-  .condition-card__heading {
+  .cond-card__label {
     font-family: var(--font-serif);
-    font-size: clamp(1.75rem, 2.4vw, 2.1rem);
-    line-height: 1.15;
-    color: var(--cream);
-    margin: 0 0 0.85rem;
+    font-size: clamp(1.25rem, 1.7vw, 1.6rem);
+    font-weight: 400;
+    color: var(--maroon);
+    line-height: 1.1;
   }
 
-  .condition-card__sub {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    line-height: 1.55;
+  .cond-card__arrow {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 999px;
+    background: var(--maroon);
     color: var(--cream);
-    opacity: 0.85;
-    margin: 0 0 1.5rem;
-  }
-
-  .condition-card__cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--cream);
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.25s ease;
+    flex-shrink: 0;
   }
 
-  .condition-card__cta svg {
-    width: 1.1rem;
-    height: 1.1rem;
-    transition: transform 0.3s ease;
-  }
-
-  .condition-card:hover .condition-card__cta svg {
+  .cond-card:hover .cond-card__arrow {
+    background: var(--terracotta);
     transform: translateX(4px);
   }
+
+  .cond-card__arrow svg { width: 1rem; height: 1rem; }
 
   @media (max-width: 900px) {
     .conditions { padding: 4rem 1.5rem; }
@@ -162,10 +138,6 @@
       grid-template-columns: 1fr;
       gap: 1rem;
     }
-    .condition-card {
-      aspect-ratio: 4 / 5;
-    }
-    .condition-card__content { padding: 1.5rem; }
   }
 </style>
 
@@ -177,50 +149,38 @@
     </div>
 
     <div class="conditions__grid">
-      <a href="/pages/fungal-acne" class="condition-card fade-in">
-        <div class="condition-card__bg">
-          <img src="{{ 'gabby-closeup.jpg' | asset_url }}" alt="" style="object-position: center 15%;">
+      <a href="/pages/fungal-acne" class="cond-card fade-in">
+        <div class="cond-card__top">
+          <img src="{{ 'cond-card-fungal-acne.jpg' | asset_url }}" alt="Close-up of fungal acne bumps along the hairline" loading="lazy">
         </div>
-        <div class="condition-card__overlay" aria-hidden="true"></div>
-        <div class="condition-card__content">
-          <p class="condition-card__eyebrow">Fungal Acne</p>
-          <h3 class="condition-card__heading">Clear bumps acne treatments can't fix.</h3>
-          <p class="condition-card__sub">Tiny, itchy bumps. It's actually a yeast condition, not acne.</p>
-          <span class="condition-card__cta">
-            Get treated
-            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="cond-card__foot">
+          <span class="cond-card__label">Fungal Acne</span>
+          <span class="cond-card__arrow" aria-hidden="true">
+            <svg viewBox="0 0 20 20"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
         </div>
       </a>
 
-      <a href="/pages/seb-derm-dandruff" class="condition-card fade-in">
-        <div class="condition-card__bg">
-          <img src="{{ 'kiiren-closeup.jpg' | asset_url }}" alt="" style="object-position: center 20%;">
+      <a href="/pages/seb-derm-dandruff" class="cond-card fade-in">
+        <div class="cond-card__top">
+          <img src="{{ 'cond-card-seb-derm.jpg' | asset_url }}" alt="" style="object-position: center 30%;" loading="lazy">
         </div>
-        <div class="condition-card__overlay" aria-hidden="true"></div>
-        <div class="condition-card__content">
-          <p class="condition-card__eyebrow">Seb Derm &amp; Dandruff</p>
-          <h3 class="condition-card__heading">End the flakes and itch. For good.</h3>
-          <p class="condition-card__sub">Red, flaky patches and a scalp that shampoo can't shake.</p>
-          <span class="condition-card__cta">
-            Get treated
-            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="cond-card__foot">
+          <span class="cond-card__label">Seb Derm &amp; Dandruff</span>
+          <span class="cond-card__arrow" aria-hidden="true">
+            <svg viewBox="0 0 20 20"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
         </div>
       </a>
 
-      <a href="/pages/tinea-versicolor" class="condition-card fade-in">
-        <div class="condition-card__bg">
-          <img src="{{ 'kwamena-smile.jpg' | asset_url }}" alt="" style="object-position: center 15%;">
+      <a href="/pages/tinea-versicolor" class="cond-card fade-in">
+        <div class="cond-card__top">
+          <img src="{{ 'cond-card-tinea-versicolor.jpg' | asset_url }}" alt="Tinea versicolor patches on the back of a hand" loading="lazy">
         </div>
-        <div class="condition-card__overlay" aria-hidden="true"></div>
-        <div class="condition-card__content">
-          <p class="condition-card__eyebrow">Tinea Versicolor</p>
-          <h3 class="condition-card__heading">Even out the patches.</h3>
-          <p class="condition-card__sub">Light or dark spots on your chest, back, or shoulders that come back every summer.</p>
-          <span class="condition-card__cta">
-            Get treated
-            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="cond-card__foot">
+          <span class="cond-card__label">Tinea Versicolor</span>
+          <span class="cond-card__arrow" aria-hidden="true">
+            <svg viewBox="0 0 20 20"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
         </div>
       </a>
