@@ -7,6 +7,9 @@
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
   {%- capture seo_title -%}
     {%- if template == 'index' -%}{{ shop.name }} | Skincare for Fungal Acne, Seb Derm & Malassezia-Prone Skin
+    {%- elsif page.handle == 'fungal-acne' -%}Fungal Acne Treatment Online: Prescription + Routine | {{ shop.name }}
+    {%- elsif page.handle == 'seb-derm-dandruff' -%}Seborrheic Dermatitis & Dandruff Treatment Online | {{ shop.name }}
+    {%- elsif page.handle == 'tinea-versicolor' -%}Tinea Versicolor Treatment Online: Prescription | {{ shop.name }}
     {%- elsif page_title contains shop.name -%}{{ page_title }}
     {%- else -%}{{ page_title }} | {{ shop.name }}
     {%- endif -%}
