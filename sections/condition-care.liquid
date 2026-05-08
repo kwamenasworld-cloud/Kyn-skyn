@@ -39,6 +39,8 @@
     {%- assign final_cta_heading = 'Ready to actually treat it?' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis from a licensed clinician, and start a treatment plan that targets the actual cause.' -%}
     {%- assign payoff_csv = "Clear bumps, for real this time~A prescription that targets the actual cause, not the wrong category.|A routine that fits real life~A simple, personalized plan, built around your skin and your schedule.|Skincare that doesn't fight your treatment~Ingredient guidance so the rest of your routine doesn't feed the yeast you're working to clear." -%}
+    {%- assign cc_hero_bg = 'cond-bg-fungal-acne.jpg' -%}
+    {%- assign cc_hero_bg_position = '50% 50%' -%}
 
   {%- when 'seb-derm-dandruff' -%}
     {%- assign condition_name = 'Seb Derm & Dandruff' -%}
@@ -61,6 +63,8 @@
     {%- assign final_cta_heading = 'Get out of the flake-and-flare loop.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start a treatment plan that holds.' -%}
     {%- assign payoff_csv = "Flakes and itch gone, not just hidden~An antifungal that hits the cause, plus a routine that holds long after.|Triggers stop wrecking your skin~A maintenance plan built for stress, weather, and product changes.|Care from someone who's seen it~A clinician who treats seb derm every day, not once a year." -%}
+    {%- assign cc_hero_bg = 'cond-bg-seb-derm.jpg' -%}
+    {%- assign cc_hero_bg_position = '50% 50%' -%}
 
   {%- when 'tinea-versicolor' -%}
     {%- assign condition_name = 'Tinea Versicolor' -%}
@@ -83,6 +87,8 @@
     {%- assign final_cta_heading = 'Clear the patches, keep them clear.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start an ongoing plan that clears the patches and keeps them from coming back.' -%}
     {%- assign payoff_csv = "Patches even back out~The yeast clears, and your skin's pigment production catches up.|Stay clear through every summer~A maintenance plan built for the heat and humidity that bring it back.|A specialist who's seen this~A clinician familiar with how tinea looks across all skin tones." -%}
+    {%- assign cc_hero_bg = 'cond-bg-tinea-versicolor.jpg' -%}
+    {%- assign cc_hero_bg_position = '50% 50%' -%}
 
 {%- endcase -%}
 
@@ -107,6 +113,36 @@
     max-width: 64rem;
     margin: 0 auto;
     width: 100%;
+  }
+
+  /* Per-condition photographic background. Sits below the gradient overlay
+     so cream text remains legible on the left side, image breathes through
+     on the right. */
+  .cc-hero__bg-image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .cc-hero__bg-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cc-hero__bg-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(95deg,
+        rgba(15, 4, 6, 0.96) 0%,
+        rgba(42, 2, 8, 0.88) 38%,
+        rgba(42, 2, 8, 0.7) 70%,
+        rgba(42, 2, 8, 0.78) 100%);
   }
 
   /* 3D plus-grid motif on the right side of the hero. Static, decorative. */
@@ -236,9 +272,10 @@
   .cc-hero__plan-card {
     position: relative;
     padding: 0.95rem 0.8rem 0.85rem;
-    border: 1px solid rgba(255, 244, 206, 0.18);
+    border: 1px solid rgba(255, 244, 206, 0.32);
     border-radius: 10px;
-    background: rgba(255, 244, 206, 0.03);
+    background: rgba(20, 5, 8, 0.55);
+    backdrop-filter: blur(2px);
     text-align: center;
     cursor: pointer;
     color: inherit;
@@ -247,8 +284,8 @@
   }
 
   .cc-hero__plan-card:hover {
-    border-color: rgba(255, 244, 206, 0.45);
-    background: rgba(255, 244, 206, 0.07);
+    border-color: rgba(255, 244, 206, 0.55);
+    background: rgba(20, 5, 8, 0.7);
     transform: translateY(-2px);
   }
 
@@ -259,12 +296,12 @@
 
   .cc-hero__plan-card--recommended {
     border-color: var(--gold);
-    background: rgba(212, 149, 42, 0.1);
+    background: rgba(80, 45, 12, 0.65);
   }
 
   .cc-hero__plan-card--recommended:hover {
     border-color: var(--gold);
-    background: rgba(212, 149, 42, 0.18);
+    background: rgba(110, 65, 20, 0.78);
   }
 
   .cc-hero__plan-badge {
@@ -585,6 +622,12 @@
 <section class="cc-hero">
   {%- capture cc_motif_path -%}M462 313.338H329.148C323.956 313.338 319.752 309.136 319.752 303.946V273.66C319.752 268.47 323.956 264.268 329.148 264.268H341.139V260.492H329.148C323.956 260.492 319.752 256.29 319.752 251.1V215.779C319.752 210.59 323.956 206.388 329.148 206.388H462V202.612H329.148C323.956 202.612 319.752 198.409 319.752 193.22V157.879C319.752 152.69 323.956 148.488 329.148 148.488H333.584V144.711H329.148C323.956 144.711 319.752 140.509 319.752 135.32V0H315.975V135.32C315.975 140.509 311.771 144.711 306.579 144.711H276.282C271.09 144.711 266.886 140.509 266.886 135.32V120.816H263.109V135.32C263.109 140.509 258.905 144.711 253.714 144.711H218.379C213.188 144.711 208.984 140.509 208.984 135.32V0H205.206V135.32C205.206 140.509 201.003 144.711 195.811 144.711H160.457C155.266 144.711 151.062 140.509 151.062 135.32V128.368H147.284V135.32C147.284 140.509 143.081 144.711 137.889 144.711H0V148.488H137.889C143.081 148.488 147.284 152.69 147.284 157.879V193.2C147.284 198.39 143.081 202.592 137.889 202.592H128.416V206.368H137.889C143.081 206.368 147.284 210.57 147.284 215.76V251.081C147.284 256.271 143.081 260.473 137.889 260.473H7.55503V264.249H137.889C143.081 264.249 147.284 268.451 147.284 273.641V303.927C147.284 309.117 143.081 313.319 137.889 313.319H128.416V317.095H137.889C143.081 317.095 147.284 321.297 147.284 326.487V461.806H151.062V326.487C151.062 321.297 155.266 317.095 160.457 317.095H195.792C200.983 317.095 205.187 321.297 205.187 326.487V333.439H208.964V326.487C208.964 321.297 213.168 317.095 218.36 317.095H253.694C258.886 317.095 263.09 321.297 263.09 326.487V462H266.867V326.487C266.867 321.297 271.071 317.095 276.262 317.095H306.56C311.752 317.095 315.955 321.297 315.955 326.487V333.439H319.733V326.487C319.733 321.297 323.937 317.095 329.128 317.095H461.981V313.338H462ZM306.56 260.473H276.262C271.071 260.473 266.867 256.271 266.867 251.081V215.76C266.867 210.57 271.071 206.368 276.262 206.368H306.56C311.752 206.368 315.955 210.57 315.955 215.76V251.081C315.975 256.271 311.752 260.473 306.56 260.473ZM253.694 260.473H218.36C213.168 260.473 208.964 256.271 208.964 251.081V215.76C208.964 210.57 213.168 206.368 218.36 206.368H253.694C258.886 206.388 263.09 210.59 263.09 215.779V251.1C263.09 256.29 258.886 260.492 253.694 260.492V260.473ZM315.975 157.879V193.2C315.975 198.39 311.771 202.592 306.579 202.592H276.282C271.09 202.592 266.886 198.39 266.886 193.2V157.879C266.886 152.69 271.09 148.488 276.282 148.488H306.579C311.752 148.488 315.975 152.69 315.975 157.879ZM263.09 157.879V193.2C263.09 198.39 258.886 202.592 253.694 202.592H218.36C213.168 202.592 208.964 198.39 208.964 193.2V157.879C208.964 152.69 213.168 148.488 218.36 148.488H253.694C258.886 148.488 263.09 152.69 263.09 157.879ZM160.457 148.488H195.792C200.983 148.488 205.187 152.69 205.187 157.879V193.2C205.187 198.39 200.983 202.592 195.792 202.592H160.457C155.266 202.592 151.062 198.39 151.062 193.2V157.879C151.062 152.69 155.266 148.488 160.457 148.488ZM160.457 206.368H195.792C200.983 206.368 205.187 210.57 205.187 215.76V251.081C205.187 256.271 200.983 260.473 195.792 260.473H160.457C155.266 260.473 151.062 256.271 151.062 251.081V215.76C151.062 210.59 155.266 206.368 160.457 206.368ZM151.062 303.927V273.641C151.062 268.451 155.266 264.249 160.457 264.249H195.792C200.983 264.249 205.187 268.451 205.187 273.641V303.927C205.187 309.117 200.983 313.319 195.792 313.319H160.457C155.266 313.338 151.062 309.117 151.062 303.927ZM208.964 303.927V273.641C208.964 268.451 213.168 264.249 218.36 264.249H253.694C258.886 264.249 263.09 268.451 263.09 273.641V303.927C263.09 309.117 258.886 313.319 253.694 313.319H218.36C213.188 313.338 208.964 309.117 208.964 303.927ZM266.867 303.927V273.641C266.867 268.451 271.071 264.249 276.262 264.249H306.56C311.752 264.249 315.955 268.451 315.955 273.641V303.927C315.955 309.117 311.752 313.319 306.56 313.319H276.262C271.09 313.338 266.867 309.117 266.867 303.927Z{%- endcapture -%}
 
+  {%- if cc_hero_bg -%}
+    <div class="cc-hero__bg-image" aria-hidden="true">
+      <img src="{{ cc_hero_bg | asset_url }}" alt="" loading="eager" style="object-position: {{ cc_hero_bg_position | default: 'center' }};">
+    </div>
+    <div class="cc-hero__bg-overlay" aria-hidden="true"></div>
+  {%- endif -%}
   <div class="cc-hero__motif" aria-hidden="true">
     <div class="cc-hero__motif-stack">
       <svg class="cc-hero__motif-layer cc-hero__motif-layer--back" viewBox="0 0 462 462" aria-hidden="true"><path d="{{ cc_motif_path }}" fill="currentColor"/></svg>
