@@ -23,6 +23,60 @@
   </div>
 </section>
 
+<!-- ====== TRUST BAR ====== -->
+<style>
+  .home-trust {
+    background: var(--dark);
+    padding: 1.8rem 3rem;
+  }
+  .home-trust__container {
+    max-width: 64rem;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem 3rem;
+  }
+  .home-trust__item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.75;
+  }
+  .home-trust__item svg { width: 16px; height: 16px; color: var(--gold); flex-shrink: 0; }
+  @media (max-width: 768px) {
+    .home-trust { padding: 1.5rem; }
+    .home-trust__container { gap: 1rem 1.5rem; }
+    .home-trust__item { font-size: 0.7rem; }
+  }
+</style>
+
+<section class="home-trust">
+  <div class="home-trust__container">
+    <div class="home-trust__item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Licensed clinicians
+    </div>
+    <div class="home-trust__item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+      Diagnosis + treatment plan
+    </div>
+    <div class="home-trust__item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+      Ongoing care, not just an Rx
+    </div>
+    <div class="home-trust__item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      HIPAA-compliant
+    </div>
+  </div>
+</section>
+
 <!-- ====== CONDITIONS ====== -->
 <style>
   .conditions {
