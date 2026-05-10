@@ -515,6 +515,86 @@
 
   .cc-payoff__desc em { font-style: italic; }
 
+  /* ========== TREATMENTS ========== */
+  .cc-treatments {
+    background: var(--cream);
+    padding: 0 3rem 4.5rem;
+  }
+
+  .cc-treatments__container {
+    max-width: 64rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cc-treatments__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    opacity: 0.55;
+    margin: 0 0 1.6rem;
+  }
+
+  .cc-treatments__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .cc-treatment-card {
+    width: 14rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(42, 2, 8, 0.04), 0 6px 16px -8px rgba(42, 2, 8, 0.12);
+  }
+
+  .cc-treatment-card__top {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+  }
+
+  .cc-treatment-card__top img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cc-treatment-card__foot {
+    padding: 0.85rem 1rem 1rem;
+    text-align: center;
+  }
+
+  .cc-treatment-card__name {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--maroon);
+    margin: 0 0 0.2rem;
+    font-weight: 400;
+  }
+
+  .cc-treatment-card__form {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--maroon);
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  .cc-treatments__note {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--maroon);
+    opacity: 0.5;
+    margin: 1.8rem auto 0;
+    max-width: 30rem;
+    line-height: 1.55;
+  }
+
   /* ========== TRUST BAR ========== */
   .cc-trust {
     background: var(--dark);
@@ -611,6 +691,8 @@
     .cc-hero { padding: 6rem 1.5rem 4rem; min-height: 0; }
     .cc-payoff { padding: 3rem 1.5rem; }
     .cc-payoff__grid { grid-template-columns: 1fr; gap: 2rem; }
+    .cc-treatments { padding: 0 1.5rem 3rem; }
+    .cc-treatment-card { width: 11rem; }
     .cc-trust { padding: 1.5rem; }
     .cc-trust__container { gap: 1rem 1.5rem; }
     .cc-trust__item { font-size: 0.7rem; }
@@ -823,6 +905,48 @@
     </div>
   </div>
 </section>
+
+<!-- ====== TREATMENTS ====== -->
+{%- if page.handle == 'fungal-acne' or page.handle == 'seb-derm-dandruff' or page.handle == 'tinea-versicolor' -%}
+<section class="cc-treatments">
+  <div class="cc-treatments__container">
+    <p class="cc-treatments__eyebrow">Common treatments</p>
+    <div class="cc-treatments__grid">
+      {%- if page.handle == 'fungal-acne' or page.handle == 'tinea-versicolor' -%}
+        <article class="cc-treatment-card">
+          <div class="cc-treatment-card__top">
+            <img src="{{ 'tx-ketoconazole.jpg' | asset_url }}" alt="Tube of ketoconazole 2% topical cream" loading="lazy">
+          </div>
+          <div class="cc-treatment-card__foot">
+            <p class="cc-treatment-card__name">Ketoconazole</p>
+            <p class="cc-treatment-card__form">Cream 2%</p>
+          </div>
+        </article>
+      {%- elsif page.handle == 'seb-derm-dandruff' -%}
+        <article class="cc-treatment-card">
+          <div class="cc-treatment-card__top">
+            <img src="{{ 'tx-zoryve-cream.jpg' | asset_url }}" alt="Tube of Zoryve (roflumilast) 0.3% cream" loading="lazy">
+          </div>
+          <div class="cc-treatment-card__foot">
+            <p class="cc-treatment-card__name">Zoryve</p>
+            <p class="cc-treatment-card__form">Cream (roflumilast 0.3%)</p>
+          </div>
+        </article>
+        <article class="cc-treatment-card">
+          <div class="cc-treatment-card__top">
+            <img src="{{ 'tx-zoryve-foam.jpg' | asset_url }}" alt="Bottle of Zoryve (roflumilast) 0.3% foam" loading="lazy">
+          </div>
+          <div class="cc-treatment-card__foot">
+            <p class="cc-treatment-card__name">Zoryve</p>
+            <p class="cc-treatment-card__form">Foam (roflumilast 0.3%)</p>
+          </div>
+        </article>
+      {%- endif -%}
+    </div>
+    <p class="cc-treatments__note">Your clinician decides what's right for your skin. Not every plan includes a prescription.</p>
+  </div>
+</section>
+{%- endif -%}
 
 <!-- ====== FAQ ====== -->
 <section class="cc-faq">
