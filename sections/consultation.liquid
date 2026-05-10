@@ -549,7 +549,7 @@
       <!-- Monthly $29.99 (with 3-month billing toggle as an augment) -->
       <button type="button" class="th-plan th-plan--selected" data-plan="monthly" role="radio" aria-checked="true">
         <span class="th-plan__badge th-plan__badge--amber">Recommended</span>
-        <p class="th-plan__price" data-price="treatment_monthly">$29.99<span class="th-plan__price-suffix">/mo</span></p>
+        <p class="th-plan__price">$29.99<span class="th-plan__price-suffix">/mo</span></p>
         <p class="th-plan__label">Monthly</p>
         <div class="th-plan__features">
           <p>&#10003; Provider consultation</p>
@@ -563,14 +563,14 @@
             <input type="checkbox" class="th-plan__augment-input" data-augment="quarterly">
             <span class="th-plan__augment-label">
               <span class="th-plan__augment-title">Switch to 3-month, save ~$5/mo</span>
-              <span class="th-plan__augment-detail"><span data-price="treatment_quarterly">$74.99<span class="th-plan__price-suffix">/3 mo</span></span> · billed every 3 months</span>
+              <span class="th-plan__augment-detail"><span>$74.99<span class="th-plan__price-suffix">/3 mo</span></span> · billed every 3 months</span>
             </span>
           </label>
         </div>
       </button>
       <!-- One-time Consult $34.99 -->
       <button type="button" class="th-plan" data-plan="one-time" role="radio" aria-checked="false">
-        <p class="th-plan__price" data-price="treatment_onetime">$34.99</p>
+        <p class="th-plan__price">$34.99</p>
         <p class="th-plan__label">One-time Consult</p>
         <div class="th-plan__features">
           <p>&#10003; Provider consultation</p>
@@ -945,7 +945,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a" data-price="faq_pricing"><p>Treatment Plans are $29.99 a month, or $74.99 every 3 months (about $25 a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during booking. A one-time consult is $34.99. Payment runs securely through Stripe.</p></div>
+      <div class="th-faq__a"><p>Treatment Plans are $29.99 a month, or $74.99 every 3 months (about $25 a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during booking. A one-time consult is $34.99. Payment runs securely through Stripe.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -980,47 +980,10 @@
     });
   });
 
-  // Dynamic pricing from Supabase - single source of truth
-  (function() {
-    var SUPABASE_URL = 'https://pbriwsgraemyqhkymneq.supabase.co';
-    var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBicml3c2dyYWVteXFoa3ltbmVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNTQxNjEsImV4cCI6MjA5MDYzMDE2MX0.AFfCsWNblX3MzjOJVRL7JefLzaLQrsc6xHSeDZuFWrI';
-
-    fetch(SUPABASE_URL + '/rest/v1/pricing_config?select=key,value', {
-      headers: { 'apikey': SUPABASE_KEY }
-    })
-    .then(function(r) { return r.json(); })
-    .then(function(prices) {
-      var p = {};
-      // Preserve decimals - don't round $59.99 to $60
-      prices.forEach(function(row) {
-        var n = Number(row.value);
-        // Strip trailing .00 but keep decimals like .99
-        p[row.key] = (n % 1 === 0) ? String(Math.round(n)) : n.toFixed(2).replace(/\.?0+$/, '');
-      });
-
-      // Update plan card prices (uses CSS class for suffix styling)
-      var monthlyEl = document.querySelector('[data-price="treatment_monthly"]');
-      if (monthlyEl && p.treatment_monthly) {
-        monthlyEl.innerHTML = '$' + p.treatment_monthly + '<span class="th-plan__price-suffix">/mo</span>';
-      }
-      var qtrEl = document.querySelector('[data-price="treatment_quarterly"]');
-      if (qtrEl && p.treatment_quarterly) {
-        qtrEl.innerHTML = '$' + p.treatment_quarterly + '<span class="th-plan__price-suffix">/3 mo</span>';
-      }
-      var otEl = document.querySelector('[data-price="treatment_onetime"]');
-      if (otEl && p.treatment_onetime) {
-        otEl.textContent = '$' + p.treatment_onetime;
-      }
-
-      // Update FAQ pricing text
-      var faqEl = document.querySelector('[data-price="faq_pricing"]');
-      if (faqEl && p.treatment_monthly && p.treatment_onetime && p.treatment_quarterly) {
-        var perMonth = Math.round(p.treatment_quarterly / 3);
-        faqEl.textContent = 'Treatment Plans are $' + p.treatment_monthly + ' a month, or $' + p.treatment_quarterly + ' every 3 months (about $' + perMonth + ' a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during booking. A one-time consult is $' + p.treatment_onetime + '. Payment runs securely through Stripe.';
-      }
-    })
-    .catch(function() { /* keep hardcoded defaults */ });
-  })();
+  // Pricing is intentionally hardcoded in this section's Liquid markup.
+  // Stripe is the source of truth for what the customer is charged
+  // (STRIPE_PRICE_MONTHLY / STRIPE_PRICE_QUARTERLY / STRIPE_PRICE_ONETIME).
+  // When prices change, update the Liquid above to match Stripe and push.
 </script>
 
 {% schema %}
