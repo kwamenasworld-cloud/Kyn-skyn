@@ -389,7 +389,10 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
+      /* Desktop: focus point higher up the photo (more headroom).
+         Mobile override below the breakpoint keeps the face better
+         centered on portrait phone viewports. */
+      object-position: center 10%;
     }
 
     .hero__gradient {
@@ -1062,6 +1065,7 @@
       .header-nav { display: none; }
       .mobile-tab-bar { display: block; }
       body { padding-bottom: 5rem; }
+      .hero__bg img { object-position: center 20%; }
       .hero__content { padding: 0 1.5rem calc(5.75rem + env(safe-area-inset-bottom, 0px)); }
       .notify { padding: 5rem 1.5rem; }
       .notify__form { flex-direction: column; }
