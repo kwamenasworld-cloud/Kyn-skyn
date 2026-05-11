@@ -389,10 +389,10 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      /* Desktop: focus point higher up the photo (more headroom).
-         Mobile override below the breakpoint keeps the face better
-         centered on portrait phone viewports. */
-      object-position: center 10%;
+      /* Desktop: focus point sits on the face (face is ~40-45% down
+         the source image). Mobile override below keeps the previous
+         center 20% framing on portrait phone viewports. */
+      object-position: center 35%;
     }
 
     .hero__gradient {
