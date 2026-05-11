@@ -383,16 +383,24 @@
       position: absolute;
       inset: 0;
       z-index: 0;
+      /* Terracotta backdrop matches the photo's studio background, so
+         when the desktop image is scaled down for a less-cropped framing
+         the surround reads as part of the same scene. */
+      background: var(--terracotta);
     }
 
     .hero__bg img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      /* Desktop: focus point sits on the face (face is ~40-45% down
-         the source image). Mobile override below keeps the previous
-         center 20% framing on portrait phone viewports. */
-      object-position: center 35%;
+      /* Desktop: face sits ~40-45% down the source image. The transform
+         scales the cover-fitted image back a touch so we see more of
+         her (head + hand + shoulders) instead of an aggressive face
+         crop. Mobile override below restores the original framing on
+         narrow portrait viewports. */
+      object-position: center 38%;
+      transform: scale(0.88);
+      transform-origin: center 38%;
     }
 
     .hero__gradient {
@@ -1065,7 +1073,7 @@
       .header-nav { display: none; }
       .mobile-tab-bar { display: block; }
       body { padding-bottom: 5rem; }
-      .hero__bg img { object-position: center 20%; }
+      .hero__bg img { object-position: center 20%; transform: none; }
       .hero__content { padding: 0 1.5rem calc(5.75rem + env(safe-area-inset-bottom, 0px)); }
       .notify { padding: 5rem 1.5rem; }
       .notify__form { flex-direction: column; }
