@@ -1996,7 +1996,7 @@
           <input type="file" id="cameraInput" accept="image/*" capture="environment">
         </div>
         <div class="checker__scan-preview" id="scanPreview">
-          <img id="scanImage" alt="Scanned label">
+          <img id="scanImage" alt="Scanned label" width="256" height="192">
           <p class="checker__scan-status" id="scanStatus">Reading ingredients...</p>
         </div>
       </div>
@@ -2187,12 +2187,12 @@
       <h2 class="notify__heading">Skincare built around the yeast that's breaking you out.</h2>
       <p class="notify__desc">Sign up for Malassezia-related updates from Kyn Skyn.</p>
 
-      <form class="notify__form" id="waitlistForm" action="javascript:void(0)" method="post">
-        <input class="notify__input" type="email" name="contact[email]" placeholder="Email address" required>
+      <form class="notify__form" id="waitlistForm" action="javascript:void(0)" method="post" novalidate>
+        <input class="notify__input" type="email" name="EMAIL" placeholder="Email address" required aria-label="Email address">
         <button class="notify__button" type="submit">Notify Me</button>
       </form>
-      <p class="notify__success" id="formSuccess">You're on the list.</p>
-      <p class="notify__error" id="formError">That didn't go through. Try again.</p>
+      <p class="notify__success" id="formSuccess" aria-live="polite">You're on the list.</p>
+      <p class="notify__error" id="formError" aria-live="polite">That didn't go through. Try again.</p>
     </div>
   </section>
 
@@ -3616,31 +3616,37 @@
     if (waitlistForm) {
       waitlistForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const email = waitlistForm.querySelector('input[type="email"]').value.trim();
-        if (!email) return;
+        const input = waitlistForm.querySelector('input[type="email"]');
+        const email = input.value.trim();
+        const success = $('#formSuccess');
+        const error = $('#formError');
+        if (success) success.style.display = 'none';
+        if (error) error.style.display = 'none';
+        if (!input.checkValidity()) {
+          if (error) {
+            error.textContent = 'Enter a valid email address.';
+            error.style.display = 'block';
+          }
+          input.focus();
+          return;
+        }
 
         const btn = waitlistForm.querySelector('.notify__button');
         btn.disabled = true;
         btn.textContent = 'Sending...';
 
         try {
-          const formData = new FormData();
-          formData.append('form_type', 'customer');
-          formData.append('utf8', '\u2713');
-          formData.append('contact[email]', email);
-          formData.append('contact[tags]', 'ingredient-checker,waitlist');
-
-          await fetch('https://kynskyn.com/contact#contact_form', {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors'
+          await window.KynWaitlist.submit({
+            email: email,
+            source: 'ingredient-checker-waitlist'
           });
 
           localStorage.setItem('kyn_waitlist', 'true');
           btn.textContent = "You're on the list";
           btn.style.background = '#2a6e3f';
           btn.style.borderColor = '#2a6e3f';
-          $('#formSuccess').style.display = 'block';
+          input.value = '';
+          if (success) success.style.display = 'block';
 
           setTimeout(() => {
             btn.textContent = 'Notify Me';
@@ -3651,7 +3657,10 @@
         } catch (err) {
           btn.textContent = 'Notify Me';
           btn.disabled = false;
-          $('#formError').style.display = 'block';
+          if (error) {
+            error.textContent = err && err.message ? err.message : "That didn't go through. Try again.";
+            error.style.display = 'block';
+          }
         }
       });
     }

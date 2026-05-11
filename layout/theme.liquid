@@ -1045,16 +1045,16 @@
     .mobile-tab-bar__links { display: flex; justify-content: space-around; align-items: center; list-style: none; padding: 0 0.25rem; }
     .mobile-tab-bar__link { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; text-decoration: none; color: var(--cream); opacity: 0.45; transition: opacity 0.2s; padding: 0.3rem 0.2rem; flex: 1 1 0; min-width: 0; }
     .mobile-tab-bar__link.active { opacity: 1; }
-    .mobile-tab-bar__link svg { width: 20px; height: 20px; flex-shrink: 0; }
-    .mobile-tab-bar__label { font-family: var(--font-sans); font-size: 0.58rem; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+    .mobile-tab-bar__link svg { width: 19px; height: 19px; flex-shrink: 0; }
+    .mobile-tab-bar__label { font-family: var(--font-sans); font-size: 0.52rem; line-height: 1; letter-spacing: 0.035em; text-transform: uppercase; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 
     /* ========== RESPONSIVE ========== */
     @media (max-width: 768px) {
       .site-header { padding: 1.2rem 1.5rem; }
       .header-nav { display: none; }
       .mobile-tab-bar { display: block; }
-      body { padding-bottom: 4.5rem; }
-      .hero__content { padding: 0 1.5rem 3rem; }
+      body { padding-bottom: 5rem; }
+      .hero__content { padding: 0 1.5rem calc(5.75rem + env(safe-area-inset-bottom, 0px)); }
       .notify { padding: 5rem 1.5rem; }
       .notify__form { flex-direction: column; }
       .notify__button { padding: 1rem; }
@@ -1118,21 +1118,112 @@
       });
     }, { threshold: 0.15 });
     fadeEls.forEach(el => observer.observe(el));
+
+    // Mailchimp embedded forms do not expose CORS responses. JSONP lets us
+    // show real validation/subscription errors instead of false success states.
+    window.KynWaitlist = window.KynWaitlist || (function() {
+      const endpoint = 'https://kynskyn.us15.list-manage.com/subscribe/post-json';
+      const listParams = 'u=61338503f23a719d2d581c864&id=051996d936';
+      const honeypotName = 'b_61338503f23a719d2d581c864_051996d936';
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function cleanMessage(message) {
+        const holder = document.createElement('div');
+        holder.innerHTML = message || '';
+        return (holder.textContent || holder.innerText || '').replace(/\s+/g, ' ').trim();
+      }
+
+      function submit(options) {
+        const email = (options && options.email ? options.email : '').trim();
+        const source = (options && options.source ? options.source : 'site-waitlist').trim();
+
+        if (!emailPattern.test(email)) {
+          return Promise.reject(new Error('Enter a valid email address.'));
+        }
+
+        return new Promise((resolve, reject) => {
+          const callbackName = 'kynWaitlist_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+          const script = document.createElement('script');
+          const params = new URLSearchParams();
+
+          params.set('EMAIL', email);
+          params.set('SOURCE', source);
+          params.set(honeypotName, '');
+          params.set('c', callbackName);
+
+          let settled = false;
+          const timer = window.setTimeout(() => {
+            cleanup();
+            reject(new Error('The signup request timed out. Please try again.'));
+          }, 10000);
+
+          function cleanup() {
+            if (settled) return;
+            settled = true;
+            window.clearTimeout(timer);
+            delete window[callbackName];
+            script.remove();
+          }
+
+          window[callbackName] = function(response) {
+            const result = response && response.result;
+            const message = cleanMessage(response && response.msg);
+            const alreadySubscribed = /already subscribed/i.test(message);
+
+            cleanup();
+
+            if (result === 'success' || alreadySubscribed) {
+              resolve({ alreadySubscribed: alreadySubscribed, message: message });
+              return;
+            }
+
+            reject(new Error(message || 'That did not go through. Please try again.'));
+          };
+
+          script.onerror = function() {
+            cleanup();
+            reject(new Error('That did not go through. Please try again.'));
+          };
+          script.src = endpoint + '?' + listParams + '&' + params.toString();
+          document.body.appendChild(script);
+        });
+      }
+
+      return { submit: submit };
+    })();
   </script>
 
   <!-- ====== MOBILE TAB BAR ====== -->
-  <nav class="mobile-tab-bar">
+  <nav class="mobile-tab-bar" aria-label="Primary mobile navigation">
     <ul class="mobile-tab-bar__links">
+      <li>
+        <a href="{{ routes.root_url }}" class="mobile-tab-bar__link{% if request.path == '/' %} active{% endif %}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/><path d="M9.5 21v-6h5v6"/></svg>
+          <span class="mobile-tab-bar__label">Home</span>
+        </a>
+      </li>
       <li>
         <a href="/pages/resources" class="mobile-tab-bar__link{% if request.path contains 'resources' or request.path contains 'handbook' or request.path contains 'ingredient-checker' %} active{% endif %}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-          <span class="mobile-tab-bar__label">Resources</span>
+          <span class="mobile-tab-bar__label">Learn</span>
+        </a>
+      </li>
+      <li>
+        <a href="/pages/shop" class="mobile-tab-bar__link{% if request.path contains 'shop' %} active{% endif %}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 14H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span class="mobile-tab-bar__label">Shop</span>
         </a>
       </li>
       <li>
         <a href="/pages/consultation" class="mobile-tab-bar__link{% if request.path contains 'consultation' or request.path contains 'fungal-acne' or request.path contains 'seb-derm' or request.path contains 'tinea' %} active{% endif %}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
-          <span class="mobile-tab-bar__label">Get Treatment</span>
+          <span class="mobile-tab-bar__label">Care</span>
+        </a>
+      </li>
+      <li>
+        <a href="/pages/contact-1" class="mobile-tab-bar__link{% if request.path contains 'contact' %} active{% endif %}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+          <span class="mobile-tab-bar__label">Contact</span>
         </a>
       </li>
     </ul>

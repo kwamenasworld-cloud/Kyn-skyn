@@ -466,22 +466,22 @@
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       var email = (input.value || '').trim();
-      if (!email) return;
+      if (!input.checkValidity()) {
+        note.textContent = 'Enter a valid email address.';
+        note.className = 'shop-restock-form__note shop-restock-form__note--error';
+        input.focus();
+        return;
+      }
 
       btn.disabled = true;
       btn.textContent = 'Joining...';
+      note.textContent = '';
       note.className = 'shop-restock-form__note';
 
       try {
-        var formData = new FormData();
-        formData.append('EMAIL', email);
-        formData.append('SOURCE', 'steady-serum-restock');
-        formData.append('b_61338503f23a719d2d581c864_051996d936', '');
-
-        await fetch('https://kynskyn.us15.list-manage.com/subscribe/post?u=61338503f23a719d2d581c864&id=051996d936', {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors'
+        await window.KynWaitlist.submit({
+          email: email,
+          source: 'steady-serum-restock'
         });
 
         btn.textContent = "You're on the list";
@@ -491,7 +491,7 @@
       } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Notify me';
-        note.textContent = 'Something went wrong. Please try again.';
+        note.textContent = err && err.message ? err.message : 'Something went wrong. Please try again.';
         note.className = 'shop-restock-form__note shop-restock-form__note--error';
       }
     });

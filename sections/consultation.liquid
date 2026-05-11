@@ -454,7 +454,7 @@
 
 <!-- ====== HERO ====== -->
 <section class="th-hero">
-  <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="th-hero__molecule">
+  <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="th-hero__molecule" width="667" height="667">
   <p class="th-hero__eyebrow fade-in">Opening June 1, 2026 · Waitlist open</p>
   <h1 class="th-hero__heading fade-in">Skip the wrong creams.<br>Get the prescription that works.</h1>
   <p class="th-hero__desc fade-in">A licensed clinician confirms what's actually wrong and prescribes treatment that works. Opens June 1. Join the waitlist for $20 off your first 3-month plan.</p>
@@ -470,7 +470,7 @@
     <div class="th-conditions__grid">
       <a href="/pages/fungal-acne" class="th-card fade-in" id="fungal-acne">
         <div class="th-card__top">
-          <img src="{{ 'cond-card-fungal-acne.jpg' | asset_url }}" alt="Close-up of fungal acne bumps along the hairline" loading="lazy">
+          <img src="{{ 'cond-card-fungal-acne.jpg' | asset_url }}" alt="Close-up of fungal acne bumps along the hairline" width="1086" height="1448" loading="lazy">
         </div>
         <div class="th-card__foot">
           <span class="th-card__label">Fungal Acne</span>
@@ -482,7 +482,7 @@
 
       <a href="/pages/seb-derm-dandruff" class="th-card fade-in" id="seb-derm-dandruff">
         <div class="th-card__top">
-          <img src="{{ 'cond-card-seb-derm.jpg' | asset_url }}" alt="" style="object-position: center 30%;" loading="lazy">
+          <img src="{{ 'cond-card-seb-derm.jpg' | asset_url }}" alt="" width="1067" height="1600" style="object-position: center 30%;" loading="lazy">
         </div>
         <div class="th-card__foot">
           <span class="th-card__label">Seb Derm &amp; Dandruff</span>
@@ -494,7 +494,7 @@
 
       <a href="/pages/tinea-versicolor" class="th-card fade-in" id="tinea-versicolor">
         <div class="th-card__top">
-          <img src="{{ 'cond-card-tinea-versicolor.jpg' | asset_url }}" alt="Tinea versicolor patches on the back of a hand" loading="lazy">
+          <img src="{{ 'cond-card-tinea-versicolor.jpg' | asset_url }}" alt="Tinea versicolor patches on the back of a hand" width="1086" height="1448" loading="lazy">
         </div>
         <div class="th-card__foot">
           <span class="th-card__label">Tinea Versicolor</span>
@@ -852,11 +852,11 @@
     <p class="th-waitlist__eyebrow">Opening June 1, 2026</p>
     <h2 class="th-cta__heading">Be first in line.</h2>
     <p class="th-cta__desc">Join the Kyn Skyn Rx waitlist and we'll email you the moment booking opens. Waitlist members get <strong>$20 off their first 3-month plan</strong>: $74.99 becomes $54.99 for your provider consultation and ongoing care. If your clinician writes a prescription, it's sent to your pharmacy of choice and billed there.</p>
-    <form class="th-waitlist__form" id="thWaitlistForm">
-      <input type="email" class="th-waitlist__input" placeholder="you@email.com" required aria-label="Email address">
+    <form class="th-waitlist__form" id="thWaitlistForm" novalidate>
+      <input type="email" class="th-waitlist__input" name="EMAIL" placeholder="you@email.com" required aria-label="Email address">
       <button type="submit" class="th-waitlist__button">Join the waitlist</button>
     </form>
-    <p class="th-waitlist__note" id="thWaitlistNote"></p>
+    <p class="th-waitlist__note" id="thWaitlistNote" aria-live="polite"></p>
     <p class="th-cta__note">One email when we launch.</p>
   </div>
 </section>
@@ -873,22 +873,21 @@
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       var email = input.value.trim();
-      if (!email) return;
+      if (!input.checkValidity()) {
+        note.textContent = 'Enter a valid email address.';
+        note.style.color = '#b02a2a';
+        input.focus();
+        return;
+      }
 
       btn.disabled = true;
       btn.textContent = 'Joining...';
       note.textContent = '';
 
       try {
-        var formData = new FormData();
-        formData.append('EMAIL', email);
-        formData.append('SOURCE', 'consultation-waitlist-quarterly-20off');
-        formData.append('b_61338503f23a719d2d581c864_051996d936', '');
-
-        await fetch('https://kynskyn.us15.list-manage.com/subscribe/post?u=61338503f23a719d2d581c864&id=051996d936', {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors'
+        await window.KynWaitlist.submit({
+          email: email,
+          source: 'consultation-waitlist-quarterly-20off'
         });
 
         btn.textContent = "You're on the list";
@@ -897,10 +896,11 @@
         btn.style.color = '#ffffff';
         note.textContent = "We'll email you on June 1 with your $20-off code.";
         note.style.color = '#2a6e3f';
+        input.value = '';
       } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Join the waitlist';
-        note.textContent = 'Something went wrong. Please try again.';
+        note.textContent = err && err.message ? err.message : 'Something went wrong. Please try again.';
         note.style.color = '#b02a2a';
       }
     });

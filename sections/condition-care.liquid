@@ -40,6 +40,8 @@
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis from a licensed clinician, and start a treatment plan that targets the actual cause.' -%}
     {%- assign payoff_csv = "Clear bumps, for real this time~A prescription that targets the actual cause, not the wrong category.|A routine that fits real life~A simple, personalized plan, built around your skin and your schedule.|Skincare that doesn't fight your treatment~Ingredient guidance so the rest of your routine doesn't feed the yeast you're working to clear." -%}
     {%- assign cc_hero_bg = 'cond-bg-fungal-acne.jpg' -%}
+    {%- assign cc_hero_bg_width = '1800' -%}
+    {%- assign cc_hero_bg_height = '1800' -%}
     {%- assign cc_hero_bg_position = '50% 50%' -%}
 
   {%- when 'seb-derm-dandruff' -%}
@@ -64,6 +66,8 @@
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start a treatment plan that holds.' -%}
     {%- assign payoff_csv = "Flakes and itch gone, not just hidden~An antifungal that hits the cause, plus a routine that holds long after.|Triggers stop wrecking your skin~A maintenance plan built for stress, weather, and product changes.|Care from someone who's seen it~A clinician familiar with seborrheic dermatitis, not someone seeing it for the first time." -%}
     {%- assign cc_hero_bg = 'cond-bg-seb-derm.jpg' -%}
+    {%- assign cc_hero_bg_width = '1200' -%}
+    {%- assign cc_hero_bg_height = '1800' -%}
     {%- assign cc_hero_bg_position = '50% 50%' -%}
 
   {%- when 'tinea-versicolor' -%}
@@ -88,6 +92,8 @@
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start an ongoing plan that clears the patches and keeps them from coming back.' -%}
     {%- assign payoff_csv = "Patches even back out~The yeast clears, and your skin's pigment production catches up.|Stay clear through every summer~A maintenance plan built for the heat and humidity that bring it back.|A specialist who's seen this~A clinician familiar with how tinea looks across all skin tones." -%}
     {%- assign cc_hero_bg = 'cond-bg-tinea-versicolor.jpg' -%}
+    {%- assign cc_hero_bg_width = '1800' -%}
+    {%- assign cc_hero_bg_height = '1800' -%}
     {%- assign cc_hero_bg_position = '50% 50%' -%}
 
 {%- endcase -%}
@@ -591,7 +597,7 @@
     color: var(--maroon);
     opacity: 0.5;
     margin: 1.8rem auto 0;
-    max-width: 30rem;
+    max-width: 42rem;
     line-height: 1.55;
   }
 
@@ -692,11 +698,23 @@
     .cc-payoff { padding: 3rem 1.5rem; }
     .cc-payoff__grid { grid-template-columns: 1fr; gap: 2rem; }
     .cc-treatments { padding: 0 1.5rem 3rem; }
-    .cc-treatment-card { width: 11rem; }
+    .cc-treatments__grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .cc-treatment-card { width: auto; min-width: 0; }
+    .cc-treatment-card__foot { padding: 0.75rem 0.65rem 0.85rem; }
+    .cc-treatment-card__name { font-size: 0.95rem; }
+    .cc-treatment-card__form { font-size: 0.68rem; }
     .cc-trust { padding: 1.5rem; }
     .cc-trust__container { gap: 1rem 1.5rem; }
     .cc-trust__item { font-size: 0.7rem; }
     .cc-faq { padding: 4rem 1.5rem; }
+  }
+
+  @media (max-width: 340px) {
+    .cc-treatments__grid { grid-template-columns: 1fr; }
   }
 </style>
 
@@ -706,7 +724,7 @@
 
   {%- if cc_hero_bg -%}
     <div class="cc-hero__bg-image" aria-hidden="true">
-      <img src="{{ cc_hero_bg | asset_url }}" alt="" loading="eager" style="object-position: {{ cc_hero_bg_position | default: 'center' }};">
+      <img src="{{ cc_hero_bg | asset_url }}" alt="" width="{{ cc_hero_bg_width }}" height="{{ cc_hero_bg_height }}" loading="eager" style="object-position: {{ cc_hero_bg_position | default: 'center' }};">
     </div>
     <div class="cc-hero__bg-overlay" aria-hidden="true"></div>
   {%- endif -%}
@@ -915,45 +933,54 @@
       {%- if page.handle == 'fungal-acne' -%}
         <article class="cc-treatment-card">
           <div class="cc-treatment-card__top">
-            <img src="{{ 'tx-ketoconazole.jpg' | asset_url }}" alt="Tube of ketoconazole 2% topical cream" loading="lazy">
+            <img src="{{ 'tx-ketoconazole.jpg' | asset_url }}" alt="Tube of ketoconazole 2% topical cream" width="1200" height="800" loading="lazy">
           </div>
           <div class="cc-treatment-card__foot">
             <p class="cc-treatment-card__name">Ketoconazole</p>
-            <p class="cc-treatment-card__form">Cream 2%</p>
+            <p class="cc-treatment-card__form">Antifungal cream 2%</p>
           </div>
         </article>
         <article class="cc-treatment-card">
           <div class="cc-treatment-card__top">
-            <img src="{{ 'tx-azelaic-acid.jpg' | asset_url }}" alt="Tube of azelaic acid topical cream" loading="lazy">
+            <img src="{{ 'tx-azelaic-acid.jpg' | asset_url }}" alt="Tube of azelaic acid topical cream" width="1200" height="800" loading="lazy">
           </div>
           <div class="cc-treatment-card__foot">
             <p class="cc-treatment-card__name">Azelaic Acid</p>
-            <p class="cc-treatment-card__form">Cream</p>
+            <p class="cc-treatment-card__form">Post-bump tone support</p>
           </div>
         </article>
       {%- elsif page.handle == 'tinea-versicolor' -%}
         <article class="cc-treatment-card">
           <div class="cc-treatment-card__top">
-            <img src="{{ 'tx-ketoconazole.jpg' | asset_url }}" alt="Tube of ketoconazole 2% topical cream" loading="lazy">
+            <img src="{{ 'tx-ketoconazole.jpg' | asset_url }}" alt="Tube of ketoconazole 2% topical cream" width="1200" height="800" loading="lazy">
           </div>
           <div class="cc-treatment-card__foot">
             <p class="cc-treatment-card__name">Ketoconazole</p>
-            <p class="cc-treatment-card__form">Cream 2%</p>
+            <p class="cc-treatment-card__form">Antifungal cream 2%</p>
+          </div>
+        </article>
+        <article class="cc-treatment-card">
+          <div class="cc-treatment-card__top">
+            <img src="{{ 'tx-selenium-sulfide.jpg' | asset_url }}" alt="Bottle of selenium sulfide topical wash" width="1200" height="800" loading="lazy">
+          </div>
+          <div class="cc-treatment-card__foot">
+            <p class="cc-treatment-card__name">Selenium Sulfide</p>
+            <p class="cc-treatment-card__form">Wash/lotion maintenance</p>
           </div>
         </article>
       {%- elsif page.handle == 'seb-derm-dandruff' -%}
         <article class="cc-treatment-card">
           <div class="cc-treatment-card__top">
-            <img src="{{ 'tx-ketoconazole.jpg' | asset_url }}" alt="Tube of ketoconazole 2% topical cream" loading="lazy">
+            <img src="{{ 'tx-ketoconazole.jpg' | asset_url }}" alt="Tube of ketoconazole 2% topical cream" width="1200" height="800" loading="lazy">
           </div>
           <div class="cc-treatment-card__foot">
             <p class="cc-treatment-card__name">Ketoconazole</p>
-            <p class="cc-treatment-card__form">Cream 2%</p>
+            <p class="cc-treatment-card__form">Antifungal cream 2%</p>
           </div>
         </article>
         <article class="cc-treatment-card">
           <div class="cc-treatment-card__top">
-            <img src="{{ 'tx-zoryve-cream.jpg' | asset_url }}" alt="Tube of Zoryve (roflumilast) 0.3% cream" loading="lazy">
+            <img src="{{ 'tx-zoryve-cream.jpg' | asset_url }}" alt="Tube of Zoryve (roflumilast) 0.3% cream" width="1200" height="800" loading="lazy">
           </div>
           <div class="cc-treatment-card__foot">
             <p class="cc-treatment-card__name">Zoryve</p>
@@ -962,7 +989,7 @@
         </article>
         <article class="cc-treatment-card">
           <div class="cc-treatment-card__top">
-            <img src="{{ 'tx-zoryve-foam.jpg' | asset_url }}" alt="Bottle of Zoryve (roflumilast) 0.3% foam" loading="lazy">
+            <img src="{{ 'tx-zoryve-foam.jpg' | asset_url }}" alt="Bottle of Zoryve (roflumilast) 0.3% foam" width="1200" height="800" loading="lazy">
           </div>
           <div class="cc-treatment-card__foot">
             <p class="cc-treatment-card__name">Zoryve</p>
@@ -971,16 +998,22 @@
         </article>
         <article class="cc-treatment-card">
           <div class="cc-treatment-card__top">
-            <img src="{{ 'tx-azelaic-acid.jpg' | asset_url }}" alt="Tube of azelaic acid topical cream" loading="lazy">
+            <img src="{{ 'tx-azelaic-acid.jpg' | asset_url }}" alt="Tube of azelaic acid topical cream" width="1200" height="800" loading="lazy">
           </div>
           <div class="cc-treatment-card__foot">
             <p class="cc-treatment-card__name">Azelaic Acid</p>
-            <p class="cc-treatment-card__form">Cream</p>
+            <p class="cc-treatment-card__form">Tone support</p>
           </div>
         </article>
       {%- endif -%}
     </div>
-    <p class="cc-treatments__note">Your clinician decides what's right for your skin. Not every plan includes a prescription.</p>
+    {%- if page.handle == 'fungal-acne' -%}
+      <p class="cc-treatments__note">A full plan may pair antifungal clearance with a Malassezia-safe routine, then add tone or texture support after bumps settle. Your clinician decides what's right for your skin. Not every plan includes a prescription.</p>
+    {%- elsif page.handle == 'tinea-versicolor' -%}
+      <p class="cc-treatments__note">A full plan may start with antifungal clearance and add maintenance for heat and sweat seasons. Pigment changes can lag for weeks or months after the yeast is controlled, so even tone usually comes from staying clear, time, and sun protection. Your clinician decides what's right for your skin. Not every plan includes a prescription.</p>
+    {%- elsif page.handle == 'seb-derm-dandruff' -%}
+      <p class="cc-treatments__note">A full plan may combine antifungal control, inflammation support, scalp or face-specific formats, and routine guidance. Your clinician decides what's right for your skin. Not every plan includes a prescription.</p>
+    {%- endif -%}
   </div>
 </section>
 {%- endif -%}

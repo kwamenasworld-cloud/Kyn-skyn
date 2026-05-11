@@ -42,6 +42,11 @@
     function open(e) {
       if (e) e.preventDefault();
       lastFocus = document.activeElement;
+      note.textContent = '';
+      note.style.color = '';
+      btn.disabled = false;
+      btn.textContent = 'Join the waitlist';
+      btn.style.background = '';
       modal.hidden = false;
       document.documentElement.style.overflow = 'hidden';
       setTimeout(function() { input && input.focus(); }, 60);
@@ -61,7 +66,12 @@
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       var email = (input.value || '').trim();
-      if (!email) return;
+      if (!input.checkValidity()) {
+        note.textContent = 'Enter a valid email address.';
+        note.style.color = '#b02a2a';
+        input.focus();
+        return;
+      }
 
       btn.disabled = true;
       btn.textContent = 'Joining...';
@@ -69,15 +79,9 @@
       note.style.color = '';
 
       try {
-        var formData = new FormData();
-        formData.append('EMAIL', email);
-        formData.append('SOURCE', {{ waitlist_source | json }});
-        formData.append('b_61338503f23a719d2d581c864_051996d936', '');
-
-        await fetch('https://kynskyn.us15.list-manage.com/subscribe/post?u=61338503f23a719d2d581c864&id=051996d936', {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors'
+        await window.KynWaitlist.submit({
+          email: email,
+          source: {{ waitlist_source | json }}
         });
 
         btn.textContent = "You're on the list";
@@ -88,7 +92,7 @@
       } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Join the waitlist';
-        note.textContent = 'Something went wrong. Please try again.';
+        note.textContent = err && err.message ? err.message : 'Something went wrong. Please try again.';
         note.style.color = '#b02a2a';
       }
     });
