@@ -912,7 +912,26 @@
   <div class="cc-treatments__container">
     <p class="cc-treatments__eyebrow">Common treatments</p>
     <div class="cc-treatments__grid">
-      {%- if page.handle == 'fungal-acne' or page.handle == 'tinea-versicolor' -%}
+      {%- if page.handle == 'fungal-acne' -%}
+        <article class="cc-treatment-card">
+          <div class="cc-treatment-card__top">
+            <img src="{{ 'tx-ketoconazole.jpg' | asset_url }}" alt="Tube of ketoconazole 2% topical cream" loading="lazy">
+          </div>
+          <div class="cc-treatment-card__foot">
+            <p class="cc-treatment-card__name">Ketoconazole</p>
+            <p class="cc-treatment-card__form">Cream 2%</p>
+          </div>
+        </article>
+        <article class="cc-treatment-card">
+          <div class="cc-treatment-card__top">
+            <img src="{{ 'tx-azelaic-acid.jpg' | asset_url }}" alt="Tube of azelaic acid topical cream" loading="lazy">
+          </div>
+          <div class="cc-treatment-card__foot">
+            <p class="cc-treatment-card__name">Azelaic Acid</p>
+            <p class="cc-treatment-card__form">Cream</p>
+          </div>
+        </article>
+      {%- elsif page.handle == 'tinea-versicolor' -%}
         <article class="cc-treatment-card">
           <div class="cc-treatment-card__top">
             <img src="{{ 'tx-ketoconazole.jpg' | asset_url }}" alt="Tube of ketoconazole 2% topical cream" loading="lazy">
@@ -948,6 +967,15 @@
           <div class="cc-treatment-card__foot">
             <p class="cc-treatment-card__name">Zoryve</p>
             <p class="cc-treatment-card__form">Foam (roflumilast 0.3%)</p>
+          </div>
+        </article>
+        <article class="cc-treatment-card">
+          <div class="cc-treatment-card__top">
+            <img src="{{ 'tx-azelaic-acid.jpg' | asset_url }}" alt="Tube of azelaic acid topical cream" loading="lazy">
+          </div>
+          <div class="cc-treatment-card__foot">
+            <p class="cc-treatment-card__name">Azelaic Acid</p>
+            <p class="cc-treatment-card__form">Cream</p>
           </div>
         </article>
       {%- endif -%}
