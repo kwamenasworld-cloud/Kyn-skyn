@@ -1059,7 +1059,7 @@
     /* ========== RESPONSIVE ========== */
     @media (max-width: 768px) {
       .site-header { padding: 1.2rem 1.5rem; }
-      .header-nav { display: none; }
+      .header-nav > li:not(.header-nav__about) { display: none; }
       .mobile-tab-bar { display: block; }
       body { padding-bottom: 5rem; }
       .hero__content { padding: 0 1.5rem calc(5.75rem + env(safe-area-inset-bottom, 0px)); }
