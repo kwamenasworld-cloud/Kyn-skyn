@@ -38,7 +38,6 @@
     {%- assign recommended_reason = 'Fungal acne almost always relapses without an ongoing routine. Most people stay clear with the 3-Month Plan, which covers the maintenance phase.' -%}
     {%- assign final_cta_heading = 'Ready to actually treat it?' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis from a board-certified dermatologist, and start a treatment plan that targets the actual cause.' -%}
-    {%- assign payoff_csv = "Clear bumps, for real this time~A prescription that targets the actual cause, not the wrong category.|A routine that fits real life~A simple, personalized plan, built around your skin and your schedule.|Skincare that doesn't fight your treatment~Ingredient guidance so the rest of your routine doesn't feed the yeast you're working to clear." -%}
     {%- assign cc_hero_bg = 'cond-bg-fungal-acne.jpg' -%}
     {%- assign cc_hero_bg_width = '1800' -%}
     {%- assign cc_hero_bg_height = '1800' -%}
@@ -64,7 +63,6 @@
     {%- assign recommended_reason = "Seb derm and dandruff are chronic. The 3-Month Plan covers ongoing care so you're not starting over every flare." -%}
     {%- assign final_cta_heading = 'Get out of the flake-and-flare loop.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start a treatment plan that holds.' -%}
-    {%- assign payoff_csv = "Flakes and itch gone, not just hidden~An antifungal that hits the cause, plus a routine that holds long after.|Triggers stop wrecking your skin~A maintenance plan built for stress, weather, and product changes.|Care from someone who's seen it~A board-certified dermatologist familiar with seborrheic dermatitis, not someone seeing it for the first time." -%}
     {%- assign cc_hero_bg = 'cond-bg-seb-derm.jpg' -%}
     {%- assign cc_hero_bg_width = '1200' -%}
     {%- assign cc_hero_bg_height = '1800' -%}
@@ -90,7 +88,6 @@
     {%- assign recommended_reason = 'Tinea versicolor flares seasonally for most people, especially during heat and humidity. The Monthly Treatment Plan covers ongoing monitoring with your clinician, prescription refills as needed, and a maintenance routine that cuts down how often it comes back.' -%}
     {%- assign final_cta_heading = 'Clear the patches, keep them clear.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start an ongoing plan that clears the patches and keeps them from coming back.' -%}
-    {%- assign payoff_csv = "Patches even back out~The yeast clears, and your skin's pigment production catches up.|Stay clear through every summer~A maintenance plan built for the heat and humidity that bring it back.|A specialist who's seen this~A board-certified dermatologist familiar with how tinea looks across all skin tones." -%}
     {%- assign cc_hero_bg = 'cond-bg-tinea-versicolor.jpg' -%}
     {%- assign cc_hero_bg_width = '1800' -%}
     {%- assign cc_hero_bg_height = '1800' -%}
@@ -449,73 +446,74 @@
   .cc-hero__cta svg { width: 18px; height: 18px; transition: transform 0.3s; }
   .cc-hero__cta:hover svg { transform: translateX(3px); }
 
-  /* ========== PAYOFF ========== */
+  /* ========== REVIEW STEPS ========== */
   .cc-payoff {
-    background: var(--cream);
-    padding: 4.5rem 3rem;
+    background: #fffaf0;
+    padding: 5.25rem 3rem 5.75rem;
+    border-bottom: 1px solid rgba(100, 18, 32, 0.08);
   }
 
   .cc-payoff__container {
-    max-width: 72rem;
+    max-width: 76rem;
     margin: 0 auto;
   }
 
   .cc-payoff__eyebrow {
     font-family: var(--font-sans);
-    font-size: 0.8rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    font-size: clamp(1.15rem, 2.2vw, 1.75rem);
+    line-height: 1.25;
+    letter-spacing: 0;
+    text-transform: none;
     color: var(--maroon);
-    opacity: 0.55;
-    margin: 0 0 2.5rem;
+    opacity: 1;
+    margin: 0 auto 4.5rem;
     text-align: center;
+    max-width: 48rem;
+    font-weight: 600;
   }
 
   .cc-payoff__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem 3rem;
+    gap: 3rem 4rem;
   }
 
   .cc-payoff__item {
-    /* No top border — the checkmark medallion serves as the anchor.
-       Anchored visual punctuation reduces scan time on lists of
-       parallel claims (Pernice, NN/g 2018; Cialdini consistency cue
-       — affirmative checkmark reinforces positive framing). */
+    min-width: 0;
   }
 
   .cc-payoff__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    margin-bottom: 1.1rem;
-    border-radius: 50%;
-    background: rgba(212, 149, 42, 0.14);
-    color: var(--gold);
-    box-shadow: 0 0 0 1px rgba(212, 149, 42, 0.3) inset;
+    width: 7rem;
+    height: 7rem;
+    margin: 0 auto 1.65rem;
+    color: var(--maroon);
   }
 
   .cc-payoff__icon svg {
-    width: 22px;
-    height: 22px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
   }
 
   .cc-payoff__title {
     font-family: var(--font-serif);
-    font-size: 1.35rem;
-    line-height: 1.25;
+    font-size: clamp(1.7rem, 2.6vw, 2.15rem);
+    line-height: 1.12;
     color: var(--maroon);
-    margin: 0 0 0.6rem;
+    margin: 0 0 0.75rem;
+    font-weight: 600;
   }
 
   .cc-payoff__desc {
     font-family: var(--font-sans);
-    font-size: 0.95rem;
-    line-height: 1.55;
-    color: var(--maroon);
-    opacity: 0.78;
+    font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+    line-height: 1.5;
+    color: var(--dark);
+    opacity: 0.92;
     margin: 0;
   }
 
@@ -696,7 +694,9 @@
   @media (max-width: 768px) {
     .cc-hero { padding: 6rem 1.5rem 4rem; min-height: 0; }
     .cc-payoff { padding: 3rem 1.5rem; }
-    .cc-payoff__grid { grid-template-columns: 1fr; gap: 2rem; }
+    .cc-payoff__eyebrow { margin-bottom: 2.75rem; }
+    .cc-payoff__grid { grid-template-columns: 1fr; gap: 2.6rem; }
+    .cc-payoff__icon { width: 5.75rem; height: 5.75rem; margin-bottom: 1.2rem; }
     .cc-treatments { padding: 0 1.5rem 3rem; }
     .cc-treatments__grid {
       display: grid;
@@ -883,43 +883,53 @@
   </div>
 </section>
 
-<!-- ====== PAYOFF ====== -->
+<!-- ====== REVIEW STEPS ====== -->
 <section class="cc-payoff">
   <div class="cc-payoff__container">
-    <p class="cc-payoff__eyebrow">What changes for you</p>
+    <p class="cc-payoff__eyebrow">Start a Kynsultation anytime, anywhere, in three simple steps.</p>
     <div class="cc-payoff__grid">
-      {%- assign payoff_items = payoff_csv | split: '|' -%}
-      {%- for item in payoff_items -%}
-        {%- assign parts = item | split: '~' -%}
-        <div class="cc-payoff__item">
-          <div class="cc-payoff__icon" aria-hidden="true">
-            {%- if forloop.index == 1 -%}
-              {%- comment -%} Outcome reached: target with check at center. {%- endcomment -%}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"/>
-                <circle cx="12" cy="12" r="5"/>
-                <polyline points="9.5 12 11 13.5 14.5 10"/>
-              </svg>
-            {%- elsif forloop.index == 2 -%}
-              {%- comment -%} Ongoing routine / maintenance: cycle. {%- endcomment -%}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3.5 13a8.5 8.5 0 0 1 14.7-5.5"/>
-                <path d="M20.5 11a8.5 8.5 0 0 1-14.7 5.5"/>
-                <polyline points="18.2 3.5 18.2 7.5 14.2 7.5"/>
-                <polyline points="5.8 20.5 5.8 16.5 9.8 16.5"/>
-              </svg>
-            {%- else -%}
-              {%- comment -%} Expert care / protection: shield with check. {%- endcomment -%}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2.8L4.5 6v6c0 4.4 3.2 8.3 7.5 9.4 4.3-1.1 7.5-5 7.5-9.4V6L12 2.8z"/>
-                <polyline points="9 12 11 14 15 10"/>
-              </svg>
-            {%- endif -%}
-          </div>
-          <h3 class="cc-payoff__title">{{ parts[0] }}</h3>
-          <p class="cc-payoff__desc">{{ parts[1] }}</p>
+      <article class="cc-payoff__item">
+        <div class="cc-payoff__icon" aria-hidden="true">
+          <svg viewBox="0 0 120 120" fill="none">
+            <rect x="34" y="13" width="52" height="94" rx="11" fill="#641220"/>
+            <rect x="39" y="24" width="42" height="64" rx="5" fill="#fff4ce"/>
+            <path d="M34 28h52" stroke="#d4952a" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="60" cy="97" r="4" fill="#fff4ce"/>
+            <circle cx="54" cy="56" r="18" fill="#c75b2a"/>
+            <path d="M59 42c8 1 14 8 14 17 0 5-2 10-5 13 12-2 21-12 21-24 0-6-2-12-6-16-2-2-4-3-7-3-8 0-15 5-17 13z" fill="#d4952a"/>
+          </svg>
         </div>
-      {%- endfor -%}
+        <h3 class="cc-payoff__title">Upload photos</h3>
+        <p class="cc-payoff__desc">Complete a focused intake for {{ condition_name | downcase }} and upload clear photos from home.</p>
+      </article>
+
+      <article class="cc-payoff__item">
+        <div class="cc-payoff__icon" aria-hidden="true">
+          <svg viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="37" fill="#fff4ce" stroke="#641220" stroke-width="7"/>
+            <circle cx="48" cy="59" r="13" fill="#c75b2a"/>
+            <path d="M60 25c18 0 33 14 35 32-8 1-16-1-22-7-7-6-10-15-9-24-1-1-3-1-4-1z" fill="#d4952a"/>
+            <path d="M71 73c-7 7-18 10-29 7 6 10 18 16 31 15 9-1 17-5 23-12-8-1-18-4-25-10z" fill="#641220"/>
+            <circle cx="48" cy="59" r="6" fill="#fff4ce"/>
+          </svg>
+        </div>
+        <h3 class="cc-payoff__title">Dermatologist review</h3>
+        <p class="cc-payoff__desc">A licensed clinician reviews your photos, symptoms, history, and routine. No waiting room required.</p>
+      </article>
+
+      <article class="cc-payoff__item">
+        <div class="cc-payoff__icon" aria-hidden="true">
+          <svg viewBox="0 0 120 120" fill="none">
+            <path d="M38 16h35l18 18v61c0 8-6 14-14 14H38c-8 0-14-6-14-14V30c0-8 6-14 14-14z" fill="#641220"/>
+            <path d="M73 16v19h18" fill="#d4952a"/>
+            <path d="M47 54h23M47 67h27M47 80h17" stroke="#fff4ce" stroke-width="6" stroke-linecap="round"/>
+            <path d="M36 38h16M44 30v16" stroke="#fff4ce" stroke-width="7" stroke-linecap="round"/>
+            <path d="M24 91h67" stroke="#c75b2a" stroke-width="7" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="cc-payoff__title">Treatment plan</h3>
+        <p class="cc-payoff__desc">Get your diagnosis, pharmacy prescription when appropriate, and a Kyn routine that supports treatment.</p>
+      </article>
     </div>
   </div>
 </section>
