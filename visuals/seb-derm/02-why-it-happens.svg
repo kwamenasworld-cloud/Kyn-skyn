@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="1000" height="600" font-family="Georgia, serif">
+  <rect width="1000" height="600" fill="#FFF4CE"/>
+
+  <!-- Title + subtitle top-left -->
+  <text x="40" y="50" font-size="28" fill="#5B1A1A" font-weight="600">Why seb derm happens</text>
+  <text x="40" y="76" font-size="14" fill="#5B1A1A" opacity="0.75" font-family="Helvetica, Arial, sans-serif">Not a hygiene problem. A yeast-plus-oil problem.</text>
+
+  <!-- 4 nodes horizontally with arrows -->
+  <g font-family="Helvetica, Arial, sans-serif">
+
+    <!-- Node 1: Sebum -->
+    <g transform="translate(70, 150)">
+      <circle cx="80" cy="80" r="70" fill="#F8B044"/>
+      <!-- Oil droplet -->
+      <path d="M 80 35 Q 55 70 55 100 Q 55 125 80 125 Q 105 125 105 100 Q 105 70 80 35 Z"
+            fill="#FFF4CE" stroke="#5B1A1A" stroke-width="1.8"/>
+      <!-- Highlight -->
+      <ellipse cx="72" cy="95" rx="4" ry="10" fill="#F8B044" opacity="0.55"/>
+      <text x="80" y="190" font-size="16" fill="#5B1A1A" text-anchor="middle" font-weight="700">Sebum</text>
+      <text x="80" y="214" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">Natural skin oil —</text>
+      <text x="80" y="230" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">more in scalp,</text>
+      <text x="80" y="246" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">face, chest.</text>
+    </g>
+
+    <!-- Arrow 1 -->
+    <path d="M 235 230 L 300 230" stroke="#5B1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 293 222 L 304 230 L 293 238" stroke="#5B1A1A" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+
+    <!-- Node 2: Malassezia -->
+    <g transform="translate(310, 150)">
+      <circle cx="80" cy="80" r="70" fill="#C54427"/>
+      <!-- Yeast blobs -->
+      <ellipse cx="58" cy="60" rx="15" ry="11" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="1.4"/>
+      <ellipse cx="95" cy="72" rx="17" ry="12" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="1.4"/>
+      <ellipse cx="62" cy="95" rx="13" ry="10" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="1.4"/>
+      <ellipse cx="95" cy="105" rx="14" ry="10" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="1.4"/>
+      <circle cx="58" cy="60" r="2" fill="#5B1A1A"/>
+      <circle cx="95" cy="72" r="2" fill="#5B1A1A"/>
+      <circle cx="62" cy="95" r="2" fill="#5B1A1A"/>
+      <circle cx="95" cy="105" r="2" fill="#5B1A1A"/>
+      <text x="80" y="190" font-size="16" fill="#5B1A1A" text-anchor="middle" font-weight="700">Malassezia feeds</text>
+      <text x="80" y="214" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">A yeast that lives</text>
+      <text x="80" y="230" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">on everyone's skin.</text>
+      <text x="80" y="246" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">It eats the oil.</text>
+    </g>
+
+    <!-- Arrow 2 -->
+    <path d="M 475 230 L 540 230" stroke="#5B1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 533 222 L 544 230 L 533 238" stroke="#5B1A1A" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+
+    <!-- Node 3: Byproducts irritate -->
+    <g transform="translate(550, 150)">
+      <circle cx="80" cy="80" r="70" fill="#D9574B"/>
+      <!-- Starburst irritation marks -->
+      <g stroke="#FFF4CE" stroke-width="3.5" stroke-linecap="round" fill="none">
+        <line x1="80" y1="38" x2="80" y2="55"/>
+        <line x1="80" y1="105" x2="80" y2="122"/>
+        <line x1="38" y1="80" x2="55" y2="80"/>
+        <line x1="105" y1="80" x2="122" y2="80"/>
+        <line x1="50" y1="50" x2="62" y2="62"/>
+        <line x1="98" y1="98" x2="110" y2="110"/>
+        <line x1="110" y1="50" x2="98" y2="62"/>
+        <line x1="50" y1="110" x2="62" y2="98"/>
+      </g>
+      <circle cx="80" cy="80" r="14" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="1.5"/>
+      <circle cx="80" cy="80" r="6" fill="#D9574B"/>
+      <text x="80" y="190" font-size="16" fill="#5B1A1A" text-anchor="middle" font-weight="700">Byproducts irritate</text>
+      <text x="80" y="214" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">Some skin reacts to</text>
+      <text x="80" y="230" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">the fatty acids the</text>
+      <text x="80" y="246" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">yeast leaves behind.</text>
+    </g>
+
+    <!-- Arrow 3 -->
+    <path d="M 715 230 L 780 230" stroke="#5B1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 773 222 L 784 230 L 773 238" stroke="#5B1A1A" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+
+    <!-- Node 4: Symptoms -->
+    <g transform="translate(790, 150)">
+      <circle cx="80" cy="80" r="70" fill="#5B1A1A"/>
+      <!-- Inflamed red patch base -->
+      <path d="M 42 62 Q 52 44 74 46 Q 100 44 118 60 Q 126 82 114 106 Q 94 122 72 118 Q 46 112 40 90 Q 38 74 42 62 Z"
+            fill="#D9574B" stroke="#FFF4CE" stroke-width="1.8"/>
+      <!-- Peeling flakes: crescent-shaped scales lifting at one edge -->
+      <!-- Flake 1 -->
+      <path d="M 55 62 Q 66 56 76 62 Q 74 70 64 70 Q 54 68 55 62 Z" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="0.8"/>
+      <path d="M 55 62 Q 66 58 76 62" fill="none" stroke="#5B1A1A" stroke-width="0.8" opacity="0.6"/>
+      <!-- Flake 2 -->
+      <path d="M 86 60 Q 98 56 108 64 Q 106 72 94 72 Q 85 70 86 60 Z" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="0.8"/>
+      <path d="M 86 60 Q 98 58 108 64" fill="none" stroke="#5B1A1A" stroke-width="0.8" opacity="0.6"/>
+      <!-- Flake 3 -->
+      <path d="M 58 88 Q 70 82 82 88 Q 80 96 70 97 Q 58 94 58 88 Z" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="0.8"/>
+      <path d="M 58 88 Q 70 84 82 88" fill="none" stroke="#5B1A1A" stroke-width="0.8" opacity="0.6"/>
+      <!-- Flake 4 -->
+      <path d="M 90 96 Q 102 92 112 100 Q 108 108 98 108 Q 88 104 90 96 Z" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="0.8"/>
+      <path d="M 90 96 Q 102 94 112 100" fill="none" stroke="#5B1A1A" stroke-width="0.8" opacity="0.6"/>
+      <text x="80" y="190" font-size="16" fill="#5B1A1A" text-anchor="middle" font-weight="700">Symptoms</text>
+      <text x="80" y="214" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">Redness, yellow-ish</text>
+      <text x="80" y="230" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">flakes, itch — in</text>
+      <text x="80" y="246" font-size="12" fill="#5B1A1A" opacity="0.8" text-anchor="middle">oily zones.</text>
+    </g>
+
+    <!-- Bottom callout -->
+    <g transform="translate(70, 460)">
+      <rect width="860" height="76" rx="8" fill="#5B1A1A"/>
+      <text x="28" y="32" font-size="13" fill="#FFF4CE" font-weight="700" letter-spacing="1.5">KEY POINT</text>
+      <text x="28" y="54" font-size="14" fill="#FFF4CE">The yeast is normal. The reaction to its byproducts is what flares — which is why antifungal washes</text>
+      <text x="28" y="72" font-size="14" fill="#FFF4CE">and anti-inflammatories both help. You're calming the reaction, not sterilizing the skin.</text>
+    </g>
+
+  </g>
+
+  <!-- Footer bottom-left -->
+  <text x="40" y="578" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#5B1A1A" opacity="0.55" letter-spacing="2">KYN SKYN · THE FUNGAL SKIN HANDBOOK</text>
+</svg>
