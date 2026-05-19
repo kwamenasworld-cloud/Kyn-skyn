@@ -2,3 +2,34 @@
 Kyn-Skyn-Budget.xlsx
 scripts/build_budget.py
 scripts/check_budget.py
+
+# Telehealth — nested git repository, tracked separately
+telehealth/
+
+# Build outputs and caches
+node_modules/
+.next/
+output/
+.playwright-mcp/
+scripts/__pycache__/
+*.pyc
+
+# Claude Code per-machine state
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+.claude/preview/
+.claude/worktrees/
+
+# MDI API research scratch (regenerate as needed; do not version)
+mdi-collection-fetch-head.json
+mdi-key-endpoint-details.txt
+mdi-postman-*.json
+mdi-postman-*.tsv
+mdi-postman-*.md
+mdi-postman-*.txt
+mdi-relevant-endpoints.json
+
+# Local debug screenshots
+intake-preview-overlap.png
+kyn-condition-thumbnails-local.png
+assets/Screenshot*.png
