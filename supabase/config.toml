@@ -189,7 +189,7 @@ enabled = true
 host = "smtp.resend.com"
 port = 465
 user = "resend"
-pass = "re_Ky3KtkQh_CDt7n5wgpCuEJnQBbV8CrWdw"
+pass = "env(RESEND_API_KEY)"
 admin_email = "care@kynskyn.com"
 sender_name = "Kyn Skyn Care"
 
