@@ -10,16 +10,16 @@
     {%- elsif page.handle == 'fungal-acne' -%}Fungal Acne Treatment Online: Prescription + Routine | {{ shop.name }}
     {%- elsif page.handle == 'seb-derm-dandruff' -%}Seborrheic Dermatitis & Dandruff Treatment Online | {{ shop.name }}
     {%- elsif page.handle == 'tinea-versicolor' -%}Tinea Versicolor Treatment Online: Prescription | {{ shop.name }}
-    {%- elsif page.handle == 'roflumilast' -%}Roflumilast for Seborrheic Dermatitis Online | {{ shop.name }}
-    {%- elsif page.handle == 'ketoconazole' -%}Ketoconazole for Fungal Acne, Seb Derm & Tinea Versicolor | {{ shop.name }}
+    {%- elsif page.handle == 'roflumilast' -%}Roflumilast in Seborrheic Dermatitis Care | {{ shop.name }}
+    {%- elsif page.handle == 'ketoconazole' -%}Ketoconazole in Fungal Acne & Seb Derm Care | {{ shop.name }}
     {%- elsif page_title contains shop.name -%}{{ page_title }}
     {%- else -%}{{ page_title }} | {{ shop.name }}
     {%- endif -%}
   {%- endcapture -%}
   {%- capture seo_description -%}
     {%- if template == 'index' -%}Skincare and telehealth for people with fungus-prone skin. Malassezia-safe formulas, an ingredient checker, and a clinician-backed handbook covering fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor.
-    {%- elsif page.handle == 'roflumilast' -%}Learn how roflumilast and Zoryve foam fit into seborrheic dermatitis care, when an online dermatologist may consider it, and why antifungal control may still matter.
-    {%- elsif page.handle == 'ketoconazole' -%}Learn how ketoconazole cream, shampoo, and foam are used for Malassezia-related skin concerns including fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor.
+    {%- elsif page.handle == 'roflumilast' -%}Educational guide to how roflumilast and Zoryve foam may fit into clinician-led seborrheic dermatitis care. Kyn Skyn does not sell or guarantee specific medications.
+    {%- elsif page.handle == 'ketoconazole' -%}Educational guide to how ketoconazole cream, shampoo, and foam may fit into clinician-led care for Malassezia-related skin concerns.
     {%- elsif page_description != blank -%}{{ page_description | escape }}
     {%- elsif page.content != blank -%}{{ page.content | strip_html | truncate: 160 | escape }}
     {%- else -%}{{ shop.description | default: "Skincare and telehealth for people with fungus-prone skin." | escape }}

@@ -4,9 +4,9 @@
   if page.handle == 'roflumilast'
     assign is_roflumilast = true
     assign treatment_name = 'Roflumilast'
-    assign treatment_label = 'Prescription anti-inflammatory'
-    assign hero_heading = 'Roflumilast for seborrheic dermatitis'
-    assign hero_sub = 'Roflumilast is a prescription topical PDE4 inhibitor used for inflammatory skin conditions. For seborrheic dermatitis, the FDA-approved Zoryve foam 0.3% format is one option a clinician may consider when flakes, redness, and itching are not controlled with routine care alone.'
+    assign treatment_label = 'Medication guide'
+    assign hero_heading = 'Roflumilast in seborrheic dermatitis care'
+    assign hero_sub = 'Roflumilast is a prescription topical PDE4 inhibitor used for inflammatory skin conditions. This guide explains when it may enter a clinician-led seborrheic dermatitis plan. Kyn Skyn does not sell or ship roflumilast, Zoryve, or any specific medication.'
     assign primary_condition_url = '/pages/seb-derm-dandruff'
     assign primary_condition_label = 'Seb derm and dandruff guide'
     assign cta_url = 'https://care.kynskyn.com/book?utm_source=seo&utm_medium=organic&utm_campaign=roflumilast-guide'
@@ -14,9 +14,9 @@
   elsif page.handle == 'ketoconazole'
     assign is_ketoconazole = true
     assign treatment_name = 'Ketoconazole'
-    assign treatment_label = 'Antifungal treatment'
-    assign hero_heading = 'Ketoconazole for fungal acne, seb derm, dandruff, and tinea versicolor'
-    assign hero_sub = 'Ketoconazole is an antifungal medicine used in topical formats such as cream, shampoo, and foam. It is commonly discussed for Malassezia-driven skin problems, including seborrheic dermatitis, dandruff, tinea versicolor, and fungal-acne-like folliculitis.'
+    assign treatment_label = 'Medication guide'
+    assign hero_heading = 'Ketoconazole in fungal acne, seb derm, dandruff, and tinea versicolor care'
+    assign hero_sub = 'Ketoconazole is an antifungal medicine used in topical formats such as cream, shampoo, and foam. This guide explains how it may fit into clinician-led care for Malassezia-driven skin problems. Kyn Skyn does not sell or ship ketoconazole or any specific medication.'
     assign primary_condition_url = '/pages/fungal-acne'
     assign primary_condition_label = 'Fungal acne guide'
     assign cta_url = 'https://care.kynskyn.com/book?utm_source=seo&utm_medium=organic&utm_campaign=ketoconazole-guide'
@@ -74,10 +74,10 @@
     },
     {
       "@type": "Question",
-      "name": "Can Kyn Skyn prescribe roflumilast?",
+      "name": "Does Kyn Skyn sell roflumilast?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A Kyn Skyn clinician reviews your intake and decides what is clinically appropriate. We do not guarantee a specific medication, and not every plan includes a prescription."
+        "text": "No. Kyn Skyn provides clinician-led dermatology care and treatment plans. If a prescription is clinically appropriate, it is sent to your chosen pharmacy. We do not sell, ship, or guarantee roflumilast or any specific medication."
       }
     }
     {%- else -%}
@@ -99,10 +99,10 @@
     },
     {
       "@type": "Question",
-      "name": "Can Kyn Skyn prescribe ketoconazole?",
+      "name": "Does Kyn Skyn sell ketoconazole?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A Kyn Skyn clinician can prescribe if it is appropriate after reviewing your intake. We do not guarantee ketoconazole or any specific medication."
+        "text": "No. Kyn Skyn provides clinician-led dermatology care and treatment plans. If a prescription is clinically appropriate, it is sent to your chosen pharmacy. We do not sell, ship, or guarantee ketoconazole or any specific medication."
       }
     }
     {%- endif -%}
@@ -414,7 +414,7 @@
         <span class="treatment-pill">Prescription decisions require clinician review</span>
       </div>
       <div class="treatment-hero__actions">
-        <a class="treatment-button treatment-button--primary" href="{{ cta_url }}">Start online visit</a>
+        <a class="treatment-button treatment-button--primary" href="{{ cta_url }}">Start dermatology visit</a>
         <a class="treatment-button treatment-button--secondary" href="{{ primary_condition_url }}">{{ primary_condition_label }}</a>
       </div>
     </div>
@@ -429,7 +429,7 @@
           <p>Roflumilast reduces inflammatory signaling by inhibiting PDE4. In seborrheic dermatitis, that matters because redness, itching, and scaling are not just about yeast load. They also involve your skin's inflammatory response.</p>
           <p>Zoryve foam 0.3% is the topical roflumilast format with an FDA indication for seborrheic dermatitis in adults and children 9 years and older. Roflumilast cream exists too, but the labeled uses differ by strength and condition.</p>
         </div>
-        <div class="treatment-disclaimer">Kyn Skyn does not promise roflumilast, Zoryve, or any specific prescription. Your clinician reviews your photos, history, medications, pregnancy or breastfeeding status, and affected areas before deciding what fits.</div>
+        <div class="treatment-disclaimer">Kyn Skyn does not sell or promise roflumilast, Zoryve, or any specific prescription. Your clinician reviews your photos, history, medications, pregnancy or breastfeeding status, and affected areas before deciding what fits.</div>
       </div>
     </section>
 
@@ -489,7 +489,7 @@
           <p>Ketoconazole is an antifungal medicine. In dermatology, topical formats are used for several fungal or yeast-driven skin problems. That is why people search for ketoconazole cream, ketoconazole shampoo, ketoconazole 2%, and ketoconazole for tinea versicolor or seb derm.</p>
           <p>Fungal acne is more complicated. The medical term is often Malassezia folliculitis, and it can look a lot like acne. Ketoconazole may be part of a clinician-directed plan when the pattern fits, but it should not be treated as a self-diagnosis shortcut.</p>
         </div>
-        <div class="treatment-disclaimer">Kyn Skyn clinicians can prescribe when appropriate, but not every plan includes ketoconazole. You pay the pharmacy for medication if a prescription is written.</div>
+        <div class="treatment-disclaimer">Kyn Skyn does not sell or promise ketoconazole. A clinician can include it in a treatment plan only when appropriate, and you pay the pharmacy for medication if a prescription is written.</div>
       </div>
     </section>
 
@@ -543,7 +543,7 @@
   <section class="treatment-section treatment-section--tinted">
     <div class="treatment-section__inner">
       <p class="treatment-section__kicker">Online care</p>
-      <h2 class="treatment-section__title">How Kyn Skyn handles prescription decisions.</h2>
+      <h2 class="treatment-section__title">How Kyn Skyn handles treatment decisions.</h2>
       <div class="treatment-grid">
         <article class="treatment-card">
           <h3 class="treatment-card__title">1. Upload photos</h3>
@@ -554,14 +554,15 @@
           <p class="treatment-card__body">Your plan explains the likely diagnosis, what to use, what to avoid, and when to follow up.</p>
         </article>
         <article class="treatment-card">
-          <h3 class="treatment-card__title">3. Pick up locally</h3>
-          <p class="treatment-card__body">If a prescription is appropriate, it is sent to your chosen pharmacy. Kyn Skyn does not ship prescription drugs.</p>
+          <h3 class="treatment-card__title">3. Fill locally if prescribed</h3>
+          <p class="treatment-card__body">If a prescription is appropriate, it is sent to your chosen pharmacy. Kyn Skyn does not sell or ship prescription drugs.</p>
         </article>
       </div>
       <div class="treatment-hero__actions">
-        <a class="treatment-button treatment-button--primary" href="{{ cta_url }}">Start online visit</a>
+        <a class="treatment-button treatment-button--primary" href="{{ cta_url }}">Start dermatology visit</a>
         <a class="treatment-button treatment-button--secondary" href="/pages/consultation">See care pricing</a>
       </div>
+      <div class="treatment-disclaimer">Your Kyn Skyn payment covers the dermatology visit and care plan. Medication is separate and filled by your pharmacy only if your clinician writes a prescription.</div>
     </div>
   </section>
 
@@ -580,8 +581,8 @@
             <div class="treatment-faq__answer">No. Roflumilast is anti-inflammatory. Seborrheic dermatitis can need both inflammation control and yeast control, so your clinician may consider a different or combined approach.</div>
           </details>
           <details>
-            <summary>Can I get roflumilast online?</summary>
-            <div class="treatment-faq__answer">You can complete an online dermatology visit, but a prescription is never automatic. A licensed clinician decides whether roflumilast is appropriate after reviewing your case.</div>
+            <summary>Can roflumilast be part of my treatment plan?</summary>
+            <div class="treatment-faq__answer">Possibly, but it is never automatic. Kyn Skyn does not sell roflumilast. A licensed clinician decides whether it is appropriate after reviewing your case, then sends any prescription to your chosen pharmacy.</div>
           </details>
         {%- else -%}
           <details>
@@ -595,6 +596,10 @@
           <details>
             <summary>Can I use ketoconazole forever?</summary>
             <div class="treatment-faq__answer">Do not set your own long-term schedule. Malassezia-related conditions often need maintenance, but the frequency and format should come from your clinician.</div>
+          </details>
+          <details>
+            <summary>Does Kyn Skyn sell ketoconazole?</summary>
+            <div class="treatment-faq__answer">No. Ketoconazole may be included in a treatment plan when your clinician decides it is clinically appropriate. Any prescription is sent to your chosen pharmacy and filled there.</div>
           </details>
         {%- endif -%}
       </div>
