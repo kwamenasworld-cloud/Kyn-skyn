@@ -633,6 +633,12 @@
     line-height: 1.55;
   }
 
+  .cc-treatments__note a {
+    color: var(--maroon);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
   /* ========== TRUST BAR ========== */
   .cc-trust {
     background: var(--dark);
@@ -1054,10 +1060,13 @@
     </div>
     {%- if page.handle == 'fungal-acne' -%}
       <p class="cc-treatments__note">A full plan may pair antifungal clearance with a Malassezia-safe routine, then add tone or texture support after bumps settle. Your clinician decides what's right for your skin. Not every plan includes a prescription.</p>
+      <p class="cc-treatments__note"><a href="/pages/ketoconazole">Learn more about ketoconazole</a> and how clinicians think about antifungal treatment.</p>
     {%- elsif page.handle == 'tinea-versicolor' -%}
       <p class="cc-treatments__note">A full plan may start with antifungal clearance and add maintenance for heat and sweat seasons. Pigment changes can lag for weeks or months after the yeast is controlled, so even tone usually comes from staying clear, time, and sun protection. Your clinician decides what's right for your skin. Not every plan includes a prescription.</p>
+      <p class="cc-treatments__note"><a href="/pages/ketoconazole">Learn more about ketoconazole</a> for Malassezia-related skin conditions.</p>
     {%- elsif page.handle == 'seb-derm-dandruff' -%}
       <p class="cc-treatments__note">A full plan may combine antifungal control, inflammation support, scalp or face-specific formats, and routine guidance. Your clinician decides what's right for your skin. Not every plan includes a prescription.</p>
+      <p class="cc-treatments__note"><a href="/pages/ketoconazole">Learn about ketoconazole</a> or <a href="/pages/roflumilast">read the roflumilast guide</a>.</p>
     {%- endif -%}
   </div>
 </section>

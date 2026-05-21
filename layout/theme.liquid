@@ -10,12 +10,16 @@
     {%- elsif page.handle == 'fungal-acne' -%}Fungal Acne Treatment Online: Prescription + Routine | {{ shop.name }}
     {%- elsif page.handle == 'seb-derm-dandruff' -%}Seborrheic Dermatitis & Dandruff Treatment Online | {{ shop.name }}
     {%- elsif page.handle == 'tinea-versicolor' -%}Tinea Versicolor Treatment Online: Prescription | {{ shop.name }}
+    {%- elsif page.handle == 'roflumilast' -%}Roflumilast for Seborrheic Dermatitis Online | {{ shop.name }}
+    {%- elsif page.handle == 'ketoconazole' -%}Ketoconazole for Fungal Acne, Seb Derm & Tinea Versicolor | {{ shop.name }}
     {%- elsif page_title contains shop.name -%}{{ page_title }}
     {%- else -%}{{ page_title }} | {{ shop.name }}
     {%- endif -%}
   {%- endcapture -%}
   {%- capture seo_description -%}
     {%- if template == 'index' -%}Skincare and telehealth for people with fungus-prone skin. Malassezia-safe formulas, an ingredient checker, and a clinician-backed handbook covering fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor.
+    {%- elsif page.handle == 'roflumilast' -%}Learn how roflumilast and Zoryve foam fit into seborrheic dermatitis care, when an online dermatologist may consider it, and why antifungal control may still matter.
+    {%- elsif page.handle == 'ketoconazole' -%}Learn how ketoconazole cream, shampoo, and foam are used for Malassezia-related skin concerns including fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor.
     {%- elsif page_description != blank -%}{{ page_description | escape }}
     {%- elsif page.content != blank -%}{{ page.content | strip_html | truncate: 160 | escape }}
     {%- else -%}{{ shop.description | default: "Skincare and telehealth for people with fungus-prone skin." | escape }}
@@ -27,7 +31,7 @@
   <meta property="og:site_name" content="{{ shop.name }}">
   <meta property="og:title" content="{{ seo_title }}">
   <meta property="og:description" content="{{ seo_description }}">
-  {%- assign article_handles = 'handbook,fungal-acne' | split: ',' -%}
+  {%- assign article_handles = 'handbook,fungal-acne,roflumilast,ketoconazole' | split: ',' -%}
   <meta property="og:type" content="{% if article_handles contains page.handle %}article{% else %}website{% endif %}">
   <meta property="og:url" content="{{ canonical_url }}">
   <meta property="og:image" content="{{ 'chandani-closeup.jpg' | asset_url | prepend: 'https:' }}">
@@ -63,6 +67,8 @@
       "Seborrheic dermatitis",
       "Tinea versicolor",
       "Dandruff",
+      "Ketoconazole",
+      "Roflumilast",
       "Pityrosporum folliculitis",
       "Sensitive skin care",
       "Teledermatology"
@@ -1177,7 +1183,7 @@
         </a>
       </li>
       <li>
-        <a href="/pages/resources" class="mobile-tab-bar__link{% if request.path contains 'resources' or request.path contains 'handbook' or request.path contains 'ingredient-checker' %} active{% endif %}">
+        <a href="/pages/resources" class="mobile-tab-bar__link{% if request.path contains 'resources' or request.path contains 'handbook' or request.path contains 'ingredient-checker' or request.path contains 'ketoconazole' or request.path contains 'roflumilast' %} active{% endif %}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
           <span class="mobile-tab-bar__label">Learn</span>
         </a>

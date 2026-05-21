@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "treatment": {
+      "type": "treatment-guide"
+    }
+  },
+  "order": ["treatment"]
+}

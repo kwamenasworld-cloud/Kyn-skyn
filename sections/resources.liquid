@@ -44,7 +44,7 @@
     color: var(--maroon);
     opacity: 0.75;
     line-height: 1.55;
-    max-width: 36rem;
+    max-width: 42rem;
     margin: 0 auto;
   }
 
@@ -210,6 +210,55 @@
 
   .resource-card--checker .resource-card__mark { opacity: 0.06; }
 
+  .resource-card--treatments {
+    grid-column: 1 / -1;
+    min-height: 0;
+    background: linear-gradient(135deg, rgba(100, 18, 32, 0.08) 0%, rgba(212, 149, 42, 0.14) 100%);
+    color: var(--maroon);
+    border: 1px solid rgba(100, 18, 32, 0.12);
+  }
+
+  .treatment-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin-top: 1.35rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .treatment-links__item {
+    display: block;
+    border: 1px solid rgba(100, 18, 32, 0.14);
+    border-radius: 0.7rem;
+    padding: 1rem;
+    background: rgba(255, 244, 206, 0.58);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .treatment-links__item:hover {
+    border-color: rgba(100, 18, 32, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .treatment-links__title {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+
+  .treatment-links__desc {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    opacity: 0.68;
+  }
+
   .checker-mock {
     margin-top: 1.5rem;
     padding: 1.25rem 1.5rem;
@@ -293,6 +342,7 @@
       padding: 2.25rem 1.75rem;
     }
     .resource-card__mark { width: 10rem; height: 10rem; bottom: -2rem; right: -2rem; }
+    .treatment-links { grid-template-columns: 1fr; }
   }
 </style>
 
@@ -301,7 +351,7 @@
     <div class="resources-hub__head fade-in">
       <p class="resources-hub__eyebrow">Resources</p>
       <h1 class="resources-hub__heading">Figure out what's on your skin.</h1>
-      <p class="resources-hub__sub">Two free tools to read your skin and your skincare.</p>
+      <p class="resources-hub__sub">Free tools and treatment guides for Malassezia-prone skin, seb derm, dandruff, and tinea versicolor.</p>
     </div>
 
     <div class="resources-hub__grid">
@@ -368,6 +418,30 @@
 
         <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="resource-card__mark" width="667" height="667">
       </a>
+
+      <div class="resource-card resource-card--treatments fade-in">
+        <p class="resource-card__eyebrow">Treatment Guides</p>
+        <h2 class="resource-card__title">Prescription treatment basics</h2>
+        <p class="resource-card__desc">Learn where ketoconazole and roflumilast fit, what they do differently, and why a clinician still needs to diagnose the condition first.</p>
+
+        <div class="treatment-links">
+          <a href="/pages/ketoconazole" class="treatment-links__item">
+            <span class="treatment-links__title">Ketoconazole</span>
+            <span class="treatment-links__desc">Antifungal formats for yeast-driven flares.</span>
+          </a>
+          <a href="/pages/roflumilast" class="treatment-links__item">
+            <span class="treatment-links__title">Roflumilast</span>
+            <span class="treatment-links__desc">Anti-inflammatory care for seb derm conversations.</span>
+          </a>
+        </div>
+
+        <span class="resource-card__cta">
+          Choose a treatment guide
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+
+        <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="resource-card__mark" width="667" height="667">
+      </div>
     </div>
   </div>
 </section>
