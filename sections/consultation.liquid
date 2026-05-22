@@ -1103,6 +1103,10 @@
       var ctx = window.KynAttribution ? window.KynAttribution.read() : {};
       if (ctx.affiliate_code) target.searchParams.set('ref', ctx.affiliate_code);
       target.searchParams.set('embed', 'shopify');
+      // Pass our origin so the iframe can target it on postMessage. Without
+      // this the child has to guess between apex and www, and a guess wrong
+      // means the browser silently drops the message.
+      target.searchParams.set('parent_origin', window.location.origin);
       note.textContent = 'Loading intake on kynskyn.com...';
       intakeFrame.setAttribute('src', target.toString());
       intakeEmbed.hidden = false;
