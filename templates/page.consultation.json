@@ -1,8 +1,24 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "consultation": {
-      "type": "consultation"
+      "type": "consultation",
+      "settings": {
+        "monthly_plan_product": "kyn-skyn-monthly-care-plan",
+        "quarterly_plan_product": "kyn-skyn-3-month-care-plan",
+        "onetime_consult_product": "kyn-skyn-one-time-consult"
+      }
     }
   },
-  "order": ["consultation"]
+  "order": [
+    "consultation"
+  ]
 }
