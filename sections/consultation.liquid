@@ -580,7 +580,7 @@
         </div>
       </button>
     </div>
-    <p class="th-cta__desc" style="font-size: 0.85rem;">Every plan includes a consultation with a board-certified dermatologist and a prescription you pick up at the pharmacy you choose during booking. You pay the pharmacy for the medication itself. Care runs through a HIPAA-compliant platform.</p>
+    <p class="th-cta__desc" style="font-size: 0.85rem;">Every plan includes a consultation with a board-certified dermatologist and a prescription you pick up at the pharmacy you choose during intake. You pay the pharmacy for the medication itself. Checkout happens on KynSkyn.com; clinical care runs through the secure care portal.</p>
     <a href="#th-waitlist" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Join the waitlist for $20 off the 3-month plan</a>
   </div>
 </section>
@@ -771,10 +771,109 @@
     color: var(--dark);
   }
   .th-waitlist__note:empty { display: none; }
+  .th-care-test {
+    display: none;
+    background: var(--cream);
+    color: var(--maroon);
+    padding: clamp(4rem, 7vw, 6rem) 1.5rem;
+  }
+  .th-care-test.is-visible { display: block; }
+  .th-care-test__container {
+    max-width: 760px;
+    margin: 0 auto;
+    border: 1px solid rgba(100, 18, 32, 0.18);
+    border-radius: 18px;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    background: rgba(255, 255, 255, 0.42);
+  }
+  .th-care-test__eyebrow {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .th-care-test__title {
+    margin: 0 0 0.85rem;
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    font-weight: 300;
+    line-height: 1.05;
+  }
+  .th-care-test__copy {
+    margin: 0 0 1.5rem;
+    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: rgba(100, 18, 32, 0.74);
+  }
+  .th-care-test__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+    margin: 1.5rem 0;
+  }
+  .th-care-test__field {
+    display: grid;
+    gap: 0.45rem;
+    margin: 1rem 0;
+    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
+    font-size: 0.82rem;
+    color: rgba(100, 18, 32, 0.72);
+  }
+  .th-care-test__field input {
+    width: 100%;
+    border: 1px solid rgba(100, 18, 32, 0.22);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    font: inherit;
+    color: var(--maroon);
+    background: #fff;
+  }
+  .th-care-test__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.35rem;
+  }
+  .th-care-test__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    border: 1px solid var(--maroon);
+    border-radius: 999px;
+    padding: 0.8rem 1.25rem;
+    background: var(--maroon);
+    color: var(--cream);
+    font-family: var(--font-accent, 'STK Bureau Sans', sans-serif);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .th-care-test__button--secondary {
+    background: transparent;
+    color: var(--maroon);
+  }
+  .th-care-test__button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  .th-care-test__note {
+    min-height: 1.2rem;
+    margin: 1rem 0 0;
+    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
+    font-size: 0.82rem;
+    color: rgba(100, 18, 32, 0.64);
+  }
   @media (max-width: 540px) {
     .th-waitlist__form { flex-direction: column; }
     .th-waitlist__input { width: 100%; }
     .th-waitlist__button { width: 100%; }
+    .th-care-test__grid { grid-template-columns: 1fr; }
   }
 </style>
 
@@ -845,6 +944,178 @@
   })();
 </script>
 
+
+<!-- ====== INTERNAL SHOPIFY FUNNEL TEST ====== -->
+{%- liquid
+  assign monthly_product = section.settings.monthly_plan_product
+  assign quarterly_product = section.settings.quarterly_plan_product
+  assign onetime_product = section.settings.onetime_consult_product
+  assign monthly_variant = monthly_product.selected_or_first_available_variant
+  assign quarterly_variant = quarterly_product.selected_or_first_available_variant
+  assign onetime_variant = onetime_product.selected_or_first_available_variant
+-%}
+<section
+  class="th-care-test"
+  id="thShopifyCareTest"
+  data-monthly-variant="{{ monthly_variant.id }}"
+  data-quarterly-variant="{{ quarterly_variant.id }}"
+  data-onetime-variant="{{ onetime_variant.id }}"
+  aria-live="polite"
+>
+  <div class="th-care-test__container">
+    <p class="th-care-test__eyebrow">Internal pre-launch test</p>
+    <h2 class="th-care-test__title">Shopify intake and checkout shell</h2>
+    <p class="th-care-test__copy">
+      This is the moved funnel surface for kynskyn.com. Public visitors cannot complete intake yet. Use a preview token to open the care-backed intake test and, once Shopify plan products are configured in this section, test Shopify checkout attribution.
+    </p>
+
+    <div class="th-care-test__grid" aria-label="Current selected plan">
+      <div>
+        <p class="th-care-test__eyebrow">Selected plan</p>
+        <p class="th-care-test__copy" id="thCareTestPlan">Monthly</p>
+      </div>
+      <div>
+        <p class="th-care-test__eyebrow">Attribution</p>
+        <p class="th-care-test__copy" id="thCareTestAttribution">No referral captured yet.</p>
+      </div>
+    </div>
+
+    <label class="th-care-test__field" for="thCarePreviewToken">
+      Preview token
+      <input id="thCarePreviewToken" type="password" autocomplete="off" placeholder="Enter BOOKING_TEST_TOKEN">
+    </label>
+
+    <div class="th-care-test__actions">
+      <button type="button" class="th-care-test__button" id="thOpenCareIntakeTest">
+        Open intake test
+      </button>
+      <button type="button" class="th-care-test__button th-care-test__button--secondary" id="thOpenShopifyCheckoutTest">
+        Test Shopify checkout
+      </button>
+    </div>
+
+    <p class="th-care-test__note" id="thCareTestNote"></p>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    var enabled = params.get('intake_test') === '1' || params.get('care_test') === '1';
+    var panel = document.getElementById('thShopifyCareTest');
+    if (!enabled || !panel) return;
+
+    panel.classList.add('is-visible');
+
+    var pricingCta = document.getElementById('thPricingCta');
+    var tokenInput = document.getElementById('thCarePreviewToken');
+    var note = document.getElementById('thCareTestNote');
+    var planLabel = document.getElementById('thCareTestPlan');
+    var attributionLabel = document.getElementById('thCareTestAttribution');
+    var openIntake = document.getElementById('thOpenCareIntakeTest');
+    var openCheckout = document.getElementById('thOpenShopifyCheckoutTest');
+
+    function currentPlan() {
+      var selected = document.querySelector('.th-plan.th-plan--selected');
+      var plan = selected ? selected.getAttribute('data-plan') : 'monthly';
+      var augment = document.querySelector('.th-plan__augment-input[data-augment="quarterly"]');
+      if (plan === 'monthly' && augment && augment.checked) return 'quarterly';
+      return plan;
+    }
+
+    function planName(plan) {
+      if (plan === 'quarterly') return 'Quarterly';
+      if (plan === 'one-time') return 'One-time consult';
+      return 'Monthly';
+    }
+
+    function selectedVariant(plan) {
+      if (plan === 'quarterly') return panel.getAttribute('data-quarterly-variant');
+      if (plan === 'one-time') return panel.getAttribute('data-onetime-variant');
+      return panel.getAttribute('data-monthly-variant');
+    }
+
+    function updateLabels() {
+      var ctx = window.KynAttribution ? window.KynAttribution.capture() : {};
+      var plan = currentPlan();
+      planLabel.textContent = planName(plan);
+      attributionLabel.textContent = ctx.affiliate_code
+        ? 'Affiliate code ' + ctx.affiliate_code
+        : 'No referral captured yet.';
+      if (pricingCta) {
+        pricingCta.setAttribute('href', '#thShopifyCareTest');
+        pricingCta.textContent = 'Open internal test funnel';
+      }
+    }
+
+    async function sync(plan, token) {
+      if (!window.KynAttribution) return;
+      await window.KynAttribution.syncCartAttributes({
+        kyn_care_plan: plan,
+        kyn_care_handoff_token: token
+      });
+    }
+
+    openIntake.addEventListener('click', async function() {
+      var token = tokenInput.value.trim();
+      if (!token) {
+        note.textContent = 'Enter the preview token first.';
+        return;
+      }
+
+      var plan = currentPlan();
+      await sync(plan, token);
+      var target = new URL('https://care.kynskyn.com/book');
+      target.searchParams.set('booking_preview', token);
+      target.searchParams.set('source', 'shopify');
+      target.searchParams.set('plan', plan);
+      var ctx = window.KynAttribution ? window.KynAttribution.read() : {};
+      if (ctx.affiliate_code) target.searchParams.set('ref', ctx.affiliate_code);
+      window.open(target.toString(), '_blank', 'noopener');
+    });
+
+    openCheckout.addEventListener('click', async function() {
+      var token = tokenInput.value.trim();
+      var plan = currentPlan();
+      var variant = selectedVariant(plan);
+      if (!token) {
+        note.textContent = 'Enter the preview token first.';
+        return;
+      }
+      if (!variant) {
+        note.textContent = 'Set the Monthly, Quarterly, and One-time Shopify products in this section before testing checkout.';
+        return;
+      }
+
+      note.textContent = 'Preparing Shopify checkout...';
+      await sync(plan, token);
+      await fetch('/cart/clear.js', { method: 'POST', headers: { 'Accept': 'application/json' } });
+      await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          items: [{
+            id: Number(variant),
+            quantity: 1,
+            properties: {
+              _kyn_care_plan: plan,
+              _kyn_care_handoff_token: token
+            }
+          }]
+        })
+      });
+      window.location.href = '/checkout';
+    });
+
+    document.querySelectorAll('.th-plan, .th-plan__augment-input').forEach(function(el) {
+      el.addEventListener('click', function() { setTimeout(updateLabels, 0); });
+      el.addEventListener('change', updateLabels);
+    });
+
+    updateLabels();
+    setTimeout(function() { panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 250);
+  })();
+</script>
 
 <!-- ====== WAITLIST ====== -->
 <section class="th-cta" id="th-waitlist">
@@ -935,7 +1206,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How is my health information protected?</button>
-      <div class="th-faq__a"><p>All consultations run on a HIPAA-compliant platform. Your medical records are encrypted at rest and in transit, and we don't share them with third parties. We also keep the care platform entirely separate from the shop, so your clinical data never sits next to your order history.</p></div>
+      <div class="th-faq__a"><p>Checkout and attribution run through KynSkyn.com, but your medical intake, photos, messages, and provider records are handled by the secure care backend. We do not store clinical answers or skin photos in Shopify order data.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -945,7 +1216,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a"><p>Treatment Plans are $29.99 a month, or $74.99 every 3 months (about $25 a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during booking. A one-time consult is $34.99. Payment runs securely through Stripe.</p></div>
+      <div class="th-faq__a"><p>Treatment Plans are $29.99 a month, or $74.99 every 3 months (about $25 a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during intake. A one-time consult is $34.99. Checkout runs through KynSkyn.com.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -955,12 +1226,12 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How do I select a pharmacy?</button>
-      <div class="th-faq__a"><p>During booking, you search for pharmacies by name and ZIP code. If your provider prescribes anything, the e-prescription is sent to whichever pharmacy you picked.</p></div>
+      <div class="th-faq__a"><p>During intake, you search for pharmacies by name and ZIP code. If your provider prescribes anything, the e-prescription is sent to whichever pharmacy you picked.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">What payment methods do you accept?</button>
-      <div class="th-faq__a"><p>All payments run through Stripe. We take major credit and debit cards (Visa, Mastercard, Amex, Discover), plus Apple Pay and Google Pay.</p></div>
+      <div class="th-faq__a"><p>Checkout runs through KynSkyn.com, so available payment methods are whatever Shopify checkout supports for your order.</p></div>
     </div>
     <!-- FAQ:END -->
   </div>
@@ -989,6 +1260,23 @@
 {% schema %}
 {
   "name": "Consultation",
-  "class": "consultation-section"
+  "class": "consultation-section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "monthly_plan_product",
+      "label": "Monthly care plan product"
+    },
+    {
+      "type": "product",
+      "id": "quarterly_plan_product",
+      "label": "Quarterly care plan product"
+    },
+    {
+      "type": "product",
+      "id": "onetime_consult_product",
+      "label": "One-time consult product"
+    }
+  ]
 }
 {% endschema %}

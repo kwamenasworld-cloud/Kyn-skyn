@@ -5,6 +5,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#641220">
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <script async src="https://assets.endorsely.com/endorsely.js" data-endorsely="6b182976-e104-4238-9dbb-e2de10b7a7fd"></script>
+  <script>
+    window.KynAttribution = (function() {
+      var ATTR_KEY = 'kyn_attribution_context';
+      var CODE_KEY = 'kyn_affiliate_referral_code';
+      var CART_SYNC_KEY = 'kyn_cart_attribution_synced_at';
+
+      function safeCode(value) {
+        value = (value || '').trim();
+        return /^[A-Za-z0-9_-]{2,20}$/.test(value) ? value.toUpperCase() : '';
+      }
+
+      function readJson(key) {
+        try { return JSON.parse(window.localStorage.getItem(key) || '{}'); }
+        catch (err) { return {}; }
+      }
+
+      function writeJson(key, value) {
+        try { window.localStorage.setItem(key, JSON.stringify(value)); }
+        catch (err) {}
+      }
+
+      function read() {
+        return readJson(ATTR_KEY);
+      }
+
+      function capture() {
+        var params = new URLSearchParams(window.location.search);
+        var existing = read();
+        var code = safeCode(params.get('ref') || params.get('affiliate') || params.get('code') || existing.affiliate_code || '');
+        if (code) {
+          try { window.localStorage.setItem(CODE_KEY, code); } catch (err) {}
+        }
+
+        var next = Object.assign({}, existing, {
+          affiliate_code: code || existing.affiliate_code || '',
+          landing_url: existing.landing_url || window.location.href,
+          last_url: window.location.href,
+          referrer: existing.referrer || document.referrer || '',
+          captured_at: existing.captured_at || new Date().toISOString()
+        });
+
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(key) {
+          var value = params.get(key);
+          if (value) next[key] = value.slice(0, 160);
+        });
+
+        if (window.endorsely_referral) {
+          next.endorsely_referral = String(window.endorsely_referral).slice(0, 160);
+        }
+
+        writeJson(ATTR_KEY, next);
+        return next;
+      }
+
+      function compactContext(extra) {
+        var ctx = Object.assign({}, read(), extra || {});
+        var out = {};
+        [
+          'affiliate_code',
+          'endorsely_referral',
+          'utm_source',
+          'utm_medium',
+          'utm_campaign',
+          'utm_term',
+          'utm_content',
+          'landing_url',
+          'referrer',
+          'kyn_care_plan',
+          'kyn_care_handoff_token'
+        ].forEach(function(key) {
+          if (ctx[key]) out[key] = String(ctx[key]).slice(0, 500);
+        });
+        return out;
+      }
+
+      async function syncCartAttributes(extra) {
+        var ctx = compactContext(extra);
+        var attrs = {
+          kyn_checkout_source: 'shopify_care_funnel',
+          kyn_affiliate_code: ctx.affiliate_code || '',
+          kyn_endorsely_referral: ctx.endorsely_referral || '',
+          kyn_care_plan: ctx.kyn_care_plan || '',
+          kyn_care_handoff_token: ctx.kyn_care_handoff_token || '',
+          kyn_attribution: JSON.stringify(ctx)
+        };
+
+        try {
+          await fetch('/cart/update.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ attributes: attrs })
+          });
+          window.localStorage.setItem(CART_SYNC_KEY, String(Date.now()));
+        } catch (err) {}
+
+        return attrs;
+      }
+
+      function appendToUrl(url, extra) {
+        var target = new URL(url, window.location.origin);
+        var ctx = compactContext(extra);
+        if (ctx.affiliate_code) target.searchParams.set('ref', ctx.affiliate_code);
+        if (ctx.endorsely_referral) target.searchParams.set('endorsely_referral', ctx.endorsely_referral);
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(key) {
+          if (ctx[key]) target.searchParams.set(key, ctx[key]);
+        });
+        return target.toString();
+      }
+
+      document.addEventListener('DOMContentLoaded', capture);
+      window.addEventListener('load', function() {
+        setTimeout(capture, 500);
+      });
+
+      return {
+        capture: capture,
+        read: read,
+        syncCartAttributes: syncCartAttributes,
+        appendToUrl: appendToUrl
+      };
+    })();
+  </script>
   {%- capture seo_title -%}
     {%- if template == 'index' -%}{{ shop.name }} | Skincare for Fungal Acne, Seb Derm & Malassezia-Prone Skin
     {%- elsif page.handle == 'fungal-acne' -%}Fungal Acne Treatment Online: Prescription + Routine | {{ shop.name }}
