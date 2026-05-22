@@ -880,37 +880,10 @@
   .th-care-test__embed.is-visible {
     display: block;
   }
-  .th-care-test__embed-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.85rem 1rem;
-    border-bottom: 1px solid rgba(255, 244, 229, 0.12);
-    background: #641220;
-  }
-  .th-care-test__embed-title {
-    margin: 0;
-    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--cream);
-  }
-  .th-care-test__embed-close {
-    border: 1px solid rgba(255, 244, 229, 0.35);
-    border-radius: 999px;
-    padding: 0.45rem 0.8rem;
-    background: transparent;
-    color: var(--cream);
-    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
-    font-size: 0.75rem;
-    cursor: pointer;
-  }
   .th-care-test__frame {
     display: block;
     width: 100%;
-    min-height: min(86vh, 980px);
+    height: 640px; /* fallback until the iframe reports its real content height */
     border: 0;
     background: #2f0711;
   }
@@ -919,8 +892,6 @@
     .th-waitlist__input { width: 100%; }
     .th-waitlist__button { width: 100%; }
     .th-care-test__grid { grid-template-columns: 1fr; }
-    .th-care-test__embed-header { align-items: flex-start; flex-direction: column; }
-    .th-care-test__frame { min-height: 88vh; }
   }
 </style>
 
@@ -1044,12 +1015,6 @@
     <p class="th-care-test__note" id="thCareTestNote"></p>
 
     <div class="th-care-test__embed" id="thCareIntakeEmbed" hidden>
-      <div class="th-care-test__embed-header">
-        <p class="th-care-test__embed-title">KynSkyn.com embedded intake</p>
-        <button type="button" class="th-care-test__embed-close" id="thCloseCareIntakeEmbed">
-          Close intake
-        </button>
-      </div>
       <iframe
         class="th-care-test__frame"
         id="thCareIntakeFrame"
@@ -1080,7 +1045,6 @@
     var openCheckout = document.getElementById('thOpenShopifyCheckoutTest');
     var intakeEmbed = document.getElementById('thCareIntakeEmbed');
     var intakeFrame = document.getElementById('thCareIntakeFrame');
-    var closeIntake = document.getElementById('thCloseCareIntakeEmbed');
 
     function currentPlan() {
       var selected = document.querySelector('.th-plan.th-plan--selected');
@@ -1146,21 +1110,8 @@
       intakeEmbed.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    closeIntake.addEventListener('click', function() {
-      intakeFrame.removeAttribute('src');
-      intakeEmbed.classList.remove('is-visible');
-      intakeEmbed.hidden = true;
-      note.textContent = 'Intake closed. Enter the preview token to reopen it on this page.';
-    });
-
-    openCheckout.addEventListener('click', async function() {
-      var token = tokenInput.value.trim();
-      var plan = currentPlan();
+    async function runShopifyCheckout(plan, token) {
       var variant = selectedVariant(plan);
-      if (!token) {
-        note.textContent = 'Enter the preview token first.';
-        return;
-      }
       if (!variant) {
         note.textContent = 'Set the Monthly, Quarterly, and One-time Shopify products in this section before testing checkout.';
         return;
@@ -1184,6 +1135,42 @@
         })
       });
       window.location.href = '/checkout';
+    }
+
+    openCheckout.addEventListener('click', async function() {
+      var token = tokenInput.value.trim();
+      if (!token) {
+        note.textContent = 'Enter the preview token first.';
+        return;
+      }
+      await runShopifyCheckout(currentPlan(), token);
+    });
+
+    // Listen for messages from the care.kynskyn.com iframe.
+    //  - kyn_intake_resize: child reports its content height; we resize the
+    //    iframe so the page scrolls as one (no inner scrollbar).
+    //  - kyn_intake_complete: patient finished step 6 in embed mode; add the
+    //    matching variant to cart (with the handoff token in line-item
+    //    properties) and bounce to /checkout.
+    window.addEventListener('message', function(event) {
+      if (event.origin !== 'https://care.kynskyn.com') return;
+      if (!event.data || typeof event.data !== 'object') return;
+      if (event.data.type === 'kyn_intake_resize') {
+        var h = Number(event.data.height);
+        if (h > 0 && h < 20000) {
+          intakeFrame.style.height = h + 'px';
+        }
+        return;
+      }
+      if (event.data.type !== 'kyn_intake_complete') return;
+      var plan = event.data.plan || currentPlan();
+      var token = event.data.handoff_token;
+      if (!token) {
+        note.textContent = 'Intake completed but no handoff token was provided.';
+        return;
+      }
+      note.textContent = 'Intake complete. Sending you to checkout...';
+      runShopifyCheckout(plan, token);
     });
 
     document.querySelectorAll('.th-plan, .th-plan__augment-input').forEach(function(el) {
