@@ -109,6 +109,23 @@ Read `telehealth/MDI_INTEGRATION.md` for the full integration brief (endpoints h
 - **`Brand-guidelines/Kyn Skyn Colours-{1..7}.pdf`** (7 different sizes). Not straight dupes — appear to be different pages/spreads. It's the brand archive folder; safe to leave.
 - **`.claude/worktrees/distracted-lovelace/`** — worktree has uncommitted work (101 lines in `layout/theme.liquid`, 16 lines in `sections/header.liquid`). Don't touch.
 
+## Free-consultation security (2026-05-23 audit)
+
+Hardened paths so a logged-in patient can't get a case created without a real, server-validated payment. Anything that touches consultation pricing/discounts must keep these invariants:
+
+- **`/api/payment`** never trusts client `amount` for `type: "consultation"`. Server resolves the affiliate code, computes `expected = canonicalOnetimePrice - referral.customerDiscountCents`, rejects if client disagrees by more than 1 cent. `metadata.type = "consultation"` is set on every PaymentIntent it creates.
+- **`verifyConsultationPaymentReference`** (in `lib/stripe-rollback.ts`) rejects if `metadata.type` is set to anything other than `"consultation"`, and rejects if `paymentIntent.amount < canonicalPrice - $9` (margin cap). Caches the canonical price in module memory; refreshes when server restarts.
+- **`MARGIN_CAP_CENTS = 900`** is the single source of truth across `/api/admin/referrals/create`, `/api/payment`, and `stripe-rollback.ts`. If you change unit economics, change all three.
+- **Affiliate codes mint per-code Stripe Coupons** at admin-create-time. Subscription/payment paths prefer the per-code coupon over the env-var fallback. Revoke deletes the per-code coupon. Discount math is in Stripe, not in our app.
+- **`BOOKING_TEST_TOKEN`** comparison uses `crypto.timingSafeEqual` — never reintroduce `===`.
+- **Stripe webhook trusts metadata only because it's set server-side.** If you ever let a client write to PaymentIntent metadata, the influencer-payout attribution becomes spoofable.
+- **Shopify payment-reference path is gone** from `/api/book` (post-embed-Stripe pivot, nothing produces `shopify:*` transaction_ids). `lib/shopify-care.ts` exists but isn't called; treat as deprecated.
+
+Known limitations (acceptable for pre-launch, worth fixing eventually):
+1. Max-uses on a referral code isn't enforced atomically — two simultaneous redemptions of the last available use can both succeed. Only matters when admin sets `max_uses != null`.
+2. Admin gate is `ADMIN_EMAILS` env-list-only (no TOTP/hardware key).
+3. `BOOKING_TEST_TOKEN` is a single static secret. Rotate via the env var if it leaks; whole check goes away post-launch.
+
 ## Conventions
 
 - Don't commit without explicit request.
