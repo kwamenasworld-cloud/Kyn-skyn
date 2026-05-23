@@ -963,28 +963,17 @@
 </script>
 
 
-<!-- ====== INTERNAL SHOPIFY FUNNEL TEST ====== -->
-{%- liquid
-  assign monthly_product = section.settings.monthly_plan_product
-  assign quarterly_product = section.settings.quarterly_plan_product
-  assign onetime_product = section.settings.onetime_consult_product
-  assign monthly_variant = monthly_product.selected_or_first_available_variant
-  assign quarterly_variant = quarterly_product.selected_or_first_available_variant
-  assign onetime_variant = onetime_product.selected_or_first_available_variant
--%}
+<!-- ====== INTERNAL CARE INTAKE TEST ====== -->
 <section
   class="th-care-test"
   id="thShopifyCareTest"
-  data-monthly-variant="{{ monthly_variant.id }}"
-  data-quarterly-variant="{{ quarterly_variant.id }}"
-  data-onetime-variant="{{ onetime_variant.id }}"
   aria-live="polite"
 >
   <div class="th-care-test__container">
     <p class="th-care-test__eyebrow">Internal pre-launch test</p>
-    <h2 class="th-care-test__title">Shopify intake and checkout shell</h2>
+    <h2 class="th-care-test__title">Embedded care intake</h2>
     <p class="th-care-test__copy">
-      This is the moved funnel surface for kynskyn.com. Public visitors cannot complete intake yet. Use a preview token to open the care-backed intake test and, once Shopify plan products are configured in this section, test Shopify checkout attribution.
+      Public visitors cannot complete intake yet. Enter the preview token to open the embedded care intake — Stripe payment runs inside the iframe so the patient never leaves kynskyn.com.
     </p>
 
     <div class="th-care-test__grid" aria-label="Current selected plan">
@@ -1006,9 +995,6 @@
     <div class="th-care-test__actions">
       <button type="button" class="th-care-test__button" id="thOpenCareIntakeTest">
         Open intake test
-      </button>
-      <button type="button" class="th-care-test__button th-care-test__button--secondary" id="thOpenShopifyCheckoutTest">
-        Test Shopify checkout
       </button>
     </div>
 
@@ -1042,7 +1028,6 @@
     var planLabel = document.getElementById('thCareTestPlan');
     var attributionLabel = document.getElementById('thCareTestAttribution');
     var openIntake = document.getElementById('thOpenCareIntakeTest');
-    var openCheckout = document.getElementById('thOpenShopifyCheckoutTest');
     var intakeEmbed = document.getElementById('thCareIntakeEmbed');
     var intakeFrame = document.getElementById('thCareIntakeFrame');
 
@@ -1060,12 +1045,6 @@
       return 'Monthly';
     }
 
-    function selectedVariant(plan) {
-      if (plan === 'quarterly') return panel.getAttribute('data-quarterly-variant');
-      if (plan === 'one-time') return panel.getAttribute('data-onetime-variant');
-      return panel.getAttribute('data-monthly-variant');
-    }
-
     function updateLabels() {
       var ctx = window.KynAttribution ? window.KynAttribution.capture() : {};
       var plan = currentPlan();
@@ -1079,15 +1058,7 @@
       }
     }
 
-    async function sync(plan, token) {
-      if (!window.KynAttribution) return;
-      await window.KynAttribution.syncCartAttributes({
-        kyn_care_plan: plan,
-        kyn_care_handoff_token: token
-      });
-    }
-
-    openIntake.addEventListener('click', async function() {
+    openIntake.addEventListener('click', function() {
       var token = tokenInput.value.trim();
       if (!token) {
         note.textContent = 'Enter the preview token first.';
@@ -1095,7 +1066,6 @@
       }
 
       var plan = currentPlan();
-      await sync(plan, token);
       var target = new URL('https://care.kynskyn.com/book');
       target.searchParams.set('booking_preview', token);
       target.searchParams.set('source', 'shopify');
@@ -1114,48 +1084,12 @@
       intakeEmbed.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    async function runShopifyCheckout(plan, token) {
-      var variant = selectedVariant(plan);
-      if (!variant) {
-        note.textContent = 'Set the Monthly, Quarterly, and One-time Shopify products in this section before testing checkout.';
-        return;
-      }
-
-      note.textContent = 'Preparing Shopify checkout...';
-      await sync(plan, token);
-      await fetch('/cart/clear.js', { method: 'POST', headers: { 'Accept': 'application/json' } });
-      await fetch('/cart/add.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          items: [{
-            id: Number(variant),
-            quantity: 1,
-            properties: {
-              _kyn_care_plan: plan,
-              _kyn_care_handoff_token: token
-            }
-          }]
-        })
-      });
-      window.location.href = '/checkout';
-    }
-
-    openCheckout.addEventListener('click', async function() {
-      var token = tokenInput.value.trim();
-      if (!token) {
-        note.textContent = 'Enter the preview token first.';
-        return;
-      }
-      await runShopifyCheckout(currentPlan(), token);
-    });
-
     // Listen for messages from the care.kynskyn.com iframe.
     //  - kyn_intake_resize: child reports its content height; we resize the
-    //    iframe so the page scrolls as one (no inner scrollbar).
-    //  - kyn_intake_complete: patient finished step 6 in embed mode; add the
-    //    matching variant to cart (with the handoff token in line-item
-    //    properties) and bounce to /checkout.
+    //    iframe so the page scrolls as one (no inner iframe scrollbar).
+    //  - kyn_payment_complete: patient finished Stripe payment inside the
+    //    iframe and the MDI case has been submitted. The iframe shows its
+    //    own success panel; we just record completion here for analytics.
     window.addEventListener('message', function(event) {
       if (event.origin !== 'https://care.kynskyn.com') return;
       if (!event.data || typeof event.data !== 'object') return;
@@ -1166,15 +1100,10 @@
         }
         return;
       }
-      if (event.data.type !== 'kyn_intake_complete') return;
-      var plan = event.data.plan || currentPlan();
-      var token = event.data.handoff_token;
-      if (!token) {
-        note.textContent = 'Intake completed but no handoff token was provided.';
+      if (event.data.type === 'kyn_payment_complete') {
+        note.textContent = 'Payment confirmed - case submitted to MDI.';
         return;
       }
-      note.textContent = 'Intake complete. Sending you to checkout...';
-      runShopifyCheckout(plan, token);
     });
 
     document.querySelectorAll('.th-plan, .th-plan__augment-input').forEach(function(el) {
@@ -1331,22 +1260,6 @@
 {
   "name": "Consultation",
   "class": "consultation-section",
-  "settings": [
-    {
-      "type": "product",
-      "id": "monthly_plan_product",
-      "label": "Monthly care plan product"
-    },
-    {
-      "type": "product",
-      "id": "quarterly_plan_product",
-      "label": "Quarterly care plan product"
-    },
-    {
-      "type": "product",
-      "id": "onetime_consult_product",
-      "label": "One-time consult product"
-    }
-  ]
+  "settings": []
 }
 {% endschema %}
