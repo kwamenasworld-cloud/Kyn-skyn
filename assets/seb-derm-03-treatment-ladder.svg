@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 710" width="820" height="710" font-family="Georgia, serif">
+  <rect width="820" height="710" fill="#FFF4CE"/>
+
+  <!-- Title -->
+  <text x="80" y="58" font-size="28" fill="#5B1A1A" font-weight="600">Seb derm treatment ladder</text>
+  <text x="80" y="84" font-size="14" fill="#5B1A1A" opacity="0.75" font-family="Helvetica, Arial, sans-serif">Start low, move up only if things aren't calming down.</text>
+
+  <!-- Rising arrow on the left side -->
+  <g opacity="0.7">
+    <path d="M 38 625 L 38 175" stroke="#5B1A1A" stroke-width="2" fill="none"/>
+    <path d="M 30 185 L 38 167 L 46 185" stroke="#5B1A1A" stroke-width="2" fill="none" stroke-linejoin="round"/>
+    <text font-family="Helvetica, Arial, sans-serif" font-size="11" fill="#5B1A1A" letter-spacing="3" transform="translate(22, 435) rotate(-90)">ESCALATE ONLY IF NEEDED</text>
+  </g>
+
+  <!-- Step 3 (top, SEVERE) -->
+  <g transform="translate(90, 130)">
+    <rect width="680" height="170" rx="10" fill="#5B1A1A"/>
+    <!-- Number badge -->
+    <circle cx="60" cy="85" r="30" fill="#FFF4CE" stroke="#F8B044" stroke-width="2.5"/>
+    <text x="60" y="93" font-size="24" fill="#5B1A1A" text-anchor="middle" font-weight="700">3</text>
+    <!-- Severity tag -->
+    <rect x="560" y="22" width="100" height="26" rx="4" fill="#F8B044"/>
+    <text x="610" y="40" font-family="Helvetica, Arial, sans-serif" font-size="11" fill="#5B1A1A" text-anchor="middle" letter-spacing="2" font-weight="700">SEVERE</text>
+    <!-- Body -->
+    <text x="110" y="44" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#FFF4CE" font-weight="700">Prescription help</text>
+    <text x="110" y="68" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#FFF4CE" opacity="0.92">If OTC isn't enough after ~4 weeks, a provider can prescribe topical</text>
+    <text x="110" y="86" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#FFF4CE" opacity="0.92">ketoconazole 2%, ciclopirox, a short course of a topical steroid for acute</text>
+    <text x="110" y="104" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#FFF4CE" opacity="0.92">flares, or — for stubborn cases — a brief oral antifungal like fluconazole.</text>
+    <!-- Divider -->
+    <line x1="110" y1="122" x2="650" y2="122" stroke="#F8B044" stroke-width="1" opacity="0.35"/>
+    <text x="110" y="145" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#F8B044" font-style="italic">A Kyn Skyn consultation gets you diagnosed and prescribed in one video visit.</text>
+  </g>
+
+  <!-- Step 2 (middle, MODERATE) -->
+  <g transform="translate(90, 320)">
+    <rect width="680" height="140" rx="10" fill="#C54427"/>
+    <circle cx="60" cy="70" r="30" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="2.5"/>
+    <text x="60" y="78" font-size="24" fill="#5B1A1A" text-anchor="middle" font-weight="700">2</text>
+    <rect x="560" y="22" width="100" height="26" rx="4" fill="#5B1A1A"/>
+    <text x="610" y="40" font-family="Helvetica, Arial, sans-serif" font-size="11" fill="#FFF4CE" text-anchor="middle" letter-spacing="2" font-weight="700">MODERATE</text>
+    <text x="110" y="44" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#FFF4CE" font-weight="700">Antifungal wash (OTC)</text>
+    <text x="110" y="70" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#FFF4CE" opacity="0.92">Pyrithione zinc, selenium sulfide, or ketoconazole 1% (Nizoral).</text>
+    <text x="110" y="88" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#FFF4CE" opacity="0.92">Use 2–3x per week. Lather, leave 3–5 minutes, rinse.</text>
+    <text x="110" y="106" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#FFF4CE" opacity="0.92">Works on scalp, face, and chest — not just hair.</text>
+  </g>
+
+  <!-- Step 1 (bottom, MILD) -->
+  <g transform="translate(90, 480)">
+    <rect width="680" height="140" rx="10" fill="#F8B044"/>
+    <circle cx="60" cy="70" r="30" fill="#FFF4CE" stroke="#5B1A1A" stroke-width="2.5"/>
+    <text x="60" y="78" font-size="24" fill="#5B1A1A" text-anchor="middle" font-weight="700">1</text>
+    <rect x="560" y="22" width="100" height="26" rx="4" fill="#5B1A1A"/>
+    <text x="610" y="40" font-family="Helvetica, Arial, sans-serif" font-size="11" fill="#FFF4CE" text-anchor="middle" letter-spacing="2" font-weight="700">MILD</text>
+    <text x="110" y="44" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#5B1A1A" font-weight="700">Daily basics</text>
+    <text x="110" y="70" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#5B1A1A" opacity="0.88">Gentle, Malassezia-safe cleanser and moisturizer.</text>
+    <text x="110" y="88" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#5B1A1A" opacity="0.88">Cut the oils that feed it — coconut, olive, most plant oils.</text>
+    <text x="110" y="106" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#5B1A1A" opacity="0.88">Give it 2–4 weeks before judging results.</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="80" y="680" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#5B1A1A" opacity="0.55" letter-spacing="2.5">KYN SKYN · THE FUNGAL SKIN HANDBOOK</text>
+</svg>

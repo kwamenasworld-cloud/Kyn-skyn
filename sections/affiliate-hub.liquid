@@ -1,0 +1,702 @@
+{%- comment -%}
+  Affiliate Brand Hub
+  Public page for Kyn Skyn affiliates. Single long-form section
+  with a download pack and print-friendly layout so anyone can
+  save-as-PDF and hand it around as a brand kit. No auth gating —
+  if you don't have a portal account, the bottom CTA points you at
+  AffiliateBase to apply.
+{%- endcomment -%}
+
+<style>
+.afh {
+  --burgundy: #641220;
+  --burnt-red: #C54427;
+  --deep-green: #055528;
+  --teal: #055A5B;
+  --navy: #1F3F6F;
+  --pink: #FDB1BD;
+  --lime: #C5DE55;
+  --cyan: #C5FEFF;
+  --light-gray: #DAE3E7;
+  --periwinkle: #B6CBEB;
+  --text-dark: #2D1015;
+  --text-body: #3D2025;
+  --gold-soft: #f4e6c4;
+
+  background: var(--cream);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.7;
+  position: relative;
+  padding: 96px 24px 80px;
+}
+
+.afh__wrap {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* ── Section spacing ── */
+.afh__block {
+  margin-top: 56px;
+  padding-top: 24px;
+}
+
+.afh__block:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.afh__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--burnt-red);
+  margin-bottom: 12px;
+}
+
+.afh h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.06;
+  color: var(--burgundy);
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.afh h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  line-height: 1.18;
+  color: var(--burgundy);
+  margin: 0 0 16px;
+}
+
+.afh h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  color: var(--burgundy);
+  margin: 24px 0 10px;
+}
+
+.afh p { margin: 0 0 14px; }
+
+.afh p.lede {
+  font-size: 1.1rem;
+  line-height: 1.55;
+  color: var(--text-dark);
+}
+
+.afh a { color: var(--burnt-red); text-decoration: underline; text-underline-offset: 0.18em; }
+.afh a:hover { color: var(--burgundy); }
+
+/* ── Hero ── */
+.afh__hero {
+  background: var(--gold-soft);
+  border-radius: 28px;
+  padding: 48px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.afh__hero h1 { margin-bottom: 8px; }
+
+.afh__hero-sub {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  color: var(--text-dark);
+  margin: 0 0 24px;
+  max-width: 38ch;
+  line-height: 1.3;
+}
+
+.afh__hero-cta {
+  display: inline-block;
+  background: var(--burgundy);
+  color: var(--cream);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 999px;
+  transition: background 0.2s;
+}
+
+.afh__hero-cta:hover { background: var(--button); color: var(--cream); }
+
+.afh__hero-mark {
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  width: 200px;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* ── Two-up media + body ── */
+.afh__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.afh__split img,
+.afh__split svg {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+@media (max-width: 640px) {
+  .afh__split { grid-template-columns: 1fr; }
+}
+
+/* ── Audience list ── */
+.afh__audience {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.afh__audience li {
+  background: var(--cream);
+  border: 1px solid rgba(100, 18, 32, 0.18);
+  border-radius: 12px;
+  padding: 16px 18px;
+  font-size: 0.97rem;
+  line-height: 1.45;
+}
+
+.afh__audience li strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: var(--burgundy);
+  margin-bottom: 4px;
+}
+
+@media (max-width: 540px) {
+  .afh__audience { grid-template-columns: 1fr; }
+}
+
+/* ── Earnings table ── */
+.afh__earnings {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 8px;
+  font-size: 0.97rem;
+}
+
+.afh__earnings th,
+.afh__earnings td {
+  text-align: left;
+  padding: 14px 12px;
+  border-bottom: 1px solid rgba(100, 18, 32, 0.12);
+}
+
+.afh__earnings th {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--burnt-red);
+}
+
+.afh__earnings td:nth-child(3),
+.afh__earnings td:nth-child(4),
+.afh__earnings th:nth-child(3),
+.afh__earnings th:nth-child(4) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.afh__earnings td:nth-child(4) {
+  font-family: var(--font-serif);
+  color: var(--burgundy);
+  font-size: 1.05rem;
+}
+
+/* ── Do / Don't ── */
+.afh__dodont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 16px 0;
+}
+
+.afh__dodont > div {
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.afh__do  { background: rgba(5, 85, 40, 0.08); border: 1px solid rgba(5, 85, 40, 0.18); }
+.afh__dont { background: rgba(197, 68, 39, 0.08); border: 1px solid rgba(197, 68, 39, 0.18); }
+
+.afh__dodont h4 {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+
+.afh__do  h4 { color: var(--deep-green); }
+.afh__dont h4 { color: var(--burnt-red); }
+
+.afh__dodont ul { padding: 0; margin: 0; list-style: none; }
+.afh__dodont li { padding: 6px 0; font-size: 0.95rem; line-height: 1.5; border-bottom: 1px dashed rgba(0,0,0,0.08); }
+.afh__dodont li:last-child { border-bottom: none; }
+
+@media (max-width: 640px) {
+  .afh__dodont { grid-template-columns: 1fr; }
+}
+
+/* ── Sample captions (copy boxes) ── */
+.afh__captions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.afh__caption {
+  background: var(--cream);
+  border: 1px solid rgba(100, 18, 32, 0.18);
+  border-radius: 14px;
+  padding: 18px 20px;
+  font-size: 0.97rem;
+  line-height: 1.5;
+  position: relative;
+}
+
+.afh__caption-tag {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--gold-soft);
+  color: var(--burgundy);
+  margin-bottom: 10px;
+}
+
+@media (max-width: 640px) {
+  .afh__captions { grid-template-columns: 1fr; }
+}
+
+/* ── Download grid ── */
+.afh__downloads {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.afh__download {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--cream);
+  border: 1px solid rgba(100, 18, 32, 0.18);
+  border-radius: 14px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: var(--text-body);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.afh__download:hover {
+  border-color: var(--burnt-red);
+  background: var(--gold-soft);
+}
+
+.afh__download-icon {
+  flex: 0 0 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--burgundy);
+  color: var(--cream);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.afh__download-body { flex: 1; min-width: 0; }
+.afh__download-title { font-family: var(--font-serif); font-size: 1.05rem; color: var(--burgundy); margin: 0 0 2px; }
+.afh__download-meta { font-size: 0.82rem; color: var(--text-body); opacity: 0.72; }
+
+@media (max-width: 640px) {
+  .afh__downloads { grid-template-columns: 1fr; }
+}
+
+/* ── Steps ── */
+.afh__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 16px;
+  counter-reset: afhstep;
+}
+
+.afh__step {
+  background: var(--cream);
+  border: 1px solid rgba(100, 18, 32, 0.18);
+  border-radius: 16px;
+  padding: 22px;
+  position: relative;
+}
+
+.afh__step::before {
+  counter-increment: afhstep;
+  content: counter(afhstep);
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  color: var(--burnt-red);
+  line-height: 1;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.afh__step h3 { margin: 0 0 6px; font-size: 1.15rem; }
+.afh__step p { font-size: 0.95rem; margin: 0; }
+
+@media (max-width: 640px) { .afh__steps { grid-template-columns: 1fr; } }
+
+/* ── Final CTA ── */
+.afh__final {
+  background: var(--burgundy);
+  color: var(--cream);
+  border-radius: 24px;
+  padding: 40px 32px;
+  text-align: center;
+  margin-top: 64px;
+}
+
+.afh__final h2 { color: var(--cream); margin-bottom: 10px; }
+.afh__final p { color: rgba(255,244,206,0.85); margin-bottom: 22px; }
+
+.afh__final a {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--burgundy);
+  padding: 14px 30px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+.afh__final a:hover { background: var(--cream); }
+
+/* ── Print stylesheet: save-as-PDF gets a clean handout ── */
+@media print {
+  @page { size: A4; margin: 18mm 14mm; }
+
+  body, .afh { background: #ffffff !important; color: #000 !important; font-size: 11pt; }
+
+  /* Hide site chrome */
+  .site-header, .header-nav, .mobile-tab-bar, footer.site-footer, .afh__final a:not([href]) { display: none !important; }
+
+  .afh { padding: 0 !important; }
+  .afh__wrap { max-width: 100% !important; }
+
+  .afh__hero, .afh__step, .afh__caption, .afh__download, .afh__audience li, .afh__do, .afh__dont {
+    background: #fff !important;
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+  }
+
+  .afh__hero-mark { display: none !important; }
+  .afh__hero-cta { color: #000 !important; background: #fff !important; border: 1px solid #000 !important; }
+
+  .afh h1, .afh h2, .afh h3 { color: #000 !important; }
+  .afh__eyebrow, .afh__caption-tag { color: #000 !important; background: transparent !important; border: 1px solid #000 !important; }
+  .afh a { color: #000 !important; text-decoration: underline; }
+
+  .afh__downloads a::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    word-break: break-all;
+  }
+
+  /* Page breaks */
+  .afh__block { break-inside: avoid; }
+  h2 { break-after: avoid; }
+
+  .afh__final {
+    background: #fff !important;
+    color: #000 !important;
+    border: 2px solid #000 !important;
+  }
+  .afh__final p, .afh__final h2 { color: #000 !important; }
+  .afh__final a { background: #fff !important; color: #000 !important; border: 1px solid #000; }
+}
+</style>
+
+<section class="afh">
+  <div class="afh__wrap">
+
+    {%- comment -%} ── 1. HERO ── {%- endcomment -%}
+    <header class="afh__hero">
+      <p class="afh__eyebrow">Kyn Skyn affiliate hub</p>
+      <h1>Promote Kyn Skyn.</h1>
+      <p class="afh__hero-sub">Earn 20% on every sale you bring, for up to 12 months. Recurring, with a 60-day cookie.</p>
+      <a class="afh__hero-cta" href="https://care-partners.affiliatebase.io">Sign in to your portal</a>
+      <img class="afh__hero-mark" src="{{ 'logomark.svg' | asset_url }}" alt="">
+    </header>
+
+    {%- comment -%} ── 2. WHAT WE DO ── {%- endcomment -%}
+    <div class="afh__block">
+      <p class="afh__eyebrow">What we do</p>
+      <h2>Online dermatology for stubborn skin conditions.</h2>
+      <div class="afh__split">
+        <div>
+          <p class="lede">Kyn Skyn treats skin problems that regular acne products can't fix.</p>
+          <p>The root cause for most of our patients is a yeast called <em>Malassezia</em>. It lives on everyone's skin. For some people, it grows out of control and causes fungal acne, dandruff, or patchy skin tone changes.</p>
+          <p>Our patients take photos, fill out a short intake, and get reviewed by a board-certified dermatologist. The doctor sends a prescription to the patient's pharmacy. Most people see real changes in 6 to 12 weeks.</p>
+        </div>
+        <img src="{{ 'seb-derm-02-why-it-happens.svg' | asset_url }}" alt="Diagram explaining how Malassezia yeast causes fungal acne and seb derm">
+      </div>
+    </div>
+
+    {%- comment -%} ── 3. WHO BUYS ── {%- endcomment -%}
+    <div class="afh__block">
+      <p class="afh__eyebrow">Who Kyn is for</p>
+      <h2>Three groups of people will respond to your link.</h2>
+      <ul class="afh__audience">
+        <li>
+          <strong>Fungal acne</strong>
+          Adults with small same-sized bumps on the forehead, chest, or back that don't go away with regular acne products. They've usually tried everything.
+        </li>
+        <li>
+          <strong>Seb derm and dandruff</strong>
+          People with flaky, itchy patches on the scalp, eyebrows, or sides of the nose. It keeps coming back no matter what shampoo they buy.
+        </li>
+        <li>
+          <strong>Tinea versicolor</strong>
+          People who get patches of lighter or darker skin, often on the back or chest, that show up more after sun exposure.
+        </li>
+        <li>
+          <strong>People who want a real doctor</strong>
+          Not an app. Not a chatbot. A board-certified dermatologist. Async means they don't need to take time off work for an appointment.
+        </li>
+      </ul>
+    </div>
+
+    {%- comment -%} ── 4. HOW YOU EARN ── {%- endcomment -%}
+    <div class="afh__block">
+      <p class="afh__eyebrow">How you earn</p>
+      <h2>20% of every sale. Up to 12 months per customer.</h2>
+      <p>Every customer who clicks your link and buys within 60 days is yours. You earn a commission on their first sale and every renewal for a year.</p>
+      <table class="afh__earnings">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>You earn</th>
+            <th>If they stay 12 months</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>One-time consultation</td>
+            <td>$34</td>
+            <td>$6.80</td>
+            <td>$6.80</td>
+          </tr>
+          <tr>
+            <td>Monthly care plan</td>
+            <td>$29 / month</td>
+            <td>$5.80 / month</td>
+            <td>$69.60</td>
+          </tr>
+          <tr>
+            <td>Quarterly care plan</td>
+            <td>$74 / 3 months</td>
+            <td>$14.80 / quarter</td>
+            <td>$59.20</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Five customers a month on the monthly plan, all staying a year: <strong>$348 per year, per cohort</strong>. Twenty customers: <strong>$1,392</strong>. Payouts run through AffiliateBase.</p>
+    </div>
+
+    {%- comment -%} ── 5. BRAND TONE ── {%- endcomment -%}
+    <div class="afh__block">
+      <p class="afh__eyebrow">How to talk about Kyn</p>
+      <h2>Talk like a doctor explaining things to a friend.</h2>
+      <p class="lede">Plain words. Real science. No hype. We treat readers as smart adults who can handle the truth about their skin.</p>
+
+      <div class="afh__dodont">
+        <div class="afh__do">
+          <h4>Do</h4>
+          <ul>
+            <li>Name the condition. "Fungal acne" or "Malassezia folliculitis", not "weird bumps".</li>
+            <li>Say what's true. "Most people with fungal acne spent years thinking it was acne."</li>
+            <li>Be specific. "20% off retinol won't fix it. An antifungal will."</li>
+            <li>Trust the reader. State the fact and stop.</li>
+            <li>Use real prices and real timelines. "Most people see change in 6 to 12 weeks."</li>
+          </ul>
+        </div>
+        <div class="afh__dont">
+          <h4>Don't</h4>
+          <ul>
+            <li>Use hype words like "miracle", "breakthrough", or "transform".</li>
+            <li>Promise a cure. Say "treatment plan" or "what works".</li>
+            <li>Use em-dashes. Use commas, periods, or colons instead.</li>
+            <li>Add fluff like "no spam, we promise". Say the fact, end the sentence.</li>
+            <li>Talk down to readers ("babe", "bestie") or oversell ("glow up", "flawless").</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Sample posts you can copy</h3>
+      <div class="afh__captions">
+        <article class="afh__caption">
+          <span class="afh__caption-tag">Myth-busting</span>
+          Most acne creams make fungal acne worse. The bumps look the same. The cause is different. Fungal acne is a yeast called Malassezia. The fix is an antifungal, not a retinoid. A Kyn dermatologist can tell you which one you have. $34.
+        </article>
+        <article class="afh__caption">
+          <span class="afh__caption-tag">Education</span>
+          Tea tree oil kills fungus in a lab. On your skin, at a useful dose, it mostly causes irritation. Standard antifungals have actual studies behind them. That's the difference between TikTok and a dermatologist.
+        </article>
+        <article class="afh__caption">
+          <span class="afh__caption-tag">Outcome</span>
+          Years of acne products that didn't work? It might be fungal acne. A board-certified dermatologist reviews your photos online and sends a prescription to your pharmacy. No more guessing.
+        </article>
+        <article class="afh__caption">
+          <span class="afh__caption-tag">Audience</span>
+          If your scalp itches and flakes, or your forehead has small bumps that ignore retinol, it's worth asking a dermatologist about Malassezia. That's the yeast Kyn treats.
+        </article>
+        <article class="afh__caption">
+          <span class="afh__caption-tag">Trust</span>
+          Every Kyn consultation is reviewed by a board-certified dermatologist. Not an app. Not a chatbot. A real doctor, $34, sent to your pharmacy.
+        </article>
+        <article class="afh__caption">
+          <span class="afh__caption-tag">Plan</span>
+          Kyn isn't a one-bottle fix. It's a treatment plan. Antifungal, supporting routine, monthly check-in. $29 a month after the first visit. Same dermatologist.
+        </article>
+      </div>
+    </div>
+
+    {%- comment -%} ── 6. DOWNLOAD PACK ── {%- endcomment -%}
+    <div class="afh__block">
+      <p class="afh__eyebrow">Download pack</p>
+      <h2>Brand assets you can use, right now.</h2>
+      <p>Logos, brand guide, photos, the explainer video, and our patient handbook. Free for affiliates to use. Don't change the logos. Always credit Kyn Skyn.</p>
+
+      <div class="afh__downloads">
+        <a class="afh__download" href="{{ 'kyn-skyn-logo-pack.zip' | asset_url }}" download>
+          <span class="afh__download-icon">ZIP</span>
+          <span class="afh__download-body">
+            <span class="afh__download-title">Logo pack</span>
+            <span class="afh__download-meta">All variants (mark, wordmark, horizontal, scrambled) in SVG &amp; PNG · 808 KB</span>
+          </span>
+        </a>
+        <a class="afh__download" href="{{ 'kyn-skyn-brand-colours.pdf' | asset_url }}" download>
+          <span class="afh__download-icon">PDF</span>
+          <span class="afh__download-body">
+            <span class="afh__download-title">Brand colours</span>
+            <span class="afh__download-meta">Full palette with hex values · 8.6 MB</span>
+          </span>
+        </a>
+        <a class="afh__download" href="{{ 'kyn-skyn-brand-typography.pdf' | asset_url }}" download>
+          <span class="afh__download-icon">PDF</span>
+          <span class="afh__download-body">
+            <span class="afh__download-title">Brand typography</span>
+            <span class="afh__download-meta">Type system and pairings · 7.4 MB</span>
+          </span>
+        </a>
+        <a class="afh__download" href="{{ 'kyn-skyn-brand-logo.pdf' | asset_url }}" download>
+          <span class="afh__download-icon">PDF</span>
+          <span class="afh__download-body">
+            <span class="afh__download-title">Logo usage guide</span>
+            <span class="afh__download-meta">Do's and don'ts for placement &amp; sizing · 4.2 MB</span>
+          </span>
+        </a>
+        <a class="afh__download" href="{{ 'kyn-skyn-brand-photography.pdf' | asset_url }}" download>
+          <span class="afh__download-icon">PDF</span>
+          <span class="afh__download-body">
+            <span class="afh__download-title">Photography direction</span>
+            <span class="afh__download-meta">Visual mood, model direction, shoot references · 4.5 MB</span>
+          </span>
+        </a>
+        <a class="afh__download" href="{{ 'kyn-skyn-campaign-photos.zip' | asset_url }}" download>
+          <span class="afh__download-icon">ZIP</span>
+          <span class="afh__download-body">
+            <span class="afh__download-title">Campaign photo pack</span>
+            <span class="afh__download-meta">Web-sized brand photography for social and blog · 10.8 MB</span>
+          </span>
+        </a>
+        <a class="afh__download" href="{{ 'kyn-skyn-seb-derm-explainer.mp4' | asset_url }}" download>
+          <span class="afh__download-icon">MP4</span>
+          <span class="afh__download-body">
+            <span class="afh__download-title">Seb derm explainer video</span>
+            <span class="afh__download-meta">Short film explaining the condition &amp; treatment · 30 MB</span>
+          </span>
+        </a>
+        <a class="afh__download" href="{{ 'Kyn-Skyn-Malassezia-Handbook.pdf' | asset_url }}" download>
+          <span class="afh__download-icon">PDF</span>
+          <span class="afh__download-body">
+            <span class="afh__download-title">Malassezia handbook</span>
+            <span class="afh__download-meta">The full patient-facing guide we publish · 900 KB</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    {%- comment -%} ── 7. QUICK START ── {%- endcomment -%}
+    <div class="afh__block">
+      <p class="afh__eyebrow">Quick start</p>
+      <h2>Three steps to your first commission.</h2>
+      <div class="afh__steps">
+        <div class="afh__step">
+          <h3>Open your portal</h3>
+          <p>Sign in to AffiliateBase. If you don't have a password yet, use the "forgot password" link.</p>
+        </div>
+        <div class="afh__step">
+          <h3>Grab your link</h3>
+          <p>Copy your tracking link from the portal. Add it to a bio, a story, or a blog post.</p>
+        </div>
+        <div class="afh__step">
+          <h3>Share and earn</h3>
+          <p>Every sale within 60 days is yours. Payouts run on the schedule shown in your portal.</p>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} ── 8. FINAL CTA ── {%- endcomment -%}
+    <div class="afh__final">
+      <h2>Ready to start?</h2>
+      <p>Open your portal and grab your link.</p>
+      <a href="https://care-partners.affiliatebase.io">Open the portal</a>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Affiliate Hub",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "affiliate-hub": {
+      "type": "affiliate-hub"
+    }
+  },
+  "order": ["affiliate-hub"]
+}
