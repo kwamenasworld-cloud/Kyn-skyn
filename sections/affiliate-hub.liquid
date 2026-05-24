@@ -192,44 +192,6 @@
   .afh__audience { grid-template-columns: 1fr; }
 }
 
-/* ── Earnings table ── */
-.afh__earnings {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0 8px;
-  font-size: 0.97rem;
-}
-
-.afh__earnings th,
-.afh__earnings td {
-  text-align: left;
-  padding: 14px 12px;
-  border-bottom: 1px solid rgba(100, 18, 32, 0.12);
-}
-
-.afh__earnings th {
-  font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--burnt-red);
-}
-
-.afh__earnings td:nth-child(3),
-.afh__earnings td:nth-child(4),
-.afh__earnings th:nth-child(3),
-.afh__earnings th:nth-child(4) {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-.afh__earnings td:nth-child(4) {
-  font-family: var(--font-serif);
-  color: var(--burgundy);
-  font-size: 1.05rem;
-}
-
 /* ── Do / Don't ── */
 .afh__dodont {
   display: grid;
@@ -584,7 +546,7 @@
     <header class="afh__hero">
       <p class="afh__eyebrow">Kyn Skyn affiliate hub</p>
       <h1>Promote Kyn Skyn.</h1>
-      <p class="afh__hero-sub">Earn 20% on every sale you bring, for up to 12 months. Recurring, with a 60-day cookie.</p>
+      <p class="afh__hero-sub">Recurring commission on every sale. Up to 12 months per customer, with a 60-day attribution window. Your specific rate lives in your portal.</p>
       <a class="afh__hero-cta" href="https://care-partners.affiliatebase.io">Sign in to your portal</a>
       <img class="afh__hero-mark" src="{{ 'logomark.svg' | asset_url }}" alt="">
     </header>
@@ -630,39 +592,23 @@
     {%- comment -%} ── 4. HOW YOU EARN ── {%- endcomment -%}
     <div class="afh__block">
       <p class="afh__eyebrow">How you earn</p>
-      <h2>20% of every sale. Up to 12 months per customer.</h2>
-      <p>Every customer who clicks your link and buys within 60 days is yours. You earn a commission on their first sale and every renewal for a year.</p>
-      <table class="afh__earnings">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>You earn</th>
-            <th>If they stay 12 months</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>One-time consultation</td>
-            <td>$34.99</td>
-            <td>$7.00</td>
-            <td>$7.00</td>
-          </tr>
-          <tr>
-            <td>Monthly care plan</td>
-            <td>$29.99 / month</td>
-            <td>$6.00 / month</td>
-            <td>$72.00</td>
-          </tr>
-          <tr>
-            <td>Quarterly care plan</td>
-            <td>$74.99 / 3 months</td>
-            <td>$15.00 / quarter</td>
-            <td>$60.00</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>Five customers a month on the monthly plan, all staying a year: <strong>$360 per cohort</strong>. Twenty customers: <strong>$1,440</strong>. Payouts run through AffiliateBase.</p>
+      <h2>Recurring commission on every sale.</h2>
+      <p>Your exact rate is set in your portal. Different affiliate tiers earn different rates, so check there for the specific math on each product.</p>
+      <p>The mechanics are the same for every tier:</p>
+      <ul class="afh__audience" style="grid-template-columns: 1fr;">
+        <li>
+          <strong>60-day attribution window</strong>
+          Every customer who clicks your link and buys within 60 days is yours.
+        </li>
+        <li>
+          <strong>Up to 12 months per customer</strong>
+          You earn on the first sale and every renewal, until that customer hits 12 months.
+        </li>
+        <li>
+          <strong>Payouts run through AffiliateBase</strong>
+          Schedule and minimum payout threshold show in your portal.
+        </li>
+      </ul>
     </div>
 
     {%- comment -%} ── 5. BRAND TONE ── {%- endcomment -%}
@@ -677,7 +623,7 @@
           <ul>
             <li>Name the condition. "Fungal acne" or "Malassezia folliculitis", not "weird bumps".</li>
             <li>Say what's true. "Most people with fungal acne spent years thinking it was acne."</li>
-            <li>Be specific. "20% off retinol won't fix it. An antifungal will."</li>
+            <li>Be specific. "Ketoconazole shampoo works for dandruff that won't quit." Not "the right products".</li>
             <li>Trust the reader. State the fact and stop.</li>
             <li>Use real prices and real timelines. "Most people see change in 6 to 12 weeks."</li>
           </ul>
