@@ -300,52 +300,171 @@
   .afh__captions { grid-template-columns: 1fr; }
 }
 
-/* ── Download grid ── */
-.afh__downloads {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-top: 16px;
+/* ── Download category heading ── */
+.afh__dl-cat {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--burnt-red);
+  margin: 28px 0 12px;
 }
 
-.afh__download {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
+.afh__dl-cat:first-of-type { margin-top: 8px; }
+
+/* ── Logo + font card (generic two-up: preview + meta + format buttons) ── */
+.afh__asset {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  align-items: center;
+  gap: 18px;
   background: var(--cream);
   border: 1px solid rgba(100, 18, 32, 0.18);
   border-radius: 14px;
-  padding: 16px 18px;
-  text-decoration: none;
-  color: var(--text-body);
-  transition: border-color 0.2s, background 0.2s;
+  padding: 14px 18px;
+  margin-bottom: 10px;
 }
 
-.afh__download:hover {
-  border-color: var(--burnt-red);
-  background: var(--gold-soft);
-}
-
-.afh__download-icon {
-  flex: 0 0 36px;
-  height: 36px;
+.afh__asset-preview {
+  width: 110px;
+  height: 64px;
   border-radius: 8px;
-  background: var(--burgundy);
-  color: var(--cream);
   display: grid;
   place-items: center;
-  font-family: var(--font-sans);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  overflow: hidden;
 }
 
-.afh__download-body { flex: 1; min-width: 0; }
-.afh__download-title { font-family: var(--font-serif); font-size: 1.05rem; color: var(--burgundy); margin: 0 0 2px; }
-.afh__download-meta { font-size: 0.82rem; color: var(--text-body); opacity: 0.72; }
+/* Preview backgrounds per color, so the variant is legible */
+.afh__asset-preview--orange { background: #FFF1E6; }
+.afh__asset-preview--black  { background: #fff; border: 1px solid rgba(0,0,0,0.06); }
+.afh__asset-preview--white  { background: var(--burgundy); }
+.afh__asset-preview--yellow { background: var(--burgundy); }
+
+.afh__asset-preview img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.afh__asset-meta { min-width: 0; }
+.afh__asset-name {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--burgundy);
+  display: block;
+  margin-bottom: 2px;
+}
+.afh__asset-desc {
+  font-size: 0.85rem;
+  color: var(--text-body);
+  opacity: 0.72;
+  line-height: 1.4;
+}
+
+.afh__asset-formats { display: inline-flex; gap: 6px; }
+
+.afh__btn {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--burgundy);
+  color: var(--cream);
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.afh__btn:hover { background: var(--button); color: var(--cream); }
 
 @media (max-width: 640px) {
-  .afh__downloads { grid-template-columns: 1fr; }
+  .afh__asset {
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px 14px;
+  }
+  .afh__asset-formats { grid-column: 1 / -1; }
+  .afh__asset-preview { width: 80px; height: 56px; }
+}
+
+/* ── Logo group: one card per lockup type with per-color download rows ── */
+.afh__logoblock {
+  background: var(--cream);
+  border: 1px solid rgba(100, 18, 32, 0.18);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+
+.afh__logoblock-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(100, 18, 32, 0.1);
+}
+
+.afh__logoblock-preview {
+  flex: 0 0 96px;
+  height: 64px;
+  background: #FFF1E6;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+}
+
+.afh__logoblock-preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+.afh__logoblock-meta { flex: 1; min-width: 0; }
+.afh__logoblock-name {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--burgundy);
+  display: block;
+  margin-bottom: 2px;
+}
+.afh__logoblock-desc { font-size: 0.85rem; color: var(--text-body); opacity: 0.72; line-height: 1.4; }
+
+.afh__logoblock-rows { display: flex; flex-direction: column; gap: 6px; }
+
+.afh__logoblock-row {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.92rem;
+}
+
+.afh__logoblock-row + .afh__logoblock-row { padding-top: 6px; border-top: 1px dashed rgba(0,0,0,0.06); }
+
+.afh__swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.afh__swatch--orange { background: #C54427; }
+.afh__swatch--black { background: #000; }
+.afh__swatch--white { background: #fff; border: 1px solid rgba(0,0,0,0.2); }
+.afh__swatch--yellow { background: #F8B044; }
+
+.afh__logoblock-color { color: var(--text-body); }
+
+.afh__logoblock-formats { display: inline-flex; gap: 6px; }
+
+/* ── Font licensing note ── */
+.afh__font-note {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  margin: 6px 0 14px;
+  padding-left: 12px;
+  border-left: 2px solid var(--gold);
+  line-height: 1.45;
 }
 
 /* ── Steps ── */
@@ -419,24 +538,30 @@
   .afh { padding: 0 !important; }
   .afh__wrap { max-width: 100% !important; }
 
-  .afh__hero, .afh__step, .afh__caption, .afh__download, .afh__audience li, .afh__do, .afh__dont {
+  .afh__hero, .afh__step, .afh__caption, .afh__asset, .afh__logoblock, .afh__audience li, .afh__do, .afh__dont {
     background: #fff !important;
     border: 1px solid #000 !important;
     box-shadow: none !important;
   }
 
   .afh__hero-mark { display: none !important; }
-  .afh__hero-cta { color: #000 !important; background: #fff !important; border: 1px solid #000 !important; }
+  .afh__hero-cta, .afh__btn { color: #000 !important; background: #fff !important; border: 1px solid #000 !important; }
 
-  .afh h1, .afh h2, .afh h3 { color: #000 !important; }
+  .afh h1, .afh h2, .afh h3, .afh__dl-cat { color: #000 !important; }
   .afh__eyebrow, .afh__caption-tag { color: #000 !important; background: transparent !important; border: 1px solid #000 !important; }
   .afh a { color: #000 !important; text-decoration: underline; }
 
-  .afh__downloads a::after {
-    content: " (" attr(href) ")";
-    font-size: 8pt;
+  .afh__asset a[download]::after,
+  .afh__logoblock-row a[download]::after {
+    content: " " attr(href);
+    font-size: 7pt;
+    color: #444 !important;
     word-break: break-all;
   }
+
+  /* Hide colored preview backgrounds in print */
+  .afh__asset-preview, .afh__logoblock-preview { background: #fff !important; border: 1px solid #000 !important; }
+  .afh__swatch { border: 1px solid #000 !important; }
 
   /* Page breaks */
   .afh__block { break-inside: avoid; }
@@ -602,66 +727,193 @@
     <div class="afh__block">
       <p class="afh__eyebrow">Download pack</p>
       <h2>Brand assets you can use, right now.</h2>
-      <p>Logos, brand guide, photos, the explainer video, and our patient handbook. Free for affiliates to use. Don't change the logos. Always credit Kyn Skyn.</p>
+      <p>Everything organised by type. Pick the file you need. Don't change the logo art. Always credit Kyn Skyn.</p>
 
-      <div class="afh__downloads">
-        <a class="afh__download" href="{{ 'kyn-skyn-logo-pack.zip' | asset_url }}" download>
-          <span class="afh__download-icon">ZIP</span>
-          <span class="afh__download-body">
-            <span class="afh__download-title">Logo pack</span>
-            <span class="afh__download-meta">All variants (mark, wordmark, horizontal, scrambled) in SVG &amp; PNG · 808 KB</span>
-          </span>
-        </a>
-        <a class="afh__download" href="{{ 'kyn-skyn-brand-colours.pdf' | asset_url }}" download>
-          <span class="afh__download-icon">PDF</span>
-          <span class="afh__download-body">
-            <span class="afh__download-title">Brand colours</span>
-            <span class="afh__download-meta">Full palette with hex values · 8.6 MB</span>
-          </span>
-        </a>
-        <a class="afh__download" href="{{ 'kyn-skyn-brand-typography.pdf' | asset_url }}" download>
-          <span class="afh__download-icon">PDF</span>
-          <span class="afh__download-body">
-            <span class="afh__download-title">Brand typography</span>
-            <span class="afh__download-meta">Type system and pairings · 7.4 MB</span>
-          </span>
-        </a>
-        <a class="afh__download" href="{{ 'kyn-skyn-brand-logo.pdf' | asset_url }}" download>
-          <span class="afh__download-icon">PDF</span>
-          <span class="afh__download-body">
-            <span class="afh__download-title">Logo usage guide</span>
-            <span class="afh__download-meta">Do's and don'ts for placement &amp; sizing · 4.2 MB</span>
-          </span>
-        </a>
-        <a class="afh__download" href="{{ 'kyn-skyn-brand-photography.pdf' | asset_url }}" download>
-          <span class="afh__download-icon">PDF</span>
-          <span class="afh__download-body">
-            <span class="afh__download-title">Photography direction</span>
-            <span class="afh__download-meta">Visual mood, model direction, shoot references · 4.5 MB</span>
-          </span>
-        </a>
-        <a class="afh__download" href="{{ 'kyn-skyn-campaign-photos.zip' | asset_url }}" download>
-          <span class="afh__download-icon">ZIP</span>
-          <span class="afh__download-body">
-            <span class="afh__download-title">Campaign photo pack</span>
-            <span class="afh__download-meta">Web-sized brand photography for social and blog · 10.8 MB</span>
-          </span>
-        </a>
-        <a class="afh__download" href="{{ 'kyn-skyn-seb-derm-explainer.mp4' | asset_url }}" download>
-          <span class="afh__download-icon">MP4</span>
-          <span class="afh__download-body">
-            <span class="afh__download-title">Seb derm explainer video</span>
-            <span class="afh__download-meta">Short film explaining the condition &amp; treatment · 30 MB</span>
-          </span>
-        </a>
-        <a class="afh__download" href="{{ 'Kyn-Skyn-Malassezia-Handbook.pdf' | asset_url }}" download>
-          <span class="afh__download-icon">PDF</span>
-          <span class="afh__download-body">
-            <span class="afh__download-title">Malassezia handbook</span>
-            <span class="afh__download-meta">The full patient-facing guide we publish · 900 KB</span>
-          </span>
-        </a>
-      </div>
+      {%- comment -%} ── LOGOS ── {%- endcomment -%}
+      <p class="afh__dl-cat">Logos</p>
+
+      <article class="afh__logoblock">
+        <header class="afh__logoblock-head">
+          <div class="afh__logoblock-preview">
+            <img src="{{ 'kyn-skyn-logomark-orange.svg' | asset_url }}" alt="Kyn Skyn logomark">
+          </div>
+          <div class="afh__logoblock-meta">
+            <span class="afh__logoblock-name">Logomark</span>
+            <span class="afh__logoblock-desc">The icon alone. Use for app icons, social profile pictures, favicons.</span>
+          </div>
+        </header>
+        <div class="afh__logoblock-rows">
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--orange"></span><span class="afh__logoblock-color">Orange</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-logomark-orange.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-logomark-orange.png' | asset_url }}" download>PNG</a></span></div>
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--black"></span><span class="afh__logoblock-color">Black</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-logomark-black.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-logomark-black.png' | asset_url }}" download>PNG</a></span></div>
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--white"></span><span class="afh__logoblock-color">White (for dark backgrounds)</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-logomark-white.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-logomark-white.png' | asset_url }}" download>PNG</a></span></div>
+        </div>
+      </article>
+
+      <article class="afh__logoblock">
+        <header class="afh__logoblock-head">
+          <div class="afh__logoblock-preview">
+            <img src="{{ 'kyn-skyn-logoword-orange.svg' | asset_url }}" alt="Kyn Skyn wordmark">
+          </div>
+          <div class="afh__logoblock-meta">
+            <span class="afh__logoblock-name">Logoword</span>
+            <span class="afh__logoblock-desc">The wordmark alone. Use for email signatures and short headers where the icon isn't needed.</span>
+          </div>
+        </header>
+        <div class="afh__logoblock-rows">
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--orange"></span><span class="afh__logoblock-color">Orange</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-logoword-orange.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-logoword-orange.png' | asset_url }}" download>PNG</a></span></div>
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--black"></span><span class="afh__logoblock-color">Black</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-logoword-black.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-logoword-black.png' | asset_url }}" download>PNG</a></span></div>
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--white"></span><span class="afh__logoblock-color">White (for dark backgrounds)</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-logoword-white.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-logoword-white.png' | asset_url }}" download>PNG</a></span></div>
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--yellow"></span><span class="afh__logoblock-color">Yellow (accent)</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-logoword-yellow.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-logoword-yellow.png' | asset_url }}" download>PNG</a></span></div>
+        </div>
+      </article>
+
+      <article class="afh__logoblock">
+        <header class="afh__logoblock-head">
+          <div class="afh__logoblock-preview">
+            <img src="{{ 'kyn-skyn-horizontal-orange.svg' | asset_url }}" alt="Kyn Skyn horizontal lockup">
+          </div>
+          <div class="afh__logoblock-meta">
+            <span class="afh__logoblock-name">Horizontal lockup</span>
+            <span class="afh__logoblock-desc">Icon + wordmark side by side. Best for wide spaces: website headers, blog banners, sponsor strips.</span>
+          </div>
+        </header>
+        <div class="afh__logoblock-rows">
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--orange"></span><span class="afh__logoblock-color">Orange</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-horizontal-orange.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-horizontal-orange.png' | asset_url }}" download>PNG</a></span></div>
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--black"></span><span class="afh__logoblock-color">Black</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-horizontal-black.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-horizontal-black.png' | asset_url }}" download>PNG</a></span></div>
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--white"></span><span class="afh__logoblock-color">White (for dark backgrounds)</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-horizontal-white.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-horizontal-white.png' | asset_url }}" download>PNG</a></span></div>
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--yellow"></span><span class="afh__logoblock-color">Yellow (accent)</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-horizontal-yellow.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-horizontal-yellow.png' | asset_url }}" download>PNG</a></span></div>
+        </div>
+      </article>
+
+      <article class="afh__logoblock">
+        <header class="afh__logoblock-head">
+          <div class="afh__logoblock-preview">
+            <img src="{{ 'kyn-skyn-scrambled-orange.svg' | asset_url }}" alt="Kyn Skyn scrambled wordmark">
+          </div>
+          <div class="afh__logoblock-meta">
+            <span class="afh__logoblock-name">Scrambled wordmark</span>
+            <span class="afh__logoblock-desc">A playful display variant. Use sparingly: campaign moments, stickers, packaging accents.</span>
+          </div>
+        </header>
+        <div class="afh__logoblock-rows">
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--orange"></span><span class="afh__logoblock-color">Orange</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-scrambled-orange.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-scrambled-orange.png' | asset_url }}" download>PNG</a></span></div>
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--black"></span><span class="afh__logoblock-color">Black</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-scrambled-black.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-scrambled-black.png' | asset_url }}" download>PNG</a></span></div>
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--white"></span><span class="afh__logoblock-color">White (for dark backgrounds)</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-scrambled-white.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-scrambled-white.png' | asset_url }}" download>PNG</a></span></div>
+          <div class="afh__logoblock-row"><span class="afh__swatch afh__swatch--yellow"></span><span class="afh__logoblock-color">Yellow (accent)</span><span class="afh__logoblock-formats"><a class="afh__btn" href="{{ 'kyn-skyn-scrambled-yellow.svg' | asset_url }}" download>SVG</a><a class="afh__btn" href="{{ 'kyn-skyn-scrambled-yellow.png' | asset_url }}" download>PNG</a></span></div>
+        </div>
+      </article>
+
+      {%- comment -%} ── FONTS ── {%- endcomment -%}
+      <p class="afh__dl-cat">Fonts</p>
+      <p class="afh__font-note">For use in Kyn Skyn promotional materials only. If you want to use these fonts on your own brand, license your own copy from the foundry.</p>
+
+      <article class="afh__asset">
+        <div class="afh__asset-preview afh__asset-preview--orange" style="font-family: 'STK Bureau Sans', sans-serif; font-size: 28px; color: var(--burgundy);">Aa</div>
+        <div class="afh__asset-meta">
+          <span class="afh__asset-name">STK Bureau Sans · Book</span>
+          <span class="afh__asset-desc">Body text. The default sans across the site.</span>
+        </div>
+        <div class="afh__asset-formats"><a class="afh__btn" href="{{ 'STKBureauSans-Book.woff2' | asset_url }}" download>WOFF2</a></div>
+      </article>
+
+      <article class="afh__asset">
+        <div class="afh__asset-preview afh__asset-preview--orange" style="font-family: 'STK Bureau Serif', Georgia, serif; font-size: 32px; color: var(--burgundy);">Aa</div>
+        <div class="afh__asset-meta">
+          <span class="afh__asset-name">STK Bureau Serif · Book</span>
+          <span class="afh__asset-desc">Headings. The serif used for most editorial display copy.</span>
+        </div>
+        <div class="afh__asset-formats"><a class="afh__btn" href="{{ 'STKBureauSerif-Book.woff2' | asset_url }}" download>WOFF2</a></div>
+      </article>
+
+      <article class="afh__asset">
+        <div class="afh__asset-preview afh__asset-preview--orange" style="font-family: 'STK Bureau Serif', Georgia, serif; font-weight: 300; font-size: 32px; color: var(--burgundy);">Aa</div>
+        <div class="afh__asset-meta">
+          <span class="afh__asset-name">STK Bureau Serif · Light</span>
+          <span class="afh__asset-desc">Large display headings. Use at 32px and up for hero copy.</span>
+        </div>
+        <div class="afh__asset-formats"><a class="afh__btn" href="{{ 'STKBureauSerif-Light.woff2' | asset_url }}" download>WOFF2</a></div>
+      </article>
+
+      <article class="afh__asset">
+        <div class="afh__asset-preview afh__asset-preview--orange" style="font-family: 'ABC Maxi Sharp', sans-serif; font-size: 28px; color: var(--burgundy);">Aa</div>
+        <div class="afh__asset-meta">
+          <span class="afh__asset-name">ABC Maxi Sharp · Regular</span>
+          <span class="afh__asset-desc">Accent labels and small caps. Use sparingly.</span>
+        </div>
+        <div class="afh__asset-formats"><a class="afh__btn" href="{{ 'ABCMaxiSharp-Regular.woff2' | asset_url }}" download>WOFF2</a></div>
+      </article>
+
+      {%- comment -%} ── BRAND GUIDES ── {%- endcomment -%}
+      <p class="afh__dl-cat">Brand guides</p>
+
+      <article class="afh__asset">
+        <div class="afh__asset-preview afh__asset-preview--black" style="font-family: var(--font-serif); font-size: 12px; color: var(--burgundy);">PDF</div>
+        <div class="afh__asset-meta">
+          <span class="afh__asset-name">Brand colours</span>
+          <span class="afh__asset-desc">The full palette with hex codes. Warm "Culture" + cool "Science" pairings. 8.6 MB.</span>
+        </div>
+        <div class="afh__asset-formats"><a class="afh__btn" href="{{ 'kyn-skyn-brand-colours.pdf' | asset_url }}" download>PDF</a></div>
+      </article>
+
+      <article class="afh__asset">
+        <div class="afh__asset-preview afh__asset-preview--black" style="font-family: var(--font-serif); font-size: 12px; color: var(--burgundy);">PDF</div>
+        <div class="afh__asset-meta">
+          <span class="afh__asset-name">Brand typography</span>
+          <span class="afh__asset-desc">Type system and pairings, weights, hierarchy. 7.4 MB.</span>
+        </div>
+        <div class="afh__asset-formats"><a class="afh__btn" href="{{ 'kyn-skyn-brand-typography.pdf' | asset_url }}" download>PDF</a></div>
+      </article>
+
+      <article class="afh__asset">
+        <div class="afh__asset-preview afh__asset-preview--black" style="font-family: var(--font-serif); font-size: 12px; color: var(--burgundy);">PDF</div>
+        <div class="afh__asset-meta">
+          <span class="afh__asset-name">Logo usage guide</span>
+          <span class="afh__asset-desc">Do's, don'ts, sizing, clear space, what not to do with the mark. 4.2 MB.</span>
+        </div>
+        <div class="afh__asset-formats"><a class="afh__btn" href="{{ 'kyn-skyn-brand-logo.pdf' | asset_url }}" download>PDF</a></div>
+      </article>
+
+      <article class="afh__asset">
+        <div class="afh__asset-preview afh__asset-preview--black" style="font-family: var(--font-serif); font-size: 12px; color: var(--burgundy);">PDF</div>
+        <div class="afh__asset-meta">
+          <span class="afh__asset-name">Photography direction</span>
+          <span class="afh__asset-desc">Visual mood, model direction, shoot references. Use as a guide for your own assets. 4.5 MB.</span>
+        </div>
+        <div class="afh__asset-formats"><a class="afh__btn" href="{{ 'kyn-skyn-brand-photography.pdf' | asset_url }}" download>PDF</a></div>
+      </article>
+
+      {%- comment -%} ── PHOTOGRAPHY + VIDEO ── {%- endcomment -%}
+      <p class="afh__dl-cat">Photography &amp; video</p>
+
+      <article class="afh__asset">
+        <div class="afh__asset-preview afh__asset-preview--black" style="font-family: var(--font-serif); font-size: 12px; color: var(--burgundy);">ZIP</div>
+        <div class="afh__asset-meta">
+          <span class="afh__asset-name">Campaign photo pack</span>
+          <span class="afh__asset-desc">Web-sized brand photography you can use on social and blog. 10.8 MB.</span>
+        </div>
+        <div class="afh__asset-formats"><a class="afh__btn" href="{{ 'kyn-skyn-campaign-photos.zip' | asset_url }}" download>ZIP</a></div>
+      </article>
+
+      <article class="afh__asset">
+        <div class="afh__asset-preview afh__asset-preview--black" style="font-family: var(--font-serif); font-size: 12px; color: var(--burgundy);">MP4</div>
+        <div class="afh__asset-meta">
+          <span class="afh__asset-name">Seborrheic dermatitis explainer</span>
+          <span class="afh__asset-desc">Short film explaining the condition and the treatment. 30 MB.</span>
+        </div>
+        <div class="afh__asset-formats"><a class="afh__btn" href="{{ 'kyn-skyn-seb-derm-explainer.mp4' | asset_url }}" download>MP4</a></div>
+      </article>
+
+      {%- comment -%} ── REFERENCE ── {%- endcomment -%}
+      <p class="afh__dl-cat">Reference</p>
+
+      <article class="afh__asset">
+        <div class="afh__asset-preview afh__asset-preview--black" style="font-family: var(--font-serif); font-size: 12px; color: var(--burgundy);">PDF</div>
+        <div class="afh__asset-meta">
+          <span class="afh__asset-name">Malassezia handbook</span>
+          <span class="afh__asset-desc">The full patient-facing guide we publish. Plain-English ladder for seb derm, fungal acne, dandruff, tinea versicolor. 900 KB.</span>
+        </div>
+        <div class="afh__asset-formats"><a class="afh__btn" href="{{ 'Kyn-Skyn-Malassezia-Handbook.pdf' | asset_url }}" download>PDF</a></div>
+      </article>
     </div>
 
     {%- comment -%} ── 7. QUICK START ── {%- endcomment -%}
