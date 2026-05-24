@@ -109,20 +109,21 @@ Read `telehealth/MDI_INTEGRATION.md` for the full integration brief (endpoints h
 - **`Brand-guidelines/Kyn Skyn Colours-{1..7}.pdf`** (7 different sizes). Not straight dupes — appear to be different pages/spreads. It's the brand archive folder; safe to leave.
 - **`.claude/worktrees/distracted-lovelace/`** — worktree has uncommitted work (101 lines in `layout/theme.liquid`, 16 lines in `sections/header.liquid`). Don't touch.
 
-## Free-consultation security (post-Endorsely-cutover)
+## Free-consultation security (post-AffiliateBase-cutover)
 
 Hardened paths so a logged-in patient can't get a case created without a real, server-validated payment. Anything that touches consultation pricing must keep these invariants:
 
 - **`/api/payment`** never trusts client `amount` for `type: "consultation"`. Server requires the requested amount to match `canonicalOnetimePrice` exactly (1¢ rounding tolerance). `metadata.type = "consultation"` is set on every PaymentIntent it creates.
 - **`verifyConsultationPaymentReference`** (in `lib/stripe-rollback.ts`) rejects if `metadata.type` is set to anything other than `"consultation"`, and rejects if `paymentIntent.amount < canonicalPrice - 1¢`. Caches the canonical price in module memory; refreshes when server restarts.
-- **There is no Kyn-side discount engine.** Affiliate attribution lives entirely in Endorsely's Stripe App, which reads `endorsely_referral` from the metadata our `/api/payment` and `/api/subscription/create` stamp onto Stripe PaymentIntents/Subscriptions. The legacy `referral_codes`/per-code Stripe coupon/`MARGIN_CAP_CENTS` system was torn out 2026-05-24.
+- **There is no Kyn-side discount engine.** Affiliate attribution lives in AffiliateBase. Client-side: their JS captures `?via=` / `?referral=` into the `ab_referral` cookie + `window.affiliatebase_referral`, and `PaymentForm.tsx` fires `affiliatebase("conversion", {...})` from the Stripe success callback. Server-side: `/api/payment` and `/api/subscription/create` stamp the captured referral onto Stripe PaymentIntent / Subscription `metadata.affiliatebase_referral` as a defense-in-depth path. Legacy `referral_codes`/per-code Stripe coupon/`MARGIN_CAP_CENTS` system was torn out 2026-05-24; Endorsely was swapped for AffiliateBase same day.
 - **`BOOKING_TEST_TOKEN`** comparison uses `crypto.timingSafeEqual` — never reintroduce `===`.
-- **Stripe metadata is server-set, never client-input.** If you ever let a client write to PaymentIntent metadata, Endorsely's attribution becomes spoofable.
+- **Stripe metadata is server-set, never client-input.** If you ever let a client write to PaymentIntent metadata, AffiliateBase's attribution becomes spoofable.
 - **Shopify payment-reference path is gone** from `/api/book` (post-embed-Stripe pivot, nothing produces `shopify:*` transaction_ids). `lib/shopify-care.ts` exists but isn't called; treat as deprecated.
 
 Known limitations:
 1. Admin gate is `ADMIN_EMAILS` env-list-only (no TOTP/hardware key).
 2. `BOOKING_TEST_TOKEN` is a single static secret. Rotate via the env var if it leaks; whole check goes away post-launch.
+3. Subscription conversions don't fire client-side (PaymentForm passes `amount=0` for plans, which the conversion helper skips). They rely on AffiliateBase reading the Stripe Subscription metadata; if AffiliateBase's Stripe integration isn't connected, subscription commissions are missed.
 
 ## Conventions
 
