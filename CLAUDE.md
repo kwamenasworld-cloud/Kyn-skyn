@@ -123,7 +123,7 @@ Hardened paths so a logged-in patient can't get a case created without a real, s
 Known limitations:
 1. Admin gate is `ADMIN_EMAILS` env-list-only (no TOTP/hardware key).
 2. `BOOKING_TEST_TOKEN` is a single static secret. Rotate via the env var if it leaks; whole check goes away post-launch.
-3. Subscription conversions don't fire client-side (PaymentForm passes `amount=0` for plans, which the conversion helper skips). They rely on AffiliateBase reading the Stripe Subscription metadata; if AffiliateBase's Stripe integration isn't connected, subscription commissions are missed.
+3. Subscription conversions don't fire client-side (PaymentForm passes `amount=0` for plans, which the conversion helper skips). AffiliateBase's Stripe Connect integration is wired (confirmed 2026-05-24), so attribution happens via the `affiliatebase_referral` metadata stamped on the Subscription. If that integration is ever disconnected, subscription commissions stop attributing — wire a server-side `POST /api/v1/referrals` from the Stripe webhook on `invoice.paid` instead.
 
 ## Conventions
 
