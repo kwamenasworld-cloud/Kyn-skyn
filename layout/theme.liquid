@@ -9,13 +9,7 @@
   <script>
     window.KynAttribution = (function() {
       var ATTR_KEY = 'kyn_attribution_context';
-      var CODE_KEY = 'kyn_affiliate_referral_code';
       var CART_SYNC_KEY = 'kyn_cart_attribution_synced_at';
-
-      function safeCode(value) {
-        value = (value || '').trim();
-        return /^[A-Za-z0-9_-]{2,20}$/.test(value) ? value.toUpperCase() : '';
-      }
 
       function readJson(key) {
         try { return JSON.parse(window.localStorage.getItem(key) || '{}'); }
@@ -34,13 +28,8 @@
       function capture() {
         var params = new URLSearchParams(window.location.search);
         var existing = read();
-        var code = safeCode(params.get('ref') || params.get('affiliate') || params.get('code') || existing.affiliate_code || '');
-        if (code) {
-          try { window.localStorage.setItem(CODE_KEY, code); } catch (err) {}
-        }
 
         var next = Object.assign({}, existing, {
-          affiliate_code: code || existing.affiliate_code || '',
           landing_url: existing.landing_url || window.location.href,
           last_url: window.location.href,
           referrer: existing.referrer || document.referrer || '',
@@ -64,7 +53,6 @@
         var ctx = Object.assign({}, read(), extra || {});
         var out = {};
         [
-          'affiliate_code',
           'endorsely_referral',
           'utm_source',
           'utm_medium',
@@ -85,7 +73,6 @@
         var ctx = compactContext(extra);
         var attrs = {
           kyn_checkout_source: 'shopify_care_funnel',
-          kyn_affiliate_code: ctx.affiliate_code || '',
           kyn_endorsely_referral: ctx.endorsely_referral || '',
           kyn_care_plan: ctx.kyn_care_plan || '',
           kyn_care_handoff_token: ctx.kyn_care_handoff_token || '',
@@ -107,7 +94,6 @@
       function appendToUrl(url, extra) {
         var target = new URL(url, window.location.origin);
         var ctx = compactContext(extra);
-        if (ctx.affiliate_code) target.searchParams.set('ref', ctx.affiliate_code);
         if (ctx.endorsely_referral) target.searchParams.set('endorsely_referral', ctx.endorsely_referral);
         ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(key) {
           if (ctx[key]) target.searchParams.set(key, ctx[key]);

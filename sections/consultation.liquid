@@ -1049,8 +1049,8 @@
       var ctx = window.KynAttribution ? window.KynAttribution.capture() : {};
       var plan = currentPlan();
       planLabel.textContent = planName(plan);
-      attributionLabel.textContent = ctx.affiliate_code
-        ? 'Affiliate code ' + ctx.affiliate_code
+      attributionLabel.textContent = ctx.endorsely_referral
+        ? 'Endorsely referral active'
         : 'No referral captured yet.';
       if (pricingCta) {
         pricingCta.setAttribute('href', '#thShopifyCareTest');
@@ -1071,7 +1071,7 @@
       target.searchParams.set('source', 'shopify');
       target.searchParams.set('plan', plan);
       var ctx = window.KynAttribution ? window.KynAttribution.read() : {};
-      if (ctx.affiliate_code) target.searchParams.set('ref', ctx.affiliate_code);
+      if (ctx.endorsely_referral) target.searchParams.set('endorsely_referral', ctx.endorsely_referral);
       target.searchParams.set('embed', 'shopify');
       // Pass our origin so the iframe can target it on postMessage. Without
       // this the child has to guess between apex and www, and a guess wrong
