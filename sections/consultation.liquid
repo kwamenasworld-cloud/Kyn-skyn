@@ -1185,8 +1185,15 @@
       target.searchParams.set('embed', 'shopify');
       target.searchParams.set('parent_origin', window.location.origin);
 
-      var preview = params.get('booking_preview');
-      if (preview) target.searchParams.set('booking_preview', preview);
+      // Default the booking_preview param to the test-theme bypass token
+      // so the unlisted Shopify preview can run the full intake without
+      // staff pasting a token. care.kynskyn.com accepts this constant
+      // only while BOOKING_PRELAUNCH_LOCK is true (pre-launch); after
+      // launch the gate goes off and the token is moot. Staff with the
+      // real BOOKING_TEST_TOKEN can still override via ?booking_preview=
+      // on the parent URL.
+      var preview = params.get('booking_preview') || 'kyn-shopify-test-theme-bypass-2026';
+      target.searchParams.set('booking_preview', preview);
       if (ctx.affiliatebase_referral) target.searchParams.set('affiliatebase_referral', ctx.affiliatebase_referral);
       ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(key) {
         if (ctx[key]) target.searchParams.set(key, ctx[key]);
