@@ -625,12 +625,12 @@
           <p>&#10003; Secure online payment</p>
         </div>
         <!-- 3-month billing toggle - augments the Monthly plan -->
-        <div class="th-plan__augment" aria-hidden="true">
+        <div class="th-plan__augment">
           <label class="th-plan__augment-toggle">
             <input type="checkbox" class="th-plan__augment-input" data-augment="quarterly">
             <span class="th-plan__augment-label">
               <span class="th-plan__augment-title">Switch to 3-month, save ~$5/mo</span>
-              <span class="th-plan__augment-detail"><span>$74.99<span class="th-plan__price-suffix">/3 mo</span></span> - billed every 3 months</span>
+              <span class="th-plan__augment-detail"><span>$74.99<span class="th-plan__price-suffix">/3 mo</span></span>, billed every 3 months</span>
             </span>
           </label>
         </div>
@@ -727,21 +727,42 @@
     border-top: 1px solid rgba(255, 244, 206, 0.12);
     text-align: left;
   }
+  /* Whole label is the click target. Styled as a discrete box rather than
+     a row+tiny checkbox so the tap zone is obvious on mobile. */
   .th-plan__augment-toggle {
     display: flex;
-    align-items: flex-start;
-    gap: 0.55rem;
+    align-items: center;
+    gap: 0.7rem;
     cursor: pointer;
     font-family: var(--font-sans);
+    padding: 0.75rem 0.85rem;
+    border: 1.5px solid rgba(255, 244, 206, 0.28);
+    border-radius: 10px;
+    background: rgba(20, 5, 8, 0.45);
+    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+    text-align: left;
+  }
+  .th-plan__augment-toggle:hover {
+    border-color: rgba(248, 176, 68, 0.6);
+    background: rgba(20, 5, 8, 0.65);
+  }
+  .th-plan__augment-toggle:has(.th-plan__augment-input:checked) {
+    border-color: #F8B044;
+    background: rgba(80, 45, 12, 0.55);
+    box-shadow: 0 0 0 1px rgba(248, 176, 68, 0.35);
+  }
+  .th-plan__augment-toggle:has(.th-plan__augment-input:focus-visible) {
+    outline: 2px solid #F8B044;
+    outline-offset: 2px;
   }
   .th-plan__augment-input {
     appearance: none;
     -webkit-appearance: none;
-    margin: 0.15rem 0 0 0;
-    width: 0.9rem;
-    height: 0.9rem;
-    border: 1.5px solid rgba(255, 244, 206, 0.4);
-    border-radius: 3px;
+    margin: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    border: 1.5px solid rgba(255, 244, 206, 0.45);
+    border-radius: 4px;
     background: transparent;
     cursor: pointer;
     flex-shrink: 0;
@@ -755,27 +776,29 @@
   .th-plan__augment-input:checked::after {
     content: "";
     position: absolute;
-    left: 3px;
-    top: 0px;
-    width: 3px;
-    height: 6px;
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
     border: solid #641220;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
-  .th-plan__augment-label { display: block; }
+  .th-plan__augment-label { display: block; flex: 1; }
   .th-plan__augment-title {
     display: block;
-    font-size: 0.7rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: #F8B044;
     letter-spacing: 0.02em;
+    line-height: 1.25;
   }
   .th-plan__augment-detail {
     display: block;
-    font-size: 0.65rem;
-    color: rgba(255, 244, 206, 0.55);
-    margin-top: 0.1rem;
+    font-size: 0.7rem;
+    color: rgba(255, 244, 206, 0.6);
+    margin-top: 0.2rem;
+    line-height: 1.35;
   }
 
   .th-flow__eyebrow {
