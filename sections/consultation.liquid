@@ -69,7 +69,12 @@
   .kyn-checkout-mode #secure-intake,
   .kyn-checkout-mode .th-faq,
   .kyn-checkout-mode .th-care-test,
-  .kyn-checkout-mode .th-care-flow__header { display: none !important; }
+  .kyn-checkout-mode .th-care-flow__header,
+  .kyn-checkout-mode footer.site-footer,
+  .kyn-checkout-mode .mobile-tab-bar { display: none !important; }
+  /* Prevent the page from scrolling at all in checkout mode -- everything
+     the user needs is in the iframe, which scrolls internally. */
+  .kyn-checkout-mode body { overflow: hidden !important; }
   /* Care flow lifts right under the fixed header; tighter padding
      so the iframe gets nearly the full viewport. */
   .kyn-checkout-mode .th-care-flow {
