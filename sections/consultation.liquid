@@ -72,9 +72,15 @@
   .kyn-checkout-mode .th-care-flow__header,
   .kyn-checkout-mode footer.site-footer,
   .kyn-checkout-mode .mobile-tab-bar { display: none !important; }
-  /* Prevent the page from scrolling at all in checkout mode -- everything
-     the user needs is in the iframe, which scrolls internally. */
-  .kyn-checkout-mode body { overflow: hidden !important; }
+  /* Tighten the pricing section in checkout mode so it fits in one
+     viewport without scrolling. Smaller top padding (header is
+     fixed at ~80px), tighter bottom padding. */
+  .kyn-checkout-mode #th-pricing {
+    padding: clamp(5.5rem, 7vw, 6.5rem) 1.5rem 2rem !important;
+  }
+  /* Once the iframe opens (kyn-intake-open), lock the body so the
+     outer page can never scroll. The iframe handles its own scroll. */
+  .kyn-checkout-mode.kyn-intake-open body { overflow: hidden !important; }
   /* Care flow lifts right under the fixed header; tighter padding
      so the iframe gets nearly the full viewport. */
   .kyn-checkout-mode .th-care-flow {
@@ -1233,10 +1239,11 @@
       }
     });
 
-    var qs = new URLSearchParams(window.location.search);
-    if (qs.get('checkout') === '1') {
-      setTimeout(function() { open(currentPlan()); }, 250);
-    }
+    // Note: checkout mode no longer auto-opens the iframe. The user
+    // still needs to pick a plan first. When they click a plan card,
+    // the plan handler calls KynCareFlow.open() which (in checkout
+    // mode) hides pricing and shows the iframe in the same viewport
+    // position. Net result is one press to land, one press to start.
 
     return { open: open };
   })();
