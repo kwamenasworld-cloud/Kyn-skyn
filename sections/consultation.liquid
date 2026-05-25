@@ -826,10 +826,18 @@
   .th-care-flow__frame {
     display: block;
     width: 100%;
-    min-height: 760px;
+    /* Fit inside the viewport. Subtracts the site header (~80px) plus
+       the section's own eyebrow/heading/bar above the iframe (~120px).
+       Iframe scrolls internally if its content is taller than this. */
+    height: calc(100vh - 200px);
+    min-height: 520px;
+    max-height: 900px;
     border: 0;
     background: var(--dark);
   }
+  /* When the section scrolls into view, push it below the fixed
+     site-header so the eyebrow/heading aren't hidden behind it. */
+  #th-care-flow { scroll-margin-top: 88px; }
   .th-care-flow__success[hidden] { display: none; }
   .th-care-flow__success {
     padding: 2rem;
@@ -1153,7 +1161,13 @@
       if (event.origin !== CARE_ORIGIN) return;
       var data = event.data || {};
       if (data.type === 'kyn_intake_resize' && frame && data.height) {
-        var next = Math.min(Math.max(Number(data.height) || 760, 760), 2200);
+        // Cap the iframe at viewport height (minus the site header + the
+        // section's own eyebrow/heading/bar above it). Internal scrolling
+        // inside the iframe handles content taller than this, so the
+        // user never has to scroll the outer page.
+        var viewportCap = Math.max(window.innerHeight - 200, 520);
+        var hardCap = Math.min(viewportCap, 900);
+        var next = Math.min(Math.max(Number(data.height) || 520, 520), hardCap);
         frame.style.height = next + 'px';
       }
       if (data.type === 'kyn_payment_complete') {
