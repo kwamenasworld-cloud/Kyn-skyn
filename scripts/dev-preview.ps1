@@ -7,7 +7,7 @@
 #   - Hot-reloads when you edit any .liquid / .json / .css / asset in the repo
 #
 # First run: the CLI will open a browser asking you to log in to
-# kyn-skyn.myshopify.com and authorize the CLI. Approve it once and the
+# 1mehi7-fb.myshopify.com and authorize the CLI. Approve it once and the
 # token is cached, so subsequent runs of this script start instantly.
 #
 # Daily use:
@@ -17,7 +17,7 @@
 #   4. When fully tested, merge `test` -> `master` to auto-deploy live
 
 $ErrorActionPreference = "Stop"
-$Store = "kyn-skyn.myshopify.com"
+$Store = "1mehi7-fb.myshopify.com"
 
 # Move to repo root (this script lives in scripts/)
 $RepoRoot = Split-Path -Parent $PSScriptRoot

@@ -59,4 +59,4 @@ shopify auth logout
 
 Logging out clears the cached token; the next run of the script re-triggers the browser OAuth flow.
 
-You need to be an admin (or staff with theme-edit permission) on the kyn-skyn.myshopify.com store.
+You need to be an admin (or staff with theme-edit permission) on the 1mehi7-fb.myshopify.com store.
