@@ -68,10 +68,17 @@
   .kyn-checkout-mode .th-steps,
   .kyn-checkout-mode #secure-intake,
   .kyn-checkout-mode .th-faq,
-  .kyn-checkout-mode .th-care-test { display: none !important; }
-  /* Care flow lifts up under the fixed header */
+  .kyn-checkout-mode .th-care-test,
+  .kyn-checkout-mode .th-care-flow__header { display: none !important; }
+  /* Care flow lifts right under the fixed header; tighter padding
+     so the iframe gets nearly the full viewport. */
   .kyn-checkout-mode .th-care-flow {
-    padding-top: clamp(5rem, 7vw, 6.5rem) !important;
+    padding: clamp(4.5rem, 6vw, 5.5rem) 1rem 1rem !important;
+  }
+  /* Maximize the iframe in checkout mode. */
+  .kyn-checkout-mode .th-care-flow__frame {
+    height: calc(100vh - 160px) !important;
+    max-height: none !important;
   }
   /* When iframe opens in checkout mode, pricing collapses (no scroll
      needed; iframe takes the visual spot pricing was in). */
@@ -1197,12 +1204,16 @@
       if (event.origin !== CARE_ORIGIN) return;
       var data = event.data || {};
       if (data.type === 'kyn_intake_resize' && frame && data.height) {
-        // Cap the iframe at viewport height (minus the site header + the
-        // section's own eyebrow/heading/bar above it). Internal scrolling
-        // inside the iframe handles content taller than this, so the
-        // user never has to scroll the outer page.
-        var viewportCap = Math.max(window.innerHeight - 200, 520);
-        var hardCap = Math.min(viewportCap, 900);
+        // Cap the iframe at viewport height. In express checkout mode
+        // (only the iframe is visible) we leave just 160px for the site
+        // header + bar. In normal mode we leave 200px for the section
+        // eyebrow/heading too. Internal scrolling inside the iframe
+        // handles content taller than this, so the user never has to
+        // scroll the outer page.
+        var inCheckout = document.documentElement.classList.contains('kyn-checkout-mode');
+        var chrome = inCheckout ? 160 : 200;
+        var viewportCap = Math.max(window.innerHeight - chrome, 520);
+        var hardCap = inCheckout ? viewportCap : Math.min(viewportCap, 900);
         var next = Math.min(Math.max(Number(data.height) || 520, 520), hardCap);
         frame.style.height = next + 'px';
       }
