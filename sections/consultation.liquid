@@ -73,13 +73,18 @@
   /* Care flow lifts right under the fixed header; tighter padding
      so the iframe gets nearly the full viewport. */
   .kyn-checkout-mode .th-care-flow {
-    padding: clamp(4.5rem, 6vw, 5.5rem) 1rem 1rem !important;
+    padding: 5rem 0.5rem 0.5rem !important;
   }
-  /* Maximize the iframe in checkout mode. */
+  /* Maximize the iframe in checkout mode. Subtracts the site header
+     (~80px), the care-flow section top padding (~80px), the bar above
+     the iframe (~52px), and the small bottom padding. */
   .kyn-checkout-mode .th-care-flow__frame {
-    height: calc(100vh - 160px) !important;
+    height: calc(100vh - 230px) !important;
+    min-height: 480px;
     max-height: none !important;
   }
+  /* Tighten the shell border + bar in checkout mode too */
+  .kyn-checkout-mode .th-care-flow__bar { padding: 0.65rem 1rem !important; }
   /* When iframe opens in checkout mode, pricing collapses (no scroll
      needed; iframe takes the visual spot pricing was in). */
   .kyn-checkout-mode.kyn-intake-open #th-pricing { display: none !important; }
@@ -1211,10 +1216,10 @@
         // handles content taller than this, so the user never has to
         // scroll the outer page.
         var inCheckout = document.documentElement.classList.contains('kyn-checkout-mode');
-        var chrome = inCheckout ? 160 : 200;
-        var viewportCap = Math.max(window.innerHeight - chrome, 520);
+        var chrome = inCheckout ? 230 : 200;
+        var viewportCap = Math.max(window.innerHeight - chrome, 480);
         var hardCap = inCheckout ? viewportCap : Math.min(viewportCap, 900);
-        var next = Math.min(Math.max(Number(data.height) || 520, 520), hardCap);
+        var next = Math.min(Math.max(Number(data.height) || 480, 480), hardCap);
         frame.style.height = next + 'px';
       }
       if (data.type === 'kyn_payment_complete') {
