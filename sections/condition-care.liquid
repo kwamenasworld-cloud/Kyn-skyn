@@ -298,14 +298,20 @@
     outline-offset: 2px;
   }
 
-  .cc-hero__plan-card--recommended {
+  .cc-hero__plan-card--recommended,
+  .cc-hero__plan-card--selected {
     border-color: var(--gold);
     background: rgba(80, 45, 12, 0.65);
   }
 
-  .cc-hero__plan-card--recommended:hover {
+  .cc-hero__plan-card--recommended:hover,
+  .cc-hero__plan-card--selected:hover {
     border-color: var(--gold);
     background: rgba(110, 65, 20, 0.78);
+  }
+
+  .cc-hero__plan-card--selected {
+    box-shadow: 0 0 0 2px rgba(212, 149, 42, 0.45);
   }
 
   .cc-hero__plan-badge {
@@ -394,7 +400,8 @@
     top: 0.7em;
   }
 
-  .cc-hero__plan-card--recommended .cc-hero__plan-feats {
+  .cc-hero__plan-card--recommended .cc-hero__plan-feats,
+  .cc-hero__plan-card--selected .cc-hero__plan-feats {
     opacity: 0.85;
     border-top-color: rgba(212, 149, 42, 0.25);
   }
@@ -862,8 +869,8 @@
     <p class="cc-hero__eyebrow">{{ condition_subtitle }}</p>
     <h1 class="cc-hero__heading">{{ hero_heading }}</h1>
     <p class="cc-hero__sub">{{ hero_sub }}</p>
-    <div class="cc-hero__plans" role="group" aria-label="Treatment plans">
-      <a href="/pages/consultation?plan=monthly" class="cc-hero__plan-card{% if recommended_plan == 'monthly' %} cc-hero__plan-card--recommended{% endif %}" data-plan="monthly">
+    <div class="cc-hero__plans" id="ccHeroPlans" role="radiogroup" aria-label="Treatment plans">
+      <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'monthly' %} cc-hero__plan-card--recommended cc-hero__plan-card--selected{% endif %}" data-plan="monthly" role="radio" aria-checked="{% if recommended_plan == 'monthly' %}true{% else %}false{% endif %}">
         {% if recommended_plan == 'monthly' %}<span class="cc-hero__plan-badge">Recommended</span>{% endif %}
         <p class="cc-hero__plan-name">Monthly</p>
         <p class="cc-hero__plan-cost">$29.99<span class="cc-hero__plan-cost-suffix">/mo</span></p>
@@ -872,8 +879,8 @@
           <li>Refills as needed</li>
           <li>Cancel anytime</li>
         </ul>
-      </a>
-      <a href="/pages/consultation?plan=quarterly" class="cc-hero__plan-card{% if recommended_plan == 'quarterly' %} cc-hero__plan-card--recommended{% endif %}" data-plan="quarterly">
+      </button>
+      <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'quarterly' %} cc-hero__plan-card--recommended cc-hero__plan-card--selected{% endif %}" data-plan="quarterly" role="radio" aria-checked="{% if recommended_plan == 'quarterly' %}true{% else %}false{% endif %}">
         <span class="cc-hero__plan-badge">Save ~$5/mo</span>
         <p class="cc-hero__plan-name">3 months</p>
         <p class="cc-hero__plan-cost">$74.99<span class="cc-hero__plan-cost-suffix">/3 mo</span></p>
@@ -882,8 +889,8 @@
           <li>Everything in Monthly</li>
           <li>Best for chronic care</li>
         </ul>
-      </a>
-      <a href="/pages/consultation?plan=one-time" class="cc-hero__plan-card" data-plan="one-time">
+      </button>
+      <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'one-time' %} cc-hero__plan-card--recommended cc-hero__plan-card--selected{% endif %}" data-plan="one-time" role="radio" aria-checked="{% if recommended_plan == 'one-time' %}true{% else %}false{% endif %}">
         <p class="cc-hero__plan-name">One-time</p>
         <p class="cc-hero__plan-cost">$34.99</p>
         <ul class="cc-hero__plan-feats">
@@ -891,10 +898,10 @@
           <li class="is-off">No refills</li>
           <li class="is-off">No follow-ups</li>
         </ul>
-      </a>
+      </button>
     </div>
     <div class="cc-hero__actions">
-      <a href="/pages/consultation?plan={{ recommended_plan }}" class="cc-hero__cta">
+      <a href="/pages/consultation?plan={{ recommended_plan }}&checkout=1" class="cc-hero__cta" id="ccHeroCta">
         <span>Get your Kynsultation</span>
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -1148,6 +1155,50 @@
     {% endif %}
   </div>
 </section>
+
+<script>
+  // Plan-card selector for the condition hero. Clicking a card only
+  // toggles the --selected visual state; navigation happens via the
+  // "Get your Kynsultation" CTA, whose href is rebuilt to include the
+  // currently-selected plan plus ?checkout=1 so /pages/consultation
+  // opens the intake iframe directly (express checkout mode).
+  (function() {
+    var plans = document.querySelectorAll('#ccHeroPlans .cc-hero__plan-card');
+    var cta = document.getElementById('ccHeroCta');
+    if (!plans.length || !cta) return;
+
+    function currentPlan() {
+      for (var i = 0; i < plans.length; i++) {
+        if (plans[i].classList.contains('cc-hero__plan-card--selected')) {
+          return plans[i].getAttribute('data-plan');
+        }
+      }
+      return plans[0].getAttribute('data-plan');
+    }
+
+    function updateCta() {
+      var plan = currentPlan();
+      cta.setAttribute(
+        'href',
+        '/pages/consultation?plan=' + encodeURIComponent(plan) + '&checkout=1'
+      );
+    }
+
+    plans.forEach(function(plan) {
+      plan.addEventListener('click', function() {
+        plans.forEach(function(p) {
+          p.classList.remove('cc-hero__plan-card--selected');
+          p.setAttribute('aria-checked', 'false');
+        });
+        plan.classList.add('cc-hero__plan-card--selected');
+        plan.setAttribute('aria-checked', 'true');
+        updateCta();
+      });
+    });
+
+    updateCta();
+  })();
+</script>
 
 {% schema %}
 {
