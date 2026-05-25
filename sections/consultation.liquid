@@ -50,7 +50,33 @@
 }
 </script>
 
+<script>
+  // Express checkout mode: when ?checkout=1 is in the URL, the home page
+  // landed us here for the sole purpose of starting intake. Set a class on
+  // <html> BEFORE any styled HTML renders so the hero/conditions/steps/FAQ
+  // sections never flash visible. The iframe auto-opens at the top of the
+  // page (see the KynCareFlow IIFE below).
+  if (typeof URLSearchParams !== 'undefined' && new URLSearchParams(window.location.search).get('checkout') === '1') {
+    document.documentElement.classList.add('kyn-checkout-mode');
+  }
+</script>
+
 <style>
+  /* ========== EXPRESS CHECKOUT MODE ========== */
+  .kyn-checkout-mode .th-hero,
+  .kyn-checkout-mode .th-conditions,
+  .kyn-checkout-mode .th-steps,
+  .kyn-checkout-mode #secure-intake,
+  .kyn-checkout-mode .th-faq,
+  .kyn-checkout-mode .th-care-test { display: none !important; }
+  /* Care flow lifts up under the fixed header */
+  .kyn-checkout-mode .th-care-flow {
+    padding-top: clamp(5rem, 7vw, 6.5rem) !important;
+  }
+  /* When iframe opens in checkout mode, pricing collapses (no scroll
+     needed; iframe takes the visual spot pricing was in). */
+  .kyn-checkout-mode.kyn-intake-open #th-pricing { display: none !important; }
+
   /* ========== TELEHEALTH HERO ========== */
   .th-hero {
     background: var(--dark);
@@ -1151,9 +1177,19 @@
       if (frame) frame.setAttribute('src', buildCareUrl(plan));
       if (success) success.hidden = true;
       if (frameWrap) frameWrap.hidden = false;
+      var inCheckout = document.documentElement.classList.contains('kyn-checkout-mode');
       if (section) {
         section.hidden = false;
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Express checkout mode: the iframe is already at the top of the
+        // page (hero + steps + pricing are hidden). No scroll needed.
+        // Normal mode: smooth-scroll into view from wherever the user is.
+        if (!inCheckout) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+      if (inCheckout) {
+        // Mark the page so the (otherwise visible) pricing section collapses.
+        document.documentElement.classList.add('kyn-intake-open');
       }
     }
 
