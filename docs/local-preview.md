@@ -5,14 +5,13 @@ How to test Shopify theme changes locally before they hit live kynskyn.com.
 ## TL;DR
 
 ```powershell
-# One-time auth (browser opens, log in to kynskyn admin):
-shopify auth login --store=kynskyn.myshopify.com
-
-# Daily use, from repo root:
+# From repo root (first run opens a browser for OAuth, subsequent runs go straight to localhost):
 .\scripts\dev-preview.ps1
 ```
 
 Open http://127.0.0.1:9292 in your browser. Edit any `.liquid`, `.json`, or asset file and the page hot-reloads.
+
+There is no separate `shopify auth login` step in CLI 3.x — `shopify theme dev` handles authentication on its first run.
 
 ## What's running
 
@@ -52,10 +51,12 @@ Shopify auto-deploys from master push.
 
 ## Auth troubleshooting
 
-If `shopify auth login` opens a stale session or you get permission errors:
+If the cached session goes stale or you get permission errors:
 ```powershell
 shopify auth logout
-shopify auth login --store=kynskyn.myshopify.com
+.\scripts\dev-preview.ps1
 ```
 
-You need to be an admin (or staff with theme-edit permission) on the kynskyn.myshopify.com store.
+Logging out clears the cached token; the next run of the script re-triggers the browser OAuth flow.
+
+You need to be an admin (or staff with theme-edit permission) on the kyn-skyn.myshopify.com store.

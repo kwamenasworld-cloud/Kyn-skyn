@@ -6,10 +6,9 @@
 #   - Launches `shopify theme dev` at http://127.0.0.1:9292
 #   - Hot-reloads when you edit any .liquid / .json / .css / asset in the repo
 #
-# One-time setup (run manually the first time):
-#   1. cd to the repo root
-#   2. shopify auth login --store=kynskyn.myshopify.com
-#   3. Browser opens, log in, approve the CLI
+# First run: the CLI will open a browser asking you to log in to
+# kyn-skyn.myshopify.com and authorize the CLI. Approve it once and the
+# token is cached, so subsequent runs of this script start instantly.
 #
 # Daily use:
 #   1. Run this script: .\scripts\dev-preview.ps1
@@ -18,7 +17,7 @@
 #   4. When fully tested, merge `test` -> `master` to auto-deploy live
 
 $ErrorActionPreference = "Stop"
-$Store = "kynskyn.myshopify.com"
+$Store = "kyn-skyn.myshopify.com"
 
 # Move to repo root (this script lives in scripts/)
 $RepoRoot = Split-Path -Parent $PSScriptRoot
@@ -69,4 +68,4 @@ Write-Host "Launching dev server. Press Ctrl+C to stop." -ForegroundColor Green
 Write-Host "Preview URL will print below once the CLI is ready." -ForegroundColor Green
 Write-Host ""
 
-shopify theme dev --store=$Store
+shopify theme dev --store $Store
