@@ -465,8 +465,8 @@
   <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="th-hero__molecule" width="667" height="667">
   <p class="th-hero__eyebrow fade-in">Online dermatology care</p>
   <h1 class="th-hero__heading fade-in">Get bespoke dermatologic care</h1>
-  <p class="th-hero__desc fade-in">Choose a care plan on KynSkyn.com. A board-certified dermatologist reviews your secure intake and photos, confirms what's actually wrong, and sends a treatment plan when clinically appropriate.</p>
-  <a href="#th-pricing" class="th-hero__cta fade-in">Start checkout</a>
+  <p class="th-hero__desc fade-in">A board-certified dermatologist reviews your secure intake and photos, confirms what's actually wrong, and sends a treatment plan when clinically appropriate. One plan to pick, then your intake starts.</p>
+  <a href="#th-pricing" class="th-hero__cta fade-in">Get your Kynsultation</a>
 </section>
 
 <!-- ====== CONDITIONS ====== -->
@@ -588,9 +588,7 @@
         </div>
       </button>
     </div>
-    <p class="th-cta__desc" style="font-size: 0.85rem;">Every plan includes a consultation with a board-certified dermatologist and a prescription you pick up at the pharmacy you choose during intake. You pay the pharmacy for the medication itself. Payment is processed by Stripe inside the secure care flow embedded on KynSkyn.com.</p>
-    <a href="#th-care-flow" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Start secure checkout - $29.99/mo</a>
-    <p class="th-cta__note" id="thCheckoutNote">Plan selection and affiliate attribution start on KynSkyn.com. Payment card details are handled by Stripe; clinical intake, photos, and messages stay in the secure care flow.</p>
+    <p class="th-cta__desc" style="font-size: 0.85rem;">Click the plan you want and your secure intake opens below. Every plan includes a consultation with a board-certified dermatologist and a prescription you pick up at the pharmacy you choose during intake. Payment is processed by Stripe; clinical intake, photos, and messages stay in the secure care flow.</p>
   </div>
 </section>
 
@@ -991,24 +989,8 @@
 
 <script>
   (function() {
-    var pricingCta = document.getElementById('thPricingCta');
-    var checkoutNote = document.getElementById('thCheckoutNote');
     var plans = document.querySelectorAll('.th-plan');
     var augmentInput = document.querySelector('.th-plan__augment-input[data-augment="quarterly"]');
-    var CTA_LABELS = {
-      'monthly': 'Start secure checkout - $[price]/mo',
-      'quarterly': 'Start secure checkout - $[price]/3 mo',
-      'one-time': 'Start secure checkout - $[price]'
-    };
-
-    function readPrice(selector) {
-      var el = document.querySelector(selector);
-      if (!el) return '';
-      var clone = el.cloneNode(true);
-      var suffix = clone.querySelector('.th-plan__price-suffix');
-      if (suffix) suffix.parentNode.removeChild(suffix);
-      return clone.textContent.replace(/[^0-9.]/g, '');
-    }
 
     // Determine effective plan: selected card, overridden to quarterly if Monthly + augment checkbox
     function getEffectivePlan() {
@@ -1016,26 +998,6 @@
       var plan = selected ? selected.getAttribute('data-plan') : 'monthly';
       if (plan === 'monthly' && augmentInput && augmentInput.checked) return 'quarterly';
       return plan;
-    }
-
-    function selectedPrice(plan) {
-      if (plan === 'quarterly') return '74.99';
-      if (plan === 'one-time') return readPrice('.th-plan[data-plan="one-time"] .th-plan__price');
-      return readPrice('.th-plan[data-plan="monthly"] .th-plan__price');
-    }
-
-    function setPricingCta() {
-      if (!pricingCta) return;
-      var plan = getEffectivePlan();
-      var price = selectedPrice(plan);
-      pricingCta.textContent = (CTA_LABELS[plan] || CTA_LABELS.monthly).replace('[price]', price || '');
-      pricingCta.setAttribute('data-plan', plan);
-      pricingCta.setAttribute('href', '#th-care-flow');
-      pricingCta.classList.remove('is-disabled');
-      pricingCta.setAttribute('aria-disabled', 'false');
-      if (checkoutNote) {
-        checkoutNote.textContent = 'Plan selection and affiliate attribution start on KynSkyn.com. Payment card details are handled by Stripe; clinical intake, photos, and messages stay in the secure care flow.';
-      }
     }
 
     plans.forEach(function(plan) {
@@ -1052,30 +1014,25 @@
         if (augmentInput && plan.getAttribute('data-plan') !== 'monthly') {
           augmentInput.checked = false;
         }
-        setPricingCta();
+        // Click on a plan card immediately opens secure intake. No
+        // intermediate "Start checkout" or "Open secure checkout" buttons.
+        if (window.KynCareFlow) {
+          window.KynCareFlow.open(getEffectivePlan());
+        }
       });
     });
 
     if (augmentInput) {
       augmentInput.addEventListener('change', function() {
-        // Turning on the augment forces the Monthly card to be selected
+        // Turning on the augment forces the Monthly card to be selected.
+        // Plan does NOT auto-open from a toggle change - the user must
+        // still click the Monthly card to commit to quarterly.
         if (augmentInput.checked) {
           plans.forEach(function(p) {
             var isMonthly = p.getAttribute('data-plan') === 'monthly';
             p.classList.toggle('th-plan--selected', isMonthly);
             p.setAttribute('aria-checked', isMonthly ? 'true' : 'false');
           });
-        }
-        setPricingCta();
-      });
-    }
-
-    if (pricingCta) {
-      pricingCta.addEventListener('click', function(e) {
-        e.preventDefault();
-        var plan = pricingCta.getAttribute('data-plan') || getEffectivePlan();
-        if (window.KynCareFlow) {
-          window.KynCareFlow.open(plan);
         }
       });
     }
@@ -1102,12 +1059,12 @@
 </script>
 
 <!-- ====== EMBEDDED STRIPE CARE FLOW ====== -->
-<section class="th-care-flow" id="th-care-flow">
+<section class="th-care-flow" id="th-care-flow" hidden>
   <div class="th-care-flow__container fade-in">
     <div class="th-care-flow__header">
       <p class="th-flow__eyebrow">Secure care checkout</p>
-      <h2 class="th-care-flow__title">Start your intake and pay with Stripe.</h2>
-      <p class="th-care-flow__copy">The booking flow opens here on KynSkyn.com. Your card is processed by Stripe, and clinical intake, photos, consents, pharmacy selection, and provider messages stay inside the HIPAA care flow.</p>
+      <h2 class="th-care-flow__title">Your intake.</h2>
+      <p class="th-care-flow__copy">Photos, consents, pharmacy selection, and Stripe payment all happen inside the HIPAA care flow. Pick a different plan above if you want to switch.</p>
     </div>
 
     <div class="th-care-flow__shell">
@@ -1116,14 +1073,7 @@
         <p class="th-care-flow__bar-note" id="thCareFlowPlan">Monthly plan selected</p>
       </div>
 
-      <div class="th-care-flow__launch" id="thCareFlowLaunch">
-        <div class="th-care-flow__launch-inner">
-          <p class="th-care-flow__copy">Continue into the secure intake. Payment appears at the final review step after required consent, photos, and pharmacy selection.</p>
-          <button type="button" class="th-care-flow__button" id="thOpenCareFlow">Open secure checkout</button>
-        </div>
-      </div>
-
-      <div class="th-care-flow__frame-wrap" id="thCareFlowFrameWrap" hidden>
+      <div class="th-care-flow__frame-wrap" id="thCareFlowFrameWrap">
         <iframe
           class="th-care-flow__frame"
           id="thCareFlowFrame"
@@ -1146,10 +1096,9 @@
     var CARE_ORIGIN = 'https://care.kynskyn.com';
     var frame = document.getElementById('thCareFlowFrame');
     var frameWrap = document.getElementById('thCareFlowFrameWrap');
-    var launch = document.getElementById('thCareFlowLaunch');
     var success = document.getElementById('thCareFlowSuccess');
     var planLabel = document.getElementById('thCareFlowPlan');
-    var openButton = document.getElementById('thOpenCareFlow');
+    var section = document.getElementById('th-care-flow');
 
     function normalizePlan(plan) {
       if (plan === 'quarterly' || plan === 'one-time') return plan;
@@ -1163,8 +1112,6 @@
     }
 
     function currentPlan() {
-      var cta = document.getElementById('thPricingCta');
-      if (cta && cta.getAttribute('data-plan')) return normalizePlan(cta.getAttribute('data-plan'));
       var selected = document.querySelector('.th-plan.th-plan--selected');
       var plan = selected ? selected.getAttribute('data-plan') : 'monthly';
       var augment = document.querySelector('.th-plan__augment-input[data-augment="quarterly"]');
@@ -1195,16 +1142,11 @@
       if (planLabel) planLabel.textContent = planName(plan);
       if (frame) frame.setAttribute('src', buildCareUrl(plan));
       if (success) success.hidden = true;
-      if (launch) launch.hidden = true;
       if (frameWrap) frameWrap.hidden = false;
-      var section = document.getElementById('th-care-flow');
-      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    if (openButton) {
-      openButton.addEventListener('click', function() {
-        open(currentPlan());
-      });
+      if (section) {
+        section.hidden = false;
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     window.addEventListener('message', function(event) {
