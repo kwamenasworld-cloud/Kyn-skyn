@@ -2052,7 +2052,7 @@
           <p class="telehealth-cta__title" id="telehealthCtaTitle">Not sure if it's fungal?</p>
           <p class="telehealth-cta__desc" id="telehealthCtaDesc">A board-certified dermatologist can diagnose what's going on and prescribe treatment.</p>
         </div>
-        <a href="/pages/consultation" class="telehealth-cta__btn">Book consultation</a>
+        <a href="/pages/consultation#th-waitlist" class="telehealth-cta__btn">Join the waitlist</a>
       </div>
 
       <!-- Share -->
@@ -2094,7 +2094,7 @@
           <p style="font-family:var(--font-sans);font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.35rem;">Want a professional diagnosis?</p>
           <p style="font-family:var(--font-sans);font-size:0.8rem;color:var(--cream);opacity:0.5;line-height:1.6;">Talk to a dermatologist who treats fungal acne, seb derm, and tinea versicolor.</p>
         </div>
-        <a href="/pages/consultation" style="font-family:var(--font-sans);font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--cream);background:var(--button);padding:0.8rem 1.8rem;border-radius:2px;text-decoration:none;white-space:nowrap;">Book Consultation</a>
+        <a href="#" data-waitlist-open style="font-family:var(--font-sans);font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--cream);background:var(--button);padding:0.8rem 1.8rem;border-radius:2px;text-decoration:none;white-space:nowrap;">Book Consultation</a>
       </div>
 
       <!-- Check another -->
@@ -2187,9 +2187,9 @@
       <h2 class="notify__heading">Skincare built around the yeast that's breaking you out.</h2>
       <p class="notify__desc">Sign up for Malassezia-related updates from Kyn Skyn.</p>
 
-      <form class="notify__form" id="newsletterForm" action="javascript:void(0)" method="post" novalidate>
+      <form class="notify__form" id="waitlistForm" action="javascript:void(0)" method="post" novalidate>
         <input class="notify__input" type="email" name="EMAIL" placeholder="Email address" required aria-label="Email address">
-        <button class="notify__button" type="submit">Sign Up</button>
+        <button class="notify__button" type="submit">Notify Me</button>
       </form>
       <p class="notify__success" id="formSuccess" aria-live="polite">You're on the list.</p>
       <p class="notify__error" id="formError" aria-live="polite">That didn't go through. Try again.</p>
@@ -3610,13 +3610,13 @@
     });
 
     // ==========================================
-    // NEWSLETTER FORM
+    // WAITLIST FORM
     // ==========================================
-    const newsletterForm = $('#newsletterForm');
-    if (newsletterForm) {
-      newsletterForm.addEventListener('submit', async (e) => {
+    const waitlistForm = $('#waitlistForm');
+    if (waitlistForm) {
+      waitlistForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const input = newsletterForm.querySelector('input[type="email"]');
+        const input = waitlistForm.querySelector('input[type="email"]');
         const email = input.value.trim();
         const success = $('#formSuccess');
         const error = $('#formError');
@@ -3631,17 +3631,17 @@
           return;
         }
 
-        const btn = newsletterForm.querySelector('.notify__button');
+        const btn = waitlistForm.querySelector('.notify__button');
         btn.disabled = true;
         btn.textContent = 'Sending...';
 
         try {
-          await window.KynNewsletter.submit({
+          await window.KynWaitlist.submit({
             email: email,
-            source: 'ingredient-checker-newsletter'
+            source: 'ingredient-checker-waitlist'
           });
 
-          localStorage.setItem('kyn_newsletter', 'true');
+          localStorage.setItem('kyn_waitlist', 'true');
           btn.textContent = "You're on the list";
           btn.style.background = '#2a6e3f';
           btn.style.borderColor = '#2a6e3f';
@@ -3649,13 +3649,13 @@
           if (success) success.style.display = 'block';
 
           setTimeout(() => {
-            btn.textContent = 'Sign Up';
+            btn.textContent = 'Notify Me';
             btn.style.background = '';
             btn.style.borderColor = '';
             btn.disabled = false;
           }, 4000);
         } catch (err) {
-          btn.textContent = 'Sign Up';
+          btn.textContent = 'Notify Me';
           btn.disabled = false;
           if (error) {
             error.textContent = err && err.message ? err.message : "That didn't go through. Try again.";
@@ -3944,6 +3944,7 @@
     </ul>
   </nav>
 
+{% render 'waitlist-modal', source: 'ingredient-checker-waitlist' %}
 
 {% schema %}
 {

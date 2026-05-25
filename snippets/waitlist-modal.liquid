@@ -1,0 +1,100 @@
+{%- comment -%}
+  Pre-launch waitlist modal. Trigger from any element with `data-waitlist-open`.
+  Optional `source` param tags the Mailchimp submission for placement tracking.
+  CSS is global (layout/theme.liquid).
+{%- endcomment -%}
+
+{%- assign waitlist_source = source | default: 'waitlist-popup' -%}
+
+<div class="waitlist-modal" id="waitlistModal" role="dialog" aria-modal="true" aria-labelledby="waitlistModalTitle" hidden>
+  <div class="waitlist-modal__backdrop" data-waitlist-close></div>
+  <div class="waitlist-modal__panel">
+    <button type="button" class="waitlist-modal__close" aria-label="Close" data-waitlist-close>&times;</button>
+    <p class="waitlist-modal__eyebrow">Launching in June</p>
+    <h2 class="waitlist-modal__title" id="waitlistModalTitle">Get your Kynsultation.</h2>
+    <p class="waitlist-modal__desc">Online consultations with board-certified dermatologists who actually treat Malassezia conditions. Join the waitlist for <strong>$20 off your first quarterly plan</strong>.</p>
+
+    <form class="waitlist-modal__form" id="waitlistModalForm" novalidate>
+      <input class="waitlist-modal__input" type="email" name="EMAIL" placeholder="you@email.com" required aria-label="Email address">
+      <button class="waitlist-modal__button" type="submit">Join the waitlist</button>
+    </form>
+    <p class="waitlist-modal__note" id="waitlistModalNote"></p>
+    <p class="waitlist-modal__legal">One email when we launch.</p>
+  </div>
+</div>
+
+<script>
+  (function() {
+    if (window.__waitlistModalInit) return;
+    window.__waitlistModalInit = true;
+
+    var modal = document.getElementById('waitlistModal');
+    if (!modal) return;
+
+    var openers = document.querySelectorAll('[data-waitlist-open]');
+    var closers = modal.querySelectorAll('[data-waitlist-close]');
+    var form    = document.getElementById('waitlistModalForm');
+    var input   = modal.querySelector('.waitlist-modal__input');
+    var btn     = modal.querySelector('.waitlist-modal__button');
+    var note    = document.getElementById('waitlistModalNote');
+    var lastFocus = null;
+
+    function open(e) {
+      if (e) e.preventDefault();
+      lastFocus = document.activeElement;
+      note.textContent = '';
+      note.style.color = '';
+      btn.disabled = false;
+      btn.textContent = 'Join the waitlist';
+      btn.style.background = '';
+      modal.hidden = false;
+      document.documentElement.style.overflow = 'hidden';
+      setTimeout(function() { input && input.focus(); }, 60);
+    }
+    function close() {
+      modal.hidden = true;
+      document.documentElement.style.overflow = '';
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    openers.forEach(function(el) { el.addEventListener('click', open); });
+    closers.forEach(function(el) { el.addEventListener('click', close); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !modal.hidden) close();
+    });
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var email = (input.value || '').trim();
+      if (!input.checkValidity()) {
+        note.textContent = 'Enter a valid email address.';
+        note.style.color = '#b02a2a';
+        input.focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Joining...';
+      note.textContent = '';
+      note.style.color = '';
+
+      try {
+        await window.KynWaitlist.submit({
+          email: email,
+          source: {{ waitlist_source | json }}
+        });
+
+        btn.textContent = "You're on the list";
+        btn.style.background = '#2a6e3f';
+        note.textContent = "We'll email you in June with your $20-off code.";
+        note.style.color = '#2a6e3f';
+        input.value = '';
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Join the waitlist';
+        note.textContent = err && err.message ? err.message : 'Something went wrong. Please try again.';
+        note.style.color = '#b02a2a';
+      }
+    });
+  })();
+</script>

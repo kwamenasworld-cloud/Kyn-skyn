@@ -9,6 +9,7 @@
     assign hero_sub = 'Roflumilast is a prescription topical PDE4 inhibitor used for inflammatory skin conditions. This guide explains when it may enter a clinician-led seborrheic dermatitis plan. Kyn Skyn does not sell or ship roflumilast, Zoryve, or any specific medication.'
     assign primary_condition_url = '/pages/seb-derm-dandruff'
     assign primary_condition_label = 'Seb derm and dandruff guide'
+    assign waitlist_source = 'roflumilast-guide-waitlist'
     assign reviewed_date = 'May 21, 2026'
   elsif page.handle == 'ketoconazole'
     assign is_ketoconazole = true
@@ -18,6 +19,7 @@
     assign hero_sub = 'Ketoconazole is an antifungal medicine used in topical formats such as cream, shampoo, and foam. This guide explains how it may fit into clinician-led care for Malassezia-driven skin problems. Kyn Skyn does not sell or ship ketoconazole or any specific medication.'
     assign primary_condition_url = '/pages/fungal-acne'
     assign primary_condition_label = 'Fungal acne guide'
+    assign waitlist_source = 'ketoconazole-guide-waitlist'
     assign reviewed_date = 'May 21, 2026'
   endif
 -%}
@@ -412,7 +414,7 @@
         <span class="treatment-pill">Prescription decisions require clinician review</span>
       </div>
       <div class="treatment-hero__actions">
-        <a class="treatment-button treatment-button--primary" href="/pages/consultation">Book consultation</a>
+        <a class="treatment-button treatment-button--primary" href="/pages/consultation" data-waitlist-open aria-label="Coming soon, join the waitlist">Coming soon</a>
         <a class="treatment-button treatment-button--secondary" href="{{ primary_condition_url }}">{{ primary_condition_label }}</a>
       </div>
     </div>
@@ -557,7 +559,7 @@
         </article>
       </div>
       <div class="treatment-hero__actions">
-        <a class="treatment-button treatment-button--primary" href="/pages/consultation">Book consultation</a>
+        <a class="treatment-button treatment-button--primary" href="/pages/consultation" data-waitlist-open aria-label="Coming soon, join the waitlist">Coming soon</a>
         <a class="treatment-button treatment-button--secondary" href="/pages/consultation">See care pricing</a>
       </div>
       <div class="treatment-disclaimer">Your Kyn Skyn payment covers the dermatology visit and care plan. Medication is separate and filled by your pharmacy only if your clinician writes a prescription.</div>
@@ -623,6 +625,7 @@
     </div>
   </section>
 </article>
+{% render 'waitlist-modal', source: waitlist_source %}
 {%- endif -%}
 
 {% schema %}

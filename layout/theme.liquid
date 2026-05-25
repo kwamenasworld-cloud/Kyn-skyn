@@ -710,6 +710,140 @@
       }
     }
 
+    /* ========== WAITLIST MODAL ========== */
+    .waitlist-modal[hidden] { display: none; }
+    .waitlist-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      animation: waitlistFade 0.3s ease;
+    }
+    .waitlist-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(42, 2, 8, 0.72);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+    }
+    .waitlist-modal__panel {
+      position: relative;
+      z-index: 1;
+      background: var(--cream);
+      color: var(--maroon);
+      border-radius: 24px;
+      padding: 3rem 2.5rem 2.25rem;
+      max-width: 28rem;
+      width: 100%;
+      box-shadow: 0 30px 80px -20px rgba(42, 2, 8, 0.65);
+      text-align: center;
+      animation: waitlistLift 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .waitlist-modal__close {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.8rem;
+      width: 2rem;
+      height: 2rem;
+      background: transparent;
+      border: none;
+      color: var(--maroon);
+      opacity: 0.4;
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .waitlist-modal__close:hover { opacity: 1; }
+    .waitlist-modal__eyebrow {
+      font-family: var(--font-accent);
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin: 0 0 1rem;
+    }
+    .waitlist-modal__title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin: 0 0 0.75rem;
+    }
+    .waitlist-modal__desc {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.72;
+      margin: 0 0 2rem;
+    }
+    .waitlist-modal__form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .waitlist-modal__input {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      padding: 1rem 1.25rem;
+      background: transparent;
+      border: 1px solid rgba(100, 18, 32, 0.25);
+      border-radius: 999px;
+      color: var(--maroon);
+      outline: none;
+      transition: border-color 0.2s;
+      text-align: center;
+    }
+    .waitlist-modal__input::placeholder { color: var(--maroon); opacity: 0.4; }
+    .waitlist-modal__input:focus { border-color: var(--maroon); }
+    .waitlist-modal__button {
+      font-family: var(--font-accent);
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      background: var(--maroon);
+      color: var(--cream);
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .waitlist-modal__button:hover { background: var(--dark); transform: translateY(-1px); }
+    .waitlist-modal__button:disabled { opacity: 0.7; cursor: default; }
+    .waitlist-modal__success {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--maroon);
+      opacity: 0.8;
+      margin: 1rem 0 0;
+    }
+    .waitlist-modal__legal {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.02em;
+      color: var(--maroon);
+      opacity: 0.45;
+      margin: 1.25rem 0 0;
+    }
+
+    @keyframes waitlistFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes waitlistLift {
+      from { opacity: 0; transform: translateY(20px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (max-width: 640px) {
+      .waitlist-modal__panel { padding: 2.5rem 1.75rem 2rem; border-radius: 20px; }
+      .waitlist-modal__title { font-size: 1.6rem; }
+    }
+
     /* ========== NOTIFY ========== */
     .notify {
       background: var(--dark);
@@ -1113,7 +1247,7 @@
     // Submit cross-origin via sendBeacon (fire-and-forget, instant) with a
     // no-cors fetch fallback. Response is opaque either way, so we treat a
     // queued/sent request as success. Matches Mailchimp's stock embed behavior.
-    window.KynNewsletter = window.KynNewsletter || (function() {
+    window.KynWaitlist = window.KynWaitlist || (function() {
       const endpoint = 'https://kynskyn.us15.list-manage.com/subscribe/post';
       const listParams = 'u=61338503f23a719d2d581c864&id=051996d936';
       const honeypotName = 'b_61338503f23a719d2d581c864_051996d936';
@@ -1121,7 +1255,7 @@
 
       function submit(options) {
         const email = (options && options.email ? options.email : '').trim();
-        const source = (options && options.source ? options.source : 'site-newsletter').trim();
+        const source = (options && options.source ? options.source : 'site-waitlist').trim();
 
         if (!emailPattern.test(email)) {
           return Promise.reject(new Error('Enter a valid email address.'));

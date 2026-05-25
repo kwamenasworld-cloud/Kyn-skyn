@@ -352,10 +352,6 @@
   }
 
   .th-cta__button:hover { background: var(--maroon); }
-  .th-cta__button.is-disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-  }
 
   .th-cta__note {
     font-family: var(--font-sans);
@@ -364,10 +360,6 @@
     opacity: 0.4;
     margin-top: 1.5rem;
     line-height: 1.6;
-  }
-  .th-cta--dark .th-cta__note {
-    color: var(--cream);
-    opacity: 0.58;
   }
 
   /* ========== FAQ ========== */
@@ -463,10 +455,10 @@
 <!-- ====== HERO ====== -->
 <section class="th-hero">
   <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="th-hero__molecule" width="667" height="667">
-  <p class="th-hero__eyebrow fade-in">Online dermatology care</p>
+  <p class="th-hero__eyebrow fade-in">Launching in June &middot; Waitlist open</p>
   <h1 class="th-hero__heading fade-in">Get bespoke dermatologic care</h1>
-  <p class="th-hero__desc fade-in">Choose a care plan on KynSkyn.com. A board-certified dermatologist reviews your secure intake and photos, confirms what's actually wrong, and sends a treatment plan when clinically appropriate.</p>
-  <a href="#th-pricing" class="th-hero__cta fade-in">Start checkout</a>
+  <p class="th-hero__desc fade-in">A board-certified dermatologist confirms what's actually wrong and prescribes treatment that works. Launching in June. Join the waitlist for $20 off your first 3-month plan.</p>
+  <a href="#th-waitlist" class="th-hero__cta fade-in">Join the waitlist &middot; Save $20</a>
 </section>
 
 <!-- ====== CONDITIONS ====== -->
@@ -550,7 +542,7 @@
 </section>
 
 <!-- ====== PRICING ====== -->
-<section class="th-cta th-cta--dark" id="th-pricing">
+<section class="th-cta th-cta--dark">
   <div class="th-cta__container fade-in" style="max-width: 500px;">
     <h2 class="th-cta__heading">Choose your plan</h2>
     <div class="th-pricing__grid" role="radiogroup" aria-label="Choose your plan">
@@ -563,7 +555,7 @@
           <p>&#10003; Provider consultation</p>
           <p>&#10003; Ongoing condition tracking with clinician</p>
           <p>&#10003; Pick up Rx at your pharmacy</p>
-          <p>&#10003; Secure Stripe payment</p>
+          <p>&#10003; Cancel anytime</p>
         </div>
         <!-- 3-month billing toggle - augments the Monthly plan -->
         <div class="th-plan__augment" aria-hidden="true">
@@ -571,7 +563,7 @@
             <input type="checkbox" class="th-plan__augment-input" data-augment="quarterly">
             <span class="th-plan__augment-label">
               <span class="th-plan__augment-title">Switch to 3-month, save ~$5/mo</span>
-              <span class="th-plan__augment-detail"><span>$74.99<span class="th-plan__price-suffix">/3 mo</span></span> - billed every 3 months</span>
+              <span class="th-plan__augment-detail"><span>$74.99<span class="th-plan__price-suffix">/3 mo</span></span> · billed every 3 months</span>
             </span>
           </label>
         </div>
@@ -584,13 +576,12 @@
           <p>&#10003; Provider consultation</p>
           <p>&#10003; Pick up Rx at your pharmacy</p>
           <p>&#10003; Single visit, no commitment</p>
-          <p>&#10003; Secure Stripe payment</p>
+          <p>&#10003; No recurring charges</p>
         </div>
       </button>
     </div>
-    <p class="th-cta__desc" style="font-size: 0.85rem;">Every plan includes a consultation with a board-certified dermatologist and a prescription you pick up at the pharmacy you choose during intake. You pay the pharmacy for the medication itself. Payment is processed by Stripe inside the secure care flow embedded on KynSkyn.com.</p>
-    <a href="#th-care-flow" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Start secure checkout - $29.99/mo</a>
-    <p class="th-cta__note" id="thCheckoutNote">Plan selection and affiliate attribution start on KynSkyn.com. Payment card details are handled by Stripe; clinical intake, photos, and messages stay in the secure care flow.</p>
+    <p class="th-cta__desc" style="font-size: 0.85rem;">Every plan includes a consultation with a board-certified dermatologist and a prescription you pick up at the pharmacy you choose during intake. You pay the pharmacy for the medication itself. Checkout happens on KynSkyn.com; clinical care runs through the secure care portal.</p>
+    <a href="#th-waitlist" class="th-cta__button" id="thPricingCta" style="margin-top: 1.5rem;">Join the waitlist for $20 off the 3-month plan</a>
   </div>
 </section>
 
@@ -721,7 +712,8 @@
     margin-top: 0.1rem;
   }
 
-  .th-flow__eyebrow {
+  /* ── Waitlist form (on cream section background) ── */
+  .th-waitlist__eyebrow {
     display: inline-block;
     font-family: var(--font-accent, 'STK Bureau Sans', sans-serif);
     font-size: 0.7rem;
@@ -735,110 +727,50 @@
     border-radius: 999px;
     margin-bottom: 1.2rem;
   }
-  .th-care-flow {
-    background: var(--cream);
-    color: var(--maroon);
-    padding: clamp(4rem, 7vw, 6rem) 1.5rem;
-  }
-  .th-care-flow__container {
-    max-width: 920px;
-    margin: 0 auto;
-  }
-  .th-care-flow__header {
-    max-width: 640px;
-    margin: 0 auto 2rem;
-    text-align: center;
-  }
-  .th-care-flow__title {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 5vw, 3.4rem);
-    font-weight: 400;
-    line-height: 1.05;
-    margin: 0 0 1rem;
-  }
-  .th-care-flow__copy {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: rgba(61, 32, 37, 0.72);
-    margin: 0;
-  }
-  .th-care-flow__shell {
-    border: 1px solid rgba(100, 18, 32, 0.18);
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.52);
-    box-shadow: 0 24px 70px -46px rgba(61, 32, 37, 0.8);
-    overflow: hidden;
-  }
-  .th-care-flow__bar {
+  .th-waitlist__form {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem 1.2rem;
-    border-bottom: 1px solid rgba(100, 18, 32, 0.12);
+    gap: 0.5rem;
+    max-width: 480px;
+    margin: 1.8rem auto 0.5rem;
+    flex-wrap: wrap;
   }
-  .th-care-flow__bar-title {
-    font-family: var(--font-accent);
-    font-size: 0.72rem;
+  .th-waitlist__input {
+    flex: 1;
+    min-width: 220px;
+    padding: 0.9rem 1.1rem;
+    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
+    font-size: 0.95rem;
+    background: #ffffff;
+    border: 1px solid rgba(100, 18, 32, 0.3);
+    border-radius: 4px;
+    color: var(--dark);
+  }
+  .th-waitlist__input::placeholder { color: rgba(61, 32, 37, 0.4); }
+  .th-waitlist__input:focus { outline: none; border-color: var(--maroon); box-shadow: 0 0 0 3px rgba(100, 18, 32, 0.08); }
+  .th-waitlist__button {
+    padding: 0.9rem 1.8rem;
+    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
+    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin: 0;
-  }
-  .th-care-flow__bar-note {
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    color: rgba(61, 32, 37, 0.62);
-    margin: 0;
-  }
-  .th-care-flow__launch {
-    display: grid;
-    place-items: center;
-    min-height: 360px;
-    padding: clamp(2rem, 5vw, 3.2rem);
-    text-align: center;
-  }
-  .th-care-flow__launch-inner {
-    max-width: 520px;
-  }
-  .th-care-flow__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1.4rem;
-    padding: 0.95rem 1.8rem;
-    border-radius: 999px;
-    border: 0;
-    background: var(--maroon);
     color: var(--cream);
-    font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 0.86rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    background: var(--maroon);
+    border: 1px solid var(--maroon);
+    border-radius: 4px;
     cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
+    transition: background 0.2s, border-color 0.2s;
   }
-  .th-care-flow__button:hover {
-    background: var(--dark);
-    transform: translateY(-1px);
+  .th-waitlist__button:hover { background: var(--dark); border-color: var(--dark); }
+  .th-waitlist__button:disabled { opacity: 0.6; cursor: not-allowed; }
+  .th-waitlist__note {
+    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
+    font-size: 0.9rem;
+    margin: 0.6rem 0 0;
+    min-height: 1.2rem;
+    color: var(--dark);
   }
-  .th-care-flow__frame-wrap[hidden] { display: none; }
-  .th-care-flow__frame {
-    display: block;
-    width: 100%;
-    min-height: 760px;
-    border: 0;
-    background: var(--dark);
-  }
-  .th-care-flow__success[hidden] { display: none; }
-  .th-care-flow__success {
-    padding: 2rem;
-    text-align: center;
-    font-family: var(--font-sans);
-    color: rgba(61, 32, 37, 0.72);
-  }
+  .th-waitlist__note:empty { display: none; }
   .th-care-test {
     display: none;
     background: var(--cream);
@@ -948,57 +880,30 @@
   .th-care-test__embed.is-visible {
     display: block;
   }
-  .th-care-test__embed-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.85rem 1rem;
-    border-bottom: 1px solid rgba(255, 244, 229, 0.12);
-    background: #641220;
-  }
-  .th-care-test__embed-title {
-    margin: 0;
-    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--cream);
-  }
-  .th-care-test__embed-close {
-    border: 1px solid rgba(255, 244, 229, 0.35);
-    border-radius: 999px;
-    padding: 0.45rem 0.8rem;
-    background: transparent;
-    color: var(--cream);
-    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
-    font-size: 0.75rem;
-    cursor: pointer;
-  }
   .th-care-test__frame {
     display: block;
     width: 100%;
-    min-height: min(86vh, 980px);
+    height: 640px; /* fallback until the iframe reports its real content height */
     border: 0;
     background: #2f0711;
   }
   @media (max-width: 540px) {
+    .th-waitlist__form { flex-direction: column; }
+    .th-waitlist__input { width: 100%; }
+    .th-waitlist__button { width: 100%; }
     .th-care-test__grid { grid-template-columns: 1fr; }
-    .th-care-test__embed-header { align-items: flex-start; flex-direction: column; }
-    .th-care-test__frame { min-height: 88vh; }
   }
 </style>
 
 <script>
   (function() {
     var pricingCta = document.getElementById('thPricingCta');
-    var checkoutNote = document.getElementById('thCheckoutNote');
     var plans = document.querySelectorAll('.th-plan');
     var augmentInput = document.querySelector('.th-plan__augment-input[data-augment="quarterly"]');
     var CTA_LABELS = {
-      'monthly': 'Start secure checkout - $[price]/mo',
-      'quarterly': 'Start secure checkout - $[price]/3 mo',
-      'one-time': 'Start secure checkout - $[price]'
+      'monthly': 'Continue with Monthly · $[price]/mo',
+      'quarterly': 'Continue with 3-Month Plan · $[price]/3 mo',
+      'one-time': 'Book One-time Consult · $[price]'
     };
 
     function readPrice(selector) {
@@ -1018,24 +923,9 @@
       return plan;
     }
 
-    function selectedPrice(plan) {
-      if (plan === 'quarterly') return '74.99';
-      if (plan === 'one-time') return readPrice('.th-plan[data-plan="one-time"] .th-plan__price');
-      return readPrice('.th-plan[data-plan="monthly"] .th-plan__price');
-    }
-
     function setPricingCta() {
-      if (!pricingCta) return;
-      var plan = getEffectivePlan();
-      var price = selectedPrice(plan);
-      pricingCta.textContent = (CTA_LABELS[plan] || CTA_LABELS.monthly).replace('[price]', price || '');
-      pricingCta.setAttribute('data-plan', plan);
-      pricingCta.setAttribute('href', '#th-care-flow');
-      pricingCta.classList.remove('is-disabled');
-      pricingCta.setAttribute('aria-disabled', 'false');
-      if (checkoutNote) {
-        checkoutNote.textContent = 'Plan selection and affiliate attribution start on KynSkyn.com. Payment card details are handled by Stripe; clinical intake, photos, and messages stay in the secure care flow.';
-      }
+      // No-op while the page is in pre-launch waitlist mode.
+      // The CTA stays as a static scroll link to #th-waitlist.
     }
 
     plans.forEach(function(plan) {
@@ -1069,178 +959,21 @@
         setPricingCta();
       });
     }
-
-    if (pricingCta) {
-      pricingCta.addEventListener('click', function(e) {
-        e.preventDefault();
-        var plan = pricingCta.getAttribute('data-plan') || getEffectivePlan();
-        if (window.KynCareFlow) {
-          window.KynCareFlow.open(plan);
-        }
-      });
-    }
-
-    var requestedPlan = new URLSearchParams(window.location.search).get('plan');
-    if (requestedPlan === 'quarterly' && augmentInput) {
-      augmentInput.checked = true;
-      plans.forEach(function(p) {
-        var isMonthly = p.getAttribute('data-plan') === 'monthly';
-        p.classList.toggle('th-plan--selected', isMonthly);
-        p.setAttribute('aria-checked', isMonthly ? 'true' : 'false');
-      });
-    } else if (requestedPlan === 'one-time') {
-      plans.forEach(function(p) {
-        var isTarget = p.getAttribute('data-plan') === 'one-time';
-        p.classList.toggle('th-plan--selected', isTarget);
-        p.setAttribute('aria-checked', isTarget ? 'true' : 'false');
-      });
-      if (augmentInput) augmentInput.checked = false;
-    }
-
-    setPricingCta();
-  })();
-</script>
-
-<!-- ====== EMBEDDED STRIPE CARE FLOW ====== -->
-<section class="th-care-flow" id="th-care-flow">
-  <div class="th-care-flow__container fade-in">
-    <div class="th-care-flow__header">
-      <p class="th-flow__eyebrow">Secure care checkout</p>
-      <h2 class="th-care-flow__title">Start your intake and pay with Stripe.</h2>
-      <p class="th-care-flow__copy">The booking flow opens here on KynSkyn.com. Your card is processed by Stripe, and clinical intake, photos, consents, pharmacy selection, and provider messages stay inside the HIPAA care flow.</p>
-    </div>
-
-    <div class="th-care-flow__shell">
-      <div class="th-care-flow__bar">
-        <p class="th-care-flow__bar-title">Kyn Skyn care flow</p>
-        <p class="th-care-flow__bar-note" id="thCareFlowPlan">Monthly plan selected</p>
-      </div>
-
-      <div class="th-care-flow__launch" id="thCareFlowLaunch">
-        <div class="th-care-flow__launch-inner">
-          <p class="th-care-flow__copy">Continue into the secure intake. Payment appears at the final review step after required consent, photos, and pharmacy selection.</p>
-          <button type="button" class="th-care-flow__button" id="thOpenCareFlow">Open secure checkout</button>
-        </div>
-      </div>
-
-      <div class="th-care-flow__frame-wrap" id="thCareFlowFrameWrap" hidden>
-        <iframe
-          class="th-care-flow__frame"
-          id="thCareFlowFrame"
-          title="Kyn Skyn secure care checkout"
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allow="camera; clipboard-write; payment"
-        ></iframe>
-      </div>
-
-      <div class="th-care-flow__success" id="thCareFlowSuccess" hidden>
-        Your case was submitted. Check your email for next steps and sign-in details.
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-  window.KynCareFlow = (function() {
-    var CARE_ORIGIN = 'https://care.kynskyn.com';
-    var frame = document.getElementById('thCareFlowFrame');
-    var frameWrap = document.getElementById('thCareFlowFrameWrap');
-    var launch = document.getElementById('thCareFlowLaunch');
-    var success = document.getElementById('thCareFlowSuccess');
-    var planLabel = document.getElementById('thCareFlowPlan');
-    var openButton = document.getElementById('thOpenCareFlow');
-
-    function normalizePlan(plan) {
-      if (plan === 'quarterly' || plan === 'one-time') return plan;
-      return 'monthly';
-    }
-
-    function planName(plan) {
-      if (plan === 'quarterly') return '3-month plan selected';
-      if (plan === 'one-time') return 'One-time consult selected';
-      return 'Monthly plan selected';
-    }
-
-    function currentPlan() {
-      var cta = document.getElementById('thPricingCta');
-      if (cta && cta.getAttribute('data-plan')) return normalizePlan(cta.getAttribute('data-plan'));
-      var selected = document.querySelector('.th-plan.th-plan--selected');
-      var plan = selected ? selected.getAttribute('data-plan') : 'monthly';
-      var augment = document.querySelector('.th-plan__augment-input[data-augment="quarterly"]');
-      if (plan === 'monthly' && augment && augment.checked) return 'quarterly';
-      return normalizePlan(plan);
-    }
-
-    function buildCareUrl(plan) {
-      var target = new URL(CARE_ORIGIN + '/book');
-      var params = new URLSearchParams(window.location.search);
-      var ctx = window.KynAttribution ? window.KynAttribution.capture() : {};
-      target.searchParams.set('source', 'kynskyn');
-      target.searchParams.set('plan', normalizePlan(plan));
-      target.searchParams.set('embed', 'shopify');
-      target.searchParams.set('parent_origin', window.location.origin);
-
-      var preview = params.get('booking_preview');
-      if (preview) target.searchParams.set('booking_preview', preview);
-      if (ctx.affiliatebase_referral) target.searchParams.set('affiliatebase_referral', ctx.affiliatebase_referral);
-      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(key) {
-        if (ctx[key]) target.searchParams.set(key, ctx[key]);
-      });
-      return target.toString();
-    }
-
-    function open(plan) {
-      plan = normalizePlan(plan || currentPlan());
-      if (planLabel) planLabel.textContent = planName(plan);
-      if (frame) frame.setAttribute('src', buildCareUrl(plan));
-      if (success) success.hidden = true;
-      if (launch) launch.hidden = true;
-      if (frameWrap) frameWrap.hidden = false;
-      var section = document.getElementById('th-care-flow');
-      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    if (openButton) {
-      openButton.addEventListener('click', function() {
-        open(currentPlan());
-      });
-    }
-
-    window.addEventListener('message', function(event) {
-      if (event.origin !== CARE_ORIGIN) return;
-      var data = event.data || {};
-      if (data.type === 'kyn_intake_resize' && frame && data.height) {
-        var next = Math.min(Math.max(Number(data.height) || 760, 760), 2200);
-        frame.style.height = next + 'px';
-      }
-      if (data.type === 'kyn_payment_complete') {
-        if (frameWrap) frameWrap.hidden = true;
-        if (success) success.hidden = false;
-      }
-    });
-
-    var qs = new URLSearchParams(window.location.search);
-    if (qs.get('checkout') === '1') {
-      setTimeout(function() { open(currentPlan()); }, 250);
-    }
-
-    return { open: open };
   })();
 </script>
 
 
-<!-- ====== INTERNAL STRIPE FUNNEL TEST ====== -->
+<!-- ====== INTERNAL CARE INTAKE TEST ====== -->
 <section
   class="th-care-test"
-  id="thCareFlowTest"
+  id="thShopifyCareTest"
   aria-live="polite"
 >
   <div class="th-care-test__container">
-    <p class="th-care-test__eyebrow">Internal funnel test</p>
-    <h2 class="th-care-test__title">Embedded Stripe care flow</h2>
+    <p class="th-care-test__eyebrow">Internal pre-launch test</p>
+    <h2 class="th-care-test__title">Embedded care intake</h2>
     <p class="th-care-test__copy">
-      Use a preview token to open the care-backed intake test on KynSkyn.com. Payment is handled by Stripe in the care flow, not by the storefront checkout.
+      Public visitors cannot complete intake yet. Enter the preview token to open the embedded care intake — Stripe payment runs inside the iframe so the patient never leaves kynskyn.com.
     </p>
 
     <div class="th-care-test__grid" aria-label="Current selected plan">
@@ -1268,12 +1001,6 @@
     <p class="th-care-test__note" id="thCareTestNote"></p>
 
     <div class="th-care-test__embed" id="thCareIntakeEmbed" hidden>
-      <div class="th-care-test__embed-header">
-        <p class="th-care-test__embed-title">KynSkyn.com embedded intake</p>
-        <button type="button" class="th-care-test__embed-close" id="thCloseCareIntakeEmbed">
-          Close intake
-        </button>
-      </div>
       <iframe
         class="th-care-test__frame"
         id="thCareIntakeFrame"
@@ -1290,7 +1017,7 @@
   (function() {
     var params = new URLSearchParams(window.location.search);
     var enabled = params.get('intake_test') === '1' || params.get('care_test') === '1';
-    var panel = document.getElementById('thCareFlowTest');
+    var panel = document.getElementById('thShopifyCareTest');
     if (!enabled || !panel) return;
 
     panel.classList.add('is-visible');
@@ -1303,7 +1030,6 @@
     var openIntake = document.getElementById('thOpenCareIntakeTest');
     var intakeEmbed = document.getElementById('thCareIntakeEmbed');
     var intakeFrame = document.getElementById('thCareIntakeFrame');
-    var closeIntake = document.getElementById('thCloseCareIntakeEmbed');
 
     function currentPlan() {
       var selected = document.querySelector('.th-plan.th-plan--selected');
@@ -1327,7 +1053,7 @@
         ? 'AffiliateBase referral active'
         : 'No referral captured yet.';
       if (pricingCta) {
-        pricingCta.setAttribute('href', '#thCareFlowTest');
+        pricingCta.setAttribute('href', '#thShopifyCareTest');
         pricingCta.textContent = 'Open internal test funnel';
       }
     }
@@ -1342,12 +1068,15 @@
       var plan = currentPlan();
       var target = new URL('https://care.kynskyn.com/book');
       target.searchParams.set('booking_preview', token);
-      target.searchParams.set('source', 'kynskyn');
+      target.searchParams.set('source', 'shopify');
       target.searchParams.set('plan', plan);
-      target.searchParams.set('parent_origin', window.location.origin);
       var ctx = window.KynAttribution ? window.KynAttribution.read() : {};
       if (ctx.affiliatebase_referral) target.searchParams.set('affiliatebase_referral', ctx.affiliatebase_referral);
       target.searchParams.set('embed', 'shopify');
+      // Pass our origin so the iframe can target it on postMessage. Without
+      // this the child has to guess between apex and www, and a guess wrong
+      // means the browser silently drops the message.
+      target.searchParams.set('parent_origin', window.location.origin);
       note.textContent = 'Loading intake on kynskyn.com...';
       intakeFrame.setAttribute('src', target.toString());
       intakeEmbed.hidden = false;
@@ -1355,11 +1084,26 @@
       intakeEmbed.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    closeIntake.addEventListener('click', function() {
-      intakeFrame.removeAttribute('src');
-      intakeEmbed.classList.remove('is-visible');
-      intakeEmbed.hidden = true;
-      note.textContent = 'Intake closed. Enter the preview token to reopen it on this page.';
+    // Listen for messages from the care.kynskyn.com iframe.
+    //  - kyn_intake_resize: child reports its content height; we resize the
+    //    iframe so the page scrolls as one (no inner iframe scrollbar).
+    //  - kyn_payment_complete: patient finished Stripe payment inside the
+    //    iframe and the MDI case has been submitted. The iframe shows its
+    //    own success panel; we just record completion here for analytics.
+    window.addEventListener('message', function(event) {
+      if (event.origin !== 'https://care.kynskyn.com') return;
+      if (!event.data || typeof event.data !== 'object') return;
+      if (event.data.type === 'kyn_intake_resize') {
+        var h = Number(event.data.height);
+        if (h > 0 && h < 20000) {
+          intakeFrame.style.height = h + 'px';
+        }
+        return;
+      }
+      if (event.data.type === 'kyn_payment_complete') {
+        note.textContent = 'Payment confirmed - case submitted to MDI.';
+        return;
+      }
     });
 
     document.querySelectorAll('.th-plan, .th-plan__augment-input').forEach(function(el) {
@@ -1372,15 +1116,66 @@
   })();
 </script>
 
-<!-- ====== SECURE INTAKE ====== -->
-<section class="th-cta" id="secure-intake">
+<!-- ====== WAITLIST ====== -->
+<section class="th-cta" id="th-waitlist">
   <div class="th-cta__container fade-in">
-    <p class="th-flow__eyebrow">HIPAA care flow</p>
-    <h2 class="th-cta__heading">Stripe payment. Protected medical intake.</h2>
-    <p class="th-cta__desc">KynSkyn.com handles plan selection and affiliate attribution, then the embedded care flow collects intake, consents, photos, pharmacy selection, and Stripe payment without storing clinical answers in Shopify.</p>
-    <a href="#th-pricing" class="th-cta__button">Choose a plan</a>
+    <p class="th-waitlist__eyebrow">Launching in June</p>
+    <h2 class="th-cta__heading">Be first in line.</h2>
+    <p class="th-cta__desc">Join the Kyn Skyn Rx waitlist and we'll email you the moment booking opens. Waitlist members get <strong>$20 off their first 3-month plan</strong>: $74.99 becomes $54.99 for your provider consultation and ongoing care. If your clinician writes a prescription, it's sent to your pharmacy of choice and billed there.</p>
+    <form class="th-waitlist__form" id="thWaitlistForm" novalidate>
+      <input type="email" class="th-waitlist__input" name="EMAIL" placeholder="you@email.com" required aria-label="Email address">
+      <button type="submit" class="th-waitlist__button">Join the waitlist</button>
+    </form>
+    <p class="th-waitlist__note" id="thWaitlistNote" aria-live="polite"></p>
+    <p class="th-cta__note">One email when we launch.</p>
   </div>
 </section>
+
+<script>
+  // ── Waitlist form submission ──
+  (function () {
+    var form = document.getElementById('thWaitlistForm');
+    if (!form) return;
+    var input = form.querySelector('input[type="email"]');
+    var btn = form.querySelector('.th-waitlist__button');
+    var note = document.getElementById('thWaitlistNote');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var email = input.value.trim();
+      if (!input.checkValidity()) {
+        note.textContent = 'Enter a valid email address.';
+        note.style.color = '#b02a2a';
+        input.focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Joining...';
+      note.textContent = '';
+
+      try {
+        await window.KynWaitlist.submit({
+          email: email,
+          source: 'consultation-waitlist-quarterly-20off'
+        });
+
+        btn.textContent = "You're on the list";
+        btn.style.background = '#2a6e3f';
+        btn.style.borderColor = '#2a6e3f';
+        btn.style.color = '#ffffff';
+        note.textContent = "We'll email you in June with your $20-off code.";
+        note.style.color = '#2a6e3f';
+        input.value = '';
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Join the waitlist';
+        note.textContent = err && err.message ? err.message : 'Something went wrong. Please try again.';
+        note.style.color = '#b02a2a';
+      }
+    });
+  })();
+</script>
 
 <!-- ====== FAQ ====== -->
 <section class="th-faq">
@@ -1410,7 +1205,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How is my health information protected?</button>
-      <div class="th-faq__a"><p>Plan selection and attribution start on KynSkyn.com, but your medical intake, photos, messages, payment step, and provider records are handled by the secure care backend. We do not store clinical answers or skin photos in Shopify order data.</p></div>
+      <div class="th-faq__a"><p>Checkout and attribution run through KynSkyn.com, but your medical intake, photos, messages, and provider records are handled by the secure care backend. We do not store clinical answers or skin photos in Shopify order data.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -1420,7 +1215,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a"><p>Treatment Plans are $29.99 a month, or $74.99 every 3 months (about $25 a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during intake. A one-time consult is $34.99. Payment is processed securely by Stripe in the care flow embedded on KynSkyn.com.</p></div>
+      <div class="th-faq__a"><p>Treatment Plans are $29.99 a month, or $74.99 every 3 months (about $25 a month). Both cover your provider consultation and your prescription, sent to the pharmacy you select during intake. A one-time consult is $34.99. Checkout runs through KynSkyn.com.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -1435,7 +1230,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">What payment methods do you accept?</button>
-      <div class="th-faq__a"><p>Payments are processed by Stripe in the secure care flow. The available methods are the card and payment options enabled in Stripe for Kyn Skyn telehealth.</p></div>
+      <div class="th-faq__a"><p>Checkout runs through KynSkyn.com, so available payment methods are whatever Shopify checkout supports for your order.</p></div>
     </div>
     <!-- FAQ:END -->
   </div>
