@@ -283,6 +283,7 @@
     cursor: pointer;
     color: inherit;
     font: inherit;
+    text-decoration: none;
     transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
   }
 
@@ -862,7 +863,7 @@
     <h1 class="cc-hero__heading">{{ hero_heading }}</h1>
     <p class="cc-hero__sub">{{ hero_sub }}</p>
     <div class="cc-hero__plans" role="group" aria-label="Treatment plans">
-      <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'monthly' %} cc-hero__plan-card--recommended{% endif %}" data-waitlist-open data-plan="monthly">
+      <a href="/pages/consultation?plan=monthly" class="cc-hero__plan-card{% if recommended_plan == 'monthly' %} cc-hero__plan-card--recommended{% endif %}" data-plan="monthly">
         {% if recommended_plan == 'monthly' %}<span class="cc-hero__plan-badge">Recommended</span>{% endif %}
         <p class="cc-hero__plan-name">Monthly</p>
         <p class="cc-hero__plan-cost">$29.99<span class="cc-hero__plan-cost-suffix">/mo</span></p>
@@ -871,8 +872,8 @@
           <li>Refills as needed</li>
           <li>Cancel anytime</li>
         </ul>
-      </button>
-      <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'quarterly' %} cc-hero__plan-card--recommended{% endif %}" data-waitlist-open data-plan="quarterly">
+      </a>
+      <a href="/pages/consultation?plan=quarterly" class="cc-hero__plan-card{% if recommended_plan == 'quarterly' %} cc-hero__plan-card--recommended{% endif %}" data-plan="quarterly">
         <span class="cc-hero__plan-badge">Save ~$5/mo</span>
         <p class="cc-hero__plan-name">3 months</p>
         <p class="cc-hero__plan-cost">$74.99<span class="cc-hero__plan-cost-suffix">/3 mo</span></p>
@@ -881,8 +882,8 @@
           <li>Everything in Monthly</li>
           <li>Best for chronic care</li>
         </ul>
-      </button>
-      <button type="button" class="cc-hero__plan-card" data-waitlist-open data-plan="one-time">
+      </a>
+      <a href="/pages/consultation?plan=one-time" class="cc-hero__plan-card" data-plan="one-time">
         <p class="cc-hero__plan-name">One-time</p>
         <p class="cc-hero__plan-cost">$34.99</p>
         <ul class="cc-hero__plan-feats">
@@ -890,10 +891,10 @@
           <li class="is-off">No refills</li>
           <li class="is-off">No follow-ups</li>
         </ul>
-      </button>
+      </a>
     </div>
     <div class="cc-hero__actions">
-      <a href="#" data-waitlist-open class="cc-hero__cta">
+      <a href="/pages/consultation?plan={{ recommended_plan }}" class="cc-hero__cta">
         <span>Get your Kynsultation</span>
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -1147,9 +1148,6 @@
     {% endif %}
   </div>
 </section>
-
-{%- assign cc_waitlist_source = 'condition-' | append: condition_slug | append: '-waitlist' -%}
-{% render 'waitlist-modal', source: cc_waitlist_source %}
 
 {% schema %}
 {
