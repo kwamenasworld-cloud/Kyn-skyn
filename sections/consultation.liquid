@@ -1144,12 +1144,10 @@
       if (augmentInput) augmentInput.checked = false;
     }
 
-    setPricingCta();
-
     // Auto-open intake when a condition page sent us here with both
-    // ?plan=... and ?checkout=1 — the user already picked a plan
-    // there, so we skip the second plan-card click. Defer to next
-    // tick so KynCareFlow has finished its own IIFE below.
+    // ?plan=... and ?checkout=1, the user already picked a plan there,
+    // so we skip the second plan-card click. Defer to next tick so
+    // KynCareFlow has finished its own IIFE below.
     if (
       requestedPlan &&
       document.documentElement.classList.contains('kyn-checkout-mode')
