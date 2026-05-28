@@ -1,0 +1,162 @@
+<style>
+  .care-portal {
+    padding: 3.5rem 1.25rem 4.5rem;
+    background: var(--cream);
+    color: var(--maroon);
+  }
+  .care-portal__container {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .care-portal__eyebrow {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+    color: var(--gold);
+    margin: 0 0 0.5rem;
+  }
+  .care-portal__title {
+    font-family: var(--font-accent);
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    line-height: 1.1;
+    margin: 0 0 0.75rem;
+    color: var(--maroon);
+  }
+  .care-portal__desc {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--maroon) 80%, transparent);
+    margin: 0 auto 1.75rem;
+    max-width: 30rem;
+  }
+  .care-portal__frame-wrap {
+    border: 1px solid color-mix(in srgb, var(--maroon) 22%, transparent);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--dark);
+    box-shadow: 0 14px 40px -22px rgba(42, 2, 8, 0.55);
+  }
+  .care-portal__frame-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.95rem;
+    background: color-mix(in srgb, var(--dark) 88%, var(--maroon));
+    border-bottom: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
+  }
+  .care-portal__frame-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex: none;
+  }
+  .care-portal__frame-label {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: color-mix(in srgb, var(--cream) 75%, transparent);
+    margin: 0;
+  }
+  .care-portal__frame {
+    display: block;
+    width: 100%;
+    height: clamp(560px, 78vh, 860px);
+    border: 0;
+    background: var(--dark);
+  }
+  .care-portal__newtab {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: color-mix(in srgb, var(--maroon) 65%, transparent);
+    margin: 0.85rem 0 0;
+  }
+  .care-portal__newtab a {
+    color: var(--button);
+    text-decoration: underline;
+  }
+  .care-portal__disclaimer {
+    margin-top: 2.25rem;
+    border: 1px solid color-mix(in srgb, var(--maroon) 20%, transparent);
+    border-radius: 12px;
+    padding: 1.5rem 1.5rem 1.75rem;
+    background: color-mix(in srgb, var(--cream) 70%, #fff);
+  }
+  .care-portal__disclaimer-title {
+    font-family: var(--font-accent);
+    font-size: 1.1rem;
+    margin: 0 0 0.4rem;
+    color: var(--maroon);
+  }
+  .care-portal__disclaimer-text {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--maroon) 80%, transparent);
+    margin: 0 auto 1.1rem;
+    max-width: 30rem;
+  }
+  .care-portal__cta {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--button);
+    color: var(--cream);
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.18s ease;
+  }
+  .care-portal__cta:hover {
+    background: var(--maroon);
+  }
+  @media (max-width: 600px) {
+    .care-portal { padding: 2.5rem 1rem 3.5rem; }
+    .care-portal__frame { height: clamp(520px, 82vh, 760px); }
+  }
+</style>
+
+<section class="care-portal">
+  <div class="care-portal__container">
+    <div class="care-portal__header">
+      <p class="care-portal__eyebrow">Patient sign in</p>
+      <h1 class="care-portal__title">Your care portal</h1>
+      <p class="care-portal__desc">Sign in to view your provider messages, prescriptions, and treatment plan. We email you a 6-digit code, no password needed. Sign-in is for existing patients only.</p>
+    </div>
+
+    <div class="care-portal__frame-wrap">
+      <div class="care-portal__frame-bar">
+        <span class="care-portal__frame-dot" aria-hidden="true"></span>
+        <p class="care-portal__frame-label">Secure sign in &middot; care.kynskyn.com</p>
+      </div>
+      <iframe
+        class="care-portal__frame"
+        src="https://care.kynskyn.com/login"
+        title="Kyn Skyn patient sign in"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow="clipboard-write"
+      ></iframe>
+    </div>
+
+    <p class="care-portal__newtab">Trouble signing in here? <a href="https://care.kynskyn.com/login" target="_blank" rel="noopener">Open the portal in a new tab</a>.</p>
+
+    <div class="care-portal__disclaimer">
+      <p class="care-portal__disclaimer-title">Not a patient yet?</p>
+      <p class="care-portal__disclaimer-text">Sign-in only works once a board-certified dermatologist has reviewed your case. If you haven't been seen yet, start with an intake so we can match you with a provider.</p>
+      <a href="/pages/consultation" class="care-portal__cta">Start your intake</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Care Portal",
+  "class": "care-portal-section"
+}
+{% endschema %}
