@@ -904,6 +904,17 @@
     text-transform: uppercase;
     margin: 0;
   }
+  /* Kyn Skyn wordmark in the plan bar; links home. */
+  .th-care-flow__bar-logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+  }
+  .th-care-flow__bar-logo img {
+    height: 1.35rem;
+    width: auto;
+    display: block;
+  }
   .th-care-flow__bar-note {
     font-family: var(--font-sans);
     font-size: 0.78rem;
@@ -1209,7 +1220,9 @@
 
     <div class="th-care-flow__shell">
       <div class="th-care-flow__bar">
-        <p class="th-care-flow__bar-title">Kyn Skyn Kynsultation</p>
+        <a href="{{ routes.root_url }}" class="th-care-flow__bar-logo" aria-label="Kyn Skyn home">
+          <img src="{{ 'kyn-skyn-logoword-black.svg' | asset_url }}" alt="Kyn Skyn" loading="lazy">
+        </a>
         <p class="th-care-flow__bar-note" id="thCareFlowPlan">Monthly plan selected</p>
       </div>
 
