@@ -88,27 +88,65 @@
   .kyn-checkout-mode #th-pricing {
     padding: clamp(5.5rem, 7vw, 6.5rem) 1.5rem 2rem !important;
   }
-  /* Once the iframe opens (kyn-intake-open), lock the body so the
-     outer page can never scroll. The iframe handles its own scroll. */
+  /* When the intake opens in checkout mode, take over the whole
+     viewport. The previous layout left the iframe boxed under the fixed
+     site header + a big section padding + the plan bar, which squeezed
+     it shorter than the wizard content and forced an inner scrollbar.
+     Now: lock the body, hide the header + pricing, pin the care flow to
+     the full screen as a flex column, and let the iframe fill every
+     pixel below the thin plan bar. dvh (not vh) so mobile browser chrome
+     doesn't push the bottom off-screen. */
   .kyn-checkout-mode.kyn-intake-open body { overflow: hidden !important; }
-  /* Care flow lifts right under the fixed header; tighter padding
-     so the iframe gets nearly the full viewport. */
-  .kyn-checkout-mode .th-care-flow {
-    padding: 5rem 0.5rem 0.5rem !important;
+  .kyn-checkout-mode.kyn-intake-open .site-header { display: none !important; }
+  .kyn-checkout-mode.kyn-intake-open #th-pricing { display: none !important; }
+  .kyn-checkout-mode.kyn-intake-open .th-care-flow {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 100000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100dvh !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
-  /* Maximize the iframe in checkout mode. Subtracts the site header
-     (~80px), the care-flow section top padding (~80px), the bar above
-     the iframe (~52px), and the small bottom padding. */
-  .kyn-checkout-mode .th-care-flow__frame {
-    height: calc(100vh - 230px) !important;
-    min-height: 480px;
+  .kyn-checkout-mode.kyn-intake-open .th-care-flow__container {
+    max-width: none !important;
+    margin: 0 !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  /* Drop the big eyebrow/title/copy block in takeover mode — the plan
+     bar already carries the Kynsultation branding. */
+  .kyn-checkout-mode.kyn-intake-open .th-care-flow__header { display: none !important; }
+  .kyn-checkout-mode.kyn-intake-open .th-care-flow__shell {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .kyn-checkout-mode.kyn-intake-open .th-care-flow__bar {
+    flex: 0 0 auto !important;
+    padding: 0.65rem 1rem !important;
+  }
+  .kyn-checkout-mode.kyn-intake-open .th-care-flow__frame-wrap {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+  }
+  /* Fill the pane. !important beats the JS inline height set by the
+     resize handler, which we also short-circuit in checkout mode. */
+  .kyn-checkout-mode.kyn-intake-open .th-care-flow__frame {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
     max-height: none !important;
   }
-  /* Tighten the shell border + bar in checkout mode too */
-  .kyn-checkout-mode .th-care-flow__bar { padding: 0.65rem 1rem !important; }
-  /* When iframe opens in checkout mode, pricing collapses (no scroll
-     needed; iframe takes the visual spot pricing was in). */
-  .kyn-checkout-mode.kyn-intake-open #th-pricing { display: none !important; }
 
   /* ========== TELEHEALTH HERO ========== */
   .th-hero {
@@ -1272,16 +1310,20 @@
       if (event.origin !== CARE_ORIGIN) return;
       var data = event.data || {};
       if (data.type === 'kyn_intake_resize' && frame && data.height) {
-        // Cap the iframe at viewport height. In express checkout mode
-        // (only the iframe is visible) we leave just 160px for the site
-        // header + bar. In normal mode we leave 200px for the section
-        // eyebrow/heading too. Internal scrolling inside the iframe
-        // handles content taller than this, so the user never has to
-        // scroll the outer page.
+        // In checkout mode the iframe is a full-viewport takeover sized
+        // purely by CSS (height:100% of the fixed pane). Clear any inline
+        // height so it doesn't fight the CSS; the iframe content scrolls
+        // internally only if a wizard page is taller than the screen.
         var inCheckout = document.documentElement.classList.contains('kyn-checkout-mode');
-        var chrome = inCheckout ? 230 : 200;
-        var viewportCap = Math.max(window.innerHeight - chrome, 480);
-        var hardCap = inCheckout ? viewportCap : Math.min(viewportCap, 900);
+        if (inCheckout) {
+          frame.style.height = '';
+          return;
+        }
+        // Normal embedded mode (care flow on a scrollable page): grow the
+        // iframe to its content, capped at the viewport, so the outer page
+        // never gets a nested scrollbar.
+        var viewportCap = Math.max(window.innerHeight - 200, 480);
+        var hardCap = Math.min(viewportCap, 900);
         var next = Math.min(Math.max(Number(data.height) || 480, 480), hardCap);
         frame.style.height = next + 'px';
       }
