@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "care_portal": {
+      "type": "care-portal"
+    }
+  },
+  "order": ["care_portal"]
+}
