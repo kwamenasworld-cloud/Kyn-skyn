@@ -1,10 +1,11 @@
 {%- comment -%}
-  Embedded care portal. Full-bleed: the care.kynskyn.com/embed/care iframe fills
-  the viewport between the fixed site header and the (mobile) fixed tab bar, and
-  only the iframe scrolls. No marketing header/footer chrome on this page, so the
-  outer page never scrolls. The patient adds Kyn Select items to THIS Shopify
-  cart via the kyn_add_to_cart postMessage bridge (origin-validated), then checks
-  out natively. Inline style/script only (assets/ is flat; no external files).
+  Embedded care portal. Full-bleed takeover: the care.kynskyn.com app (its full
+  dashboard / messages / care pulse / plan / account portal) fills the viewport.
+  The Shopify site header and footer are hidden on this page so the care app's
+  own header is the only chrome (single logo); its header carries a kynskyn.com
+  link back to the store. Only the iframe scrolls. Kyn Select "Add to routine"
+  on the in-app Plan page posts kyn_add_to_cart to this parent, which writes to
+  THIS Shopify cart (origin-validated) for native checkout. Inline only.
 {%- endcomment -%}
 
 <section class="kyn-portal" id="kynPortal">
@@ -13,7 +14,7 @@
     id="kynPortalFrame"
     title="Kyn Skyn care portal"
     referrerpolicy="strict-origin-when-cross-origin"
-    allow="clipboard-write"></iframe>
+    allow="camera; clipboard-write; payment"></iframe>
 
   <div class="kyn-portal__cartbar" id="kynPortalCartBar" hidden>
     <span class="kyn-portal__cartmsg" id="kynPortalCartMsg">Added to your cart.</span>
@@ -22,14 +23,17 @@
 </section>
 
 <style>
-  /* Drop the marketing footer on this page so the embed owns the full screen. */
+  /* Hide the marketing header + footer on this page so the embedded care app
+     owns the screen and there is only one logo. The mobile tab bar (no logo)
+     stays for site navigation. */
+  .site-header { display: none !important; }
   .site-footer { display: none !important; }
-  /* Pinned between the fixed header (top) and the mobile tab bar (bottom); the
-     JS below sets the exact offsets. The page body carries no flow content, so
-     it never scrolls. Scrolling happens inside the iframe only. */
+  /* Pinned to the viewport (top:0 since the site header is hidden) down to the
+     mobile tab bar; JS sets the exact offsets. The page body has no flow
+     content, so it never scrolls; only the iframe scrolls. */
   .kyn-portal {
     position: fixed;
-    left: 0; right: 0; top: 6rem; bottom: 0;
+    left: 0; right: 0; top: 0; bottom: 0;
     background: var(--dark);
     overflow: hidden;
     z-index: 1;
@@ -61,7 +65,7 @@
     var cartMsg = document.getElementById('kynPortalCartMsg');
 
     function buildPortalUrl() {
-      var target = new URL(CARE_ORIGIN + '/embed/care');
+      var target = new URL(CARE_ORIGIN + '/dashboard');
       target.searchParams.set('source', 'kynskyn');
       target.searchParams.set('parent_origin', window.location.origin);
       var preview = new URLSearchParams(window.location.search).get('booking_preview');
@@ -70,8 +74,10 @@
     }
     if (frame) frame.setAttribute('src', buildPortalUrl());
 
-    // Pin the embed between the fixed header and the (mobile) fixed tab bar so
-    // the outer page never scrolls; the iframe scrolls its own content.
+    // Fill the viewport between the (hidden) header and the mobile tab bar so
+    // the outer page never scrolls; the iframe scrolls its own content. With
+    // the site header hidden its measured height is 0, so the embed starts at
+    // the very top.
     function fitFrame() {
       if (!section) return;
       var header = document.getElementById('siteHeader');
