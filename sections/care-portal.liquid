@@ -3,9 +3,9 @@
   dashboard / messages / care pulse / plan / account portal) fills the viewport.
   The Shopify site header and footer are hidden on this page so the care app's
   own header is the only chrome (single logo); its header carries a kynskyn.com
-  link back to the store. Only the iframe scrolls. Kyn Select "Add to routine"
-  on the in-app Plan page posts kyn_add_to_cart to this parent, which writes to
-  THIS Shopify cart (origin-validated) for native checkout. Inline only.
+  link back to the store. Only the iframe scrolls. Kyn Select purchases are
+  charged to the patient's card on file inside the app (no Shopify cart), so
+  this page is purely the embed. Inline style/script only.
 {%- endcomment -%}
 
 <section class="kyn-portal" id="kynPortal">
@@ -15,11 +15,6 @@
     title="Kyn Skyn care portal"
     referrerpolicy="strict-origin-when-cross-origin"
     allow="camera; clipboard-write; payment"></iframe>
-
-  <div class="kyn-portal__cartbar" id="kynPortalCartBar" hidden>
-    <span class="kyn-portal__cartmsg" id="kynPortalCartMsg">Added to your cart.</span>
-    <a class="kyn-portal__cartbtn" href="/cart" id="kynPortalCartBtn">Review and check out</a>
-  </div>
 </section>
 
 <style>
@@ -41,31 +36,15 @@
   .kyn-portal__frame {
     display: block; width: 100%; height: 100%; border: 0; background: var(--dark);
   }
-  .kyn-portal__cartbar {
-    position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 2;
-    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    background: var(--maroon); color: var(--cream);
-    border-radius: 14px; padding: 14px 18px;
-    box-shadow: 0 12px 40px rgba(42, 2, 8, .45);
-  }
-  .kyn-portal__cartmsg { font-size: 15px; }
-  .kyn-portal__cartbtn {
-    background: var(--cream); color: var(--maroon); text-decoration: none;
-    font-weight: 600; padding: 10px 18px; border-radius: 10px; white-space: nowrap;
-  }
-  .kyn-portal__cartbtn:hover { background: #fff; }
 </style>
 
 <script>
   (function () {
-    var CARE_ORIGIN = 'https://care.kynskyn.com';
     var section = document.getElementById('kynPortal');
     var frame = document.getElementById('kynPortalFrame');
-    var cartBar = document.getElementById('kynPortalCartBar');
-    var cartMsg = document.getElementById('kynPortalCartMsg');
 
     function buildPortalUrl() {
-      var target = new URL(CARE_ORIGIN + '/dashboard');
+      var target = new URL('https://care.kynskyn.com/dashboard');
       target.searchParams.set('source', 'kynskyn');
       target.searchParams.set('parent_origin', window.location.origin);
       var preview = new URLSearchParams(window.location.search).get('booking_preview');
@@ -75,9 +54,7 @@
     if (frame) frame.setAttribute('src', buildPortalUrl());
 
     // Fill the viewport between the (hidden) header and the mobile tab bar so
-    // the outer page never scrolls; the iframe scrolls its own content. With
-    // the site header hidden its measured height is 0, so the embed starts at
-    // the very top.
+    // the outer page never scrolls; the iframe scrolls its own content.
     function fitFrame() {
       if (!section) return;
       var header = document.getElementById('siteHeader');
@@ -93,74 +70,5 @@
     window.addEventListener('orientationchange', fitFrame);
     window.addEventListener('load', fitFrame);
     setTimeout(fitFrame, 300);
-
-    // Only pass through string properties with a leading underscore plus a size
-    // cap, so a stray or malicious message can't stuff arbitrary cart-line data.
-    function sanitizeProps(props) {
-      var out = {};
-      if (props && typeof props === 'object') {
-        Object.keys(props).slice(0, 10).forEach(function (k) {
-          if (typeof k !== 'string' || k.length > 64) return;
-          var v = props[k];
-          if (typeof v === 'string' && v.length <= 200) out[k] = v;
-        });
-      }
-      return out;
-    }
-
-    function showCartBar(count) {
-      if (!cartBar) return;
-      if (cartMsg) {
-        cartMsg.textContent = count
-          ? 'Added to your cart (' + count + ' item' + (count === 1 ? '' : 's') + ').'
-          : 'Added to your cart.';
-      }
-      cartBar.hidden = false;
-    }
-
-    function showCartError() {
-      if (!cartBar) return;
-      if (cartMsg) cartMsg.textContent = 'We could not add that to your cart. Please try again.';
-      cartBar.hidden = false;
-    }
-
-    function addToCart(items) {
-      if (!Array.isArray(items) || !items.length) return;
-      var payload = items.map(function (it) {
-        return {
-          id: it && it.variantId,
-          quantity: Math.max(1, parseInt(it && it.quantity, 10) || 1),
-          properties: sanitizeProps(it && it.properties)
-        };
-      }).filter(function (it) { return it.id; });
-      if (!payload.length) return;
-
-      fetch('/cart/add.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: payload })
-      }).then(function (res) {
-        if (!res.ok) throw new Error('add failed');
-        return fetch('/cart.js');
-      }).then(function (res) { return res.json(); })
-        .then(function (cart) {
-          if (frame && frame.contentWindow) {
-            frame.contentWindow.postMessage(
-              { type: 'kyn_cart_updated', cart_count: cart.item_count },
-              CARE_ORIGIN
-            );
-          }
-          showCartBar(cart.item_count);
-        })
-        .catch(function () { showCartError(); });
-    }
-
-    window.addEventListener('message', function (event) {
-      if (event.origin !== CARE_ORIGIN) return;
-      var data = event.data || {};
-      if (data.type === 'kyn_add_to_cart') {
-        addToCart(data.items);
-      }
-    });
   })();
 </script>
