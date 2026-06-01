@@ -65,7 +65,6 @@
     text-decoration: none;
     display: inline-block;
   }
-  .cart__item-name:hover { text-decoration: underline; }
   .cart__item-price {
     font-family: var(--font-sans);
     font-size: 0.85rem;
@@ -177,13 +176,13 @@
         <ul class="cart__items">
           {%- for item in cart.items -%}
             <li class="cart__item">
-              <a href="{{ item.url }}" class="cart__item-image" tabindex="-1" aria-hidden="true">
+              <div class="cart__item-image" aria-hidden="true">
                 {%- if item.image != blank -%}
                   <img src="{{ item.image | image_url: width: 168 }}" alt="{{ item.product.title | escape }}" width="84" height="84" loading="lazy">
                 {%- endif -%}
-              </a>
+              </div>
               <div class="cart__item-info">
-                <a href="{{ item.url }}" class="cart__item-name">{{ item.product.title | escape }}</a>
+                <span class="cart__item-name">{{ item.product.title | escape }}</span>
                 <p class="cart__item-price">{{ item.final_price | money }} each</p>
                 <div class="cart__item-qtyrow">
                   <input class="cart__qty" type="number" inputmode="numeric" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity for {{ item.product.title | escape }}">

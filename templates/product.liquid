@@ -1,0 +1,20 @@
+{% layout none %}<!doctype html>
+{%- comment -%}
+  The streamlined storefront has no product detail page (the shop adds to cart
+  directly). Rather than 404, any /products/<handle> URL — shared links, search
+  engines, stray references — redirects to the shop. Delete this template if a
+  real product page is ever added.
+{%- endcomment -%}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="0; url=/pages/shop">
+  <script>window.location.replace("/pages/shop");</script>
+  <title>Redirecting to the shop</title>
+</head>
+<body style="font-family:sans-serif;text-align:center;padding:3rem 1rem;">
+  <p>Taking you to the <a href="/pages/shop">shop</a>&hellip;</p>
+</body>
+</html>
