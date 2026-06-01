@@ -299,6 +299,83 @@
     .shop-restock-form__btn { width: 100%; }
   }
 
+  /* Two-product Kyn Select grid (replaces the single featured product) */
+  .shop-products {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .shop-product-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 244, 206, 0.04);
+    border: 1px solid rgba(255, 244, 206, 0.15);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .shop-product-card__image {
+    aspect-ratio: 1;
+    background: rgba(255, 244, 206, 0.03);
+    overflow: hidden;
+  }
+  .shop-product-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .shop-product-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+    padding: 1.1rem 1.2rem 1.3rem;
+  }
+  .shop-product-card__name {
+    font-family: var(--font-accent);
+    font-size: 1.2rem;
+    line-height: 1.15;
+    color: var(--cream);
+    margin: 0;
+  }
+  .shop-product-card__price {
+    font-family: var(--font-accent);
+    font-size: 1.1rem;
+    color: var(--amber);
+    margin: 0;
+  }
+  .shop-product-card__desc {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--cream);
+    opacity: 0.7;
+    margin: 0.15rem 0 0.7rem;
+  }
+  .shop-product-card__btn {
+    margin-top: auto;
+    display: block;
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: var(--amber);
+    color: var(--maroon);
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .shop-product-card__btn:hover { background: var(--amber-light); }
+  .shop-product-card__btn--disabled { opacity: 0.55; cursor: not-allowed; }
+  @media (max-width: 640px) {
+    .shop-products { grid-template-columns: 1fr; max-width: 360px; }
+  }
+
   /* Cross-sell band — catches visitors who clicked Shop but need a
      clinician, not a product. Sits between the maroon hero and the
      cream values strip. */
@@ -424,64 +501,47 @@
   <div class="shop-hero__watermark" aria-hidden="true"></div>
   <div class="shop-hero__inner">
     <div class="shop-hero__head fade-in">
-      <p class="shop-hero__eyebrow">Kyn Skyn Cosmetics</p>
+      <p class="shop-hero__eyebrow">Kyn Select</p>
       <h1 class="shop-hero__title">A daily routine that won&rsquo;t feed the breakouts.</h1>
       <p class="shop-hero__subtitle">Skincare formulated without the oils and esters that fungal-prone skin reacts to. No prescription needed. Just a routine you can actually keep.</p>
     </div>
 
-    {%- assign featured_product = section.settings.product -%}
-    {%- if featured_product != blank -%}
-      {%- assign featured_variant = featured_product.selected_or_first_available_variant -%}
-    {%- endif -%}
-    <div class="shop-hero__featured fade-in">
-      <div class="shop-featured__media">
-        {%- if featured_product != blank and featured_product.featured_image != blank -%}
-          <div class="shop-featured__image">
-            <img
-              src="{{ featured_product.featured_image | image_url: width: 800 }}"
-              alt="{{ featured_product.featured_image.alt | default: featured_product.title | escape }}"
-              width="{{ featured_product.featured_image.width }}"
-              height="{{ featured_product.featured_image.height }}"
-              loading="lazy">
-          </div>
-        {%- else -%}
-          <div class="shop-mockup" aria-hidden="true">
-            <span class="shop-mockup__brand">Kyn Skyn</span>
-            <div class="shop-mockup__name">
-              <p class="shop-mockup__name-top">STEADY</p>
-              <div class="shop-mockup__divider"></div>
-              <p class="shop-mockup__name-bottom">SERUM</p>
+    {%- comment -%} Current Kyn Select products, by Shopify handle. Edit this
+       list when the lineup changes; missing/unpublished handles are skipped. {%- endcomment -%}
+    {%- assign featured_handles = "coconut-oil-fractionated-mct,neutrogena-t-sal-scalp-build-up-control-therapeutic-shampoo-4-5-fl-oz" | split: "," -%}
+    <div class="shop-products fade-in">
+      {%- for handle in featured_handles -%}
+        {%- assign product = all_products[handle] -%}
+        {%- if product != blank -%}
+          {%- assign variant = product.selected_or_first_available_variant -%}
+          <div class="shop-product-card">
+            {%- if product.featured_image != blank -%}
+              <div class="shop-product-card__image">
+                <img
+                  src="{{ product.featured_image | image_url: width: 600 }}"
+                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                  width="600" height="600" loading="lazy">
+              </div>
+            {%- endif -%}
+            <div class="shop-product-card__body">
+              <h2 class="shop-product-card__name">{{ product.title | escape }}</h2>
+              <p class="shop-product-card__price">{{ variant.price | money_without_trailing_zeros }}</p>
+              {%- if product.description != blank -%}
+                <p class="shop-product-card__desc">{{ product.description | strip_html | truncatewords: 20 }}</p>
+              {%- endif -%}
+              {%- if variant != blank and variant.available -%}
+                <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
+                  <input type="hidden" name="id" value="{{ variant.id }}">
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="shop-product-card__btn">Add to cart · {{ variant.price | money_without_trailing_zeros }}</button>
+                </form>
+              {%- else -%}
+                <span class="shop-product-card__btn shop-product-card__btn--disabled">Sold out</span>
+              {%- endif -%}
             </div>
-            <span class="shop-mockup__size">30 ml</span>
           </div>
         {%- endif -%}
-      </div>
-      <div class="shop-featured__info">
-        <p class="shop-featured__label">{% if featured_product != blank and featured_product.type != blank %}{{ featured_product.type }}{% else %}Serum{% endif %}</p>
-        <h2 class="shop-featured__name">{% if featured_product != blank %}{{ featured_product.title }}{% else %}Steady Serum{% endif %}</h2>
-        <p class="shop-featured__price">{% if featured_variant != blank %}{{ featured_variant.price | money_without_trailing_zeros }}{% else %}$38{% endif %}</p>
-        <div class="shop-featured__desc">{% if featured_product != blank and featured_product.description != blank %}{{ featured_product.description }}{% else %}<p>Steady Serum hydrates with lightweight MCT oil, which Malassezia yeast can't digest. Coconut, olive, and most plant oils make fungal acne worse. MCT is one of the few exceptions, and it absorbs fast without a greasy finish.</p>{% endif %}</div>
-        {%- assign is_available = false -%}
-        {%- if featured_product != blank and featured_variant.available -%}
-          {%- assign is_available = true -%}
-        {%- endif -%}
-        <div class="shop-featured__cta-wrap{% unless is_available %} shop-featured__cta-wrap--restock{% endunless %}">
-          {%- if is_available -%}
-            <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="shop-featured__form">
-              <input type="hidden" name="id" value="{{ featured_variant.id }}">
-              <input type="hidden" name="quantity" value="1">
-              <button type="submit" class="shop-featured__btn">Add to Cart · {{ featured_variant.price | money_without_trailing_zeros }}</button>
-            </form>
-          {%- else -%}
-            <span class="shop-featured__sticker" aria-hidden="true">Care plans available</span>
-            <a href="/pages/consultation" class="shop-featured__btn">Shop care plans</a>
-            <p class="shop-restock-form__note" id="shopRestockNote">Choose a dermatology plan and check out on KynSkyn.com.</p>
-          {%- endif -%}
-        </div>
-        {%- if is_available -%}
-          <p class="shop-featured__note">Free shipping on every order.</p>
-        {%- endif -%}
-      </div>
+      {%- endfor -%}
     </div>
   </div>
 </section>
