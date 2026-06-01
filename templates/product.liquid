@@ -1,20 +1,120 @@
-{% layout none %}<!doctype html>
 {%- comment -%}
-  The streamlined storefront has no product detail page (the shop adds to cart
-  directly). Rather than 404, any /products/<handle> URL — shared links, search
-  engines, stray references — redirects to the shop. Delete this template if a
-  real product page is ever added.
+  Minimal product page for the streamlined storefront: image, title, price, the
+  product's own Shopify description, and add to cart. No variant selector or
+  gallery by design — the shop sells the default variant; ?variant= is honored
+  via selected_or_first_available_variant for shared/cart links.
 {%- endcomment -%}
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
-  <meta http-equiv="refresh" content="0; url=/pages/shop">
-  <script>window.location.replace("/pages/shop");</script>
-  <title>Redirecting to the shop</title>
-</head>
-<body style="font-family:sans-serif;text-align:center;padding:3rem 1rem;">
-  <p>Taking you to the <a href="/pages/shop">shop</a>&hellip;</p>
-</body>
-</html>
+{%- assign variant = product.selected_or_first_available_variant -%}
+<style>
+  .pdp {
+    background: var(--cream);
+    color: var(--maroon);
+    padding: 3.5rem 1.5rem 5rem;
+  }
+  .pdp__inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .pdp__media {
+    aspect-ratio: 1;
+    background: rgba(90, 15, 43, 0.05);
+    border: 1px solid rgba(90, 15, 43, 0.12);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pdp__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pdp__title {
+    font-family: var(--font-accent);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1.05;
+    margin: 0 0 0.4rem;
+  }
+  .pdp__variant {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin: 0 0 0.75rem;
+  }
+  .pdp__price {
+    font-family: var(--font-accent);
+    font-size: 1.6rem;
+    margin: 0 0 1.5rem;
+  }
+  .pdp__desc {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.85;
+    margin: 0 0 2rem;
+  }
+  .pdp__desc p { margin: 0 0 1rem; }
+  .pdp__desc p:last-child { margin-bottom: 0; }
+  .pdp__btn {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    background: #F8B044;
+    color: var(--maroon);
+    border: none;
+    padding: 0.9rem 2.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .pdp__btn:hover { background: #fbc676; }
+  .pdp__btn--disabled { opacity: 0.55; cursor: not-allowed; }
+  .pdp__back {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--maroon);
+    opacity: 0.65;
+    text-decoration: none;
+  }
+  .pdp__back:hover { opacity: 1; text-decoration: underline; }
+  @media (max-width: 700px) {
+    .pdp { padding: 2.5rem 1.25rem 4rem; }
+    .pdp__inner { grid-template-columns: 1fr; gap: 1.75rem; max-width: 460px; }
+  }
+</style>
+
+<section class="pdp">
+  <div class="pdp__inner">
+    <div class="pdp__media">
+      {%- if product.featured_image != blank -%}
+        <img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" width="900" height="900">
+      {%- endif -%}
+    </div>
+    <div class="pdp__info">
+      <h1 class="pdp__title">{{ product.title | escape }}</h1>
+      {%- unless variant.title == 'Default Title' -%}
+        <p class="pdp__variant">{{ variant.title | escape }}</p>
+      {%- endunless -%}
+      <p class="pdp__price">{{ variant.price | money }}</p>
+      {%- if product.description != blank -%}
+        <div class="pdp__desc">{{ product.description }}</div>
+      {%- endif -%}
+      {%- if variant != blank and variant.available -%}
+        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="{{ variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" class="pdp__btn">Add to cart</button>
+        </form>
+      {%- else -%}
+        <span class="pdp__btn pdp__btn--disabled">Sold out</span>
+      {%- endif -%}
+      <a href="/pages/shop" class="pdp__back">&larr; Back to shop</a>
+    </div>
+  </div>
+</section>
