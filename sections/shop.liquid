@@ -317,6 +317,7 @@
     overflow: hidden;
   }
   .shop-product-card__image {
+    display: block;
     aspect-ratio: 1;
     background: rgba(255, 244, 206, 0.03);
     overflow: hidden;
@@ -341,6 +342,8 @@
     color: var(--cream);
     margin: 0;
   }
+  .shop-product-card__name a { color: inherit; text-decoration: none; }
+  .shop-product-card__name a:hover { text-decoration: underline; }
   .shop-product-card__price {
     font-family: var(--font-accent);
     font-size: 1.1rem;
@@ -631,15 +634,15 @@
                   {%- assign variant = product.selected_or_first_available_variant -%}
                   <div class="shop-product-card">
                     {%- if product.featured_image != blank -%}
-                      <div class="shop-product-card__image">
+                      <a href="{{ product.url }}" class="shop-product-card__image">
                         <img
                           src="{{ product.featured_image | image_url: width: 600 }}"
                           alt="{{ product.featured_image.alt | default: product.title | escape }}"
                           width="600" height="600" loading="lazy">
-                      </div>
+                      </a>
                     {%- endif -%}
                     <div class="shop-product-card__body">
-                      <h2 class="shop-product-card__name">{{ product.title | escape }}</h2>
+                      <h2 class="shop-product-card__name"><a href="{{ product.url }}">{{ product.title | escape }}</a></h2>
                       <p class="shop-product-card__price">{{ variant.price | money_without_trailing_zeros }}</p>
                       {%- if product.description != blank -%}
                         <p class="shop-product-card__desc">{{ product.description | strip_html | truncatewords: 20 }}</p>
