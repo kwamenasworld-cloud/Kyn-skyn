@@ -302,7 +302,8 @@
   /* Two-product Kyn Select grid (replaces the single featured product) */
   .shop-products {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 300px));
+    justify-content: center;
     gap: 1.5rem;
     max-width: 760px;
     margin: 0 auto;
@@ -375,6 +376,61 @@
   @media (max-width: 640px) {
     .shop-products { grid-template-columns: 1fr; max-width: 360px; }
   }
+
+  /* Condition picker + matched product panels */
+  .shop-picker {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    max-width: 760px;
+    margin: 0 auto 2.25rem;
+  }
+  .shop-picker__opt {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--cream);
+    background: rgba(255, 244, 206, 0.06);
+    border: 1px solid rgba(255, 244, 206, 0.25);
+    padding: 0.65rem 1.3rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .shop-picker__opt:hover { border-color: var(--amber); }
+  .shop-picker__opt.is-active {
+    background: var(--amber);
+    border-color: var(--amber);
+    color: var(--maroon);
+  }
+  .shop-panel[hidden] { display: none; }
+  .shop-panel__empty {
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .shop-panel__empty p {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--cream);
+    opacity: 0.85;
+    line-height: 1.6;
+    margin: 0 0 1.1rem;
+  }
+  .shop-panel__empty-cta {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--maroon);
+    background: var(--amber);
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .shop-panel__empty-cta:hover { background: var(--amber-light); }
 
   /* On-page cart bar — appears once something is in the cart so both
      products can be added before heading to checkout (the primary cart
@@ -485,10 +541,10 @@
     padding: 3.5rem 1.5rem;
   }
   .shop-values__grid {
-    max-width: 640px;
+    max-width: 360px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 2.5rem;
   }
   .shop-values__item {
@@ -539,47 +595,79 @@
     <div class="shop-hero__head fade-in">
       <p class="shop-hero__eyebrow">Kyn Select</p>
       <h1 class="shop-hero__title">Products we like that work with your treatment.</h1>
-      <p class="shop-hero__subtitle">A few over-the-counter picks that pair well with your Kyn Skyn treatment plan.</p>
+      <p class="shop-hero__subtitle">Pick what you're treating and see the over-the-counter products we pair with it.</p>
     </div>
 
-    {%- comment -%} Current Kyn Select products, by Shopify handle. Edit this
-       list when the lineup changes; missing/unpublished handles are skipped. {%- endcomment -%}
-    {%- assign featured_handles = "coconut-oil-fractionated-mct,neutrogena-t-sal-scalp-build-up-control-therapeutic-shampoo-4-5-fl-oz" | split: "," -%}
-    <div class="shop-products fade-in">
-      {%- for handle in featured_handles -%}
-        {%- assign product = all_products[handle] -%}
-        {%- if product != blank -%}
-          {%- assign variant = product.selected_or_first_available_variant -%}
-          <div class="shop-product-card">
-            {%- if product.featured_image != blank -%}
-              <div class="shop-product-card__image">
-                <img
-                  src="{{ product.featured_image | image_url: width: 600 }}"
-                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
-                  width="600" height="600" loading="lazy">
-              </div>
-            {%- endif -%}
-            <div class="shop-product-card__body">
-              <h2 class="shop-product-card__name">{{ product.title | escape }}</h2>
-              <p class="shop-product-card__price">{{ variant.price | money_without_trailing_zeros }}</p>
-              {%- if product.description != blank -%}
-                <p class="shop-product-card__desc">{{ product.description | strip_html | truncatewords: 20 }}</p>
-              {%- endif -%}
-              {%- if variant != blank and variant.available -%}
-                {%- comment -%} JS adds via /cart/add.js and stays on the page so
-                   both products can go in one cart. No-JS falls back to a normal
-                   POST, which lands on the /cart page. {%- endcomment -%}
-                <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-add-form>
-                  <input type="hidden" name="id" value="{{ variant.id }}">
-                  <input type="hidden" name="quantity" value="1">
-                  <button type="submit" class="shop-product-card__btn" data-add-btn data-label="Add to cart">Add to cart</button>
-                </form>
-              {%- else -%}
-                <span class="shop-product-card__btn shop-product-card__btn--disabled">Sold out</span>
-              {%- endif -%}
+    {%- comment -%} Condition-matched Kyn Select shelf. Each condition maps to a
+       list of Shopify product handles via the parallel arrays below (edit in one
+       place; outer separator ";" splits conditions, inner "," splits handles).
+       Missing/unpublished handles are skipped. JS swaps the visible panel when a
+       pill is tapped and honours ?condition=<key> for deep links from the nav or
+       condition pages. {%- endcomment -%}
+    {%- assign cond_keys = "fungal-acne,seb-derm-dandruff,tinea-versicolor" | split: "," -%}
+    {%- assign cond_labels = "Fungal acne,Seb derm & dandruff,Tinea versicolor" | split: "," -%}
+    {%- assign cond_links = "/pages/fungal-acne,/pages/seb-derm-dandruff,/pages/tinea-versicolor" | split: "," -%}
+    {%- assign cond_handlesets = "coconut-oil-fractionated-mct;neutrogena-t-sal-scalp-build-up-control-therapeutic-shampoo-4-5-fl-oz,coconut-oil-fractionated-mct;neutrogena-t-sal-scalp-build-up-control-therapeutic-shampoo-4-5-fl-oz,coconut-oil-fractionated-mct" | split: ";" -%}
+
+    <div class="shop-picker fade-in" role="tablist" aria-label="Choose what you're treating">
+      {%- for key in cond_keys -%}
+        <button type="button" class="shop-picker__opt{% if forloop.first %} is-active{% endif %}" data-cond="{{ key }}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ cond_labels[forloop.index0] }}</button>
+      {%- endfor -%}
+    </div>
+
+    <div class="shop-panels fade-in">
+      {%- for key in cond_keys -%}
+        {%- assign ci = forloop.index0 -%}
+        {%- assign is_first = forloop.first -%}
+        {%- assign chandles = cond_handlesets[ci] | split: "," -%}
+        {%- assign valid = 0 -%}
+        {%- for handle in chandles -%}{%- if all_products[handle] != blank -%}{%- assign valid = valid | plus: 1 -%}{%- endif -%}{%- endfor -%}
+        <div class="shop-panel" data-cond="{{ key }}" role="tabpanel" aria-label="{{ cond_labels[ci] }} products"{% unless is_first %} hidden{% endunless %}>
+          {%- if valid > 0 -%}
+            <div class="shop-products">
+              {%- for handle in chandles -%}
+                {%- assign product = all_products[handle] -%}
+                {%- if product != blank -%}
+                  {%- assign variant = product.selected_or_first_available_variant -%}
+                  <div class="shop-product-card">
+                    {%- if product.featured_image != blank -%}
+                      <div class="shop-product-card__image">
+                        <img
+                          src="{{ product.featured_image | image_url: width: 600 }}"
+                          alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                          width="600" height="600" loading="lazy">
+                      </div>
+                    {%- endif -%}
+                    <div class="shop-product-card__body">
+                      <h2 class="shop-product-card__name">{{ product.title | escape }}</h2>
+                      <p class="shop-product-card__price">{{ variant.price | money_without_trailing_zeros }}</p>
+                      {%- if product.description != blank -%}
+                        <p class="shop-product-card__desc">{{ product.description | strip_html | truncatewords: 20 }}</p>
+                      {%- endif -%}
+                      {%- if variant != blank and variant.available -%}
+                        {%- comment -%} JS adds via /cart/add.js and stays on the page so
+                           multiple products can go in one cart. No-JS falls back to a
+                           normal POST, which lands on the /cart page. {%- endcomment -%}
+                        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-add-form>
+                          <input type="hidden" name="id" value="{{ variant.id }}">
+                          <input type="hidden" name="quantity" value="1">
+                          <button type="submit" class="shop-product-card__btn" data-add-btn data-label="Add to cart">Add to cart</button>
+                        </form>
+                      {%- else -%}
+                        <span class="shop-product-card__btn shop-product-card__btn--disabled">Sold out</span>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
             </div>
-          </div>
-        {%- endif -%}
+          {%- else -%}
+            <div class="shop-panel__empty">
+              <p>No over-the-counter picks here yet. For {{ cond_labels[ci] | downcase }}, the fastest path is a treatment plan from a board-certified dermatologist.</p>
+              <a href="{{ cond_links[ci] }}" class="shop-panel__empty-cta">Get {{ cond_labels[ci] | downcase }} care &rarr;</a>
+            </div>
+          {%- endif -%}
+        </div>
       {%- endfor -%}
     </div>
 
@@ -607,15 +695,6 @@
     <div class="shop-values__item fade-in">
       <div class="shop-values__icon">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.623 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
-        </svg>
-      </div>
-      <h3 class="shop-values__title">Malassezia-safe</h3>
-      <p class="shop-values__desc">No oils, esters, or fatty acids that feed fungal yeast.</p>
-    </div>
-    <div class="shop-values__item fade-in">
-      <div class="shop-values__icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
         </svg>
       </div>
@@ -626,6 +705,33 @@
 </section>
 
 <script>
+  // Condition picker: swap the visible product panel; honour ?condition=<key>.
+  (function () {
+    var opts = document.querySelectorAll('.shop-picker__opt');
+    var panels = document.querySelectorAll('.shop-panel');
+    if (!opts.length || !panels.length) return;
+    function select(cond) {
+      Array.prototype.forEach.call(opts, function (o) {
+        var on = o.getAttribute('data-cond') === cond;
+        o.classList.toggle('is-active', on);
+        o.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      Array.prototype.forEach.call(panels, function (p) {
+        p.hidden = p.getAttribute('data-cond') !== cond;
+      });
+    }
+    Array.prototype.forEach.call(opts, function (o) {
+      o.addEventListener('click', function () { select(o.getAttribute('data-cond')); });
+    });
+    try {
+      var q = new URLSearchParams(window.location.search).get('condition');
+      if (q) {
+        var found = Array.prototype.some.call(opts, function (o) { return o.getAttribute('data-cond') === q; });
+        if (found) select(q);
+      }
+    } catch (e) {}
+  })();
+
   (function () {
     var forms = document.querySelectorAll('[data-add-form]');
     if (!forms.length) return;
