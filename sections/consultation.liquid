@@ -60,13 +60,9 @@
     var __kynCheckoutParams = new URLSearchParams(window.location.search);
     if (__kynCheckoutParams.get('checkout') === '1') {
       document.documentElement.classList.add('kyn-checkout-mode');
-      // When a condition page sent us here with a preselected plan we
-      // skip the plan picker. Mark the page as intake-open immediately
-      // so #th-pricing never flashes visible before the IIFE below auto-
-      // clicks the matching card.
-      if (__kynCheckoutParams.get('plan')) {
-        document.documentElement.classList.add('kyn-intake-open');
-      }
+      // A preselected plan will auto-open after KynCareFlow initializes.
+      // Do not mark intake open here; that can reveal an empty iframe if
+      // a later script is delayed or fails.
     }
   }
 </script>
@@ -1193,19 +1189,6 @@
       if (augmentInput) augmentInput.checked = false;
     }
 
-    // Auto-open intake when a condition page sent us here with both
-    // ?plan=... and ?checkout=1, the user already picked a plan there,
-    // so we skip the second plan-card click. Defer to next tick so
-    // KynCareFlow has finished its own IIFE below.
-    if (
-      requestedPlan &&
-      document.documentElement.classList.contains('kyn-checkout-mode')
-    ) {
-      setTimeout(function() {
-        var sel = document.querySelector('.th-plan.th-plan--selected');
-        if (sel) sel.click();
-      }, 0);
-    }
   })();
 </script>
 
@@ -1346,11 +1329,13 @@
       }
     });
 
-    // Note: checkout mode no longer auto-opens the iframe. The user
-    // still needs to pick a plan first. When they click a plan card,
-    // the plan handler calls KynCareFlow.open() which (in checkout
-    // mode) hides pricing and shows the iframe in the same viewport
-    // position. Net result is one press to land, one press to start.
+    // A condition page can send users here with ?plan=...&checkout=1.
+    // Open directly from inside this IIFE so open() is guaranteed to exist
+    // before checkout mode hides pricing and shows the iframe.
+    var qs = new URLSearchParams(window.location.search);
+    if (qs.get('checkout') === '1' && qs.get('plan')) {
+      open(currentPlan());
+    }
 
     return { open: open };
   })();
