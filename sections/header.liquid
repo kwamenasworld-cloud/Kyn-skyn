@@ -1,3 +1,25 @@
+<style>
+  .header-cart { white-space: nowrap; }
+  .header-cart__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.15rem;
+    height: 1.15rem;
+    padding: 0 0.32rem;
+    margin-left: 0.35rem;
+    border-radius: 999px;
+    background: #F8B044;
+    color: var(--maroon);
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 700;
+    line-height: 1;
+    vertical-align: middle;
+  }
+  .header-cart__count[hidden] { display: none; }
+</style>
+
 <header class="site-header" id="siteHeader">
   <nav>
     <ul class="header-nav">
@@ -112,6 +134,7 @@
       </li>
       <li><a href="/pages/care-portal">Care Portal</a></li>
       <li><a href="/pages/contact-1">Contact</a></li>
+      <li><a href="{{ routes.cart_url }}" class="header-cart" aria-label="Cart">Cart<span class="header-cart__count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span></a></li>
     </ul>
   </nav>
 </header>

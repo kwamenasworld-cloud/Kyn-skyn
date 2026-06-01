@@ -376,6 +376,42 @@
     .shop-products { grid-template-columns: 1fr; max-width: 360px; }
   }
 
+  /* On-page cart bar — appears once something is in the cart so both
+     products can be added before heading to checkout (the primary cart
+     entry point on mobile, where the header nav collapses). */
+  .shop-cartbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem 1.25rem;
+    flex-wrap: wrap;
+    max-width: 760px;
+    margin: 1.75rem auto 0;
+    padding: 0.9rem 1.25rem;
+    background: rgba(255, 244, 206, 0.06);
+    border: 1px solid rgba(255, 244, 206, 0.18);
+    border-radius: 14px;
+  }
+  .shop-cartbar[hidden] { display: none; }
+  .shop-cartbar__count {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--cream);
+    opacity: 0.85;
+  }
+  .shop-cartbar__link {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--maroon);
+    background: var(--amber);
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .shop-cartbar__link:hover { background: var(--amber-light); }
+
   /* Cross-sell band — catches visitors who clicked Shop but need a
      clinician, not a product. Sits between the maroon hero and the
      cream values strip. */
@@ -529,14 +565,14 @@
               {%- if product.description != blank -%}
                 <p class="shop-product-card__desc">{{ product.description | strip_html | truncatewords: 20 }}</p>
               {%- endif -%}
-              {%- comment -%} This theme has no cart page, so send the buy
-                 straight to Shopify checkout (return_to) instead of /cart. {%- endcomment -%}
               {%- if variant != blank and variant.available -%}
-                <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
+                {%- comment -%} JS adds via /cart/add.js and stays on the page so
+                   both products can go in one cart. No-JS falls back to a normal
+                   POST, which lands on the /cart page. {%- endcomment -%}
+                <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-add-form>
                   <input type="hidden" name="id" value="{{ variant.id }}">
                   <input type="hidden" name="quantity" value="1">
-                  <input type="hidden" name="return_to" value="/checkout">
-                  <button type="submit" class="shop-product-card__btn">Buy now · {{ variant.price | money_without_trailing_zeros }}</button>
+                  <button type="submit" class="shop-product-card__btn" data-add-btn data-label="Add to cart">Add to cart</button>
                 </form>
               {%- else -%}
                 <span class="shop-product-card__btn shop-product-card__btn--disabled">Sold out</span>
@@ -545,6 +581,11 @@
           </div>
         {%- endif -%}
       {%- endfor -%}
+    </div>
+
+    <div class="shop-cartbar" id="shopCartBar"{% if cart.item_count == 0 %} hidden{% endif %}>
+      <span class="shop-cartbar__count" data-shop-cart-summary>{{ cart.item_count }} item{% unless cart.item_count == 1 %}s{% endunless %} in your cart</span>
+      <a href="{{ routes.cart_url }}" class="shop-cartbar__link">View cart &amp; check out &rarr;</a>
     </div>
   </div>
 </section>
@@ -592,6 +633,56 @@
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    var forms = document.querySelectorAll('[data-add-form]');
+    if (!forms.length) return;
+    var bar = document.getElementById('shopCartBar');
+    var summary = document.querySelector('[data-shop-cart-summary]');
+    var headerCount = document.querySelector('[data-cart-count]');
+
+    function sync(cart) {
+      var n = cart.item_count;
+      var s = n === 1 ? '' : 's';
+      if (summary) summary.textContent = n + ' item' + s + ' in your cart';
+      if (bar) bar.hidden = n === 0;
+      if (headerCount) {
+        headerCount.textContent = n;
+        if (n > 0) headerCount.removeAttribute('hidden');
+        else headerCount.setAttribute('hidden', '');
+      }
+    }
+
+    forms.forEach(function (form) {
+      form.addEventListener('submit', function (e) {
+        if (!window.fetch) return; // old browser: let the normal POST to /cart run
+        e.preventDefault();
+        var btn = form.querySelector('[data-add-btn]');
+        var label = btn ? (btn.getAttribute('data-label') || btn.textContent) : '';
+        if (btn) { btn.disabled = true; btn.textContent = 'Adding…'; }
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        })
+          .then(function (r) { if (!r.ok) throw new Error('add failed'); return fetch('/cart.js', { headers: { 'Accept': 'application/json' } }); })
+          .then(function (r) { return r.json(); })
+          .then(function (cart) {
+            sync(cart);
+            if (btn) {
+              btn.textContent = 'Added ✓';
+              setTimeout(function () { btn.textContent = label; btn.disabled = false; }, 1500);
+            }
+          })
+          .catch(function () {
+            if (btn) { btn.textContent = label; btn.disabled = false; }
+            form.submit(); // fall back to a normal add + redirect to /cart
+          });
+      });
+    });
+  })();
+</script>
 
 {% schema %}
 {
