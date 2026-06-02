@@ -240,6 +240,240 @@
   </div>
 </section>
 
+<!-- ====== CARE GRID ====== -->
+<style>
+  .care-grid {
+    background: var(--dark);
+    padding: 6rem 3rem;
+  }
+  .care-grid__container { max-width: 64rem; margin: 0 auto; }
+  .care-grid__head { text-align: center; margin-bottom: 3rem; }
+  .care-grid__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+    color: var(--cream);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .care-grid__bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, minmax(168px, 1fr));
+    grid-template-areas:
+      "matched messaging rx anywhere"
+      "matched video     rx anywhere";
+    gap: 1rem;
+  }
+  .care-tile {
+    position: relative;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 0;
+  }
+  .care-tile__icon { width: 30px; height: 30px; margin-bottom: auto; }
+  .care-tile__icon svg { width: 100%; height: 100%; }
+  .care-tile__title {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    line-height: 1.15;
+    margin: 0.85rem 0 0.35rem;
+  }
+  .care-tile__text {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    opacity: 0.88;
+    margin: 0;
+  }
+  .care-tile--matched   { grid-area: matched;   background: var(--maroon);     color: var(--cream); }
+  .care-tile--messaging { grid-area: messaging; background: var(--terracotta); color: var(--cream); }
+  .care-tile--video     { grid-area: video;     background: #3d0810;           color: var(--cream); border: 1px solid rgba(255, 244, 206, 0.14); }
+  .care-tile--rx        { grid-area: rx;         color: var(--cream); }
+  .care-tile--anywhere  { grid-area: anywhere;  background: var(--gold);       color: var(--dark); }
+  .care-tile--rx img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .care-tile--rx::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(42, 2, 8, 0.94) 0%, rgba(42, 2, 8, 0.4) 55%, rgba(42, 2, 8, 0.12) 100%);
+    z-index: 1;
+  }
+  .care-tile--rx > * { position: relative; z-index: 2; }
+  .care-tile__chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.85rem; }
+  .care-tile__chip {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 500;
+    background: rgba(42, 2, 8, 0.16);
+    color: var(--dark);
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+  }
+  @media (max-width: 900px) {
+    .care-grid { padding: 4rem 1.5rem; }
+    .care-grid__bento {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: none;
+      grid-template-areas: none;
+    }
+    .care-tile { grid-area: auto; min-height: 170px; }
+    .care-tile--matched, .care-tile--rx, .care-tile--anywhere { grid-column: 1 / -1; min-height: 200px; }
+  }
+  @media (max-width: 560px) {
+    .care-grid__bento { grid-template-columns: 1fr; }
+    .care-tile--matched, .care-tile--rx, .care-tile--anywhere { grid-column: auto; }
+  }
+</style>
+
+<section class="care-grid">
+  <div class="care-grid__container">
+    <div class="care-grid__head fade-in">
+      <h2 class="care-grid__heading">Personalized for your skin. Priced for everyone.</h2>
+    </div>
+    <div class="care-grid__bento fade-in">
+      <div class="care-tile care-tile--matched">
+        <span class="care-tile__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M17 11l2 2 4-4"/></svg>
+        </span>
+        <h3 class="care-tile__title">Matched with the right dermatologist</h3>
+        <p class="care-tile__text">We pair you with a board-certified dermatologist who fits your skin and your condition. No guessing, no directory to sort through.</p>
+      </div>
+      <div class="care-tile care-tile--messaging">
+        <span class="care-tile__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </span>
+        <h3 class="care-tile__title">Unlimited messaging</h3>
+        <p class="care-tile__text">Message your provider for ongoing guidance.</p>
+      </div>
+      <div class="care-tile care-tile--video">
+        <span class="care-tile__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </span>
+        <h3 class="care-tile__title">Optional video visits</h3>
+        <p class="care-tile__text">A call if necessary for complete care.</p>
+      </div>
+      <div class="care-tile care-tile--rx">
+        <img src="{{ 'tx-ketoconazole.jpg' | asset_url }}" alt="Prescription antifungal treatment" loading="lazy">
+        <h3 class="care-tile__title">Prescriptions to your pharmacy</h3>
+        <p class="care-tile__text">Sent to your local pharmacy: antifungals, ketoconazole, Zoryve, and more.</p>
+      </div>
+      <div class="care-tile care-tile--anywhere">
+        <span class="care-tile__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </span>
+        <h3 class="care-tile__title">Care from anywhere</h3>
+        <p class="care-tile__text">Manage your treatment online, from home or on the go.</p>
+        <div class="care-tile__chips">
+          <span class="care-tile__chip">Treat multiple conditions</span>
+          <span class="care-tile__chip">Easy refills &amp; adjustments</span>
+          <span class="care-tile__chip">Track your prescription</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CARE STEPS ====== -->
+<style>
+  .care-steps {
+    background: var(--cream);
+    padding: 6rem 3rem;
+  }
+  .care-steps__container { max-width: 66rem; margin: 0 auto; }
+  .care-steps__head { text-align: center; margin-bottom: 3.5rem; }
+  .care-steps__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+    color: var(--maroon);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .care-steps__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .care-step {
+    background: var(--cream);
+    border: 1px solid rgba(100, 18, 32, 0.16);
+    border-radius: 1.25rem;
+    padding: 1.6rem 1.5rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .care-step__num {
+    font-family: var(--font-serif);
+    font-size: 2.6rem;
+    line-height: 1;
+    color: var(--maroon);
+    margin: 0 0 1.5rem;
+  }
+  .care-step__title {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--maroon);
+    line-height: 1.25;
+    margin: 0 0 0.5rem;
+  }
+  .care-step__text {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--maroon);
+    opacity: 0.72;
+    margin: 0;
+  }
+  @media (max-width: 900px) {
+    .care-steps { padding: 4rem 1.5rem; }
+    .care-steps__grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  }
+  @media (max-width: 560px) {
+    .care-steps__grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<section class="care-steps">
+  <div class="care-steps__container">
+    <div class="care-steps__head fade-in">
+      <h2 class="care-steps__heading">Here&rsquo;s how Kyn Skyn works.</h2>
+    </div>
+    <div class="care-steps__grid">
+      <div class="care-step fade-in">
+        <p class="care-step__num">1</p>
+        <h3 class="care-step__title">Start with a short intake</h3>
+        <p class="care-step__text">Tell us about your concern and your skincare routine. We match you with a board-certified dermatologist who fits your skin.</p>
+      </div>
+      <div class="care-step fade-in">
+        <p class="care-step__num">2</p>
+        <h3 class="care-step__title">Connect with your provider</h3>
+        <p class="care-step__text">Connect asynchronously with your provider, and schedule a video call if necessary for complete care.</p>
+      </div>
+      <div class="care-step fade-in">
+        <p class="care-step__num">3</p>
+        <h3 class="care-step__title">Pick up your prescription</h3>
+        <p class="care-step__text">If medication is prescribed, your provider sends it to your local pharmacy for pickup or refill.</p>
+      </div>
+      <div class="care-step fade-in">
+        <p class="care-step__num">4</p>
+        <h3 class="care-step__title">Ongoing, personalized support</h3>
+        <p class="care-step__text">Count on consistent care through follow-ups and unlimited messaging with your provider.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ====== NOTIFY ====== -->
 <section class="notify" id="notify">
   <div class="notify__grid-bg">
