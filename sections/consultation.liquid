@@ -668,18 +668,27 @@
             </span>
           </label>
         </div>
+        <span class="th-plan__cta">Get started<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 10h11M11 5.5 15.5 10 11 14.5"/></svg></span>
       </button>
-      <!-- One-time Consult $34.99 -->
-      <button type="button" class="th-plan" data-plan="one-time" role="radio" aria-checked="false">
-        <p class="th-plan__price">$34.99</p>
-        <p class="th-plan__label">One-time Consult</p>
-        <div class="th-plan__features">
-          <p>&#10003; Provider consultation</p>
-          <p>&#10003; Pick up Rx at your pharmacy</p>
-          <p>&#10003; Single visit, no commitment</p>
-          <p>&#10003; Secure online payment</p>
-        </div>
-      </button>
+      <!-- One-time Consult $34.99 - tucked behind a disclosure so the recurring
+           plan is the default path; still a selectable radio when expanded. -->
+      <details class="th-onetime">
+        <summary class="th-onetime__summary">
+          <span>Prefer a one-time visit?</span>
+          <svg class="th-onetime__chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8l5 5 5-5"/></svg>
+        </summary>
+        <button type="button" class="th-plan th-plan--onetime" data-plan="one-time" role="radio" aria-checked="false">
+          <p class="th-plan__price">$34.99</p>
+          <p class="th-plan__label">One-time Consult</p>
+          <div class="th-plan__features">
+            <p>&#10003; Provider consultation</p>
+            <p>&#10003; Pick up Rx at your pharmacy</p>
+            <p>&#10003; Single visit, no commitment</p>
+            <p>&#10003; Secure online payment</p>
+          </div>
+          <span class="th-plan__cta">Get started<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 10h11M11 5.5 15.5 10 11 14.5"/></svg></span>
+        </button>
+      </details>
     </div>
     <p class="th-cta__desc" style="font-size: 0.85rem;">Click your plan and your Kynsultation opens right below. Every plan includes a board-certified dermatologist and a prescription sent to the pharmacy you pick. Your photos and card details stay inside the secure care flow.</p>
   </div>
@@ -688,14 +697,35 @@
 <style>
   .th-pricing__grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 0.8rem;
     margin: 2rem 0;
     align-items: start;
   }
-  @media (max-width: 640px) {
-    .th-pricing__grid { grid-template-columns: 1fr; }
+  /* One-time consult disclosure: a quiet, centered toggle under the plan. */
+  .th-onetime { text-align: center; }
+  .th-onetime__summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: rgba(255, 244, 206, 0.55);
+    padding: 0.4rem 0.6rem;
   }
+  .th-onetime__summary::-webkit-details-marker { display: none; }
+  .th-onetime__summary:hover { color: rgba(255, 244, 206, 0.85); }
+  .th-onetime__summary > span {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(255, 244, 206, 0.3);
+  }
+  .th-onetime__chevron { width: 14px; height: 14px; transition: transform 0.2s; }
+  .th-onetime[open] .th-onetime__chevron { transform: rotate(180deg); }
+  .th-onetime[open] .th-onetime__summary { margin-bottom: 0.8rem; }
+  .th-onetime .th-plan { display: block; width: 100%; }
   .th-plan {
     background: rgba(255, 244, 206, 0.04);
     border: 2px solid rgba(255, 244, 206, 0.15);
@@ -737,6 +767,25 @@
     transition: color 0.2s;
   }
   .th-plan--selected .th-plan__price { color: #F8B044; }
+  /* Per-card action cue: makes each plan an obvious click target (not a static
+     panel). Identical on every card, so nothing reads as pre-selected. */
+  .th-plan__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.1rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 100px;
+    background: var(--terracotta);
+    color: var(--cream);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .th-plan__cta svg { width: 15px; height: 15px; transition: transform 0.2s; }
+  .th-plan:hover .th-plan__cta { background: #d96f3a; }
+  .th-plan:hover .th-plan__cta svg { transform: translateX(3px); }
   .th-plan__price-suffix { font-size: 0.9rem; opacity: 0.6; }
   .th-plan__label {
     font-family: var(--font-sans);
@@ -1187,6 +1236,9 @@
         p.setAttribute('aria-checked', isTarget ? 'true' : 'false');
       });
       if (augmentInput) augmentInput.checked = false;
+      // Reveal the disclosure so the pre-selected one-time card is visible.
+      var oneTimeDisclosure = document.querySelector('.th-onetime');
+      if (oneTimeDisclosure) oneTimeDisclosure.open = true;
     }
 
   })();
