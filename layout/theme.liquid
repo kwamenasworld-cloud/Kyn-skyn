@@ -1185,5 +1185,50 @@
     </ul>
   </nav>
 
+  <!-- First-party funnel beacon: PHI-free site_pageview + site_cta_click, posted
+       cross-origin to the care app's /api/track. Marketing pages only; never any
+       medical data. Mirrors telehealth/src/lib/track.ts. -->
+  <script>
+  (function () {
+    try {
+      var EP = "https://care.kynskyn.com/api/track";
+      var KEY = "kyn_fs";
+      function sid() {
+        try {
+          var v = localStorage.getItem(KEY);
+          if (!v) {
+            v = (window.crypto && crypto.randomUUID)
+              ? crypto.randomUUID()
+              : ("s_" + Date.now() + "_" + Math.random().toString(36).slice(2));
+            localStorage.setItem(KEY, v);
+          }
+          return v;
+        } catch (e) { return "nostore_" + Math.random().toString(36).slice(2); }
+      }
+      function send(event) {
+        try {
+          var body = JSON.stringify({ event: event, session_id: sid(), path: location.pathname });
+          // text/plain keeps sendBeacon a CORS-simple request (no preflight).
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon(EP, new Blob([body], { type: "text/plain;charset=UTF-8" }));
+          } else {
+            fetch(EP, { method: "POST", headers: { "Content-Type": "text/plain" }, body: body, keepalive: true, mode: "cors" }).catch(function () {});
+          }
+        } catch (e) {}
+      }
+      send("site_pageview");
+      document.addEventListener("click", function (e) {
+        var el = e.target && e.target.closest ? e.target.closest("a,button") : null;
+        if (!el) return;
+        var href = (el.getAttribute && el.getAttribute("href")) || "";
+        var txt = (el.textContent || "").trim().toLowerCase();
+        var cta = /care\.kynskyn\.com|\/book\b|checkout=1|\/consultation/.test(href) ||
+                  /get started|start (your )?(visit|consult)|book (a )?(visit|consult)|begin (your )?(visit|consult)/.test(txt);
+        if (cta) send("site_cta_click");
+      }, true);
+    } catch (e) {}
+  })();
+  </script>
+
 </body>
 </html>
