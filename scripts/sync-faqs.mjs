@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Reads FAQs from Supabase and rewrites the FAQ section of consultation.liquid
-// and ingredient-checker.liquid between the <!-- FAQ:START --> and <!-- FAQ:END -->
+// Reads FAQs from Supabase and rewrites the FAQ section of
+// ingredient-checker.liquid between the <!-- FAQ:START --> and <!-- FAQ:END -->
 // markers. Run from the repo root. SUPABASE_ANON_KEY env var required.
 
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -19,22 +19,6 @@ if (!SUPABASE_KEY) {
 
 const PAGES = [
   {
-    name: 'consultation',
-    file: 'sections/consultation.liquid',
-    render(rows) {
-      return rows.map(row => {
-        const dataAttr = row.dynamic_pricing ? ' data-price="faq_pricing"' : '';
-        return [
-          '    <div class="th-faq__item fade-in">',
-          `      <button class="th-faq__q" type="button">${escapeHtml(row.question)}</button>`,
-          `      <div class="th-faq__a"${dataAttr}>${row.answer}</div>`,
-          '    </div>',
-        ].join('\n');
-      }).join('\n\n');
-    },
-    indentAfter: '    ',
-  },
-  {
     name: 'ingredient_checker',
     file: 'sections/ingredient-checker.liquid',
     render(rows) {
@@ -43,7 +27,7 @@ const PAGES = [
           '      <div class="faq__item">',
           `        <button class="faq__question" type="button">${escapeHtml(row.question)}</button>`,
           '        <div class="faq__answer">',
-          `          ${row.answer}`,
+          `          ${normalizeCareLinks(row.answer)}`,
           '        </div>',
           '      </div>',
         ].join('\n');
@@ -59,6 +43,18 @@ function escapeHtml(s) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+function normalizeCareLinks(html) {
+  return String(html).replace(
+    /href="\/pages\/consultation(?:\?plan=([^"]+))?"/g,
+    (_match, plan) => {
+      const url = new URL('https://care.kynskyn.com/book');
+      url.searchParams.set('source', 'kynskyn');
+      if (plan) url.searchParams.set('plan', plan);
+      return `href="${url.toString()}"`;
+    },
+  );
 }
 
 async function fetchPage(name) {

@@ -95,6 +95,9 @@
       function appendToUrl(url, extra) {
         var target = new URL(url, window.location.origin);
         var ctx = compactContext(extra);
+        if (target.hostname === 'care.kynskyn.com' && target.pathname === '/book') {
+          target.searchParams.set('source', 'kynskyn');
+        }
         if (ctx.affiliatebase_referral) target.searchParams.set('affiliatebase_referral', ctx.affiliatebase_referral);
         ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(key) {
           if (ctx[key]) target.searchParams.set(key, ctx[key]);
@@ -102,7 +105,20 @@
         return target.toString();
       }
 
-      document.addEventListener('DOMContentLoaded', capture);
+      function decorateCareLinks(root) {
+        var scope = root || document;
+        scope.querySelectorAll('a[href^="https://care.kynskyn.com/book"]').forEach(function(link) {
+          link.addEventListener('click', function() {
+            var href = link.getAttribute('href');
+            if (href) link.setAttribute('href', appendToUrl(href));
+          });
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        capture();
+        decorateCareLinks(document);
+      });
       window.addEventListener('load', function() {
         setTimeout(capture, 500);
       });
@@ -1171,7 +1187,7 @@
         </a>
       </li>
       <li>
-        <a href="/pages/consultation?checkout=1" class="mobile-tab-bar__link{% if request.path contains 'consultation' or request.path contains 'fungal-acne' or request.path contains 'seb-derm' or request.path contains 'tinea' %} active{% endif %}">
+        <a href="https://care.kynskyn.com/book?source=kynskyn" class="mobile-tab-bar__link{% if request.path contains 'consultation' or request.path contains 'fungal-acne' or request.path contains 'seb-derm' or request.path contains 'tinea' %} active{% endif %}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
           <span class="mobile-tab-bar__label">Care</span>
         </a>
