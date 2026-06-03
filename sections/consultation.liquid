@@ -1,3 +1,18 @@
+<script>
+  // The consultation page is only used as the checkout-mode storefront
+  // handoff. If someone types or follows the bare URL, preserve any existing
+  // params (plan, attribution, preview, etc.) and canonicalize to checkout=1.
+  (function() {
+    if (typeof URLSearchParams === 'undefined') return;
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('checkout') === '1') return;
+    params.set('checkout', '1');
+    window.location.replace(
+      window.location.pathname + '?' + params.toString() + window.location.hash
+    );
+  })();
+</script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
