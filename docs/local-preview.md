@@ -24,22 +24,19 @@ You get a real Shopify rendering of your theme with real products, but pulling t
 
 ## Branch model
 
-- **`master`** — auto-deploys to live kynskyn.com on push. Never edit here directly.
-- **`test`** — long-lived testing branch. The dev-preview script auto-switches you here.
-- **Feature branches** — optional. Branch from `test`, merge into `test` for preview, then `test` -> `master` to ship live.
+- **`master`** is the only branch. It auto-deploys to live kynskyn.com on every push. The old `test` branch was retired 2026-06-01 (the streamlined flow it held was merged into `master`), and `dev-preview.ps1` no longer switches or creates branches.
+- The dev server picks up whatever's in your working tree, **including uncommitted edits** — so what you have checked out IS what you're previewing.
+- Optional: branch off `master` for a larger change, preview locally, then merge back to `master` to ship.
 
-The dev server picks up whatever's in the working tree, so the branch you've checked out IS what you're previewing.
-
-## Promoting test -> master (going live)
+## Going live
 
 ```powershell
-git checkout master
-git pull
-git merge test
+git add -A
+git commit -m "..."
 git push origin master
 ```
 
-Shopify auto-deploys from master push.
+Shopify auto-deploys from the `master` push. There is no staging theme.
 
 ## Things to know
 

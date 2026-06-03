@@ -15,21 +15,22 @@ Care Portal are iframes of `telehealth/`, so the two apps co-evolve.
 ```
 layout/theme.liquid      Master theme shell: <head>, font-face, :root vars, OG tags, header,
                          footer, mobile tab bar, <main> wrapper, base responsive CSS
-sections/*.liquid        15 page sections: about, affiliate-hub, care-portal, coming-soon,
+sections/*.liquid        16 page sections: about, affiliate-hub, care-portal, cart, coming-soon,
                          condition-care, consultation, contact, footer, handbook, header,
                          ingredient-checker, press, resources, shop, treatment-guide
-templates/*.json         16 page templates (incl. condition pages fungal-acne /
-                         seb-derm-dandruff / tinea-versicolor, ketoconazole + roflumilast guides)
+templates/*.json         17 JSON templates + templates/product.liquid (Shop PDP); incl. condition
+                         pages fungal-acne / seb-derm-dandruff / tinea-versicolor, ketoconazole +
+                         roflumilast guides, and cart.json (Shop cart)
 snippets/                (empty)
 config/                  settings_data.json + settings_schema.json
 locales/en.default.json  i18n (nearly empty — pagination keys only)
-assets/                  Flat CDN asset dir (~73 files): woff2 fonts, images/SVGs, handbook PDF,
+assets/                  Flat CDN asset dir (~77 files): woff2 fonts, images/SVGs, handbook PDF,
                          logo animation mp4. MUST stay flat (see Key facts).
 Brand-guidelines/        Brand archive (PDFs, PNGs, logos/). Not referenced by Shopify.
 docs/local-preview.md    Local Shopify theme preview workflow
 scripts/                 Tooling (see below)
-supabase/                Shared backend: config.toml, 59 forward-only migrations (through
-                         2026-05-24), functions/ocr/index.ts (ingredient-label OCR edge fn)
+supabase/                Shared backend: config.toml, 75 forward-only migrations (through
+                         2026-06-01), functions/ocr/index.ts (ingredient-label OCR edge fn)
 AGENTS.md                Quick agent context: parent/nested repo split + verified local CLIs
 telehealth/              Next.js care app — SEPARATE nested git repo, gitignored here (see below)
 ```
@@ -52,10 +53,10 @@ Root `package.json` carries only Puppeteer (for `render-svg.mjs`). Scripts run f
 - **`assets/` is FLAT.** Subfolders don't deploy to Shopify; all refs use `{{ "filename" | asset_url }}` with no path. Keep it flat.
 - **`contact.liquid` posts to Web3Forms** (`api.web3forms.com/submit`), not Shopify's built-in contact form. Inputs carry `aria-label`s.
 
-## Preview / test theme
+## Preview / local dev
 
-- The **streamlined storefront flow lives on the `test` branch**, previewed via a persistent **unpublished** Shopify theme (`#183643242769`) on store `1mehi7-fb.myshopify.com`. Re-push the working tree to that theme after test-branch changes. Ephemeral `shopify theme dev` previews are not the source of truth — a "reverted flow" is usually just a dead dev preview, so check the `test` branch before assuming lost work.
-- Local preview workflow: `scripts/dev-preview.ps1` / `docs/local-preview.md`.
+- **`master` is the only branch and the source of truth; it auto-deploys to live kynskyn.com.** The streamlined storefront flow was merged to `master` and went live 2026-06-01 (commit `7f7e985`); the old `test` branch and the unpublished preview theme `#183643242769` were both deleted. Don't look for them.
+- Preview changes locally before pushing with `scripts/dev-preview.ps1` (ephemeral `shopify theme dev` against store `1mehi7-fb.myshopify.com`). See `docs/local-preview.md`. An ephemeral dev preview is not a saved state — a "reverted flow" is usually just a dead dev preview, so check `master` before assuming lost work.
 
 ## Telehealth / care app (`telehealth/`)
 
@@ -74,15 +75,16 @@ board-certified dermatologists.
 Major subsystems:
 
 - **Booking → MDI sync:** `/book` → `/api/book` writes a `pending_mdi_sync` row; an async worker (`lib/mdi-sync-worker.ts`, `/api/internal/mdi-sync/tick`) drains it and creates/updates the MDI patient + case, then updates `booking_submissions` + `user_order_refs`. The async worker exists because MDI has no live sync / scheduling / video endpoint.
-- **MDI client:** OAuth2 client-credentials → bearer JWT (`MDI_CLIENT_ID` / `MDI_CLIENT_SECRET`); HMAC-verified webhooks at `/api/webhook/mdi` logged to `mdi_webhook_events`; admin viewer + replay at `/admin/mdi-webhooks`. Patient↔clinician messaging is the white-label MDI portal iframed in via `/messages`.
+- **MDI client:** OAuth2 client-credentials → bearer JWT (`MDI_CLIENT_ID` / `MDI_CLIENT_SECRET`); HMAC-verified webhooks at `/api/webhook/mdi` logged to `mdi_webhook_events`; admin viewer + replay at `/admin/mdi-webhooks`. Patient↔clinician messaging is a **native** in-app messenger (`/messages` → `Messenger.tsx` → `/api/messages`, proxying MDI's `/partner/patients/:id/messages`); it replaced the old white-label MDI iframe (the `getPatientAuthLink` / `/partner/patients/:id/auth` embed helper still exists but is currently unused).
 - **Intake:** Form.io-driven (`lib/formio-intake.ts`, `FormioIntake.tsx`, `intake-to-mdi.ts`) with an admin flow editor/tester at `/admin/intake/*`. After a template change, run `telehealth/scripts/push-intake-template.ts` to sync the live questionnaire.
 - **Billing:** Stripe subscriptions (`/api/subscription/*`, `lib/care-subscription.ts`, `lib/subscription-access.ts`, `/account/subscription`). Consultation pricing is server-validated (see security below).
 - **Care Pulse:** deliberately **monthly** (not daily) engagement for active subscribers. Answers are evaluated then discarded; only `care_pulse_nudges` metadata persists. Railway cron → `/api/care-pulse/send-due`. See `telehealth/CARE_PULSE.md`.
 - **Kyn Select:** in-portal OTC recommendations + purchase that pushes a paid order into Shopify after the Stripe charge (`lib/shopify-admin.ts`, `lib/shopify-orders.ts`, `/api/kyn-select/order`, `/api/webhook/shopify-orders`).
 - **Affiliate:** AffiliateBase (`lib/affiliatebase.ts`, `AffiliateBaseScript.tsx`).
 
-Telehealth docs: `AGENTS.md` (verified CLIs), `MDI_INTEGRATION.md` (full integration brief),
-`CARE_PULSE.md` (cadence + data boundary), `PORTAL_QA.md` (launch QA + sandbox test path).
+Telehealth docs: `AGENTS.md` (verified CLIs), `docs/CARE_PORTAL_FLOW.md` (routes + flow map),
+`MDI_INTEGRATION.md` (full integration brief), `CARE_PULSE.md` (cadence + data boundary),
+`PORTAL_QA.md` (launch QA + sandbox test path).
 
 ## Consultation-payment security (must preserve)
 
@@ -105,7 +107,7 @@ Known limits:
 ## Conventions
 
 - **Don't commit without explicit request.**
-- `master` auto-deploys the live theme; the streamlined flow is developed on `test` (preview theme `#183643242769`).
+- `master` is the only branch and auto-deploys the live theme; preview locally with `scripts/dev-preview.ps1`. (The old `test` branch + preview theme `#183643242769` were retired 2026-06-01.)
 - Supabase migrations are live and forward-only, dated prefix `YYYYMMDDHHMMSS_name.sql`. Never amend past migrations.
 - Storefront uses hand-written CSS with `:root` variables; telehealth uses Tailwind. Don't mix telehealth deps with the root.
 - US-only market: filter outreach, ads, and creator research to US-based only.
