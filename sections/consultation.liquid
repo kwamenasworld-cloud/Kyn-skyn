@@ -1,7 +1,7 @@
 <script>
   // The consultation page is only used as the checkout-mode storefront
   // handoff. If someone types or follows the bare URL, preserve any existing
-  // params (plan, attribution, preview, etc.) and canonicalize to checkout=1.
+  // params (plan, attribution, etc.) and canonicalize to checkout=1.
   (function() {
     if (typeof URLSearchParams === 'undefined') return;
     var params = new URLSearchParams(window.location.search);
@@ -89,15 +89,13 @@
   .kyn-checkout-mode .th-steps,
   .kyn-checkout-mode #secure-intake,
   .kyn-checkout-mode .th-faq,
-  .kyn-checkout-mode .th-care-test,
   .kyn-checkout-mode .th-care-flow__header,
   .kyn-checkout-mode footer.site-footer,
   .kyn-checkout-mode .mobile-tab-bar { display: none !important; }
-  /* Tighten the pricing section in checkout mode so it fits in one
-     viewport without scrolling. Smaller top padding (header is
-     fixed at ~80px), tighter bottom padding. */
+  /* Tighten the pricing section in checkout mode while leaving enough room
+     for trust copy and the one-time consult option. */
   .kyn-checkout-mode #th-pricing {
-    padding: clamp(5.5rem, 7vw, 6.5rem) 1.5rem 2rem !important;
+    padding: clamp(5.25rem, 7vw, 6.25rem) 1.5rem 2.5rem !important;
   }
   /* When the intake opens in checkout mode, take over the whole
      viewport. The previous layout left the iframe boxed under the fixed
@@ -478,6 +476,76 @@
     opacity: 0.58;
   }
 
+  .th-pricing-shell {
+    max-width: 560px !important;
+  }
+
+  .th-pricing__eyebrow {
+    display: inline-block;
+    font-family: var(--font-accent, 'STK Bureau Sans', sans-serif);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #F8B044;
+    border: 1px solid rgba(248, 176, 68, 0.28);
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+    margin: 0 0 1rem;
+  }
+
+  .th-pricing__intro {
+    max-width: 34rem;
+    margin: 0 auto 1.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: rgba(255, 244, 206, 0.74);
+  }
+
+  .th-trust-strip {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    margin: 1.35rem 0 1.6rem;
+  }
+
+  .th-trust-strip__item {
+    border: 1px solid rgba(255, 244, 206, 0.13);
+    background: rgba(255, 244, 206, 0.04);
+    border-radius: 10px;
+    padding: 0.75rem 0.8rem;
+    text-align: left;
+  }
+
+  .th-trust-strip__label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #F8B044;
+    margin-bottom: 0.2rem;
+  }
+
+  .th-trust-strip__copy {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: rgba(255, 244, 206, 0.64);
+  }
+
+  .th-pricing__fineprint {
+    margin: 1.25rem auto 0;
+    max-width: 35rem;
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    line-height: 1.65;
+    color: rgba(255, 244, 206, 0.58);
+  }
+
   /* ========== FAQ ========== */
   .th-faq {
     padding: 6rem 3rem;
@@ -560,11 +628,15 @@
     .th-steps { padding: 4rem 1.5rem; }
     .th-steps__grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
     .th-cta { padding: 4rem 1.5rem; }
+    .th-trust-strip { grid-template-columns: 1fr; }
     .th-faq { padding: 4rem 1.5rem; }
   }
 
   @media (max-width: 480px) {
     .th-steps__grid { grid-template-columns: 1fr; }
+    .th-pricing__intro { font-size: 0.86rem; }
+    .th-trust-strip__item { padding: 0.7rem; }
+    .th-pricing__fineprint { font-size: 0.72rem; }
   }
 </style>
 
@@ -659,8 +731,28 @@
 
 <!-- ====== PRICING ====== -->
 <section class="th-cta th-cta--dark" id="th-pricing">
-  <div class="th-cta__container fade-in" style="max-width: 500px;">
+  <div class="th-cta__container th-pricing-shell fade-in">
+    <p class="th-pricing__eyebrow">Online dermatology care</p>
     <h2 class="th-cta__heading">Choose your Kynsultation</h2>
+    <p class="th-pricing__intro">A board-certified dermatologist reviews your photos and intake for fungal acne, seb derm, dandruff, or tinea versicolor. If a prescription is appropriate, it goes to the pharmacy you choose.</p>
+    <div class="th-trust-strip" aria-label="Care details">
+      <div class="th-trust-strip__item">
+        <span class="th-trust-strip__label">Reviewed by a dermatologist</span>
+        <span class="th-trust-strip__copy">Your photos and history are reviewed by a board-certified dermatologist.</span>
+      </div>
+      <div class="th-trust-strip__item">
+        <span class="th-trust-strip__label">Written plan</span>
+        <span class="th-trust-strip__copy">Treatment guidance, routine notes, and next steps.</span>
+      </div>
+      <div class="th-trust-strip__item">
+        <span class="th-trust-strip__label">Rx if appropriate</span>
+        <span class="th-trust-strip__copy">Any prescription goes to the pharmacy you choose.</span>
+      </div>
+      <div class="th-trust-strip__item">
+        <span class="th-trust-strip__label">Secure care flow</span>
+        <span class="th-trust-strip__copy">Photos, intake, and payment happen in the secure care flow.</span>
+      </div>
+    </div>
     <div class="th-pricing__grid" role="radiogroup" aria-label="Choose your Kynsultation">
       <!-- Monthly $29.99 (with 3-month billing toggle as an augment) -->
       <button type="button" class="th-plan" data-plan="monthly" role="radio" aria-checked="false">
@@ -671,7 +763,7 @@
           <p>&#10003; Provider consultation</p>
           <p>&#10003; Ongoing condition tracking with clinician</p>
           <p>&#10003; Pick up Rx at your pharmacy</p>
-          <p>&#10003; Secure online payment</p>
+          <p>&#10003; Cancel anytime</p>
         </div>
         <!-- 3-month billing toggle - augments the Monthly plan -->
         <div class="th-plan__augment">
@@ -699,13 +791,14 @@
             <p>&#10003; Provider consultation</p>
             <p>&#10003; Pick up Rx at your pharmacy</p>
             <p>&#10003; Single visit, no commitment</p>
-            <p>&#10003; Secure online payment</p>
+            <p>&#10003; No recurring charges</p>
           </div>
           <span class="th-plan__cta">Get started<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 10h11M11 5.5 15.5 10 11 14.5"/></svg></span>
         </button>
       </details>
     </div>
-    <p class="th-cta__desc" style="font-size: 0.85rem;">Click your plan and your Kynsultation opens right below. Every plan includes a board-certified dermatologist and a prescription sent to the pharmacy you pick. Your photos and card details stay inside the secure care flow.</p>
+    <p class="th-pricing__fineprint">Your Kyn Skyn payment covers the dermatology visit and care plan. Medication is separate and paid to the pharmacy only if your clinician writes a prescription.</p>
+    <p class="th-cta__desc" style="font-size: 0.85rem;">Click your plan and your Kynsultation opens right below. Your photos and card details stay inside the secure care flow.</p>
   </div>
 </section>
 
@@ -1036,154 +1129,6 @@
     font-family: var(--font-sans);
     color: rgba(61, 32, 37, 0.72);
   }
-  .th-care-test {
-    display: none;
-    background: var(--cream);
-    color: var(--maroon);
-    padding: clamp(4rem, 7vw, 6rem) 1.5rem;
-  }
-  .th-care-test.is-visible { display: block; }
-  .th-care-test__container {
-    max-width: 760px;
-    margin: 0 auto;
-    border: 1px solid rgba(100, 18, 32, 0.18);
-    border-radius: 18px;
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    background: rgba(255, 255, 255, 0.42);
-  }
-  .th-care-test__eyebrow {
-    margin: 0 0 0.75rem;
-    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-  .th-care-test__title {
-    margin: 0 0 0.85rem;
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 4vw, 3.1rem);
-    font-weight: 300;
-    line-height: 1.05;
-  }
-  .th-care-test__copy {
-    margin: 0 0 1.5rem;
-    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: rgba(100, 18, 32, 0.74);
-  }
-  .th-care-test__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.9rem;
-    margin: 1.5rem 0;
-  }
-  .th-care-test__field {
-    display: grid;
-    gap: 0.45rem;
-    margin: 1rem 0;
-    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
-    font-size: 0.82rem;
-    color: rgba(100, 18, 32, 0.72);
-  }
-  .th-care-test__field input {
-    width: 100%;
-    border: 1px solid rgba(100, 18, 32, 0.22);
-    border-radius: 10px;
-    padding: 0.9rem 1rem;
-    font: inherit;
-    color: var(--maroon);
-    background: #fff;
-  }
-  .th-care-test__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 1.35rem;
-  }
-  .th-care-test__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 3rem;
-    border: 1px solid var(--maroon);
-    border-radius: 999px;
-    padding: 0.8rem 1.25rem;
-    background: var(--maroon);
-    color: var(--cream);
-    font-family: var(--font-accent, 'STK Bureau Sans', sans-serif);
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .th-care-test__button--secondary {
-    background: transparent;
-    color: var(--maroon);
-  }
-  .th-care-test__button:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-  }
-  .th-care-test__note {
-    min-height: 1.2rem;
-    margin: 1rem 0 0;
-    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
-    font-size: 0.82rem;
-    color: rgba(100, 18, 32, 0.64);
-  }
-  .th-care-test__embed {
-    display: none;
-    margin-top: 1.5rem;
-    overflow: hidden;
-    border: 1px solid rgba(100, 18, 32, 0.18);
-    border-radius: 14px;
-    background: #2f0711;
-  }
-  .th-care-test__embed.is-visible {
-    display: block;
-  }
-  .th-care-test__embed-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.85rem 1rem;
-    border-bottom: 1px solid rgba(255, 244, 229, 0.12);
-    background: #641220;
-  }
-  .th-care-test__embed-title {
-    margin: 0;
-    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--cream);
-  }
-  .th-care-test__embed-close {
-    border: 1px solid rgba(255, 244, 229, 0.35);
-    border-radius: 999px;
-    padding: 0.45rem 0.8rem;
-    background: transparent;
-    color: var(--cream);
-    font-family: var(--font-sans, 'STK Bureau Sans', sans-serif);
-    font-size: 0.75rem;
-    cursor: pointer;
-  }
-  .th-care-test__frame {
-    display: block;
-    width: 100%;
-    min-height: min(86vh, 980px);
-    border: 0;
-    background: #2f0711;
-  }
-  @media (max-width: 540px) {
-    .th-care-test__grid { grid-template-columns: 1fr; }
-    .th-care-test__embed-header { align-items: flex-start; flex-direction: column; }
-    .th-care-test__frame { min-height: 88vh; }
-  }
 </style>
 
 <script>
@@ -1237,6 +1182,9 @@
     }
 
     var requestedPlan = new URLSearchParams(window.location.search).get('plan');
+    var oneTimeDisclosure = document.querySelector('.th-onetime');
+    var isCheckoutMode = document.documentElement.classList.contains('kyn-checkout-mode');
+
     if (requestedPlan === 'quarterly' && augmentInput) {
       augmentInput.checked = true;
       plans.forEach(function(p) {
@@ -1252,8 +1200,14 @@
       });
       if (augmentInput) augmentInput.checked = false;
       // Reveal the disclosure so the pre-selected one-time card is visible.
-      var oneTimeDisclosure = document.querySelector('.th-onetime');
       if (oneTimeDisclosure) oneTimeDisclosure.open = true;
+    } else {
+      plans.forEach(function(p) {
+        var isMonthly = p.getAttribute('data-plan') === 'monthly';
+        p.classList.toggle('th-plan--selected', isMonthly);
+        p.setAttribute('aria-checked', isMonthly ? 'true' : 'false');
+      });
+      if (isCheckoutMode && oneTimeDisclosure) oneTimeDisclosure.open = true;
     }
 
   })();
@@ -1271,7 +1225,7 @@
     <div class="th-care-flow__shell">
       <div class="th-care-flow__bar">
         <a href="{{ routes.root_url }}" class="th-care-flow__bar-logo" aria-label="Kyn Skyn home">
-          <img src="{{ 'kyn-skyn-logoword-black.svg' | asset_url }}" alt="Kyn Skyn" loading="lazy">
+          <img src="{{ 'kyn-skyn-logoword-black.svg' | asset_url }}" alt="Kyn Skyn" width="388" height="181" loading="lazy">
         </a>
         <p class="th-care-flow__bar-note" id="thCareFlowPlan">Monthly plan selected</p>
       </div>
@@ -1331,15 +1285,8 @@
       target.searchParams.set('embed', 'shopify');
       target.searchParams.set('parent_origin', window.location.origin);
 
-      // Default the booking_preview param to the test-theme bypass token
-      // so the unlisted Shopify preview can run the full intake without
-      // staff pasting a token. care.kynskyn.com accepts this constant
-      // only while BOOKING_PRELAUNCH_LOCK is true (pre-launch); after
-      // launch the gate goes off and the token is moot. Staff with the
-      // real BOOKING_TEST_TOKEN can still override via ?booking_preview=
-      // on the parent URL.
-      var preview = params.get('booking_preview') || 'kyn-shopify-test-theme-bypass-2026';
-      target.searchParams.set('booking_preview', preview);
+      var preview = params.get('booking_preview');
+      if (preview) target.searchParams.set('booking_preview', preview);
       if (ctx.affiliatebase_referral) target.searchParams.set('affiliatebase_referral', ctx.affiliatebase_referral);
       ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(key) {
         if (ctx[key]) target.searchParams.set(key, ctx[key]);
@@ -1405,149 +1352,6 @@
     }
 
     return { open: open };
-  })();
-</script>
-
-
-<!-- ====== INTERNAL FUNNEL TEST ====== -->
-<section
-  class="th-care-test"
-  id="thCareFlowTest"
-  aria-live="polite"
->
-  <div class="th-care-test__container">
-    <p class="th-care-test__eyebrow">Internal funnel test</p>
-    <h2 class="th-care-test__title">Embedded care flow</h2>
-    <p class="th-care-test__copy">
-      Use a preview token to open the care-backed intake test on KynSkyn.com. Payment is handled inside the secure care flow, not by the storefront checkout.
-    </p>
-
-    <div class="th-care-test__grid" aria-label="Current selected plan">
-      <div>
-        <p class="th-care-test__eyebrow">Selected plan</p>
-        <p class="th-care-test__copy" id="thCareTestPlan">Monthly</p>
-      </div>
-      <div>
-        <p class="th-care-test__eyebrow">Attribution</p>
-        <p class="th-care-test__copy" id="thCareTestAttribution">No referral captured yet.</p>
-      </div>
-    </div>
-
-    <label class="th-care-test__field" for="thCarePreviewToken">
-      Preview token
-      <input id="thCarePreviewToken" type="password" autocomplete="off" placeholder="Enter BOOKING_TEST_TOKEN">
-    </label>
-
-    <div class="th-care-test__actions">
-      <button type="button" class="th-care-test__button" id="thOpenCareIntakeTest">
-        Open intake test
-      </button>
-    </div>
-
-    <p class="th-care-test__note" id="thCareTestNote"></p>
-
-    <div class="th-care-test__embed" id="thCareIntakeEmbed" hidden>
-      <div class="th-care-test__embed-header">
-        <p class="th-care-test__embed-title">KynSkyn.com embedded intake</p>
-        <button type="button" class="th-care-test__embed-close" id="thCloseCareIntakeEmbed">
-          Close intake
-        </button>
-      </div>
-      <iframe
-        class="th-care-test__frame"
-        id="thCareIntakeFrame"
-        title="Kyn Skyn care intake"
-        loading="lazy"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allow="camera; clipboard-write"
-      ></iframe>
-    </div>
-  </div>
-</section>
-
-<script>
-  (function() {
-    var params = new URLSearchParams(window.location.search);
-    var enabled = params.get('intake_test') === '1' || params.get('care_test') === '1';
-    var panel = document.getElementById('thCareFlowTest');
-    if (!enabled || !panel) return;
-
-    panel.classList.add('is-visible');
-
-    var pricingCta = document.getElementById('thPricingCta');
-    var tokenInput = document.getElementById('thCarePreviewToken');
-    var note = document.getElementById('thCareTestNote');
-    var planLabel = document.getElementById('thCareTestPlan');
-    var attributionLabel = document.getElementById('thCareTestAttribution');
-    var openIntake = document.getElementById('thOpenCareIntakeTest');
-    var intakeEmbed = document.getElementById('thCareIntakeEmbed');
-    var intakeFrame = document.getElementById('thCareIntakeFrame');
-    var closeIntake = document.getElementById('thCloseCareIntakeEmbed');
-
-    function currentPlan() {
-      var selected = document.querySelector('.th-plan.th-plan--selected');
-      var plan = selected ? selected.getAttribute('data-plan') : 'monthly';
-      var augment = document.querySelector('.th-plan__augment-input[data-augment="quarterly"]');
-      if (plan === 'monthly' && augment && augment.checked) return 'quarterly';
-      return plan;
-    }
-
-    function planName(plan) {
-      if (plan === 'quarterly') return 'Quarterly';
-      if (plan === 'one-time') return 'One-time consult';
-      return 'Monthly';
-    }
-
-    function updateLabels() {
-      var ctx = window.KynAttribution ? window.KynAttribution.capture() : {};
-      var plan = currentPlan();
-      planLabel.textContent = planName(plan);
-      attributionLabel.textContent = ctx.affiliatebase_referral
-        ? 'AffiliateBase referral active'
-        : 'No referral captured yet.';
-      if (pricingCta) {
-        pricingCta.setAttribute('href', '#thCareFlowTest');
-        pricingCta.textContent = 'Open internal test funnel';
-      }
-    }
-
-    openIntake.addEventListener('click', function() {
-      var token = tokenInput.value.trim();
-      if (!token) {
-        note.textContent = 'Enter the preview token first.';
-        return;
-      }
-
-      var plan = currentPlan();
-      var target = new URL('https://care.kynskyn.com/book');
-      target.searchParams.set('booking_preview', token);
-      target.searchParams.set('source', 'kynskyn');
-      target.searchParams.set('plan', plan);
-      target.searchParams.set('parent_origin', window.location.origin);
-      var ctx = window.KynAttribution ? window.KynAttribution.read() : {};
-      if (ctx.affiliatebase_referral) target.searchParams.set('affiliatebase_referral', ctx.affiliatebase_referral);
-      target.searchParams.set('embed', 'shopify');
-      note.textContent = 'Loading intake on kynskyn.com...';
-      intakeFrame.setAttribute('src', target.toString());
-      intakeEmbed.hidden = false;
-      intakeEmbed.classList.add('is-visible');
-      intakeEmbed.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
-    closeIntake.addEventListener('click', function() {
-      intakeFrame.removeAttribute('src');
-      intakeEmbed.classList.remove('is-visible');
-      intakeEmbed.hidden = true;
-      note.textContent = 'Intake closed. Enter the preview token to reopen it on this page.';
-    });
-
-    document.querySelectorAll('.th-plan, .th-plan__augment-input').forEach(function(el) {
-      el.addEventListener('click', function() { setTimeout(updateLabels, 0); });
-      el.addEventListener('change', updateLabels);
-    });
-
-    updateLabels();
-    setTimeout(function() { panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 250);
   })();
 </script>
 
