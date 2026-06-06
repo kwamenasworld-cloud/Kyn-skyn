@@ -33,9 +33,9 @@
     {%- assign treatment_heading = 'How we treat fungal acne' -%}
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole) where needed. From there, the treatment plan covers the routine that keeps the yeast in check long-term, not just clearing the current flare.' -%}
     {%- assign recommended_plan = 'quarterly' -%}
-    {%- assign recommended_plan_label = '3-Month Treatment Plan' -%}
+    {%- assign recommended_plan_label = 'Kyn Care Membership, billed every 3 months' -%}
     {%- assign recommended_price = '$74.99/3 mo' -%}
-    {%- assign recommended_reason = 'Fungal acne almost always relapses without an ongoing routine. Most people stay clear with the 3-Month Plan, which covers the maintenance phase.' -%}
+    {%- assign recommended_reason = 'Fungal acne almost always relapses without an ongoing routine. Kyn Care covers prescription access when clinically appropriate, follow-ups, and doctor-guided maintenance so you are not starting over every flare.' -%}
     {%- assign final_cta_heading = 'Ready to actually treat it?' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis from a board-certified dermatologist, and start a treatment plan that targets the actual cause.' -%}
     {%- assign cc_hero_bg = 'cond-bg-fungal-acne.jpg' -%}
@@ -58,9 +58,9 @@
     {%- assign treatment_heading = 'How we treat seb derm and dandruff' -%}
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole) for the affected zones. The treatment plan also includes the maintenance schedule, scalp and skin care choices, and what to do when triggers hit.' -%}
     {%- assign recommended_plan = 'quarterly' -%}
-    {%- assign recommended_plan_label = '3-Month Treatment Plan' -%}
+    {%- assign recommended_plan_label = 'Kyn Care Membership, billed every 3 months' -%}
     {%- assign recommended_price = '$74.99/3 mo' -%}
-    {%- assign recommended_reason = "Seb derm and dandruff are chronic. The 3-Month Plan covers ongoing care so you're not starting over every flare." -%}
+    {%- assign recommended_reason = "Seb derm and dandruff are chronic. Kyn Care covers prescription access when clinically appropriate, follow-ups, and doctor-guided maintenance so you're not starting over every flare." -%}
     {%- assign final_cta_heading = 'Get out of the flake-and-flare loop.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start a treatment plan that holds.' -%}
     {%- assign cc_hero_bg = 'cond-bg-seb-derm.jpg' -%}
@@ -83,9 +83,9 @@
     {%- assign treatment_heading = 'How we treat tinea versicolor' -%}
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole). The cause clears with a course of treatment. Pigment evens out gradually as your skin recovers, and an ongoing routine keeps the patches from coming back when humidity hits.' -%}
     {%- assign recommended_plan = 'monthly' -%}
-    {%- assign recommended_plan_label = 'Monthly Treatment Plan' -%}
+    {%- assign recommended_plan_label = 'Kyn Care Membership' -%}
     {%- assign recommended_price = '$29.99/mo' -%}
-    {%- assign recommended_reason = 'Tinea versicolor flares seasonally for most people, especially during heat and humidity. The Monthly Treatment Plan covers ongoing monitoring with your clinician, prescription refills as needed, and a maintenance routine that cuts down how often it comes back.' -%}
+    {%- assign recommended_reason = 'Tinea versicolor flares seasonally for most people, especially during heat and humidity. Kyn Care covers ongoing dermatologic care, prescription access when clinically appropriate, follow-ups, and a maintenance routine that cuts down how often it comes back.' -%}
     {%- assign final_cta_heading = 'Clear the patches, keep them clear.' -%}
     {%- assign final_cta_sub = 'Submit your intake, get a written diagnosis, and start an ongoing plan that clears the patches and keeps them from coming back.' -%}
     {%- assign cc_hero_bg = 'cond-bg-tinea-versicolor.jpg' -%}
@@ -872,21 +872,21 @@
     <div class="cc-hero__plans" id="ccHeroPlans" role="radiogroup" aria-label="Treatment plans">
       <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'monthly' %} cc-hero__plan-card--recommended cc-hero__plan-card--selected{% endif %}" data-plan="monthly" role="radio" aria-checked="{% if recommended_plan == 'monthly' %}true{% else %}false{% endif %}">
         {% if recommended_plan == 'monthly' %}<span class="cc-hero__plan-badge">Recommended</span>{% endif %}
-        <p class="cc-hero__plan-name">Monthly</p>
+        <p class="cc-hero__plan-name">Kyn Care Membership</p>
         <p class="cc-hero__plan-cost">$29.99<span class="cc-hero__plan-cost-suffix">/mo</span></p>
         <ul class="cc-hero__plan-feats">
-          <li>Ongoing tracking with clinician</li>
-          <li>Refills as needed</li>
+          <li>Doctor-guided maintenance</li>
+          <li>Prescription access</li>
           <li>Cancel anytime</li>
         </ul>
       </button>
       <button type="button" class="cc-hero__plan-card{% if recommended_plan == 'quarterly' %} cc-hero__plan-card--recommended cc-hero__plan-card--selected{% endif %}" data-plan="quarterly" role="radio" aria-checked="{% if recommended_plan == 'quarterly' %}true{% else %}false{% endif %}">
         <span class="cc-hero__plan-badge">Save ~$5/mo</span>
-        <p class="cc-hero__plan-name">3 months</p>
+        <p class="cc-hero__plan-name">Kyn Care, 3 months</p>
         <p class="cc-hero__plan-cost">$74.99<span class="cc-hero__plan-cost-suffix">/3 mo</span></p>
         <ul class="cc-hero__plan-feats">
-          <li>Ongoing tracking with clinician</li>
-          <li>Everything in Monthly</li>
+          <li>Doctor-guided maintenance</li>
+          <li>Everything in Kyn Care</li>
           <li>Best for chronic care</li>
         </ul>
       </button>

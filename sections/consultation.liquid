@@ -49,7 +49,7 @@
   "@type": "Service",
   "serviceType": "Dermatology telehealth consultation",
   "name": "Fungal-skin telehealth consultation",
-  "description": "Async or sync online consultation with a board-certified dermatologist for fungal-prone skin conditions. Includes diagnosis and a prescription you pick up at your pharmacy. Monthly, 3-month, and one-time plans available.",
+  "description": "Async online dermatology care for fungal-prone skin conditions. Join the Kyn Care Membership for ongoing dermatologic care, prescription access when clinically appropriate, follow-ups, and doctor-guided maintenance.",
   "provider": {
     "@type": "MedicalBusiness",
     "name": "Kyn Skyn",
@@ -58,8 +58,8 @@
   "audience": { "@type": "PeopleAudience", "suggestedMinAge": 18 },
   "areaServed": { "@type": "Country", "name": "United States" },
   "offers": [
-    { "@type": "Offer", "name": "Monthly Treatment Plan", "price": "29.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://kynskyn.com/pages/consultation?plan=monthly&checkout=1" },
-    { "@type": "Offer", "name": "3-Month Treatment Plan", "price": "74.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://kynskyn.com/pages/consultation?plan=quarterly&checkout=1" },
+    { "@type": "Offer", "name": "Kyn Care Membership", "price": "29.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://kynskyn.com/pages/consultation?plan=monthly&checkout=1" },
+    { "@type": "Offer", "name": "Kyn Care Membership, billed every 3 months", "price": "74.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://kynskyn.com/pages/consultation?plan=quarterly&checkout=1" },
     { "@type": "Offer", "name": "One-time Consult", "price": "40.00", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://kynskyn.com/pages/consultation?plan=one-time&checkout=1" }
   ]
 }
@@ -645,7 +645,7 @@
   <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="th-hero__molecule" width="667" height="667">
   <p class="th-hero__eyebrow fade-in">Online dermatology care</p>
   <h1 class="th-hero__heading fade-in">Get bespoke dermatologic care</h1>
-  <p class="th-hero__desc fade-in">A board-certified dermatologist reviews your secure intake and photos, confirms what's actually wrong, and sends a treatment plan when clinically appropriate. One plan to pick, then your intake starts.</p>
+  <p class="th-hero__desc fade-in">A board-certified dermatologist reviews your secure intake and photos, confirms what's actually wrong, and sends a treatment plan when clinically appropriate. Join Kyn Care for ongoing dermatologic care built around chronic skin conditions.</p>
   <a href="#th-pricing" class="th-hero__cta fade-in">Get your Kynsultation</a>
 </section>
 
@@ -733,8 +733,8 @@
 <section class="th-cta th-cta--dark" id="th-pricing">
   <div class="th-cta__container th-pricing-shell fade-in">
     <p class="th-pricing__eyebrow">Online dermatology care</p>
-    <h2 class="th-cta__heading">Choose your Kynsultation</h2>
-    <p class="th-pricing__intro">A board-certified dermatologist reviews your photos and intake for fungal acne, seb derm, dandruff, or tinea versicolor. If a prescription is appropriate, it goes to the pharmacy you choose.</p>
+    <h2 class="th-cta__heading">Join Kyn Care</h2>
+    <p class="th-pricing__intro">Ongoing dermatologic care for chronic skin conditions, including prescription access when clinically appropriate, follow-ups, and doctor-guided maintenance.</p>
     <div class="th-trust-strip" aria-label="Care details">
       <div class="th-trust-strip__item">
         <span class="th-trust-strip__label">Reviewed by a dermatologist</span>
@@ -754,23 +754,23 @@
       </div>
     </div>
     <div class="th-pricing__grid" role="radiogroup" aria-label="Choose your Kynsultation">
-      <!-- Monthly $29.99 (with 3-month billing toggle as an augment) -->
+      <!-- Kyn Care Membership $29.99/mo (with 3-month billing toggle as an augment) -->
       <button type="button" class="th-plan" data-plan="monthly" role="radio" aria-checked="false">
         <span class="th-plan__badge th-plan__badge--amber">Recommended</span>
         <p class="th-plan__price">$29.99<span class="th-plan__price-suffix">/mo</span></p>
-        <p class="th-plan__label">Monthly</p>
+        <p class="th-plan__label">Kyn Care Membership</p>
         <div class="th-plan__features">
-          <p>&#10003; Provider consultation</p>
-          <p>&#10003; Ongoing condition tracking with clinician</p>
-          <p>&#10003; Pick up Rx at your pharmacy</p>
+          <p>&#10003; Dermatologist-reviewed intake</p>
+          <p>&#10003; Follow-ups and maintenance guidance</p>
+          <p>&#10003; Prescription access when appropriate</p>
           <p>&#10003; Cancel anytime</p>
         </div>
-        <!-- 3-month billing toggle - augments the Monthly plan -->
+        <!-- 3-month billing toggle - augments the Kyn Care Membership -->
         <div class="th-plan__augment">
           <label class="th-plan__augment-toggle">
             <input type="checkbox" class="th-plan__augment-input" data-augment="quarterly">
             <span class="th-plan__augment-label">
-              <span class="th-plan__augment-title">Switch to 3-month, save ~$5/mo</span>
+              <span class="th-plan__augment-title">Bill Kyn Care every 3 months, save ~$5/mo</span>
               <span class="th-plan__augment-detail"><span>$74.99<span class="th-plan__price-suffix">/3 mo</span></span>, billed every 3 months</span>
             </span>
           </label>
@@ -1227,7 +1227,7 @@
         <a href="{{ routes.root_url }}" class="th-care-flow__bar-logo" aria-label="Kyn Skyn home">
           <img src="{{ 'kyn-skyn-logoword-black.svg' | asset_url }}" alt="Kyn Skyn" width="388" height="181" loading="lazy">
         </a>
-        <p class="th-care-flow__bar-note" id="thCareFlowPlan">Monthly plan selected</p>
+        <p class="th-care-flow__bar-note" id="thCareFlowPlan">Kyn Care Membership selected</p>
       </div>
 
       <div class="th-care-flow__frame-wrap" id="thCareFlowFrameWrap">
@@ -1263,9 +1263,9 @@
     }
 
     function planName(plan) {
-      if (plan === 'quarterly') return '3-month plan selected';
+      if (plan === 'quarterly') return 'Kyn Care Membership, 3-month billing selected';
       if (plan === 'one-time') return 'One-time consult selected';
-      return 'Monthly plan selected';
+      return 'Kyn Care Membership selected';
     }
 
     function currentPlan() {
