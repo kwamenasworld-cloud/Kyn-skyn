@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "booking": {
+      "type": "booking"
+    }
+  },
+  "order": ["booking"]
+}

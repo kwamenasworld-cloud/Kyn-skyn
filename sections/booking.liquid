@@ -1,0 +1,288 @@
+{%- comment -%}
+  Hidden booking page. Unlisted (not in any menu) + noindex (see layout/theme.liquid
+  robots meta, keyed on page.handle == 'book-with-kwame').
+
+  Powered by Cal.com, which holds availability and is OAuth-connected to Google
+  Calendar — booked meetings land natively on the gcal and email both parties.
+
+  SETUP: after creating the Cal.com account + connecting Google Calendar, replace
+  the three CONFIG values below with the real Cal.com username and event slugs.
+{%- endcomment -%}
+
+{%- assign cal_username = 'kynskyn' -%}
+{%- assign cal_intro_slug = 'intro-15min' -%}
+{%- assign cal_partnership_slug = 'partnership-30min' -%}
+
+<div class="booking-page">
+  <section class="booking">
+    <div class="booking__hero fade-in">
+      <img
+        class="booking__wordmark"
+        src="{{ 'kyn-skyn-logoword-white.svg' | asset_url }}"
+        alt="Kyn Skyn"
+        width="220"
+        height="60"
+        loading="eager">
+      <p class="booking__eyebrow">Let's talk</p>
+      <h1 class="booking__heading">Book a meeting</h1>
+      <p class="booking__desc">Pick a meeting type and a time that works for you. Once you confirm, you'll get a calendar invite with the details — no back-and-forth.</p>
+    </div>
+
+    <div class="booking__container fade-in">
+      <div class="booking__type-selector" role="tablist" aria-label="Meeting type">
+        <button
+          class="booking__type-btn active"
+          data-slug="{{ cal_intro_slug }}"
+          role="tab"
+          aria-selected="true"
+          type="button">
+          <span class="booking__type-name">Intro / discovery</span>
+          <span class="booking__type-meta">15 min · quick chat</span>
+        </button>
+        <button
+          class="booking__type-btn"
+          data-slug="{{ cal_partnership_slug }}"
+          role="tab"
+          aria-selected="false"
+          type="button">
+          <span class="booking__type-name">Partnership / brand</span>
+          <span class="booking__type-meta">30 min · retail, collabs, press</span>
+        </button>
+      </div>
+
+      <div class="booking__embed">
+        <div id="cal-inline" class="booking__cal"></div>
+        <noscript>
+          <p class="booking__fallback">
+            Booking needs JavaScript. You can also reach the calendar directly at
+            <a href="https://cal.com/{{ cal_username }}">cal.com/{{ cal_username }}</a>.
+          </p>
+        </noscript>
+      </div>
+
+      <p class="booking__fallback booking__fallback--js" hidden>
+        Having trouble loading the calendar?
+        <a href="https://cal.com/{{ cal_username }}" target="_blank" rel="noopener">Open it in a new tab</a>.
+      </p>
+    </div>
+  </section>
+</div>
+
+<style>
+  .booking-page {
+    padding-top: 5rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .booking {
+    flex: 1;
+    background: var(--cream);
+  }
+
+  .booking__hero {
+    background: var(--maroon);
+    color: var(--cream);
+    text-align: center;
+    padding: 4rem 1.5rem 3.5rem;
+  }
+
+  .booking__wordmark {
+    height: 2.6rem;
+    width: auto;
+    margin: 0 auto 2rem;
+    display: block;
+    opacity: 0.95;
+  }
+
+  .booking__eyebrow {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .booking__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .booking__desc {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    opacity: 0.8;
+    line-height: 1.7;
+    max-width: 32rem;
+    margin: 0 auto;
+  }
+
+  .booking__container {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .booking__type-selector {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .booking__type-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    min-width: 15rem;
+    flex: 1 1 15rem;
+    max-width: 20rem;
+    text-align: left;
+    padding: 1.1rem 1.4rem;
+    border: 1px solid rgba(100, 18, 32, 0.25);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--maroon);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .booking__type-btn:hover {
+    border-color: var(--maroon);
+    background: rgba(100, 18, 32, 0.04);
+  }
+
+  .booking__type-btn.active {
+    background: var(--maroon);
+    color: var(--cream);
+    border-color: var(--maroon);
+  }
+
+  .booking__type-name {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+  }
+
+  .booking__type-meta {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    opacity: 0.7;
+  }
+
+  .booking__embed {
+    background: #fff;
+    border: 1px solid rgba(100, 18, 32, 0.12);
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 600px;
+  }
+
+  .booking__cal {
+    width: 100%;
+    min-height: 600px;
+    overflow: auto;
+  }
+
+  .booking__fallback {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--maroon);
+    opacity: 0.7;
+    text-align: center;
+    margin: 1.5rem auto 0;
+  }
+
+  .booking__fallback a { color: var(--maroon); }
+
+  @media (max-width: 600px) {
+    .booking__type-btn { min-width: 100%; max-width: 100%; }
+  }
+</style>
+
+<script>
+  (function () {
+    var CAL_USERNAME = {{ cal_username | json }};
+    var BRAND_COLOR = '#641220';
+
+    // Cal.com embed loader (official snippet).
+    (function (C, A, L) {
+      var p = function (a, ar) { a.q.push(ar); };
+      var d = C.document;
+      C.Cal = C.Cal || function () {
+        var cal = C.Cal;
+        var ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement('script')).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          var api = function () { p(api, arguments); };
+          var namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === 'string') {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ['initNamespace', namespace]);
+          } else { p(cal, ar); }
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+    Cal('init', { origin: 'https://app.cal.com' });
+    Cal('ui', {
+      theme: 'light',
+      styles: { branding: { brandColor: BRAND_COLOR } },
+      hideEventTypeDetails: false
+    });
+
+    var container = document.getElementById('cal-inline');
+    var buttons = document.querySelectorAll('.booking__type-btn');
+    var jsFallback = document.querySelector('.booking__fallback--js');
+    if (jsFallback) jsFallback.hidden = false;
+
+    function render(slug) {
+      if (!container) return;
+      container.innerHTML = '';
+      Cal('inline', {
+        elementOrSelector: '#cal-inline',
+        calLink: CAL_USERNAME + '/' + slug,
+        layout: 'month_view'
+      });
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        render(btn.dataset.slug);
+      });
+    });
+
+    // Initial render = first (active) meeting type.
+    var first = document.querySelector('.booking__type-btn.active');
+    if (first) render(first.dataset.slug);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Booking",
+  "class": "booking-section"
+}
+{% endschema %}

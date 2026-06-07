@@ -165,7 +165,11 @@
   <meta name="twitter:title" content="{{ seo_title }}">
   <meta name="twitter:description" content="{{ seo_description }}">
   <meta name="twitter:image" content="{{ 'chandani-closeup.jpg' | asset_url | prepend: 'https:' }}">
+  {%- if page.handle == 'book-with-kwame' -%}
+  <meta name="robots" content="noindex, nofollow">
+  {%- else -%}
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  {%- endif -%}
   <link rel="icon" type="image/svg+xml" href="{{ 'logomark.svg' | asset_url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ shop.name }}" href="{{ shop.url }}/blogs/news.atom">
   <link rel="sitemap" type="application/xml" href="{{ shop.url }}/sitemap.xml">
