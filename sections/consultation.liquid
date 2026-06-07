@@ -1276,6 +1276,27 @@
       return normalizePlan(plan);
     }
 
+    var initiateCheckoutTracked = false;
+
+    function trackInitiateCheckout() {
+      if (initiateCheckoutTracked) return;
+      initiateCheckoutTracked = true;
+
+      var attempts = 0;
+      function send() {
+        attempts += 1;
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'InitiateCheckout');
+          return;
+        }
+        if (attempts < 20) {
+          window.setTimeout(send, 250);
+        }
+      }
+
+      send();
+    }
+
     function buildCareUrl(plan) {
       var target = new URL(CARE_ORIGIN + '/book');
       var params = new URLSearchParams(window.location.search);
@@ -1297,6 +1318,7 @@
     function open(plan) {
       plan = normalizePlan(plan || currentPlan());
       if (planLabel) planLabel.textContent = planName(plan);
+      trackInitiateCheckout();
       if (frame) frame.setAttribute('src', buildCareUrl(plan));
       if (success) success.hidden = true;
       if (frameWrap) frameWrap.hidden = false;
