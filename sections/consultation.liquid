@@ -1301,16 +1301,22 @@
       var target = new URL(CARE_ORIGIN + '/book');
       var params = new URLSearchParams(window.location.search);
       var ctx = window.KynAttribution ? window.KynAttribution.capture() : {};
+      var traffic = window.KynAttribution && window.KynAttribution.trafficAttribution
+        ? window.KynAttribution.trafficAttribution()
+        : {};
       target.searchParams.set('source', 'kynskyn');
       target.searchParams.set('plan', normalizePlan(plan));
       target.searchParams.set('embed', 'shopify');
       target.searchParams.set('parent_origin', window.location.origin);
+      if (window.KynAttribution && window.KynAttribution.sessionId) {
+        target.searchParams.set('kyn_session_id', window.KynAttribution.sessionId());
+      }
 
       var preview = params.get('booking_preview');
       if (preview) target.searchParams.set('booking_preview', preview);
       if (ctx.affiliatebase_referral) target.searchParams.set('affiliatebase_referral', ctx.affiliatebase_referral);
-      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function(key) {
-        if (ctx[key]) target.searchParams.set(key, ctx[key]);
+      ['traffic_source', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'referrer_host'].forEach(function(key) {
+        if (traffic[key]) target.searchParams.set(key, traffic[key]);
       });
       return target.toString();
     }
