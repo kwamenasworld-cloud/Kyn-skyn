@@ -1229,6 +1229,116 @@
       opacity: 1;
     }
 
+    /* ========== SEB DERM SAFE LIST ========== */
+    .checker__starter {
+      display: none;
+      margin: 0 0 1.4rem;
+      padding: 1.1rem;
+      border: 1px solid rgba(100, 18, 32, 0.12);
+      border-radius: 6px;
+      background: rgba(100, 18, 32, 0.035);
+    }
+
+    .checker__starter-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 0.9rem;
+    }
+
+    .checker__starter-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: var(--maroon);
+      margin: 0 0 0.3rem;
+    }
+
+    .checker__starter-desc {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--maroon);
+      line-height: 1.55;
+      opacity: 0.62;
+      margin: 0;
+    }
+
+    .checker__starter-count {
+      flex-shrink: 0;
+      font-family: var(--font-accent);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--safe-green);
+      border: 1px solid rgba(42, 110, 63, 0.25);
+      border-radius: 999px;
+      padding: 0.35rem 0.7rem;
+      white-space: nowrap;
+    }
+
+    .checker__starter-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+
+    .checker__starter-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.9rem;
+      width: 100%;
+      min-height: 6.2rem;
+      padding: 0.9rem;
+      border: 1px solid rgba(100, 18, 32, 0.12);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.52);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+
+    .checker__starter-card:hover {
+      border-color: rgba(100, 18, 32, 0.35);
+      background: rgba(255, 255, 255, 0.78);
+      transform: translateY(-1px);
+    }
+
+    .checker__starter-name {
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      color: var(--maroon);
+      line-height: 1.35;
+      margin-bottom: 0.25rem;
+    }
+
+    .checker__starter-brand,
+    .checker__starter-note {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      color: var(--maroon);
+      line-height: 1.45;
+      opacity: 0.5;
+    }
+
+    .checker__starter-note { margin-top: 0.45rem; opacity: 0.58; }
+
+    .checker__starter-score {
+      flex: 0 0 auto;
+      min-width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: var(--safe-green);
+      background: rgba(42, 110, 63, 0.1);
+      border: 1px solid rgba(42, 110, 63, 0.24);
+    }
+
     /* ========== SHARE RESULTS ========== */
     .results__share {
       display: flex;
@@ -1798,6 +1908,11 @@
       .checker__tabs { gap: 0.4rem; }
       .checker__tab { padding: 0.6rem 1rem; font-size: 0.72rem; }
       .checker__actions { flex-direction: column; align-items: flex-start; }
+      .checker__starter { padding: 1rem; }
+      .checker__starter-head { display: block; }
+      .checker__starter-count { display: inline-block; margin-top: 0.8rem; }
+      .checker__starter-grid { grid-template-columns: 1fr; }
+      .checker__starter-card { min-height: auto; }
 
       .results { padding: 0 1.5rem 3rem; }
       .results__verdict { padding: 1.5rem; gap: 1.2rem; }
@@ -1976,8 +2091,19 @@
           <button class="checker__cat-btn" data-cat="Toner">Toner</button>
           <button class="checker__cat-btn" data-cat="Shampoo">Shampoo</button>
           <button class="checker__cat-btn" data-cat="Oil">Oil</button>
+          <button class="checker__cat-btn" data-cat="seb-derm-safe">Seb Derm Safe</button>
         </div>
         <input class="checker__search-input" type="text" id="searchInput" placeholder="Search by product or brand name...">
+        <div class="checker__starter" id="sebDermList">
+          <div class="checker__starter-head">
+            <div>
+              <h2 class="checker__starter-title">Seb derm-safe starter list</h2>
+              <p class="checker__starter-desc">A practical shortlist for Malassezia-prone face and scalp routines. Click any product to run the full ingredient check, then save it into your routine.</p>
+            </div>
+            <span class="checker__starter-count" id="sebDermCount"></span>
+          </div>
+          <div class="checker__starter-grid" id="sebDermProductList"></div>
+        </div>
         <div class="checker__search-results" id="searchResults"></div>
       </div>
 
@@ -2555,7 +2681,7 @@
       { name: 'Foaming Facial Cleanser', brand: 'CeraVe', category: 'Cleanser', inci: 'Water, Cocamidopropyl Hydroxysultaine, Glycerin, Sodium Lauroyl Sarcosinate, PEG-150 Pentaerythrityl Tetrastearate, Niacinamide, Propylene Glycol, Ceramide NP, Ceramide AP, Ceramide EOP, Carbomer, Methylparaben, Sodium Chloride, Sodium Hydroxide, Cholesterol, Phytosphingosine, Xanthan Gum, Propylparaben, Disodium EDTA' },
       { name: 'Moisturizing Cream', brand: 'CeraVe', category: 'Moisturizer', inci: 'Water, Glycerin, Cetearyl Alcohol, Caprylic/Capric Triglyceride, Cetyl Alcohol, Ceteareth-20, Petrolatum, Potassium Phosphate, Ceramide NP, Ceramide AP, Ceramide EOP, Carbomer, Dimethicone, Behentrimonium Methosulfate, Sodium Lauroyl Lactylate, Sodium Hyaluronate, Cholesterol, Phenoxyethanol, Disodium EDTA, Dipotassium Phosphate, Tocopherol, Phytosphingosine, Xanthan Gum, Ethylhexylglycerin' },
       { name: 'SA Smoothing Cleanser', brand: 'CeraVe', category: 'Cleanser', inci: 'Water, Cocamidopropyl Hydroxysultaine, Glycerin, Sodium Lauroyl Sarcosinate, Niacinamide, Gluconolactone, Salicylic Acid, Ceramide NP, Ceramide AP, Ceramide EOP, Cholesterol, Phytosphingosine, Sodium Chloride, Sodium Benzoate, Sodium Hydroxide, Calcium Gluconate, Disodium EDTA' },
-      { name: 'Gentle Facial Cleanser', brand: 'Vanicream', category: 'Cleanser', inci: 'Water, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Hydroxysultaine, Glycerin, Panthenol, Sodium Chloride, Citric Acid' },
+      { name: 'Gentle Facial Cleanser', brand: 'Vanicream', category: 'Cleanser', inci: 'Water, Glycerin, Coco-Glucoside, Sodium Cocoyl Glycinate, Acrylates Copolymer, Caprylyl Glycol, Mica, Sodium Chloride, 1,2-Hexanediol, Titanium Dioxide, Sodium Hydroxide, Disodium EDTA' },
       { name: 'Moisturizing Skin Cream', brand: 'Vanicream', category: 'Moisturizer', inci: 'Water, White Petrolatum, Sorbitol, Cetearyl Alcohol, Propylene Glycol, Ceteareth-20, Simethicone, Glyceryl Monostearate, Polyethylene Glycol Monostearate, Sorbic Acid, BHT' },
       { name: 'Toleriane Hydrating Gentle Cleanser', brand: 'La Roche-Posay', category: 'Cleanser', inci: 'Water, Glycerin, Pentaerythrityl Tetraethylhexanoate, Propanediol, Ammonium Polyacryldimethyltauramide, Polysorbate 60, Ceramide NP, Niacinamide, Sodium Chloride, Coco-Betaine, Disodium EDTA' },
       { name: 'Cicaplast Baume B5+', brand: 'La Roche-Posay', category: 'Moisturizer', inci: 'Water, Hydrogenated Polyisobutene, Dimethicone, Glycerin, Butyrospermum Parkii Butter, Panthenol, Butylene Glycol, Aluminum Starch Octenylsuccinate, Propanediol, Cetyl PEG/PPG-10/1 Dimethicone, Tristearin, Zinc Gluconate, Madecassoside, Manganese Gluconate, Copper Gluconate, Acetylated Glycol Stearate, Polyglyceryl-4 Isostearate, Sodium Chloride, Citric Acid, Disodium EDTA' },
@@ -2582,7 +2708,7 @@
       // Moisturizers – Malassezia community favorites
       { name: 'Ceramide Ato Concentrate Cream', brand: 'Illiyoon', category: 'Moisturizer', inci: 'Water, Butylene Glycol, Glycerin, Dimethicone, Pentaerythrityl Tetraisostearate, Hydrogenated Poly(C6-14 Olefin), Stearic Acid, Behenyl Alcohol, Palmitic Acid, Cetyl Ethylhexanoate, 1,2-Hexanediol, Arachidyl Alcohol, C14-22 Alcohols, Hydroxypropyl Bispalmitamide MEA, Polyacrylate-13, Arachidyl Glucoside, Mannitol, C12-20 Alkyl Glucoside, Polyisobutene, Glyceryl Caprylate, Panax Ginseng Root Water, Ethylhexylglycerin, Acrylates/Ammonium Methacrylate Copolymer, Polysorbate 20, Sorbitan Isostearate, Carbomer, Perilla Ocymoides Seed Extract, Myristic Acid, Arachidic Acid, Cholesterol, Bupleurum Falcatum Root Extract, Angelica Acutiloba Root Extract, Ophiopogon Japonicus Root Extract, Glucose, Silica, Glycine Max Oil, Ceramide NP, Phytosphingosine, Hydrogenated Lecithin, Tocopherol, Canola Oil, Rosmarinus Officinalis Leaf Extract' },
       { name: 'Soon Jung 2x Barrier Intensive Cream', brand: 'Etude', category: 'Moisturizer', inci: 'Water, Propanediol, Pentaerythrityl Tetraethylhexanoate, Caprylic/Capric Triglyceride, Glycerin, Helianthus Annuus Seed Oil, Polyglyceryl-3 Methylglucose Distearate, Butyrospermum Parkii Butter, Cetearyl Alcohol, Panthenol, Madecassoside, Camellia Sinensis Leaf Extract, 1,2-Hexanediol, Potassium Carbomer, Xanthan Gum, Butylene Glycol, Disodium EDTA' },
-      { name: 'Clear Face Care Gel', brand: 'Sebamed', category: 'Moisturizer', inci: 'Water, Aloe Barbadensis Leaf Juice, Propylene Glycol, Glycine, Sorbitol, Panthenol, Sodium Hyaluronate, Allantoin, Sodium Carbomer, Sodium Citrate, Phenoxyethanol' },
+      { name: 'Clear Face Care Gel', brand: 'Sebamed', category: 'Moisturizer', inci: 'Water, Aloe Barbadensis Leaf Juice, Propylene Glycol, Glycerin, Hydrogenated Starch Hydrolysate, Panthenol, Sodium Hyaluronate, Allantoin, Sodium Carbomer, Citric Acid, Sodium Hydroxide, Phenoxyethanol' },
       { name: 'Original Healing Cream', brand: 'Eucerin', category: 'Moisturizer', inci: 'Water, Petrolatum, Mineral Oil, Ceresin, Lanolin Alcohol, Phenoxyethanol, Piroctone Olamine' },
       { name: 'Daily Moisturizing Lotion', brand: 'Aveeno', category: 'Moisturizer', inci: 'Water, Glycerin, Distearyldimonium Chloride, Petrolatum, Isopropyl Palmitate, Cetyl Alcohol, Dimethicone, Colloidal Oatmeal, Benzyl Alcohol, Sodium Chloride' },
 
@@ -2657,6 +2783,20 @@
       { name: 'Intensive Repair Body Lotion', brand: 'Vaseline', category: 'Body', inci: 'Water, Glycerin, Stearic Acid, Isopropyl Palmitate, Glycol Stearate, Petrolatum, Glyceryl Stearate, Dimethicone, Cetyl Alcohol, Tapioca Starch, Stearamidopropyl PG-Dimonium Chloride Phosphate, Oat Extract, Tocopheryl Acetate, Stearyl Alcohol, Sodium Hydroxide, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Disodium EDTA, DMDM Hydantoin, Phenoxyethanol, Iodopropynyl Butylcarbamate' },
     ];
 
+    const SEB_DERM_SAFE_PRODUCT_LIST = [
+      { brand: 'Vanicream', name: 'Gentle Facial Cleanser', role: 'Cleanser', note: 'Bland daily face cleanser without oils, fatty alcohols, or fatty esters.' },
+      { brand: 'Simple', name: 'Micellar Cleansing Water', role: 'Cleanser', note: 'No-rinse option for light cleanse or makeup residue.' },
+      { brand: 'Hada Labo', name: 'Gokujyun Premium Lotion', role: 'Hydrator', note: 'Humectant-heavy layer for dry, flaky areas.' },
+      { brand: 'Sebamed', name: 'Clear Face Care Gel', role: 'Moisturizer', note: 'Gel moisturizer with aloe, panthenol, and hyaluronic acid.' },
+      { brand: 'The Ordinary', name: 'Niacinamide 10% + Zinc 1%', role: 'Serum', note: 'Lightweight serum for oil-prone or congested skin.' },
+      { brand: 'The Ordinary', name: 'Hyaluronic Acid 2% + B5', role: 'Serum', note: 'Simple hydration support under moisturizer.' },
+      { brand: 'The Ordinary', name: '100% Plant-Derived Squalane', role: 'Sealant', note: 'One-ingredient oil-like hydrator that does not feed Malassezia.' },
+      { brand: 'COSRX', name: 'Advanced Snail 96 Mucin Power Essence', role: 'Essence', note: 'Light soothing layer for compromised barrier days.' },
+      { brand: 'Benton', name: 'Aloe Propolis Soothing Gel', role: 'Moisturizer', note: 'Light gel texture for people who dislike creams.' },
+      { brand: 'Purito', name: 'Centella Unscented Serum', role: 'Serum', note: 'Centella and panthenol support without fragrance.' },
+      { brand: 'Selsun Blue', name: 'Medicated Anti-Dandruff Shampoo', role: 'Scalp wash', note: 'Medicated wash option; follow label directions and avoid overuse.' }
+    ];
+
     // ==========================================
     // UTILITY FUNCTIONS
     // ==========================================
@@ -2666,6 +2806,19 @@
 
     function stripParenthetical(str) {
       return str.replace(/\([^)]*\)/g, '').replace(/\s+/g, ' ').trim();
+    }
+
+    function hasIngredientPhrase(value, phrase) {
+      const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`).test(value);
+    }
+
+    function ingredientNameMatches(norm, stripped, name) {
+      const n = normalize(name);
+      return norm === n
+        || stripped === n
+        || (norm.length > n.length && hasIngredientPhrase(norm, n))
+        || (stripped.length > n.length && hasIngredientPhrase(stripped, n));
     }
 
     function levenshtein(a, b) {
@@ -2704,27 +2857,21 @@
       // Check unsafe
       for (const entry of UNSAFE) {
         for (const name of entry.names) {
-          const n = normalize(name);
-          if (norm === n || stripped === n) return { ...entry, severity: 'unsafe', matched: name };
-          if (norm.includes(n) || n.includes(norm)) return { ...entry, severity: 'unsafe', matched: name };
+          if (ingredientNameMatches(norm, stripped, name)) return { ...entry, severity: 'unsafe', matched: name };
         }
       }
 
       // Check caution
       for (const entry of CAUTION) {
         for (const name of entry.names) {
-          const n = normalize(name);
-          if (norm === n || stripped === n) return { ...entry, severity: 'caution', matched: name };
-          if (norm.includes(n) || n.includes(norm)) return { ...entry, severity: 'caution', matched: name };
+          if (ingredientNameMatches(norm, stripped, name)) return { ...entry, severity: 'caution', matched: name };
         }
       }
 
       // Check safe
       for (const entry of SAFE) {
         for (const name of entry.names) {
-          const n = normalize(name);
-          if (norm === n || stripped === n) return { severity: 'safe', matched: name };
-          if (norm.includes(n) || n.includes(norm)) return { severity: 'safe', matched: name };
+          if (ingredientNameMatches(norm, stripped, name)) return { severity: 'safe', matched: name };
         }
       }
 
@@ -2779,6 +2926,33 @@
       else if (results.caution.length > 0) verdict = 'caution';
 
       return { ...results, score: Math.max(0, Math.min(100, score)), verdict, flaggedCount: results.unsafe.length + results.caution.length };
+    }
+
+    function catalogProductKey(product) {
+      return `${product.brand}::${product.name}`;
+    }
+
+    const sebDermMetaByKey = new Map(SEB_DERM_SAFE_PRODUCT_LIST.map(item => [`${item.brand}::${item.name}`, item]));
+
+    function getSebDermMeta(product) {
+      return sebDermMetaByKey.get(catalogProductKey(product));
+    }
+
+    function getSebDermSafeProducts() {
+      return SEB_DERM_SAFE_PRODUCT_LIST
+        .map(meta => {
+          const product = PRODUCTS.find(p => p.brand === meta.brand && p.name === meta.name);
+          return product ? { ...product, sebDermRole: meta.role, sebDermNote: meta.note } : null;
+        })
+        .filter(Boolean);
+    }
+
+    function productSearchText(product) {
+      const meta = getSebDermMeta(product);
+      return [product.brand, product.name, product.category, meta && meta.role, meta && meta.note, meta && 'seb derm seborrheic dermatitis dandruff malassezia safe']
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
     }
 
     // ==========================================
@@ -3039,6 +3213,44 @@
     const searchResults = $('#searchResults');
     let activeCategory = 'all';
 
+    function renderSebDermList() {
+      const listEl = $('#sebDermList');
+      const grid = $('#sebDermProductList');
+      const count = $('#sebDermCount');
+      if (!listEl || !grid || !count) return;
+
+      const q = searchInput.value.toLowerCase().trim();
+      const products = getSebDermSafeProducts();
+      if (q.length > 0 || activeCategory !== 'all' || products.length === 0) {
+        listEl.style.display = 'none';
+        return;
+      }
+
+      count.textContent = `${products.length} picks`;
+      grid.innerHTML = products.map((p, index) => {
+        const analysis = analyzeIngredients(parseINCI(p.inci));
+        return `
+          <button class="checker__starter-card" type="button" data-index="${index}">
+            <span>
+              <span class="checker__starter-name">${p.name}</span>
+              <span class="checker__starter-brand">${p.brand} / ${p.sebDermRole}</span>
+              <span class="checker__starter-note">${p.sebDermNote}</span>
+            </span>
+            <span class="checker__starter-score">${analysis.score}</span>
+          </button>
+        `;
+      }).join('');
+
+      grid.querySelectorAll('.checker__starter-card').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const product = products[parseInt(btn.dataset.index, 10)];
+          if (product) runCheck(product.inci, product.name, product.brand);
+        });
+      });
+
+      listEl.style.display = 'block';
+    }
+
     // Category filter buttons
     $$('.checker__cat-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -3052,9 +3264,10 @@
     function renderSearchResults() {
       const q = searchInput.value.toLowerCase().trim();
       searchResults.innerHTML = '';
+      renderSebDermList();
 
-      let pool = PRODUCTS;
-      if (activeCategory !== 'all') {
+      let pool = activeCategory === 'seb-derm-safe' ? getSebDermSafeProducts() : PRODUCTS;
+      if (activeCategory !== 'all' && activeCategory !== 'seb-derm-safe') {
         pool = pool.filter(p => p.category === activeCategory);
       }
 
@@ -3062,20 +3275,17 @@
       if (q.length < 2 && activeCategory === 'all') return;
 
       const matches = q.length >= 2
-        ? pool.filter(p =>
-            p.name.toLowerCase().includes(q) ||
-            p.brand.toLowerCase().includes(q) ||
-            `${p.brand} ${p.name}`.toLowerCase().includes(q)
-          ).slice(0, 15)
+        ? pool.filter(p => productSearchText(p).includes(q)).slice(0, 15)
         : pool.slice(0, 15);
 
       matches.forEach(p => {
+        const meta = p.sebDermRole ? { role: p.sebDermRole, note: p.sebDermNote } : getSebDermMeta(p);
         const div = document.createElement('div');
         div.className = 'checker__search-item';
         div.innerHTML = `
           <div>
             <div class="checker__search-item-name">${p.brand} ${p.name}</div>
-            <div class="checker__search-item-brand">${p.inci.substring(0, 60)}...</div>
+            <div class="checker__search-item-brand">${meta ? `${meta.role}: ${meta.note}` : `${p.inci.substring(0, 60)}...`}</div>
           </div>
           <span class="checker__search-item-category">${p.category}</span>
         `;
@@ -3091,6 +3301,7 @@
     }
 
     searchInput.addEventListener('input', renderSearchResults);
+    renderSebDermList();
 
     // ==========================================
     // CAMERA / OCR
