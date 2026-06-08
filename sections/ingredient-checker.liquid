@@ -1959,7 +1959,7 @@
     "name": "Fungal Acne Safe Ingredient Checker",
     "alternateName": ["Malassezia-Safe Ingredient Checker", "Seb Derm Safe Product Checker", "Tinea Versicolor Ingredient Checker"],
     "url": "https://kynskyn.com/pages/ingredient-checker",
-    "description": "Free tool to check if your skincare products are safe for fungal acne (Malassezia folliculitis), seborrheic dermatitis, dandruff, and tinea versicolor. Paste ingredients, scan a product label with your camera, or search 77+ popular products. Instantly flags Malassezia-feeding ingredients like coconut oil, fatty acids C12-C24, esters, and polysorbates, and suggests safe alternatives.",
+    "description": "Free tool to check if your skincare products are safe for fungal acne (Malassezia folliculitis), seborrheic dermatitis, dandruff, and tinea versicolor. Paste ingredients, scan a product label with your camera, or search 125+ popular products. Instantly flags Malassezia-feeding ingredients like coconut oil, fatty acids C12-C24, esters, and polysorbates, and suggests safe alternatives.",
     "applicationCategory": "HealthApplication",
     "operatingSystem": "Any",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -1981,7 +1981,7 @@
       {
         "@type": "Question",
         "name": "How do I check if my skincare is fungal acne safe?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Use this free ingredient checker tool. Paste your product's ingredient list, scan the label with your camera, or search our database of 77+ popular products including CeraVe, Vanicream, The Ordinary, and more. The tool instantly flags every Malassezia-feeding ingredient and suggests safe alternatives." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Use this free ingredient checker tool. Paste your product's ingredient list, scan the label with your camera, or search our database of 125+ popular products including CeraVe, Vanicream, The Ordinary, and more. The tool instantly flags every Malassezia-feeding ingredient and suggests safe alternatives." }
       },
       {
         "@type": "Question",
@@ -2089,7 +2089,11 @@
           <button class="checker__cat-btn" data-cat="Serum">Serum</button>
           <button class="checker__cat-btn" data-cat="Treatment">Treatment</button>
           <button class="checker__cat-btn" data-cat="Toner">Toner</button>
+          <button class="checker__cat-btn" data-cat="Essence">Essence</button>
+          <button class="checker__cat-btn" data-cat="Sunscreen">Sunscreen</button>
           <button class="checker__cat-btn" data-cat="Shampoo">Shampoo</button>
+          <button class="checker__cat-btn" data-cat="Body Wash">Body Wash</button>
+          <button class="checker__cat-btn" data-cat="Body">Body</button>
           <button class="checker__cat-btn" data-cat="Oil">Oil</button>
           <button class="checker__cat-btn" data-cat="seb-derm-safe">Seb Derm Safe</button>
         </div>
@@ -2339,7 +2343,7 @@
       <div class="faq__item">
         <button class="faq__question" type="button">How do I check if my skincare is fungal acne safe?</button>
         <div class="faq__answer">
-          <p>Use this free tool. Paste in the product's ingredient list, scan the label with your camera, or pick a product from the built-in database of 77+ popular items (CeraVe, Vanicream, The Ordinary, La Roche-Posay, and so on). Every Malassezia-feeding ingredient gets flagged with a swap suggestion. There's more background in our <a href="/pages/handbook">Malassezia Handbook</a>.</p>
+          <p>Use this free tool. Paste in the product's ingredient list, scan the label with your camera, or pick a product from the built-in database of 125+ popular items (CeraVe, Vanicream, The Ordinary, La Roche-Posay, and so on). Every Malassezia-feeding ingredient gets flagged with a swap suggestion. There's more background in our <a href="/pages/handbook">Malassezia Handbook</a>.</p>
         </div>
       </div>
 
@@ -2472,7 +2476,6 @@
       { names: ['lanolin', 'lanolin alcohol', 'lanolin oil'], category: 'Animal Fat', reason: 'Contains a mix of long-chain fatty acid esters (C14-C24) that feed Malassezia', alternative: 'Petrolatum or dimethicone' },
       { names: ['beeswax', 'cera alba'], category: 'Wax', reason: 'Contains palmitate esters (C16) that can feed Malassezia', alternative: 'Synthetic beeswax or dimethicone' },
       { names: ['lecithin', 'soy lecithin', 'hydrogenated lecithin'], category: 'Phospholipid', reason: 'Contains fatty acids (C16-C18) that can feed Malassezia', alternative: 'Silicone-based emulsifiers' },
-      { names: ['cholesterol'], category: 'Lipid', reason: 'Can be metabolized by Malassezia species. Use with caution', alternative: 'Synthetic ceramides' },
       { names: ['behenic acid'], category: 'Fatty Acid', reason: 'C22 fatty acid. Within the C12-C24 range that feeds Malassezia', alternative: 'Silicone-based alternatives' },
       { names: ['arachidic acid', 'eicosanoic acid'], category: 'Fatty Acid', reason: 'C20 fatty acid. Within the range that feeds Malassezia', alternative: 'Caprylic acid (C8)' },
       { names: ['isostearic acid'], category: 'Fatty Acid', reason: 'C18 branched fatty acid. Can feed Malassezia', alternative: 'Caprylic acid (C8)' },
@@ -2543,6 +2546,7 @@
       { names: ['lauryl alcohol', 'dodecanol'], category: 'Fatty Alcohol', reason: 'C12 fatty alcohol. At the lower edge of the problematic range', alternative: 'Dimethicone' },
       { names: ['sorbitan olivate', 'cetearyl olivate'], category: 'Emulsifier', reason: 'Olive-derived emulsifier containing oleic acid (C18:1) esters. Debated', alternative: 'Silicone-based emulsifiers' },
       { names: ['glycol stearate'], category: 'Emulsifier', reason: 'Stearic acid (C18) ester. Lower risk in wash-off products but caution in leave-ons', alternative: 'Non-fatty-acid-based pearlizers' },
+      { names: ['cholesterol'], category: 'Lipid', reason: 'Can be metabolized by Malassezia species. Use with caution', alternative: 'Synthetic ceramides' },
       { names: ['steareth-2', 'steareth-20', 'steareth-21'], category: 'Emulsifier', reason: 'Ethoxylated stearyl alcohol. Lower risk but contains C18 chain', alternative: 'PEG-free emulsifiers' },
       { names: ['ppg-15 stearyl ether'], category: 'Emulsifier', reason: 'Contains C18 stearyl chain. Lower risk but debated for Malassezia-prone skin', alternative: 'Silicone-based alternatives' },
     ];
@@ -2783,6 +2787,68 @@
       { name: 'Intensive Repair Body Lotion', brand: 'Vaseline', category: 'Body', inci: 'Water, Glycerin, Stearic Acid, Isopropyl Palmitate, Glycol Stearate, Petrolatum, Glyceryl Stearate, Dimethicone, Cetyl Alcohol, Tapioca Starch, Stearamidopropyl PG-Dimonium Chloride Phosphate, Oat Extract, Tocopheryl Acetate, Stearyl Alcohol, Sodium Hydroxide, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Disodium EDTA, DMDM Hydantoin, Phenoxyethanol, Iodopropynyl Butylcarbamate' },
     ];
 
+    const PRODUCT_EXPANSION = [
+      // Cleanser expansion
+      { name: 'Gentle Body Wash', brand: 'Vanicream', category: 'Body Wash', inci: 'Water, Glycerin, Coco-Glucoside, Propanediol, Sodium Cocoyl Glycinate, Acrylates Copolymer, Panthenol, Caprylyl Glycol, Disodium EDTA, Sodium Chloride, 1,2-Hexanediol, Mica, Titanium Dioxide, Sodium Hydroxide, Citric Acid' },
+      { name: 'Daily Facial Cleanser', brand: 'Cetaphil', category: 'Cleanser', inci: 'Water, Glycerin, Cocamidopropyl Betaine, Sodium Cocoyl Glycinate, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Sodium Benzoate, Panthenol, Niacinamide, Pantolactone, Citric Acid' },
+      { name: 'Hydrating Cream-to-Foam Cleanser', brand: 'CeraVe', category: 'Cleanser', inci: 'Water, Glycerin, Cocamidopropyl Hydroxysultaine, Sodium Methyl Cocoyl Taurate, PEG-150 Pentaerythrityl Tetrastearate, Niacinamide, Ceramide NP, Ceramide AP, Ceramide EOP, Carbomer, Sodium Chloride, Sodium Hydroxide, Sodium Lauroyl Lactylate, Cholesterol, Disodium EDTA, Hydroxyacetophenone, Hydroxyethylcellulose, Citric Acid, Trisodium Ethylenediamine Disuccinate, Xanthan Gum, Phytosphingosine' },
+      { name: 'Acne Control Cleanser 2% Salicylic Acid', brand: 'CeraVe', category: 'Cleanser', inci: 'Salicylic Acid 2%, Water, Sodium Lauroyl Sarcosinate, Cocamidopropyl Hydroxysultaine, Glycerin, Niacinamide, Gluconolactone, Ceramide NP, Ceramide AP, Ceramide EOP, Carbomer, Sodium Chloride, Sodium Hydroxide, Calcium Gluconate, Triethanolamine, Sodium Benzoate, Disodium EDTA, Xanthan Gum, Hectorite, Montmorillonite, Silica' },
+      { name: 'Toleriane Purifying Foaming Cleanser', brand: 'La Roche-Posay', category: 'Cleanser', inci: 'Water, Coco-Betaine, Propanediol, Sodium Chloride, Sodium Hydroxide, Citric Acid, Niacinamide, Ceramide NP, Disodium EDTA, Caprylyl Glycol, Caprylyl/Capryl Glucoside, Acrylates Copolymer, Zinc PCA' },
+      { name: 'Glucoside Foaming Cleanser', brand: 'The Ordinary', category: 'Cleanser', inci: 'Aqua, Decyl Glucoside, Coco-Glucoside, Xanthan Gum, Tocopherol, Phytic Acid' },
+      { name: 'Squalane Cleanser', brand: 'The Ordinary', category: 'Cleanser', inci: 'Squalane, Aqua, Coco-Caprylate/Caprate, Glycerin, Sucrose Stearate, Ethyl Macadamiate, Caprylic/Capric Triglyceride, Sucrose Laurate, Polyglyceryl-6 Dicaprate, Polyglyceryl-3 Diisostearate, Tocopherol, Hydroxymethoxyphenyl Decanone, Malic Acid' },
+      { name: 'Sensibio H2O Micellar Water', brand: 'Bioderma', category: 'Cleanser', inci: 'Water, PEG-6 Caprylic/Capric Glycerides, Cucumis Sativus Fruit Extract, Mannitol, Xylitol, Rhamnose, Fructooligosaccharides, Propylene Glycol, Cetrimonium Bromide, Disodium EDTA' },
+      { name: 'Micellar Cleansing Water All-in-1', brand: 'Garnier SkinActive', category: 'Cleanser', inci: 'Water, Hexylene Glycol, Glycerin, Disodium Cocoamphodiacetate, Disodium EDTA, Poloxamer 184, Polyaminopropyl Biguanide' },
+      { name: 'Calm + Restore Nourishing Oat Cleanser', brand: 'Aveeno', category: 'Cleanser', inci: 'Water, Glycerin, Butylene Glycol, Avena Sativa Kernel Flour, Polysorbate 20, Cetearyl Alcohol, Caprylyl Glycol, Chrysanthemum Parthenium Flower Extract, Phenoxyethanol, Polyacrylate Crosspolymer-6, Sodium Hydroxide' },
+
+      // Moisturizer and occlusive expansion
+      { name: 'Daily Facial Moisturizer', brand: 'Vanicream', category: 'Moisturizer', inci: 'Water, Squalane, Glycerin, Pentylene Glycol, Polyglyceryl-2 Stearate, Glyceryl Stearate, Stearyl Alcohol, Hyaluronic Acid, Ceramide EOP, Ceramide NG, Ceramide NP, Ceramide AS, Ceramide AP, Carnosine, Hydrogenated Lecithin, Phytosterols, Caprylyl Glycol, Polyacrylate Crosspolymer-11, 1,2-Hexanediol' },
+      { name: 'Healing Jelly Original', brand: 'Vaseline', category: 'Moisturizer', inci: 'White Petrolatum USP 100%' },
+      { name: 'Healing Ointment', brand: 'Aquaphor', category: 'Moisturizer', inci: 'Petrolatum 41%, Mineral Oil, Ceresin, Lanolin Alcohol, Panthenol, Glycerin, Bisabolol' },
+      { name: 'Healing Ointment', brand: 'CeraVe', category: 'Moisturizer', inci: 'Mineral Oil, Paraffin, Ozokerite, Dimethicone, Ceramide NP, Ceramide AP, Ceramide EOP, Carbomer, Water, Sodium Lauroyl Lactylate, Proline, Cholesterol, Phenoxyethanol, Tocopherol, Tocopheryl Acetate, Hydroxyacetophenone, Panthenol, Pantolactone, Phytosphingosine, Xanthan Gum' },
+      { name: 'Toleriane Double Repair Face Moisturizer', brand: 'La Roche-Posay', category: 'Moisturizer', inci: 'Water, Glycerin, Dimethicone, Hydrogenated Polyisobutene, Niacinamide, Ammonium Polyacryloyldimethyl Taurate, Myristyl Myristate, Stearic Acid, Ceramide NP, Potassium Cetyl Phosphate, Isobutane, Glyceryl Stearate SE, Sodium Hydroxide, Capryloyl Glycine, Caprylyl Glycol, Xanthan Gum' },
+      { name: 'Calm + Restore Oat Gel Moisturizer', brand: 'Aveeno', category: 'Moisturizer', inci: 'Water, Glycerin, Dimethicone, Cetearyl Olivate, Sorbitan Olivate, Avena Sativa Kernel Flour, Panthenol, Chrysanthemum Parthenium Flower Extract, Carbomer, Caprylyl Glycol, Chlorphenesin, Phenoxyethanol, Polyacrylamide, Sodium Hydroxide' },
+      { name: 'Hydro Boost Water Cream', brand: 'Neutrogena', category: 'Moisturizer', inci: 'Water, Dimethicone, Glycerin, Cetearyl Olivate, Sorbitan Olivate, Dimethicone Crosspolymer, Phenoxyethanol, Carbomer, Chlorphenesin, Sodium Hyaluronate, Sodium Hydroxide, Ethylhexylglycerin' },
+      { name: 'Intensive Moisture Facial Cream', brand: 'Curel', category: 'Moisturizer', inci: 'Water, Glycerin, Cyclopentasiloxane, Squalane, Dimethicone, Cetyl-PG Hydroxyethyl Palmitamide, Butylene Glycol, Allantoin, Cholesterol, Eucalyptus Globulus Leaf Extract, Methylparaben, Xanthan Gum' },
+      { name: 'Advanced Repair Cream', brand: 'Eucerin', category: 'Moisturizer', inci: 'Water, Glycerin, Urea, Cetearyl Alcohol, Caprylic/Capric Triglyceride, Glyceryl Stearate, Mineral Oil, Sodium Lactate, Arginine HCl, Ceramide NP, Lactic Acid, Sodium PCA, Cholesterol, Dimethicone, Sodium Cetearyl Sulfate, Phenoxyethanol' },
+      { name: 'Atoderm Intensive Balm', brand: 'Bioderma', category: 'Moisturizer', inci: 'Water, Glycerin, Mineral Oil, Sunflower Seed Oil, Glyceryl Stearate, PEG-100 Stearate, Canola Oil, Cetearyl Alcohol, Dimethicone, Zinc Gluconate, Beta-Sitosterol, Xylitol, Rhamnose, Mannitol, Fructooligosaccharides, Laminaria Ochroleuca Extract, Caprylic/Capric Triglyceride, Sodium Citrate, Pentylene Glycol, Citric Acid' },
+      { name: 'Cicalfate+ Restorative Protective Cream', brand: 'Avene', category: 'Moisturizer', inci: 'Avene Thermal Spring Water, Mineral Oil, Caprylic/Capric Triglyceride, Glycerin, Hydrogenated Vegetable Oil, Zinc Oxide, Propylene Glycol, Polyglyceryl-2 Sesquiisostearate, PEG-22/Dodecyl Glycol Copolymer, Aluminum Sucrose Octasulfate, Zinc Sulfate, Copper Sulfate, Magnesium Sulfate, Beeswax' },
+
+      // Sunscreen expansion
+      { name: 'AM Facial Moisturizing Lotion SPF 30', brand: 'CeraVe', category: 'Sunscreen', inci: 'Avobenzone 3%, Homosalate 10%, Octisalate 5%, Octocrylene 2%, Water, Niacinamide, Cetearyl Alcohol, Glycerin, Propanediol, Dimethicone, Behentrimonium Methosulfate, BHT, Ceramide NP, Ceramide AP, Ceramide EOP, Carbomer, Triethoxycaprylylsilane, Triethyl Citrate, Sodium Lauroyl Lactylate, Sodium Hyaluronate, Cholesterol, Aluminum Starch Octenylsuccinate, Phenoxyethanol, Hydroxyethylcellulose, Hydroxyacetophenone, Caprylyl Glycol, Trisodium Ethylenediamine Disuccinate, Phytosphingosine, Xanthan Gum, Benzoic Acid' },
+      { name: 'Ultra-Light Moisturizing Lotion SPF 30', brand: 'CeraVe', category: 'Sunscreen', inci: 'Avobenzone 3%, Homosalate 10%, Octisalate 5%, Octocrylene 2.7%, Water, C12-15 Alkyl Benzoate, Glyceryl Stearate SE, Methyl Methacrylate Crosspolymer, Glycerin, Pentylene Glycol, Ceramide NP, Ceramide AP, Ceramide EOP, Carbomer, Sodium Acryloyldimethyltaurate/VP Crosspolymer, Sodium Lauroyl Lactylate, Sodium Hyaluronate, Cholesterol, Phenoxyethanol, Disodium EDTA, Hydroxyacetophenone, Citric Acid, Phytosphingosine, Xanthan Gum, T-Butyl Alcohol, Ethylhexylglycerin' },
+      { name: 'Facial Moisturizer SPF 30', brand: 'Vanicream', category: 'Sunscreen', inci: 'Zinc Oxide 19.5%, Water, C12-15 Alkyl Benzoate, Glycerin, Isododecane, Dimethicone, Polyhydroxystearic Acid, PEG-30 Dipolyhydroxystearate, Sodium Chloride, Triethoxycaprylylsilane, Phenoxyethanol, Caprylyl Glycol, 1,2-Hexanediol' },
+      { name: 'Sensitive Mineral Sunscreen SPF 50+', brand: 'Blue Lizard', category: 'Sunscreen', inci: 'Titanium Dioxide 8%, Zinc Oxide 10%, Water, C12-15 Alkyl Benzoate, Caprylic/Capric Triglyceride, Dimethicone, Glycerin, PEG-100 Stearate, Glyceryl Stearate, Stearic Acid, Alumina, Aluminum Hydroxide, Tocopheryl Acetate, Xanthan Gum, Phenoxyethanol, Caprylyl Glycol' },
+      { name: 'Sheer Zinc Face Mineral Sunscreen SPF 50', brand: 'Neutrogena', category: 'Sunscreen', inci: 'Zinc Oxide 21.6%, Water, C12-15 Alkyl Benzoate, Styrene/Acrylates Copolymer, Silica, Dimethicone, Phenoxyethanol, Caprylyl Glycol, Chlorphenesin, Xanthan Gum, Disodium EDTA' },
+      { name: 'Relief Sun Rice + Probiotics SPF 50+', brand: 'Beauty of Joseon', category: 'Sunscreen', inci: 'Water, Dibutyl Adipate, Propanediol, Diethylamino Hydroxybenzoyl Hexyl Benzoate, Polymethylsilsesquioxane, Ethylhexyl Triazone, Niacinamide, Methylene Bis-Benzotriazolyl Tetramethylbutylphenol, Coco-Caprylate/Caprate, Caprylyl Methicone, Diethylhexyl Butamido Triazone, Glycerin, Butylene Glycol, Oryza Sativa Extract, Lactobacillus/Rice Ferment, Bacillus/Soybean Ferment Extract, Saccharomyces/Potato Extract Ferment, Polysilicone-15, Sodium Hyaluronate, Polyacrylate Crosspolymer-6, Decyl Glucoside, Tromethamine, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Carbomer, Tocopherol' },
+      { name: 'Birch Juice Moisturizing Sun Cream SPF 50+', brand: 'Round Lab', category: 'Sunscreen', inci: 'Water, Dibutyl Adipate, Propanediol, Ethylhexyl Triazone, Drometrizole Trisiloxane, Niacinamide, Polymethylsilsesquioxane, Methylene Bis-Benzotriazolyl Tetramethylbutylphenol, Coco-Caprylate/Caprate, Diethylamino Hydroxybenzoyl Hexyl Benzoate, Glycerin, Betula Platyphylla Japonica Juice, Sodium Hyaluronate, Panthenol, Allantoin, Portulaca Oleracea Extract, Glyceryl Stearate, Decyl Glucoside, Tromethamine, Carbomer, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Tocopherol' },
+      { name: 'UV Super Moisture Gel SPF 50+', brand: 'Skin Aqua', category: 'Sunscreen', inci: 'Water, Ethanol, Ethylhexyl Methoxycinnamate, Butylene Glycol, Diethylamino Hydroxybenzoyl Hexyl Benzoate, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine, Sodium Hyaluronate, Hydrolyzed Collagen, Arginine, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Triethanolamine, Polysorbate 60, Disodium EDTA, Methylparaben' },
+
+      // Serums and treatments expansion
+      { name: 'Marine Hyaluronics', brand: 'The Ordinary', category: 'Serum', inci: 'Aqua, Glycerin, Algae Extract, Pseudoalteromonas Exopolysaccharides, Pseudoalteromonas Ferment Extract, Ahnfeltia Concinna Extract, Arginine, Glycine, Alanine, Serine, Valine, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Aspartic Acid, PCA, Sodium PCA, Sodium Lactate, Salicylic Acid, Citric Acid, Propanediol, Dimethyl Isosorbide, Ethoxydiglycol, Polysorbate 20, Potassium Sorbate, Sodium Salicylate, Sodium Benzoate, Hexylene Glycol, 1,2-Hexanediol, Phenoxyethanol, Caprylyl Glycol' },
+      { name: 'Mandelic Acid 10% + HA', brand: 'The Ordinary', category: 'Treatment', inci: 'Propanediol, Aqua, Mandelic Acid, Glycerin, Dimethyl Isosorbide, Sodium Hyaluronate Crosspolymer, Tasmannia Lanceolata Fruit/Leaf Extract, Pentylene Glycol, Polysorbate 20, Sodium Hydroxide, Ethylhexylglycerin, 1,2-Hexanediol, Caprylyl Glycol' },
+      { name: 'Alpha Arbutin 2% + HA', brand: 'The Ordinary', category: 'Serum', inci: 'Aqua, Alpha-Arbutin, Propanediol, Polyacrylate Crosspolymer-6, Hydrolyzed Sodium Hyaluronate, Ergothioneine, Polysorbate 20, Citric Acid, Sodium Citrate, Sodium Hydroxide, Sodium Metabisulfite, Trisodium Ethylenediamine Disuccinate, Ethoxydiglycol, Phenoxyethanol, Chlorphenesin' },
+      { name: 'Salicylic Acid 2% Solution', brand: 'The Ordinary', category: 'Treatment', inci: 'Salicylic Acid 2%, Water, Methylpropanediol, Cocamidopropyl Dimethylamine, Polysorbate 20, Sodium Citrate, Sodium Hydroxide, Citric Acid, Phenoxyethanol, Chlorphenesin' },
+      { name: 'Lactic Acid 10% + HA', brand: 'The Ordinary', category: 'Treatment', inci: 'Aqua, Lactic Acid, Glycerin, Pentylene Glycol, Sodium Hyaluronate Crosspolymer, Tasmannia Lanceolata Fruit/Leaf Extract, Propanediol, Triethanolamine, Polysorbate 20, Ethylhexylglycerin, 1,2-Hexanediol, Caprylyl Glycol' },
+      { name: 'Soothing & Barrier Support Serum', brand: 'The Ordinary', category: 'Serum', inci: 'Aqua, Propanediol, Niacinamide, Pentylene Glycol, Acetyl Glucosamine, Betaine, Panthenol, Lactococcus Ferment Lysate, Gallic Acid, Madecassoside, Cyanocobalamin, Epigallocatechin Gallatyl Glucoside, Gallyl Glucoside, Sodium Hyaluronate, Ceramide NP, Ceramide AP, Ceramide EOP, Phytosphingosine, Cholesterol, Glycosphingolipids, Xanthan Gum, Sclerotium Gum, Trisodium Ethylenediamine Disuccinate, Phenoxyethanol, Chlorphenesin' },
+      { name: 'Adapalene Gel 0.1%', brand: 'Differin', category: 'Treatment', inci: 'Adapalene 0.1%, Carbomer 940, Edetate Disodium, Methylparaben, Poloxamer 182, Propylene Glycol, Purified Water, Sodium Hydroxide' },
+      { name: 'Niacinamide Serum', brand: 'Good Molecules', category: 'Serum', inci: 'Water, Niacinamide, Glycerin, Butylene Glycol, 1,2-Hexanediol, Hydroxyethylcellulose, Sodium Citrate, Citric Acid, Ethylhexylglycerin' },
+      { name: 'Hyaluronic Acid Serum', brand: 'Good Molecules', category: 'Serum', inci: 'Water, Butylene Glycol, Glycerin, Sodium Hyaluronate, 1,2-Hexanediol, Ethylhexylglycerin' },
+      { name: '10% Azelaic Acid Booster', brand: "Paula's Choice", category: 'Treatment', inci: 'Water, Azelaic Acid, C12-15 Alkyl Benzoate, Methylpropanediol, Glycerin, Salicylic Acid, Glycyrrhiza Glabra Root Extract, Adenosine, Allantoin, Bisabolol, Xanthan Gum, Sodium Hydroxide, Phenoxyethanol' },
+      { name: 'Beta Hydroxy Acid Serum', brand: 'The Inkey List', category: 'Treatment', inci: 'Water, Propanediol, Salicylic Acid, Betaine, Zinc PCA, Sodium Hydroxide, Hydroxyethylcellulose, Phenoxyethanol, Chlorphenesin' },
+      { name: 'Azelaic Topical Acid 10%', brand: 'The Inkey List', category: 'Treatment', inci: 'Aqua, Azelaic Acid, Propanediol, Glycerin, Caprylic/Capric Triglyceride, Squalane, Polyglyceryl-6 Distearate, Jojoba Esters, Cetearyl Alcohol, Glyceryl Stearate, Carbomer, Sodium Hydroxide, Phenoxyethanol' },
+
+      // Scalp and body expansion
+      { name: 'Shampoo', brand: 'Vanicream', category: 'Shampoo', inci: 'Water, Cocamidopropyl Betaine, Sodium Cocoyl Isethionate, Glycerin, Panthenol, Sodium Chloride, Citric Acid, Disodium EDTA' },
+      { name: 'T/Sal Therapeutic Shampoo', brand: 'Neutrogena', category: 'Shampoo', inci: 'Salicylic Acid 3%, Water, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Sodium Chloride, PEG-120 Methyl Glucose Dioleate, Fragrance, Citric Acid, Disodium EDTA' },
+      { name: 'Medicated Shampoo & Body Wash', brand: 'Happy Cappy', category: 'Shampoo', inci: 'Pyrithione Zinc 0.95%, Water, Sodium Lauroyl Methyl Isethionate, Cocamidopropyl Hydroxysultaine, Glycerin, Sodium Cocoyl Isethionate, Panthenol, Licorice Root Extract, Apple Fruit Extract, Citric Acid, Sodium Chloride, Sodium Benzoate, Phenoxyethanol' },
+      { name: 'Zinc Shampoo', brand: 'DHS', category: 'Shampoo', inci: 'Pyrithione Zinc 2%, Water, Sodium Laureth Sulfate, Cocamidopropyl Betaine, Sodium Chloride, Glycol Distearate, Fragrance, Citric Acid, Methylchloroisothiazolinone, Methylisothiazolinone' },
+      { name: 'Classic Clean Anti-Dandruff Shampoo', brand: 'Head & Shoulders', category: 'Shampoo', inci: 'Pyrithione Zinc 1%, Water, Sodium Laureth Sulfate, Sodium Lauryl Sulfate, Glycol Distearate, Cocamidopropyl Betaine, Fragrance, Dimethicone, Sodium Chloride, Sodium Benzoate, Guar Hydroxypropyltrimonium Chloride, Magnesium Carbonate Hydroxide, Methylchloroisothiazolinone, Methylisothiazolinone' },
+      { name: 'SA Body Wash for Rough & Bumpy Skin', brand: 'CeraVe', category: 'Body Wash', inci: 'Water, Cocamidopropyl Hydroxysultaine, Glycerin, Sodium Lauroyl Sarcosinate, Niacinamide, Gluconolactone, Salicylic Acid, Ceramide NP, Ceramide AP, Ceramide EOP, Hyaluronic Acid, Cholesterol, Phytosphingosine, Sodium Chloride, Sodium Benzoate, Sodium Hydroxide, Calcium Gluconate, Disodium EDTA' },
+      { name: 'Acne Foaming Wash 10% Benzoyl Peroxide', brand: 'PanOxyl', category: 'Body Wash', inci: 'Benzoyl Peroxide 10%, Water, Sodium C14-16 Olefin Sulfonate, Glycerin, Cocamidopropyl Betaine, Sodium Hydroxide, Acrylates Copolymer, Sodium Chloride, Sodium Methyl Cocoyl Taurate, Disodium EDTA' }
+    ];
+
+    PRODUCTS.push(...PRODUCT_EXPANSION);
+
     const SEB_DERM_SAFE_PRODUCT_LIST = [
       { brand: 'Vanicream', name: 'Gentle Facial Cleanser', role: 'Cleanser', note: 'Bland daily face cleanser without oils, fatty alcohols, or fatty esters.' },
       { brand: 'Simple', name: 'Micellar Cleansing Water', role: 'Cleanser', note: 'No-rinse option for light cleanse or makeup residue.' },
@@ -2857,7 +2923,10 @@
       // Check unsafe
       for (const entry of UNSAFE) {
         for (const name of entry.names) {
-          if (ingredientNameMatches(norm, stripped, name)) return { ...entry, severity: 'unsafe', matched: name };
+          if (ingredientNameMatches(norm, stripped, name)) {
+            if (entry.severity === 'safe_override') return { severity: 'safe', matched: name };
+            return { ...entry, severity: 'unsafe', matched: name };
+          }
         }
       }
 
@@ -2876,7 +2945,10 @@
       }
 
       // Fuzzy match for short names (levenshtein)
-      const allEntries = [...UNSAFE.map(e => ({ ...e, severity: 'unsafe' })), ...CAUTION.map(e => ({ ...e, severity: 'caution' }))];
+      const allEntries = [
+        ...UNSAFE.filter(e => e.severity !== 'safe_override').map(e => ({ ...e, severity: 'unsafe' })),
+        ...CAUTION.map(e => ({ ...e, severity: 'caution' }))
+      ];
       for (const entry of allEntries) {
         for (const name of entry.names) {
           const n = normalize(name);
@@ -2887,6 +2959,29 @@
       }
 
       return { severity: 'unknown' };
+    }
+
+    function ingredientPenalty(match) {
+      if (match.severity === 'unsafe') {
+        if (match.concentration === 'high') return 40;
+        if (match.concentration === 'medium') return 24;
+        return 8;
+      }
+
+      if (match.severity === 'caution') {
+        if (match.concentration === 'high') return 16;
+        if (match.concentration === 'medium') return 8;
+        return 4;
+      }
+
+      return 0;
+    }
+
+    function deriveVerdict(results, score) {
+      const hasMaterialUnsafe = results.unsafe.some(m => m.concentration === 'high' || m.concentration === 'medium');
+      if (hasMaterialUnsafe || score < 70) return 'unsafe';
+      if (results.unsafe.length > 0 || results.caution.length > 0 || score < 90) return 'caution';
+      return 'safe';
     }
 
     function analyzeIngredients(inciList) {
@@ -2908,24 +3003,27 @@
         else results.unknown.push(match);
       }
 
-      // Weighted score: ingredients higher in the list penalize more
-      let penalty = 0;
-      results.unsafe.forEach(m => {
-        const weight = m.concentration === 'high' ? 3 : (m.concentration === 'medium' ? 2 : 1);
-        penalty += weight;
-      });
-      results.caution.forEach(m => {
-        const weight = m.concentration === 'high' ? 1.5 : (m.concentration === 'medium' ? 1 : 0.5);
-        penalty += weight;
-      });
-      const maxPenalty = results.total * 3;
-      const score = results.total > 0 ? Math.round((1 - penalty / maxPenalty) * 100) : 100;
-
-      let verdict = 'safe';
-      if (results.unsafe.length > 0) verdict = 'unsafe';
-      else if (results.caution.length > 0) verdict = 'caution';
+      // Fixed deductions avoid long ingredient lists diluting a real problem ingredient.
+      const penalty = [...results.unsafe, ...results.caution].reduce((sum, match) => sum + ingredientPenalty(match), 0);
+      const score = Math.max(0, Math.min(100, Math.round(100 - penalty)));
+      const verdict = deriveVerdict(results, score);
 
       return { ...results, score: Math.max(0, Math.min(100, score)), verdict, flaggedCount: results.unsafe.length + results.caution.length };
+    }
+
+    function productStatusFromSaved(product) {
+      const score = Number(product.safety_score) || 0;
+      const unsafeCount = Number(product.unsafe_count) || 0;
+      const cautionCount = Number(product.caution_count) || 0;
+      if (unsafeCount > 0) return score >= 90 ? 'caution' : 'unsafe';
+      if (cautionCount > 0) return 'caution';
+      if (score < 70) return 'unsafe';
+      if (score < 90) return 'caution';
+      return 'safe';
+    }
+
+    function colorVarForStatus(status) {
+      return status === 'safe' ? 'safe-green' : (status === 'caution' ? 'caution-amber' : 'unsafe-red');
     }
 
     function catalogProductKey(product) {
@@ -3392,8 +3490,10 @@
 
       const descs = {
         safe: 'This product has no ingredients known to feed Malassezia, so it should work for fungal acne, seb derm, and other Malassezia-prone skin.',
-        caution: 'Mostly fine, but it contains a few ingredients that flare some people with Malassezia-prone skin. Patch test and see how your skin reacts.',
-        unsafe: `This product has ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that can feed Malassezia, the yeast behind fungal acne, seb derm, and dandruff. The list and safer swaps are below.`
+        caution: 'This product has lower-risk or lower-concentration flagged ingredients. It is not an automatic avoid, but patch test and watch how your skin reacts.',
+        unsafe: analysis.unsafe.length > 0
+          ? `This product has ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that can feed Malassezia, the yeast behind fungal acne, seb derm, and dandruff. The list and safer swaps are below.`
+          : 'This product has enough debated ingredients to be risky for Malassezia-prone skin. The list and safer swaps are below.'
       };
       $('#verdictDesc').textContent = descs[analysis.verdict];
 
@@ -3405,7 +3505,9 @@
 
       if (analysis.verdict === 'unsafe') {
         ctaTitle.textContent = 'Struggling with fungal acne?';
-        ctaDesc.textContent = `This product has ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that feed Malassezia. A provider can confirm the diagnosis and prescribe targeted treatment.`;
+        ctaDesc.textContent = analysis.unsafe.length > 0
+          ? `This product has ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that feed Malassezia. A provider can confirm the diagnosis and prescribe targeted treatment.`
+          : 'This product has multiple debated ingredients. A provider can confirm whether Malassezia is driving your symptoms and prescribe targeted treatment.';
       } else if (analysis.verdict === 'caution') {
         ctaTitle.textContent = 'Not sure if it\'s fungal?';
         ctaDesc.textContent = 'If products keep making you break out, a provider can tell you whether Malassezia is the cause and prescribe treatment.';
@@ -3571,7 +3673,7 @@
       const verdictLabels = { safe: 'Safe', caution: 'Caution', unsafe: 'Unsafe' };
 
       function buildCard(p) {
-        const status = p.unsafe_count > 0 ? 'unsafe' : (p.caution_count > 0 ? 'caution' : 'safe');
+        const status = productStatusFromSaved(p);
         const flaggedText = p.unsafe_count > 0
           ? `${p.unsafe_count} unsafe ingredient${p.unsafe_count > 1 ? 's' : ''}`
           : (p.caution_count > 0 ? `${p.caution_count} debated ingredient${p.caution_count > 1 ? 's' : ''}` : 'No flagged ingredients');
@@ -3638,7 +3740,7 @@
             <p class="routine__column-title">Saved Products: Assign to Routine</p>
             <div class="routine__unassigned-row">
               ${unassigned.map(p => {
-                const status = p.unsafe_count > 0 ? 'unsafe' : (p.caution_count > 0 ? 'caution' : 'safe');
+                const status = productStatusFromSaved(p);
                 return `
                   <div class="routine__unassigned-card">
                     <div class="routine__card-icon routine__card-icon--${status}" style="margin-bottom:0.6rem;">${icons[status]}</div>
@@ -3776,16 +3878,14 @@
       const a1 = analyzeIngredients(parseINCI(p1.inci));
       const a2 = analyzeIngredients(parseINCI(p2.inci));
 
-      function statusClass(a) { return a.unsafe.length > 0 ? 'unsafe' : (a.caution.length > 0 ? 'caution' : 'safe'); }
-
       const grid = $('#compareGrid');
       grid.innerHTML = [
         { p: p1, a: a1 },
         { p: p2, a: a2 }
       ].map(({ p, a }) => `
         <div class="compare__product">
-          <div class="compare__product-header compare__product-header--${statusClass(a)}">
-            <div class="compare__product-score" style="color:var(--${statusClass(a) === 'safe' ? 'safe-green' : statusClass(a) === 'caution' ? 'caution-amber' : 'unsafe-red'})">${a.score}</div>
+          <div class="compare__product-header compare__product-header--${a.verdict}">
+            <div class="compare__product-score" style="color:var(--${colorVarForStatus(a.verdict)})">${a.score}</div>
             <div class="compare__product-name">${p.name}</div>
             <div class="compare__product-brand">${p.brand}</div>
           </div>
@@ -4016,7 +4116,7 @@
           const analysis = analyzeIngredients(parseINCI(sel.inci));
           totalScore += analysis.score;
           counted++;
-          const color = analysis.score >= 80 ? 'var(--safe-green)' : (analysis.score >= 50 ? 'var(--caution-amber)' : 'var(--unsafe-red)');
+          const color = `var(--${colorVarForStatus(analysis.verdict)})`;
 
           return `
             <div class="wizard__summary-item">
