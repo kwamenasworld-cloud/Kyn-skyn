@@ -84,6 +84,46 @@ async function fetchPage(name) {
 const START = '<!-- FAQ:START -->';
 const END = '<!-- FAQ:END -->';
 
+// The express-checkout trust block in consultation.liquid (.th-mini-faq)
+// quotes the canonical FAQ answers but lives outside the FAQ:START/END
+// markers, so this script never rewrites it. Warn when a quoted answer no
+// longer appears in any canonical answer, so a Supabase edit can't silently
+// strand stale claims on the checkout page. Answers marked
+// data-canonical="none" are assembled from non-FAQ on-page copy and skipped.
+function normalizeCopy(html) {
+  return String(html)
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&rsquo;|&#8217;/g, "'")
+    .replace(/&mdash;|&#8212;/g, '—')
+    .replace(/&middot;/g, '·')
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/[‘’]/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
+
+function checkMiniFaqDrift(fileContents, rows, file) {
+  const canonical = rows.map(row => normalizeCopy(row.answer));
+  const miniFaqRe = /<details class="th-mini-faq">\s*<summary>([\s\S]*?)<\/summary>\s*<p([^>]*)>([\s\S]*?)<\/p>/g;
+  let match;
+  let warned = 0;
+  while ((match = miniFaqRe.exec(fileContents)) !== null) {
+    const [, summary, pAttrs, answer] = match;
+    if (pAttrs.includes('data-canonical="none"')) continue;
+    const normalized = normalizeCopy(answer);
+    const found = canonical.some(c => c.includes(normalized));
+    if (!found) {
+      warned++;
+      const q = normalizeCopy(summary);
+      const msg = `Mini-FAQ answer for "${q}" in ${file} no longer matches any canonical FAQ answer - update the checkout trust block to match Supabase.`;
+      console.warn(`::warning file=${file}::${msg}`);
+    }
+  }
+  if (!warned) console.log(`Mini-FAQ drift check passed for ${file}`);
+}
+
 async function main() {
   let touched = 0;
   for (const page of PAGES) {
@@ -113,6 +153,10 @@ async function main() {
       touched++;
     } else {
       console.log(`${page.file} already up to date`);
+    }
+
+    if (page.name === 'consultation') {
+      checkMiniFaqDrift(updated, rows, page.file);
     }
   }
   if (!touched) console.log('No files changed.');
