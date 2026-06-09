@@ -743,7 +743,8 @@
   <div class="th-cta__container th-pricing-shell fade-in">
     <p class="th-pricing__eyebrow">Online dermatology care</p>
     <h2 class="th-cta__heading">Join Kyn Care</h2>
-    <p class="th-pricing__intro">Ongoing dermatologic care for chronic skin conditions, including prescription access when clinically appropriate, follow-ups, and doctor-guided maintenance.</p>
+    <p class="th-pricing__intro">Get clear and stay clear. Ongoing dermatology care for chronic skin conditions: a real diagnosis, prescriptions when appropriate, follow-ups, and doctor-guided maintenance.</p>
+    <p class="th-pricing__anchor" style="font-family: var(--font-sans); font-size: 0.9rem; line-height: 1.5; color: var(--cream); opacity: 0.72; max-width: 38rem; margin: 0.75rem auto 0;">An in-person specialist visit often runs $150 to $300 and can take weeks to book. A Kynsultation starts at $40, reviewed by a board-certified dermatologist, usually within 48 hours.</p>
     <div class="th-trust-strip" aria-label="Care details">
       <div class="th-trust-strip__item">
         <span class="th-trust-strip__label">Reviewed by a dermatologist</span>
@@ -786,26 +787,22 @@
         </div>
         <span class="th-plan__cta">Get started<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 10h11M11 5.5 15.5 10 11 14.5"/></svg></span>
       </button>
-      <!-- One-time Consult $40 - tucked behind a disclosure so the recurring
-           plan is the default path; still a selectable radio when expanded. -->
-      <details class="th-onetime">
-        <summary class="th-onetime__summary">
-          <span>Prefer a one-time visit?</span>
-          <svg class="th-onetime__chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8l5 5 5-5"/></svg>
-        </summary>
-        <button type="button" class="th-plan th-plan--onetime" data-plan="one-time" role="radio" aria-checked="false">
-          <p class="th-plan__price">$40</p>
-          <p class="th-plan__label">One-time Consult</p>
-          <div class="th-plan__features">
-            <p>&#10003; Provider consultation</p>
-            <p>&#10003; Pick up Rx at your pharmacy</p>
-            <p>&#10003; Single visit, no commitment</p>
-            <p>&#10003; No recurring charges</p>
-          </div>
-          <span class="th-plan__cta">Get started<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 10h11M11 5.5 15.5 10 11 14.5"/></svg></span>
-        </button>
-      </details>
+      <!-- One-time Consult $40 - a visible, equal-weight option so the
+           lowest-commitment entry for cold traffic is never hidden. -->
+      <button type="button" class="th-plan th-plan--onetime" data-plan="one-time" role="radio" aria-checked="false">
+        <span class="th-plan__badge th-plan__badge--teal">No commitment</span>
+        <p class="th-plan__price">$40<span class="th-plan__price-suffix"> one-time</span></p>
+        <p class="th-plan__label">One-time Consult</p>
+        <div class="th-plan__features">
+          <p>&#10003; See a board-certified dermatologist</p>
+          <p>&#10003; Diagnosis and treatment plan</p>
+          <p>&#10003; Rx sent to your pharmacy if appropriate</p>
+          <p>&#10003; Single visit, no recurring charges</p>
+        </div>
+        <span class="th-plan__cta">Get started<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 10h11M11 5.5 15.5 10 11 14.5"/></svg></span>
+      </button>
     </div>
+    <p class="th-pricing__guarantee" style="font-family: var(--font-sans); font-size: 0.92rem; line-height: 1.5; font-weight: 600; color: var(--cream); max-width: 38rem; margin: 1.5rem auto 0.75rem; padding: 0.9rem 1.1rem; border: 1px solid rgba(248, 176, 68, 0.45); border-radius: 12px; background: rgba(248, 176, 68, 0.08);">Our promise: if a board-certified dermatologist reviews your visit and can&rsquo;t give you a diagnosis and a treatment plan, we&rsquo;ll refund it.</p>
     <p class="th-pricing__fineprint">Your Kyn Skyn payment covers the dermatology visit and care plan. Medication is separate and paid to the pharmacy only if your clinician writes a prescription.</p>
     <p class="th-cta__desc" style="font-size: 0.85rem;">Click your plan and your Kynsultation opens right below. Your photos and card details stay inside the secure care flow.</p>
   </div>
@@ -1314,12 +1311,20 @@
     // pricing tier. We send value + currency only -- never any clinical data.
     // Prices mirror the hardcoded ones in the pricing/FAQ markup; keep in sync
     // with Stripe (STRIPE_PRICE_MONTHLY / _QUARTERLY / _ONETIME).
-    function trackPurchase(plan) {
+    function trackPurchase(plan, reportedValue, eventId) {
       if (purchaseTracked) return;
       purchaseTracked = true;
 
       var prices = { monthly: 29.99, quarterly: 74.99, 'one-time': 40 };
-      var value = (typeof prices[plan] === 'number') ? prices[plan] : prices[currentPlan()];
+      // Prefer the real charged amount the care flow reports (drift-proof);
+      // fall back to the displayed plan price so value is never missing.
+      var value = (typeof reportedValue === 'number' && reportedValue > 0)
+        ? reportedValue
+        : ((typeof prices[plan] === 'number') ? prices[plan] : prices[currentPlan()]);
+
+      // Shared dedup key (the care case id) so a future server-side
+      // Conversions API Purchase with the same eventID is not double-counted.
+      var options = eventId ? { eventID: String(eventId) } : undefined;
 
       var attempts = 0;
       function send() {
@@ -1327,7 +1332,7 @@
         if (typeof window.fbq === 'function') {
           var payload = { currency: 'USD' };
           if (typeof value === 'number') payload.value = value;
-          window.fbq('track', 'Purchase', payload);
+          window.fbq('track', 'Purchase', payload, options);
           return;
         }
         if (attempts < 20) {
@@ -1409,7 +1414,7 @@
       if (data.type === 'kyn_payment_complete') {
         if (frameWrap) frameWrap.hidden = true;
         if (success) success.hidden = false;
-        trackPurchase(data.plan);
+        trackPurchase(data.plan, data.value, data.case_id);
       }
     });
 
@@ -1448,7 +1453,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How does the consultation work?</button>
-      <div class="th-faq__a"><p>Every consultation starts async. A licensed provider (MD, DO, or NP) reviews your intake and photos and sends you a written diagnosis and treatment plan, usually within 48 hours, with follow-up questions in the same thread. If you'd rather speak with your clinician live, you can request a video call from your dashboard for an extra $15. Most people stay async; the video option is there if you want it.</p></div>
+      <div class="th-faq__a"><p>Every consultation starts async. A board-certified dermatologist reviews your intake and photos and sends you a written diagnosis and treatment plan, usually within 48 hours, with follow-up questions in the same thread. If you'd rather speak with your clinician live, you can request a video call from your dashboard for an extra $15. Most people stay async; the video option is there if you want it.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
@@ -1473,7 +1478,7 @@
 
     <div class="th-faq__item fade-in">
       <button class="th-faq__q" type="button">How much does a consultation cost?</button>
-      <div class="th-faq__a"><p>Treatment Plans are $29.99 a month, or $74.99 every 3 months (about $25 a month). Both cover your Kynsultation and your prescription, sent to the pharmacy you select during intake. A one-time Kynsultation is $40. Payment happens at the end of intake in the secure care flow.</p></div>
+      <div class="th-faq__a"><p>Treatment Plans are $29.99 a month, or $74.99 every 3 months (about $25 a month). A one-time Kynsultation is $40. Your plan covers the dermatologist visit, your treatment plan, and sending any prescription to the pharmacy you choose. You pay for the medication itself at your pharmacy, and most antifungals we prescribe are inexpensive generics like ketoconazole. Payment happens at the end of intake in the secure care flow.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
