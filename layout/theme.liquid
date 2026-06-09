@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#641220">
+  <meta name="facebook-domain-verification" content="1vvezlssmiv5fri4gmtb3cewbqwp4x" />
 
   <!-- Critical-path resource hints. Open the Shopify CDN connection (serves all
        fonts + images) before any third-party tag, and preload the homepage LCP
@@ -14,12 +15,12 @@
     <link rel="preload" as="image" href="{{ 'chandani-closeup.webp' | asset_url }}" type="image/webp" fetchpriority="high">
   {%- endif -%}
 
-  <!-- Google Ads (gtag.js) + Microsoft UET + Meta Pixel. The gtag()/uetq/fbq
-       queues are stubbed synchronously so early events buffer; the tag libraries
-       themselves load after first paint (first interaction, or a ~2.5s idle
-       fallback) to keep the critical path clear in slow in-app browsers
-       (Instagram/TikTok on iOS). AffiliateBase below stays eager so affiliate
-       referral capture is never delayed. -->
+  <!-- Google Ads (gtag.js) + Microsoft UET load lazily: their queues are stubbed
+       synchronously so early events buffer, and the libraries themselves load
+       after first paint (first interaction, or a ~2.5s idle fallback) to keep the
+       critical path clear in slow in-app browsers (Instagram/TikTok on iOS). The
+       Meta Pixel and AffiliateBase load eagerly so ad attribution and affiliate
+       referral capture are never delayed. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -31,14 +32,14 @@
       var loaded = false;
       var events = ['pointerdown', 'touchstart', 'scroll', 'keydown'];
 
-      // Meta Pixel. Paste your Events Manager Pixel ID (15-16 digits) to activate.
-      // While blank the Pixel stays dormant: window.fbq is left undefined and
-      // nothing is sent (so consultation.liquid's InitiateCheckout no-ops exactly
-      // as it does today, until a real ID is set here).
+      // Meta Pixel. Loads eagerly (unlike the gtag/UET tags below) so ad
+      // attribution and PageView capture stay complete, including fast bounces.
+      // To deactivate, blank metaPixelId: window.fbq stays undefined and
+      // consultation.liquid's InitiateCheckout no-ops.
       var metaPixelId = '943159622092998';
       if (metaPixelId) {
-        // fbq stub buffers calls until fbevents.js loads (matches the gtag/uetq pattern).
-        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window,document,'script');
+        // Standard Meta base pixel: this stub injects fbevents.js immediately.
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
         window.fbq('init', metaPixelId);
         window.fbq('track', 'PageView');
       }
@@ -68,14 +69,6 @@
           var i = d.getElementsByTagName(t)[0];
           i.parentNode.insertBefore(n, i);
         })(window, document, "script", "uetq", { ti: "97250212", enableAutoSpaTracking: true });
-
-        // Meta Pixel library (flushes the fbq queue: PageView + InitiateCheckout)
-        if (metaPixelId) {
-          var fb = document.createElement('script');
-          fb.async = true;
-          fb.src = 'https://connect.facebook.net/en_US/fbevents.js';
-          document.head.appendChild(fb);
-        }
       }
 
       events.forEach(function (e) { window.addEventListener(e, loadTags, { passive: true }); });
@@ -86,6 +79,9 @@
       }
     })();
   </script>
+
+  <!-- Meta Pixel <noscript> fallback (PageView for JS-disabled loads) -->
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=943159622092998&ev=PageView&noscript=1" alt=""/></noscript>
 
   <script>(function(w,r){w._abq=w._abq||[];w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'affiliatebase');</script>
   <script async src="https://cdn.jsdelivr.net/npm/@relay-capital/affiliatebase-tracking@1.0.7/dist/track.min.js" data-account-id="d970299a-5388-4756-8a6d-fc33c4d99ffa"></script>
