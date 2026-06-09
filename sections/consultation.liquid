@@ -894,8 +894,11 @@
       Trust additions for the express checkout view (shown via the
       .kyn-checkout-mode rules in the style block above). Every claim below is
       sourced from existing public copy: the about page ("not a chatbot, not a
-      general practitioner"), the care portal Terms/Privacy (MD Integrations
-      partnership, HIPAA platform, encryption), and the on-page FAQ. The FAQ
+      general practitioner"), the care portal Terms/Privacy (HIPAA platform,
+      encryption, independent licensed clinicians), and the on-page FAQ.
+      Deliberately does NOT name the clinical network partner: MDI must not be
+      named in advertising surfaces (owner directive, June 2026) — the
+      partnership disclosure lives in the legal Terms/Privacy pages only. The FAQ
       answers quote the canonical Supabase-synced FAQ markup further down this
       file (the .th-faq section, hidden in checkout mode); scripts/sync-faqs.mjs
       warns when they drift. Answers marked data-canonical="none" are assembled
@@ -907,7 +910,7 @@
     <div class="th-checkout-trust">
       <div class="th-checkout-trust__card">
         <h3 class="th-checkout-trust__label">Who reviews your case</h3>
-        <p class="th-checkout-trust__copy">Independent board-certified dermatologists, licensed in your state &mdash; not a chatbot, not a general practitioner. Care is delivered on a HIPAA-compliant platform through MD Integrations, our medical-services partner, and your information is encrypted in transit and at rest.</p>
+        <p class="th-checkout-trust__copy">Independent board-certified dermatologists, licensed in your state &mdash; not a chatbot, not a general practitioner. Care is delivered on a HIPAA-compliant platform, and your information is encrypted in transit and at rest.</p>
       </div>
 
       <div class="th-checkout-trust__faq">
