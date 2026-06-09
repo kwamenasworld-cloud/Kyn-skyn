@@ -1306,6 +1306,38 @@
       send();
     }
 
+    var purchaseTracked = false;
+
+    // Fired when the care flow reports a completed booking. We keep ALL Meta
+    // Pixel contact on the storefront (this is the ad-attributed domain that
+    // already fired InitiateCheckout); the care app only reports a non-PHI
+    // pricing tier. We send value + currency only -- never any clinical data.
+    // Prices mirror the hardcoded ones in the pricing/FAQ markup; keep in sync
+    // with Stripe (STRIPE_PRICE_MONTHLY / _QUARTERLY / _ONETIME).
+    function trackPurchase(plan) {
+      if (purchaseTracked) return;
+      purchaseTracked = true;
+
+      var prices = { monthly: 29.99, quarterly: 74.99, 'one-time': 40 };
+      var value = (typeof prices[plan] === 'number') ? prices[plan] : prices[currentPlan()];
+
+      var attempts = 0;
+      function send() {
+        attempts += 1;
+        if (typeof window.fbq === 'function') {
+          var payload = { currency: 'USD' };
+          if (typeof value === 'number') payload.value = value;
+          window.fbq('track', 'Purchase', payload);
+          return;
+        }
+        if (attempts < 20) {
+          window.setTimeout(send, 250);
+        }
+      }
+
+      send();
+    }
+
     function buildCareUrl(plan) {
       var target = new URL(CARE_ORIGIN + '/book');
       var params = new URLSearchParams(window.location.search);
@@ -1377,6 +1409,7 @@
       if (data.type === 'kyn_payment_complete') {
         if (frameWrap) frameWrap.hidden = true;
         if (success) success.hidden = false;
+        trackPurchase(data.plan);
       }
     });
 
