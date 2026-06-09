@@ -5,39 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#641220">
 
-  <!-- Google tag (gtag.js): Google Ads conversion/remarketing tag AW-18211322785 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18211322785"></script>
+  <!-- Critical-path resource hints. Open the Shopify CDN connection (serves all
+       fonts + images) before any third-party tag, and preload the homepage LCP
+       hero so it wins the bandwidth race inside slow in-app browsers (Instagram
+       / TikTok on iOS open links in a cold-cache WebView). -->
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  {%- if template == 'index' -%}
+    <link rel="preload" as="image" href="{{ 'chandani-closeup.webp' | asset_url }}" type="image/webp" fetchpriority="high">
+  {%- endif -%}
+
+  <!-- Google Ads (gtag.js) + Microsoft UET + Meta Pixel. The gtag()/uetq/fbq
+       queues are stubbed synchronously so early events buffer; the tag libraries
+       themselves load after first paint (first interaction, or a ~2.5s idle
+       fallback) to keep the critical path clear in slow in-app browsers
+       (Instagram/TikTok on iOS). AffiliateBase below stays eager so affiliate
+       referral capture is never delayed. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'AW-18211322785');
+    window.uetq = window.uetq || [];
+
+    (function () {
+      var loaded = false;
+      var events = ['pointerdown', 'touchstart', 'scroll', 'keydown'];
+
+      // Meta Pixel. Paste your Events Manager Pixel ID (15-16 digits) to activate.
+      // While blank the Pixel stays dormant: window.fbq is left undefined and
+      // nothing is sent (so consultation.liquid's InitiateCheckout no-ops exactly
+      // as it does today, until a real ID is set here).
+      var metaPixelId = '';
+      if (metaPixelId) {
+        // fbq stub buffers calls until fbevents.js loads (matches the gtag/uetq pattern).
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window,document,'script');
+        window.fbq('init', metaPixelId);
+        window.fbq('track', 'PageView');
+      }
+
+      function loadTags() {
+        if (loaded) return;
+        loaded = true;
+        events.forEach(function (e) { window.removeEventListener(e, loadTags); });
+
+        // Google Ads gtag.js
+        var g = document.createElement('script');
+        g.async = true;
+        g.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18211322785';
+        document.head.appendChild(g);
+
+        // Microsoft Advertising UET (official bootstrap; flushes the uetq queue)
+        (function (w, d, t, u, o) {
+          w[u] = w[u] || [];
+          o.ts = (new Date).getTime();
+          var n = d.createElement(t);
+          n.src = "https://bat.bing.net/bat.js?ti=" + o.ti + ("uetq" != u ? "&q=" + u : "");
+          n.async = 1;
+          n.onload = n.onreadystatechange = function () {
+            var s = this.readyState;
+            s && "loaded" !== s && "complete" !== s || (o.q = w[u], w[u] = new UET(o), w[u].push("pageLoad"), n.onload = n.onreadystatechange = null);
+          };
+          var i = d.getElementsByTagName(t)[0];
+          i.parentNode.insertBefore(n, i);
+        })(window, document, "script", "uetq", { ti: "97250212", enableAutoSpaTracking: true });
+
+        // Meta Pixel library (flushes the fbq queue: PageView + InitiateCheckout)
+        if (metaPixelId) {
+          var fb = document.createElement('script');
+          fb.async = true;
+          fb.src = 'https://connect.facebook.net/en_US/fbevents.js';
+          document.head.appendChild(fb);
+        }
+      }
+
+      events.forEach(function (e) { window.addEventListener(e, loadTags, { passive: true }); });
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadTags, { timeout: 2500 });
+      } else {
+        setTimeout(loadTags, 2500);
+      }
+    })();
   </script>
 
-  <!-- Microsoft Advertising Universal Event Tracking tag -->
-  <script>
-    (function(w,d,t,u,o)
-    {
-      w[u]=w[u]||[],
-      o.ts=(new Date).getTime();
-      var n=d.createElement(t);
-      n.src="https://bat.bing.net/bat.js?ti="+o.ti+("uetq"!=u?"&q="+u:""),
-      n.async=1,
-      n.onload=n.onreadystatechange=function()
-      {
-        var s=this.readyState;
-        s&&"loaded"!==s&&"complete"!== s||(o.q=w[u], w[u]=new UET(o), w[u].push("pageLoad"), n.onload=n.onreadystatechange=null)
-      };
-      var i=d.getElementsByTagName(t)[0];
-      i.parentNode.insertBefore(n,i);
-    })(window, document, "script", "uetq", {
-      ti:"97250212",
-      enableAutoSpaTracking:true
-    });
-  </script>
-
-  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
   <script>(function(w,r){w._abq=w._abq||[];w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'affiliatebase');</script>
   <script async src="https://cdn.jsdelivr.net/npm/@relay-capital/affiliatebase-tracking@1.0.7/dist/track.min.js" data-account-id="d970299a-5388-4756-8a6d-fc33c4d99ffa"></script>
   <script>
@@ -396,6 +445,10 @@
 
     /* ========== RESET & BASE ========== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* <picture> wrappers (WebP source + JPG fallback) must not generate a box,
+       so the inner <img> keeps inheriting its container's sizing rules. */
+    picture { display: contents; }
 
     :root {
       --cream: #fff4ce;
@@ -817,6 +870,22 @@
       }
     }
 
+    .hero__price {
+      margin-top: 1.4rem;
+      max-width: 34rem;
+      font-family: var(--font-sans);
+      font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--cream);
+      opacity: 0.92;
+    }
+
+    .hero__price strong {
+      font-weight: 600;
+      color: var(--gold);
+    }
+
     /* ========== NOTIFY ========== */
     .notify {
       background: var(--dark);
@@ -920,6 +989,42 @@
     }
 
     .notify__button:hover { background: var(--maroon); }
+
+    .notify__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--cream);
+      color: var(--maroon);
+      font-family: var(--font-accent);
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.1rem 2.2rem;
+      border-radius: 999px;
+      box-shadow: 0 10px 30px -10px rgba(42, 2, 8, 0.55);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .notify__cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px -12px rgba(42, 2, 8, 0.7);
+    }
+
+    .notify__cta svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .notify__newsletter { margin-top: 3.5rem; }
+
+    .notify__newsletter-label {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.5;
+      margin-bottom: 1rem;
+    }
 
     /* ========== CONTACT ========== */
     .contact-page {
