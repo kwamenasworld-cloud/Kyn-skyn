@@ -1364,6 +1364,13 @@
       ['traffic_source', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'referrer_host'].forEach(function(key) {
         if (traffic[key]) target.searchParams.set(key, traffic[key]);
       });
+      // Forward the Meta Pixel cookies (_fbp / _fbc, set by fbevents.js on this
+      // domain) so the care app's server-side Conversions API Purchase matches
+      // the same browser. No-op when absent.
+      var fbpMatch = document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/);
+      if (fbpMatch) target.searchParams.set('fbp', decodeURIComponent(fbpMatch[1]));
+      var fbcMatch = document.cookie.match(/(?:^|;\s*)_fbc=([^;]+)/);
+      if (fbcMatch) target.searchParams.set('fbc', decodeURIComponent(fbcMatch[1]));
       return target.toString();
     }
 
@@ -1414,7 +1421,7 @@
       if (data.type === 'kyn_payment_complete') {
         if (frameWrap) frameWrap.hidden = true;
         if (success) success.hidden = false;
-        trackPurchase(data.plan, data.value, data.case_id);
+        trackPurchase(data.plan, data.value, data.event_id);
       }
     });
 
