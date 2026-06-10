@@ -1163,6 +1163,7 @@
         // Switching to a non-Monthly card clears the quarterly augment
         if (augmentInput && plan.getAttribute('data-plan') !== 'monthly') {
           augmentInput.checked = false;
+          renderMonthlyPrice();
         }
         // Click on a plan card immediately opens secure intake. No
         // intermediate "Start checkout" or "Open secure checkout" buttons.
@@ -1207,14 +1208,48 @@
       if (augmentInput) augmentInput.checked = false;
       // Reveal the disclosure so the pre-selected one-time card is visible.
       if (oneTimeDisclosure) oneTimeDisclosure.open = true;
-    } else {
+    } else if (!requestedPlan) {
+      // No plan choice made yet (ads / organic): default to quarterly
+      // billing. Month-1 contribution on monthly is ~$8.82 after the
+      // clinician case fee, so undecided paid traffic starts on the
+      // 3-month plan. renderMonthlyPrice() keeps the card's headline
+      // honest ($74.99/3 mo while the toggle is on), so the price a
+      // visitor clicks is always the price they're billed.
       plans.forEach(function(p) {
         var isMonthly = p.getAttribute('data-plan') === 'monthly';
         p.classList.toggle('th-plan--selected', isMonthly);
         p.setAttribute('aria-checked', isMonthly ? 'true' : 'false');
       });
+      if (augmentInput) augmentInput.checked = true;
+      if (isCheckoutMode && oneTimeDisclosure) oneTimeDisclosure.open = true;
+    } else {
+      // Explicit 'monthly' or any unrecognized plan value (e.g. a typo'd
+      // condition-page link): plain monthly with the billing toggle off.
+      // An explicit monthly pick must never silently bill quarterly.
+      plans.forEach(function(p) {
+        var isMonthly = p.getAttribute('data-plan') === 'monthly';
+        p.classList.toggle('th-plan--selected', isMonthly);
+        p.setAttribute('aria-checked', isMonthly ? 'true' : 'false');
+      });
+      if (augmentInput) augmentInput.checked = false;
       if (isCheckoutMode && oneTimeDisclosure) oneTimeDisclosure.open = true;
     }
+
+    // Keep the membership card's headline price in sync with the billing
+    // toggle so the clicked price always equals the billed price. Values
+    // mirror the hardcoded plan prices in the markup; keep in sync with
+    // Stripe (STRIPE_PRICE_MONTHLY / _QUARTERLY).
+    function renderMonthlyPrice() {
+      var monthlyCard = document.querySelector('.th-plan[data-plan="monthly"]');
+      if (!monthlyCard || !augmentInput) return;
+      var priceEl = monthlyCard.querySelector('.th-plan__price');
+      if (!priceEl) return;
+      priceEl.innerHTML = augmentInput.checked
+        ? '$74.99<span class="th-plan__price-suffix">/3 mo</span>'
+        : '$29.99<span class="th-plan__price-suffix">/mo</span>';
+    }
+    renderMonthlyPrice();
+    if (augmentInput) augmentInput.addEventListener('change', renderMonthlyPrice);
 
   })();
 </script>
