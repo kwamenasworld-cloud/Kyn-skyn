@@ -430,88 +430,305 @@
 <!-- ====== CARE STEPS ====== -->
 <style>
   .care-steps {
-    background: var(--cream);
-    padding: 6rem 3rem;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--gold);
+    background-image:
+      linear-gradient(rgba(255, 244, 206, 0.34) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 244, 206, 0.34) 1px, transparent 1px);
+    background-size: 22px 22px;
+    padding: clamp(4.5rem, 8vw, 7rem) 3rem 0;
+    color: var(--dark);
   }
-  .care-steps__container { max-width: 66rem; margin: 0 auto; }
-  .care-steps__head { text-align: center; margin-bottom: 3.5rem; }
-  .care-steps__heading {
-    font-family: var(--font-serif);
-    font-size: clamp(1.9rem, 3.6vw, 2.9rem);
-    color: var(--maroon);
-    line-height: 1.1;
-    margin: 0;
-  }
-  .care-steps__grid {
+  .care-steps__container {
+    max-width: 74rem;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: minmax(18rem, 0.9fr) minmax(22rem, 1.1fr);
+    gap: clamp(2.5rem, 7vw, 6rem);
+    align-items: end;
   }
-  .care-step {
-    background: var(--cream);
-    border: 1px solid rgba(100, 18, 32, 0.16);
-    border-radius: 1.25rem;
-    padding: 1.6rem 1.5rem 1.8rem;
+  .care-steps__phone-wrap {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: 34rem;
   }
-  .care-step__num {
+  .care-phone {
+    position: relative;
+    width: min(24rem, 100%);
+    aspect-ratio: 9 / 16;
+    padding: 0.72rem;
+    border-radius: 3rem 3rem 0 0;
+    background: #0c0507;
+    box-shadow: 0 2.2rem 4rem rgba(42, 2, 8, 0.28);
+  }
+  .care-phone::before {
+    content: "";
+    position: absolute;
+    top: 0.72rem;
+    left: 50%;
+    z-index: 3;
+    width: 7.4rem;
+    height: 1.6rem;
+    border-radius: 0 0 1rem 1rem;
+    background: #0c0507;
+    transform: translateX(-50%);
+  }
+  .care-phone__screen {
+    height: 100%;
+    border-radius: 2.35rem 2.35rem 0 0;
+    background: #fffaf0;
+    padding: 3.15rem 1.35rem 1.35rem;
+    overflow: hidden;
+  }
+  .care-phone__brand {
     font-family: var(--font-serif);
-    font-size: 2.6rem;
+    font-size: clamp(1.85rem, 3vw, 2.45rem);
     line-height: 1;
     color: var(--maroon);
     margin: 0 0 1.5rem;
   }
+  .care-phone__nav {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+  .care-phone__nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.28rem;
+    font-family: var(--font-sans);
+    font-size: 0.52rem;
+    color: rgba(100, 18, 32, 0.45);
+  }
+  .care-phone__nav-item::before {
+    content: "";
+    width: 1.05rem;
+    height: 1.05rem;
+    border: 1.5px solid currentColor;
+    border-radius: 0.28rem;
+  }
+  .care-phone__nav-item.is-active {
+    color: var(--maroon);
+    font-weight: 600;
+  }
+  .care-phone__nav-item.is-active::before {
+    border-radius: 999px;
+    background: var(--gold);
+    box-shadow: inset 0 0 0 0.3rem #fffaf0;
+  }
+  .care-phone__message {
+    border-radius: 0.9rem;
+    padding: 1rem 1.05rem;
+    font-family: var(--font-sans);
+    font-size: clamp(0.78rem, 1.2vw, 0.92rem);
+    line-height: 1.42;
+    color: var(--dark);
+  }
+  .care-phone__message--provider {
+    width: 92%;
+    background: rgba(212, 149, 42, 0.28);
+    border: 1px solid rgba(100, 18, 32, 0.08);
+    box-shadow: 0 0.6rem 1.8rem rgba(42, 2, 8, 0.08);
+  }
+  .care-phone__message--patient {
+    width: 82%;
+    margin: 1rem 0 0 auto;
+    background: rgba(100, 18, 32, 0.08);
+  }
+  .care-phone__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
+    margin-bottom: 0.65rem;
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--maroon);
+  }
+  .care-phone__status::before {
+    content: "";
+    width: 0.44rem;
+    height: 0.44rem;
+    border-radius: 999px;
+    background: var(--terracotta);
+  }
+  .care-steps__content {
+    align-self: center;
+    padding: 1rem 0 clamp(4.5rem, 7vw, 6rem);
+  }
+  .care-steps__rule {
+    width: 100%;
+    height: 2px;
+    background: var(--dark);
+    opacity: 0.92;
+    margin-bottom: 1.3rem;
+  }
+  .care-steps__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    margin: 0 0 0.7rem;
+  }
+  .care-steps__heading {
+    font-family: var(--font-sans);
+    font-size: clamp(2rem, 4.2vw, 3.15rem);
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.1;
+    margin: 0 0 2.3rem;
+  }
+  .care-steps__list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.45rem, 2.8vw, 2.05rem);
+  }
+  .care-step {
+    display: grid;
+    grid-template-columns: 3.35rem 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+  }
+  .care-step__num {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    line-height: 1;
+    width: 2.95rem;
+    height: 2.95rem;
+    border: 2px solid var(--maroon);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--maroon);
+    background: transparent;
+    margin: 0;
+  }
+  .care-step:nth-child(even) .care-step__num {
+    background: var(--maroon);
+    color: var(--cream);
+  }
   .care-step__title {
     font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--maroon);
-    line-height: 1.25;
-    margin: 0 0 0.5rem;
+    font-weight: 700;
+    font-size: clamp(1.02rem, 1.45vw, 1.22rem);
+    color: var(--dark);
+    line-height: 1.18;
+    margin: 0 0 0.34rem;
   }
   .care-step__text {
     font-family: var(--font-sans);
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: var(--maroon);
-    opacity: 0.72;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    line-height: 1.45;
+    color: var(--dark);
+    opacity: 0.82;
     margin: 0;
   }
   @media (max-width: 900px) {
-    .care-steps { padding: 4rem 1.5rem; }
-    .care-steps__grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .care-steps { padding: 4rem 1.5rem 0; }
+    .care-steps__container {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .care-steps__content {
+      order: 1;
+      padding: 0;
+    }
+    .care-steps__phone-wrap {
+      order: 2;
+      min-height: 0;
+    }
+    .care-phone {
+      width: min(21rem, 92vw);
+    }
   }
   @media (max-width: 560px) {
-    .care-steps__grid { grid-template-columns: 1fr; }
+    .care-steps { background-size: 18px 18px; }
+    .care-step {
+      grid-template-columns: 2.8rem 1fr;
+      gap: 0.95rem;
+    }
+    .care-step__num {
+      width: 2.55rem;
+      height: 2.55rem;
+      font-size: 1.15rem;
+    }
+    .care-phone__screen {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
   }
 </style>
 
 <section class="care-steps">
   <div class="care-steps__container">
-    <div class="care-steps__head fade-in">
-      <h2 class="care-steps__heading">Here&rsquo;s how Kyn Skyn works.</h2>
+    <div class="care-steps__phone-wrap fade-in" aria-hidden="true">
+      <div class="care-phone">
+        <div class="care-phone__screen">
+          <p class="care-phone__brand">Kyn Skyn</p>
+          <div class="care-phone__nav">
+            <span class="care-phone__nav-item">Home</span>
+            <span class="care-phone__nav-item is-active">Care</span>
+            <span class="care-phone__nav-item">Plan</span>
+            <span class="care-phone__nav-item">Rx</span>
+            <span class="care-phone__nav-item">You</span>
+          </div>
+          <div class="care-phone__message care-phone__message--provider">
+            <span class="care-phone__status">Provider message</span>
+            <div>Your provider reviewed your photos and intake. Your plan is ready, and the prescription was sent to the pharmacy you chose.</div>
+          </div>
+          <div class="care-phone__message care-phone__message--patient">
+            Got it. I&rsquo;ll start tonight and message if anything changes.
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="care-steps__grid">
-      <div class="care-step fade-in">
-        <p class="care-step__num">1</p>
-        <h3 class="care-step__title">Start with a short intake</h3>
-        <p class="care-step__text">Tell us about your concern and your skincare routine. We match you with a board-certified dermatologist who fits your skin.</p>
-      </div>
-      <div class="care-step fade-in">
-        <p class="care-step__num">2</p>
-        <h3 class="care-step__title">Connect with your provider</h3>
-        <p class="care-step__text">Connect asynchronously with your provider, and schedule a video call if necessary for complete care.</p>
-      </div>
-      <div class="care-step fade-in">
-        <p class="care-step__num">3</p>
-        <h3 class="care-step__title">Pick up your prescription</h3>
-        <p class="care-step__text">If medication is prescribed, your provider sends it to your local pharmacy for pickup or refill.</p>
-      </div>
-      <div class="care-step fade-in">
-        <p class="care-step__num">4</p>
-        <h3 class="care-step__title">Ongoing, personalized support</h3>
-        <p class="care-step__text">Count on consistent care through follow-ups and unlimited messaging with your provider.</p>
+    <div class="care-steps__content fade-in">
+      <div class="care-steps__rule" aria-hidden="true"></div>
+      <p class="care-steps__eyebrow">Provider-led skin care</p>
+      <h2 class="care-steps__heading">How Kyn Skyn works</h2>
+      <div class="care-steps__list">
+        <div class="care-step">
+          <p class="care-step__num">1</p>
+          <div>
+            <h3 class="care-step__title">Tell us what is going on</h3>
+            <p class="care-step__text">Choose your main concern, answer a short intake, and add clear skin photos.</p>
+          </div>
+        </div>
+        <div class="care-step">
+          <p class="care-step__num">2</p>
+          <div>
+            <h3 class="care-step__title">A provider reviews your case</h3>
+            <p class="care-step__text">A board-certified dermatologist reviews your intake and sends a diagnosis and treatment plan, usually within 48 hours.</p>
+          </div>
+        </div>
+        <div class="care-step">
+          <p class="care-step__num">3</p>
+          <div>
+            <h3 class="care-step__title">Pick up prescriptions locally</h3>
+            <p class="care-step__text">If medication is prescribed, it goes to the pharmacy you choose during booking.</p>
+          </div>
+        </div>
+        <div class="care-step">
+          <p class="care-step__num">4</p>
+          <div>
+            <h3 class="care-step__title">Stay connected as skin changes</h3>
+            <p class="care-step__text">Message your provider, track your plan, and use follow-ups when your skin needs an adjustment.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -615,7 +832,7 @@
   <div class="plans__container">
     <p class="plans__eyebrow fade-in">Pricing</p>
     <h2 class="plans__heading fade-in">Two ways to start.</h2>
-    <p class="plans__anchor fade-in" style="font-family: var(--font-sans); font-size: 0.9rem; line-height: 1.5; color: var(--cream); opacity: 0.72; max-width: 36rem; margin: 0 auto 1.5rem;">An in-person specialist visit averages $221 without insurance and can take weeks to book. A Kynsultation starts at $40, reviewed by a board-certified dermatologist, usually within 48 hours.</p>
+    <p class="plans__anchor fade-in" style="font-family: var(--font-sans); font-size: 0.9rem; line-height: 1.5; color: var(--cream); opacity: 0.72; max-width: 36rem; margin: 0 auto 1.5rem;">An in-person specialist visit often runs $150 to $300 and can take weeks to book. A Kynsultation starts at $40, reviewed by a board-certified dermatologist, usually within 48 hours.</p>
     <div class="plans__grid fade-in">
       <div class="plan-card">
         <p class="plan-card__price">$29.99<span>/mo</span></p>

@@ -157,90 +157,6 @@
     max-height: none !important;
   }
 
-  /* Checkout-mode trust block. The hide-list above removes the footer and
-     the full FAQ from the express checkout view, which leaves cold paid
-     traffic with no clinician identity, objection handling, or legal links
-     before being asked to pay. This block restores a compact version of all
-     three. Hidden by default so it can never double up with the full FAQ +
-     footer if this section is ever rendered outside checkout mode. Lives
-     inside #th-pricing, so the intake takeover hides it automatically. */
-  .th-checkout-trust { display: none; }
-  .kyn-checkout-mode .th-checkout-trust {
-    display: block;
-    max-width: 38rem;
-    margin: 2.4rem auto 0;
-    text-align: left;
-  }
-  .th-checkout-trust__card {
-    border: 1px solid rgba(255, 244, 206, 0.13);
-    background: rgba(255, 244, 206, 0.04);
-    border-radius: 10px;
-    padding: 1rem 1.1rem;
-  }
-  .th-checkout-trust__label {
-    display: block;
-    font-family: var(--font-accent);
-    font-size: 0.72rem;
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #F8B044;
-    margin: 0 0 0.5rem;
-  }
-  .th-checkout-trust__copy {
-    font-family: var(--font-sans);
-    font-size: 0.88rem;
-    line-height: 1.65;
-    color: rgba(255, 244, 206, 0.74);
-    margin: 0;
-  }
-  .th-checkout-trust__faq { margin-top: 1.5rem; }
-  .th-checkout-trust__faq .th-checkout-trust__label { margin: 0 0 0.25rem; }
-  .th-mini-faq { border-top: 1px solid rgba(255, 244, 206, 0.13); }
-  .th-mini-faq:last-of-type { border-bottom: 1px solid rgba(255, 244, 206, 0.13); }
-  .th-mini-faq summary {
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.8rem 0.15rem;
-    font-family: var(--font-sans);
-    font-size: 0.92rem;
-    color: var(--cream);
-  }
-  .th-mini-faq summary::-webkit-details-marker { display: none; }
-  .th-mini-faq summary::after {
-    content: '+';
-    color: #F8B044;
-    font-size: 1.15rem;
-    line-height: 1;
-    flex: 0 0 auto;
-    transition: transform 0.2s ease;
-  }
-  .th-mini-faq[open] summary::after { transform: rotate(45deg); }
-  .th-mini-faq p {
-    margin: 0 0 0.9rem;
-    padding: 0 0.15rem;
-    font-family: var(--font-sans);
-    font-size: 0.86rem;
-    line-height: 1.65;
-    color: rgba(255, 244, 206, 0.66);
-  }
-  .th-checkout-trust__legal {
-    margin: 1.6rem 0 0;
-    text-align: center;
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    color: rgba(255, 244, 206, 0.55);
-  }
-  .th-checkout-trust__legal a {
-    color: rgba(255, 244, 206, 0.6);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
   /* ========== TELEHEALTH HERO ========== */
   .th-hero {
     background: var(--dark);
@@ -828,7 +744,7 @@
     <p class="th-pricing__eyebrow">Online dermatology care</p>
     <h2 class="th-cta__heading">Join Kyn Care</h2>
     <p class="th-pricing__intro">Get clear and stay clear. Ongoing dermatology care for chronic skin conditions: a real diagnosis, prescriptions when appropriate, follow-ups, and doctor-guided maintenance.</p>
-    <p class="th-pricing__anchor" style="font-family: var(--font-sans); font-size: 0.9rem; line-height: 1.5; color: var(--cream); opacity: 0.72; max-width: 38rem; margin: 0.75rem auto 0;">An in-person specialist visit averages $221 without insurance and can take weeks to book. A Kynsultation starts at $40, reviewed by a board-certified dermatologist, usually within 48 hours.</p>
+    <p class="th-pricing__anchor" style="font-family: var(--font-sans); font-size: 0.9rem; line-height: 1.5; color: var(--cream); opacity: 0.72; max-width: 38rem; margin: 0.75rem auto 0;">An in-person specialist visit often runs $150 to $300 and can take weeks to book. A Kynsultation starts at $40, reviewed by a board-certified dermatologist, usually within 48 hours.</p>
     <div class="th-trust-strip" aria-label="Care details">
       <div class="th-trust-strip__item">
         <span class="th-trust-strip__label">Reviewed by a dermatologist</span>
@@ -889,56 +805,6 @@
     <p class="th-pricing__guarantee" style="font-family: var(--font-sans); font-size: 0.92rem; line-height: 1.5; font-weight: 600; color: var(--cream); max-width: 38rem; margin: 1.5rem auto 0.75rem; padding: 0.9rem 1.1rem; border: 1px solid rgba(248, 176, 68, 0.45); border-radius: 12px; background: rgba(248, 176, 68, 0.08);">Our promise: if a board-certified dermatologist reviews your visit and can&rsquo;t give you a diagnosis and a treatment plan, we&rsquo;ll refund it.</p>
     <p class="th-pricing__fineprint">Your Kyn Skyn payment covers the dermatology visit and care plan. Medication is separate and paid to the pharmacy only if your clinician writes a prescription.</p>
     <p class="th-cta__desc" style="font-size: 0.85rem;">Click your plan and your Kynsultation opens right below. Your photos and card details stay inside the secure care flow.</p>
-
-    {% comment %}
-      Trust additions for the express checkout view (shown via the
-      .kyn-checkout-mode rules in the style block above). Every claim below is
-      sourced from existing public copy: the about page ("not a chatbot, not a
-      general practitioner"), the care portal Terms/Privacy (HIPAA platform,
-      encryption, independent licensed clinicians), and the on-page FAQ.
-      Deliberately does NOT name the clinical network partner: MDI must not be
-      named in advertising surfaces (owner directive, June 2026) — the
-      partnership disclosure lives in the legal Terms/Privacy pages only. The FAQ
-      answers quote the canonical Supabase-synced FAQ markup further down this
-      file (the .th-faq section, hidden in checkout mode); scripts/sync-faqs.mjs
-      warns when they drift. Answers marked data-canonical="none" are assembled
-      from non-FAQ on-page copy (plan bullet + guarantee) and are exempt from
-      the drift check. Deliberately omits plan prices so Stripe pricing has no
-      second place to drift (the $15 video add-on is quoted verbatim from the
-      canonical FAQ and is covered by the drift check).
-    {% endcomment %}
-    <div class="th-checkout-trust">
-      <div class="th-checkout-trust__card">
-        <h3 class="th-checkout-trust__label">Who reviews your case</h3>
-        <p class="th-checkout-trust__copy">Independent board-certified dermatologists, licensed in your state &mdash; not a chatbot, not a general practitioner. Care is delivered on a HIPAA-compliant platform, and your information is encrypted in transit and at rest.</p>
-      </div>
-
-      <div class="th-checkout-trust__faq">
-        <h3 class="th-checkout-trust__label">Before you book</h3>
-        <details class="th-mini-faq">
-          <summary>How does the consultation work?</summary>
-          <p>Every consultation starts async. A board-certified dermatologist reviews your intake and photos and sends you a written diagnosis and treatment plan, usually within 48 hours, with follow-up questions in the same thread. If you&rsquo;d rather speak with your clinician live, you can request a video call from your dashboard for an extra $15. Most people stay async; the video option is there if you want it.</p>
-        </details>
-        <details class="th-mini-faq">
-          <summary>What does my payment cover?</summary>
-          <p>Your plan covers the dermatologist visit, your treatment plan, and sending any prescription to the pharmacy you choose. You pay for the medication itself at your pharmacy, and most antifungals we prescribe are inexpensive generics like ketoconazole. Payment happens at the end of intake in the secure care flow.</p>
-        </details>
-        <details class="th-mini-faq">
-          <summary>Is this covered by insurance?</summary>
-          <p>It depends on your plan. A lot of insurers do cover virtual dermatology visits, but some don&rsquo;t, so call yours before you book.</p>
-        </details>
-        <details class="th-mini-faq">
-          <summary>Can I cancel? What if I don&rsquo;t get a diagnosis?</summary>
-          <p data-canonical="none">Cancel your membership anytime; it stays active through the end of the billing period and won&rsquo;t renew. If a board-certified dermatologist reviews your visit and can&rsquo;t give you a diagnosis and a treatment plan, we&rsquo;ll refund it.</p>
-        </details>
-      </div>
-
-      <p class="th-checkout-trust__legal">
-        <a href="https://care.kynskyn.com/terms" target="_blank" rel="noopener">Terms of Service</a> &middot;
-        <a href="https://care.kynskyn.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> &middot;
-        <a href="{{ routes.root_url }}pages/contact-1" target="_blank" rel="noopener">Contact</a>
-      </p>
-    </div>
   </div>
 </section>
 
@@ -1603,8 +1469,8 @@
     </div>
 
     <div class="th-faq__item fade-in">
-      <button class="th-faq__q" type="button">Is this covered by insurance?</button>
-      <div class="th-faq__a"><p>It depends on your plan. A lot of insurers do cover virtual dermatology visits, but some don't, so call yours before you book.</p></div>
+      <button class="th-faq__q" type="button">Is this cash pay only?</button>
+      <div class="th-faq__a"><p>Yes. Kyn Skyn is cash pay only. We do not bill insurance, so you pay directly at checkout before your provider reviews your intake.</p></div>
     </div>
 
     <div class="th-faq__item fade-in">
