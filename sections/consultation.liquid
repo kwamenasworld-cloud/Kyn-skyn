@@ -1378,6 +1378,36 @@
       send();
     }
 
+    // Mid-funnel stages reported by the care flow (stage label only, never
+    // any clinical data). Mapped to standard Meta events so the ad platform
+    // finally sees signal between InitiateCheckout and Purchase:
+    // questionnaire_done -> Lead, payment_view -> AddPaymentInfo.
+    // Each fires at most once per page load.
+    var funnelStagesTracked = {};
+
+    function trackFunnelStage(stage) {
+      var eventName =
+        stage === 'questionnaire_done' ? 'Lead'
+        : stage === 'payment_view' ? 'AddPaymentInfo'
+        : null;
+      if (!eventName || funnelStagesTracked[eventName]) return;
+      funnelStagesTracked[eventName] = true;
+
+      var attempts = 0;
+      function send() {
+        attempts += 1;
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', eventName);
+          return;
+        }
+        if (attempts < 20) {
+          window.setTimeout(send, 250);
+        }
+      }
+
+      send();
+    }
+
     function buildCareUrl(plan) {
       var target = new URL(CARE_ORIGIN + '/book');
       var params = new URLSearchParams(window.location.search);
@@ -1457,6 +1487,9 @@
         if (frameWrap) frameWrap.hidden = true;
         if (success) success.hidden = false;
         trackPurchase(data.plan, data.value, data.event_id);
+      }
+      if (data.type === 'kyn_funnel_stage' && data.stage) {
+        trackFunnelStage(String(data.stage));
       }
     });
 
