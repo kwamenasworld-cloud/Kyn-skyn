@@ -1423,6 +1423,13 @@
         target.searchParams.set('kyn_session_id', window.KynAttribution.sessionId());
       }
 
+      // Concern pre-seeded by a condition page CTA: forwarded so the care
+      // intake can skip its "What brings you in?" screen. The care app
+      // validates the value; anything unknown falls back to the normal
+      // first screen.
+      var concern = params.get('concern');
+      if (concern) target.searchParams.set('concern', concern);
+
       var preview = params.get('booking_preview');
       if (preview) target.searchParams.set('booking_preview', preview);
       if (ctx.affiliatebase_referral) target.searchParams.set('affiliatebase_referral', ctx.affiliatebase_referral);

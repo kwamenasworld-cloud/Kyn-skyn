@@ -32,6 +32,8 @@
     {%- assign symptoms_csv = 'Uniform small bumps that look almost identical|Itchiness, especially after sweating|Breakouts on the forehead, hairline, jawline, chest, or upper back|Acne treatments (benzoyl peroxide, antibiotics) made it worse|Flares with heat, humidity, or after antibiotic courses' -%}
     {%- assign treatment_heading = 'How we treat fungal acne' -%}
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole) where needed. From there, the treatment plan covers the routine that keeps the yeast in check long-term, not just clearing the current flare.' -%}
+    {%- comment -%} Pre-seeds the care intake so screen one is skipped. {%- endcomment -%}
+    {%- assign concern_param = 'fungal_acne' -%}
     {%- assign recommended_plan = 'quarterly' -%}
     {%- assign recommended_plan_label = 'Kyn Care Membership, billed every 3 months' -%}
     {%- assign recommended_price = '$74.99/3 mo' -%}
@@ -57,6 +59,9 @@
     {%- assign symptoms_csv = 'Flaky or scaly patches on scalp, eyebrows, sides of nose, or chest|Redness that comes and goes, often with itch|Greasy or powdery scale, sometimes mistaken for dryness|Itchy scalp with persistent flakes that anti-dandruff shampoo barely touches|Worse with stress, weather changes, or certain hair products' -%}
     {%- assign treatment_heading = 'How we treat seb derm and dandruff' -%}
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole) for the affected zones. The treatment plan also includes the maintenance schedule, scalp and skin care choices, and what to do when triggers hit.' -%}
+    {%- comment -%} Dandruff-led ads drive this page; the in-intake "Change"
+        link covers face-seb-derm visitors in one tap. {%- endcomment -%}
+    {%- assign concern_param = 'scalp_dandruff' -%}
     {%- assign recommended_plan = 'quarterly' -%}
     {%- assign recommended_plan_label = 'Kyn Care Membership, billed every 3 months' -%}
     {%- assign recommended_price = '$74.99/3 mo' -%}
@@ -82,6 +87,7 @@
     {%- assign symptoms_csv = "Light or dark patches on chest, back, shoulders, or upper arms|Patches that don't tan with the rest of your skin|Fine, powdery scale when scratched|More visible in summer or after sun exposure|Returning year after year, especially in heat or humidity" -%}
     {%- assign treatment_heading = 'How we treat tinea versicolor' -%}
     {%- assign treatment_p1 = 'Your provider reviews your photos and intake, confirms the diagnosis, and prescribes a topical antifungal (e.g., ketoconazole). The cause clears with a course of treatment. Pigment evens out gradually as your skin recovers, and an ongoing routine keeps the patches from coming back when humidity hits.' -%}
+    {%- assign concern_param = 'tinea_versicolor' -%}
     {%- assign recommended_plan = 'monthly' -%}
     {%- assign recommended_plan_label = 'Kyn Care Membership' -%}
     {%- assign recommended_price = '$29.99/mo' -%}
@@ -904,7 +910,7 @@
       </button>
     </div>
     <div class="cc-hero__actions">
-      <a href="/pages/consultation?plan={{ recommended_plan }}&checkout=1" class="cc-hero__cta" id="ccHeroCta">
+      <a href="/pages/consultation?plan={{ recommended_plan }}{% if concern_param %}&concern={{ concern_param }}{% endif %}&checkout=1" class="cc-hero__cta" id="ccHeroCta">
         <span>Get your Kynsultation</span>
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -1179,12 +1185,19 @@
       return plans[0].getAttribute('data-plan');
     }
 
+    // Rides into the care intake so it can skip the "What brings you in?"
+    // screen (the funnel's biggest measured drop-off). null on pages
+    // without a mapped condition.
+    var concernParam = {{ concern_param | json }};
+
     function updateCta() {
       var plan = currentPlan();
-      cta.setAttribute(
-        'href',
-        '/pages/consultation?plan=' + encodeURIComponent(plan) + '&checkout=1'
-      );
+      var href = '/pages/consultation?plan=' + encodeURIComponent(plan);
+      if (concernParam) {
+        href += '&concern=' + encodeURIComponent(concernParam);
+      }
+      href += '&checkout=1';
+      cta.setAttribute('href', href);
     }
 
     plans.forEach(function(plan) {
@@ -1198,6 +1211,27 @@
         updateCta();
       });
     });
+
+    // Paid arrivals clicked an ad that says "$29.99/month" — default the
+    // selection to Monthly so "Charged today" at checkout matches the ad's
+    // promise. Organic arrivals keep the page's recommended default, per
+    // the 2026-06-10 quarterly-default decision. The visitor can still pick
+    // any card; this only changes which one starts selected.
+    if (typeof URLSearchParams !== 'undefined') {
+      var qs = new URLSearchParams(window.location.search);
+      var paidSources = ['facebook', 'instagram', 'fb', 'ig'];
+      var isPaidArrival =
+        qs.get('utm_medium') === 'paid' ||
+        qs.has('fbclid') ||
+        paidSources.indexOf((qs.get('utm_source') || '').toLowerCase()) !== -1;
+      if (isPaidArrival) {
+        plans.forEach(function(p) {
+          var isMonthly = p.getAttribute('data-plan') === 'monthly';
+          p.classList.toggle('cc-hero__plan-card--selected', isMonthly);
+          p.setAttribute('aria-checked', isMonthly ? 'true' : 'false');
+        });
+      }
+    }
 
     updateCta();
   })();
