@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "why-kyn": {
+      "type": "why-kyn"
+    }
+  },
+  "order": ["why-kyn"]
+}

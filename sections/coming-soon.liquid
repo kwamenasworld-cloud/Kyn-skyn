@@ -1,3 +1,35 @@
+<!-- ====== HERO POSITION FIX ====== -->
+<style>
+  /* The hero content block can be taller than the viewport on laptop and
+     windowed heights. With the default bottom alignment, a too-tall block
+     rides UP and the headline collides with the fixed header. Anchor the
+     content to the bottom but let any overflow spill DOWNWARD, and reserve
+     clearance for the fixed header so the headline never sits under the nav. */
+  @media (min-width: 769px) {
+    .homepage-section .hero {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding-top: 6.5rem;
+    }
+    .homepage-section .hero__content {
+      margin-top: auto;
+    }
+  }
+  /* Keep a baseline scrim across the whole hero so the cream headline stays
+     legible wherever it lands, not only over the dark lower third. The image
+     still reads through the translucent overlay. */
+  .homepage-section .hero__gradient {
+    background: linear-gradient(
+      to bottom,
+      rgba(42, 2, 8, 0.52) 0%,
+      rgba(42, 2, 8, 0.34) 38%,
+      rgba(42, 2, 8, 0.62) 72%,
+      rgba(42, 2, 8, 0.95) 100%
+    );
+  }
+</style>
+
 <!-- ====== HERO ====== -->
 <section class="hero">
   <div class="hero__bg">
