@@ -21,6 +21,8 @@
         <li><a href="/pages/shop">Shop</a></li>
         <li><a href="/pages/contact-1">Contact</a></li>
         <li><a href="/#notify">Newsletter</a></li>
+        {%- if shop.privacy_policy.url != blank -%}<li><a href="{{ shop.privacy_policy.url }}">Privacy</a></li>{%- endif -%}
+        {%- if shop.terms_of_service.url != blank -%}<li><a href="{{ shop.terms_of_service.url }}">Terms</a></li>{%- endif -%}
       </ul>
 
       <div class="footer__social">
