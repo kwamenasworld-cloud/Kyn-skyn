@@ -2,9 +2,7 @@
   "sections": {
     "shop": {
       "type": "shop",
-      "settings": {
-        "product": "steady-serum"
-      }
+      "settings": {}
     }
   },
   "order": ["shop"]

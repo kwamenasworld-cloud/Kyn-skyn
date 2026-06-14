@@ -1,462 +1,577 @@
 <style>
-  /* Scoped to .shop-page so it doesn't leak into other templates */
+  /* ============================================================
+     Kyn Select: clinical product-listing page (PLP)
+     Light/clinical marketplace layout in Kyn's palette.
+     Scoped to .shop-page so nothing leaks into other templates.
+     ============================================================ */
   .shop-page {
     --amber: #F8B044;
     --amber-light: #fbc676;
     --terracotta: #C54427;
+    --plp-bg: #fbf8ef;
+    --plp-card: #ffffff;
+    --plp-line: rgba(100, 18, 32, 0.12);
+    --plp-line-strong: rgba(100, 18, 32, 0.22);
+    --plp-muted: rgba(42, 2, 8, 0.55);
+    --plp-save-bg: #e7f3ea;
+    --plp-save-fg: #2f7d4f;
   }
 
-  .shop-hero {
-    position: relative;
+  /* Maroon page-header band: clears the fixed transparent header and keeps the
+     cream nav legible, then the light clinical grid sits below it. */
+  .shop-plp-hero {
     background: var(--maroon);
     color: var(--cream);
-    padding: 4.5rem 1.5rem;
-    overflow: hidden;
+    padding: 5.5rem 1.5rem 2.25rem;
   }
-  .shop-hero__watermark {
-    position: absolute;
-    inset: 0;
-    background-image: url('{{ 'plus-grid.svg' | asset_url }}');
-    background-repeat: no-repeat;
-    background-position: right -180px top -100px;
-    background-size: 620px 620px;
-    opacity: 0.06;
-    pointer-events: none;
-  }
-  .shop-hero__inner {
-    position: relative;
-    max-width: 1080px;
+  .shop-plp-hero__inner {
+    max-width: 1240px;
     margin: 0 auto;
   }
-  .shop-hero__head {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  .shop-hero__eyebrow {
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: var(--amber);
-    margin: 0 0 0.6rem 0;
-  }
-  .shop-hero__title {
-    font-family: var(--font-accent);
-    font-size: 3rem;
-    line-height: 1.05;
-    color: var(--cream);
-    margin: 0 0 0.75rem 0;
-  }
-  .shop-hero__subtitle {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    color: var(--cream);
-    opacity: 0.85;
-    max-width: 520px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  .shop-hero__featured {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  /* Amber-on-maroon package mockup - echoes the actual Steady Serum box */
-  .shop-mockup {
-    aspect-ratio: 1;
-    position: relative;
-    background: var(--maroon);
-    border: 1px solid rgba(255, 244, 206, 0.15);
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    overflow: hidden;
-  }
-  .shop-mockup__brand {
-    position: absolute;
-    top: 1.8rem;
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: var(--amber);
-    opacity: 0.75;
-  }
-  .shop-mockup__name {
-    text-align: center;
-    line-height: 0.95;
-  }
-  .shop-mockup__name-top {
-    font-family: var(--font-accent);
-    font-size: 4rem;
-    color: var(--amber);
-    margin: 0;
-  }
-  .shop-mockup__divider {
-    height: 1px;
-    width: 4rem;
-    background: var(--amber);
-    opacity: 0.4;
-    margin: 0.8rem auto;
-  }
-  .shop-mockup__name-bottom {
-    font-family: var(--font-accent);
-    font-size: 2.6rem;
-    color: var(--amber);
-    opacity: 0.92;
-    margin: 0;
-  }
-  .shop-mockup__size {
-    position: absolute;
-    bottom: 1.8rem;
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: var(--cream);
-    opacity: 0.5;
-  }
-
-  .shop-featured__cta-wrap {
-    position: relative;
-    display: inline-block;
-  }
-
-  .shop-featured__sticker {
-    position: absolute;
-    top: -14px;
-    left: -14px;
-    transform: rotate(-8deg);
-    transform-origin: center;
-    z-index: 3;
-    display: inline-block;
-    background: var(--dark);
-    color: var(--cream);
-    border: 1.5px solid rgba(255, 244, 206, 0.45);
-    border-radius: 2rem;
-    font-family: var(--font-accent);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 0.5rem 1.1rem;
-    box-shadow: 0 8px 22px -8px rgba(42, 2, 8, 0.7);
-    pointer-events: none;
-    white-space: nowrap;
-    animation: shopStickerPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both,
-               shopStickerWiggle 6s ease-in-out 2s infinite;
-  }
-
-  @keyframes shopStickerPop {
-    from { opacity: 0; transform: rotate(-22deg) scale(0.7); }
-    to   { opacity: 1; transform: rotate(-8deg) scale(1); }
-  }
-
-  @keyframes shopStickerWiggle {
-    0%, 100% { transform: rotate(-8deg) translateY(0); }
-    50%      { transform: rotate(-6deg) translateY(-2px); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .shop-featured__sticker { animation: none; transform: rotate(-8deg); }
-  }
-
-  /* Product image - replaces the mockup when a featured product is set */
-  .shop-featured__image {
-    aspect-ratio: 1;
-    background: var(--maroon);
-    border: 1px solid rgba(255, 244, 206, 0.15);
-    border-radius: 20px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .shop-featured__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .shop-featured__info { }
-  .shop-featured__label {
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: var(--amber);
-    margin: 0 0 0.5rem 0;
-  }
-  .shop-featured__name {
-    font-family: var(--font-accent);
-    font-size: 2.6rem;
-    color: var(--cream);
-    line-height: 1.05;
-    margin: 0 0 0.8rem 0;
-  }
-  .shop-featured__price {
-    font-family: var(--font-accent);
-    font-size: 1.75rem;
-    color: var(--amber);
-    margin: 0 0 1.25rem 0;
-  }
-  .shop-featured__desc {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    color: var(--cream);
-    opacity: 0.92;
-    line-height: 1.7;
-    margin: 0 0 1.5rem 0;
-  }
-  .shop-featured__desc p { margin: 0 0 0.85rem 0; }
-  .shop-featured__desc p:last-child { margin-bottom: 0; }
-  .shop-featured__btn {
-    display: inline-block;
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    font-weight: 500;
-    background: var(--amber);
+  .shop-plp {
+    background: var(--plp-bg);
     color: var(--maroon);
-    border: none;
-    padding: 0.9rem 2.5rem;
-    border-radius: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s;
+    padding: 2rem 1.5rem 3.5rem;
   }
-  .shop-featured__btn:hover { background: var(--amber-light); }
-  .shop-featured__btn:disabled { opacity: 0.6; cursor: not-allowed; }
-  .shop-featured__note {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    color: var(--cream);
-    opacity: 0.7;
-    margin: 0.85rem 0 0 0;
+  .shop-plp__inner {
+    max-width: 1240px;
+    margin: 0 auto;
   }
 
-  /* Alternate CTA - shown when the featured product is not configured */
-  .shop-featured__cta-wrap--restock {
-    display: block;
-    max-width: 400px;
-  }
-  .shop-restock-form {
-    display: flex;
-    gap: 0.5rem;
-    margin: 0.5rem 0 0 0;
-    flex-wrap: wrap;
-  }
-  .shop-restock-form__input {
-    flex: 1;
-    min-width: 200px;
-    padding: 0.9rem 1rem;
+  /* Header */
+  .shop-plp__eyebrow {
     font-family: var(--font-sans);
-    font-size: 0.9rem;
-    border: 1px solid rgba(255, 244, 206, 0.25);
-    border-radius: 10px;
-    background: rgba(255, 244, 206, 0.05);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--amber);
+    margin: 0 0 0.5rem;
+  }
+  .shop-plp__title {
+    font-family: var(--font-accent);
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    line-height: 1.05;
     color: var(--cream);
+    margin: 0 0 0.5rem;
+  }
+  .shop-plp__subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: rgba(255, 244, 206, 0.82);
+    max-width: 46rem;
+    margin: 0;
+  }
+
+  /* Two-column layout */
+  .shop-plp__layout {
+    display: grid;
+    grid-template-columns: 248px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  /* ---- Filter sidebar ---- */
+  .plp-filters {
+    background: var(--plp-card);
+    border: 1px solid var(--plp-line);
+    border-radius: 16px;
+    padding: 1.25rem 1.25rem 0.75rem;
+    position: sticky;
+    top: 5.5rem;
+  }
+  .plp-filters__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--plp-line);
+  }
+  .plp-filters__title {
+    font-family: var(--font-accent);
+    font-size: 1.35rem;
+    color: var(--maroon);
+    margin: 0;
+  }
+  .plp-filters__clear {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .plp-filters__clear[hidden] { display: none; }
+  .plp-filters__close {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--maroon);
+    cursor: pointer;
+  }
+
+  .plp-acc {
+    border-bottom: 1px solid var(--plp-line);
+  }
+  .plp-acc > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.95rem 0;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--maroon);
+    user-select: none;
+  }
+  .plp-acc > summary::-webkit-details-marker { display: none; }
+  .plp-acc > summary::after {
+    content: "";
+    width: 0.55rem;
+    height: 0.55rem;
+    border-right: 2px solid var(--plp-line-strong);
+    border-bottom: 2px solid var(--plp-line-strong);
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+    margin-right: 2px;
+  }
+  .plp-acc[open] > summary::after { transform: rotate(-135deg); }
+  .plp-acc__body {
+    padding: 0 0 1.1rem;
+  }
+
+  /* Facet checkboxes (JS-populated) */
+  .plp-facet {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.32rem 0;
+    font-family: var(--font-sans);
+    font-size: 0.86rem;
+    color: var(--maroon);
+    cursor: pointer;
+  }
+  .plp-facet input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.05rem;
+    height: 1.05rem;
+    border: 1.5px solid var(--plp-line-strong);
+    border-radius: 4px;
+    flex: 0 0 auto;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .plp-facet input:checked {
+    background: var(--maroon);
+    border-color: var(--maroon);
+  }
+  .plp-facet input:checked::after {
+    content: "";
+    position: absolute;
+    left: 5px; top: 1px;
+    width: 4px; height: 8px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .plp-facet__label { flex: 1; }
+  .plp-facet__count { color: var(--plp-muted); font-size: 0.78rem; }
+  .plp-facet__empty { font-family: var(--font-sans); font-size: 0.82rem; color: var(--plp-muted); margin: 0.2rem 0; }
+
+  /* Price range */
+  .plp-price__inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.1rem;
+  }
+  .plp-price__num {
+    width: 100%;
+    min-width: 0;
+    padding: 0.5rem 0.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--maroon);
+    background: #fff;
+    border: 1px solid var(--plp-line-strong);
+    border-radius: 8px;
     outline: none;
   }
-  .shop-restock-form__input::placeholder { color: rgba(255, 244, 206, 0.4); }
-  .shop-restock-form__input:focus { border-color: var(--amber); }
-  .shop-restock-form__btn {
-    padding: 0.9rem 1.5rem;
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    font-weight: 500;
-    background: var(--amber);
-    color: var(--maroon);
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.2s;
-    white-space: nowrap;
+  .plp-price__num:focus { border-color: var(--amber); }
+  .plp-price__sep { color: var(--plp-muted); font-size: 0.8rem; }
+  .plp-price__slider {
+    position: relative;
+    height: 1.5rem;
   }
-  .shop-restock-form__btn:hover { background: var(--amber-light); }
-  .shop-restock-form__btn:disabled { opacity: 0.85; cursor: default; }
-  .shop-restock-form__note {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    color: var(--cream);
-    opacity: 0.6;
-    line-height: 1.5;
-    margin: 0.65rem 0 0 0;
+  .plp-price__track,
+  .plp-price__fill {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    border-radius: 4px;
   }
-  .shop-restock-form__note--success { color: #b6e4c2; opacity: 0.95; }
-  .shop-restock-form__note--error { color: #e8725a; opacity: 0.95; }
-
-  @media (max-width: 640px) {
-    .shop-restock-form { flex-direction: column; }
-    .shop-restock-form__input { width: 100%; }
-    .shop-restock-form__btn { width: 100%; }
-  }
-
-  /* Two-product Kyn Select grid (replaces the single featured product) */
-  .shop-products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 300px));
-    justify-content: center;
-    gap: 1.5rem;
-    max-width: 760px;
-    margin: 0 auto;
-  }
-  .shop-product-card {
-    display: flex;
-    flex-direction: column;
-    background: rgba(255, 244, 206, 0.04);
-    border: 1px solid rgba(255, 244, 206, 0.15);
-    border-radius: 18px;
-    overflow: hidden;
-  }
-  .shop-product-card__image {
-    display: block;
-    aspect-ratio: 1;
-    background: rgba(255, 244, 206, 0.03);
-    overflow: hidden;
-  }
-  .shop-product-card__image img {
+  .plp-price__track { left: 0; right: 0; background: var(--plp-line-strong); }
+  .plp-price__fill { background: var(--maroon); }
+  .plp-price__r {
+    position: absolute;
+    top: 0; left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .shop-product-card__body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    flex: 1;
-    padding: 1.1rem 1.2rem 1.3rem;
-  }
-  .shop-product-card__name {
-    font-family: var(--font-accent);
-    font-size: 1.2rem;
-    line-height: 1.15;
-    color: var(--cream);
+    height: 1.5rem;
     margin: 0;
+    background: none;
+    pointer-events: none;
+    appearance: none;
+    -webkit-appearance: none;
   }
-  .shop-product-card__name a { color: inherit; text-decoration: none; }
-  .shop-product-card__name a:hover { text-decoration: underline; }
-  .shop-product-card__price {
-    font-family: var(--font-accent);
-    font-size: 1.1rem;
-    color: var(--amber);
-    margin: 0;
-  }
-  .shop-product-card__desc {
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    line-height: 1.5;
-    color: var(--cream);
-    opacity: 0.7;
-    margin: 0.15rem 0 0.7rem;
-  }
-  .shop-product-card__btn {
-    margin-top: auto;
-    display: block;
-    text-align: center;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 500;
-    background: var(--amber);
-    color: var(--maroon);
-    border: none;
-    padding: 0.75rem 1rem;
-    border-radius: 10px;
+  .plp-price__r::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    pointer-events: auto;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--maroon);
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(42, 2, 8, 0.35);
     cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s;
   }
-  .shop-product-card__btn:hover { background: var(--amber-light); }
-  .shop-product-card__btn--disabled { opacity: 0.55; cursor: not-allowed; }
-  @media (max-width: 640px) {
-    .shop-products { grid-template-columns: 1fr; max-width: 360px; }
+  .plp-price__r::-moz-range-thumb {
+    pointer-events: auto;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--maroon);
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(42, 2, 8, 0.35);
+    cursor: pointer;
+  }
+  .plp-price__labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--plp-muted);
+    margin-top: 0.35rem;
   }
 
-  /* Condition picker + matched product panels */
-  .shop-picker {
+  /* ---- Main column ---- */
+  .plp-main { min-width: 0; }
+
+  .plp-toolbar {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.6rem;
-    max-width: 760px;
-    margin: 0 auto 2.25rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+    margin-bottom: 1rem;
   }
-  .shop-picker__opt {
+  .plp-count {
     font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--cream);
-    background: rgba(255, 244, 206, 0.06);
-    border: 1px solid rgba(255, 244, 206, 0.25);
-    padding: 0.65rem 1.3rem;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    font-size: 0.88rem;
+    color: var(--plp-muted);
+    margin: 0;
   }
-  .shop-picker__opt:hover { border-color: var(--amber); }
-  .shop-picker__opt.is-active {
-    background: var(--amber);
-    border-color: var(--amber);
-    color: var(--maroon);
-  }
-  .shop-panel[hidden] { display: none; }
-  .shop-panel__empty {
-    max-width: 480px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .shop-panel__empty p {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    color: var(--cream);
-    opacity: 0.85;
-    line-height: 1.6;
-    margin: 0 0 1.1rem;
-  }
-  .shop-panel__empty-cta {
-    display: inline-block;
+  .plp-count b { color: var(--maroon); font-weight: 600; }
+
+  .plp-mobile-filter {
+    display: none;
+    align-items: center;
+    gap: 0.45rem;
     font-family: var(--font-sans);
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--maroon);
-    background: var(--amber);
-    padding: 0.6rem 1.4rem;
+    background: #fff;
+    border: 1px solid var(--plp-line-strong);
     border-radius: 999px;
-    text-decoration: none;
-    transition: background 0.2s;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
   }
-  .shop-panel__empty-cta:hover { background: var(--amber-light); }
 
-  /* On-page cart bar — appears once something is in the cart so both
-     products can be added before heading to checkout (the primary cart
-     entry point on mobile, where the header nav collapses). */
+  .plp-sort {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.6rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--plp-line);
+  }
+  .plp-sort__label {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--maroon);
+    margin-right: 0.2rem;
+  }
+  .plp-sort__btn {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--plp-muted);
+    background: none;
+    border: none;
+    padding: 0.25rem 0.1rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .plp-sort__btn:hover { color: var(--maroon); }
+  .plp-sort__btn.is-active {
+    color: var(--maroon);
+    font-weight: 600;
+    border-bottom-color: var(--maroon);
+  }
+
+  .plp-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.4rem;
+  }
+  .plp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--maroon);
+    background: #fff;
+    border: 1px solid var(--plp-line-strong);
+    border-radius: 999px;
+    padding: 0.45rem 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .plp-chip svg { width: 0.85rem; height: 0.85rem; }
+  .plp-chip:hover { border-color: var(--maroon); }
+  .plp-chip.is-active {
+    background: var(--maroon);
+    border-color: var(--maroon);
+    color: #fff;
+  }
+
+  /* Product grid */
+  .plp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.1rem;
+  }
+  .plp-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--plp-card);
+    border: 1px solid var(--plp-line);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
+  }
+  .plp-card:hover {
+    box-shadow: 0 10px 28px -16px rgba(42, 2, 8, 0.35);
+    transform: translateY(-2px);
+  }
+  .plp-card__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 1;
+    background: #fff;
+    overflow: hidden;
+  }
+  .plp-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 0.6rem;
+    display: block;
+  }
+  .plp-card__save {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.05;
+    text-align: center;
+    color: var(--plp-save-fg);
+    background: var(--plp-save-bg);
+    border-radius: 8px;
+    padding: 0.3rem 0.45rem;
+  }
+  .plp-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+    padding: 0.85rem 0.95rem 1rem;
+    border-top: 1px solid var(--plp-line);
+  }
+  .plp-card__brand {
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--plp-muted);
+    margin: 0;
+  }
+  .plp-card__name {
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--maroon);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.4em;
+  }
+  .plp-card__name a { color: inherit; text-decoration: none; }
+  .plp-card__name a:hover { text-decoration: underline; }
+  .plp-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+  }
+  .plp-card__type {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    color: var(--plp-muted);
+    text-transform: capitalize;
+  }
+  .plp-card__vetted {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    white-space: nowrap;
+  }
+  .plp-card__vetted svg { width: 0.8rem; height: 0.8rem; }
+  .plp-card__foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.3rem;
+  }
+  .plp-card__prices { display: flex; flex-direction: column; line-height: 1.1; }
+  .plp-card__price {
+    font-family: var(--font-accent);
+    font-size: 1.15rem;
+    color: var(--maroon);
+  }
+  .plp-card__was {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--plp-muted);
+    text-decoration: line-through;
+  }
+  .plp-card__add {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--maroon);
+    background: var(--amber);
+    border: none;
+    border-radius: 999px;
+    padding: 0.5rem 1.15rem;
+    cursor: pointer;
+    transition: background 0.18s ease;
+  }
+  .plp-card__add:hover { background: var(--amber-light); }
+  .plp-card__add:disabled { opacity: 0.6; cursor: default; }
+  .plp-card__sold {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--plp-muted);
+    padding: 0.5rem 0.4rem;
+  }
+  .plp-card[hidden] { display: none; }
+
+  /* Empty results */
+  .plp-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+    font-family: var(--font-sans);
+    color: var(--plp-muted);
+  }
+  .plp-empty[hidden] { display: none; }
+  .plp-empty__reset {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+  }
+
+  /* Pagination (appears only when results exceed one page) */
+  .plp-pager {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 2rem;
+  }
+  .plp-pager[hidden] { display: none; }
+  .plp-pager__btn {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    min-width: 2.1rem;
+    height: 2.1rem;
+    padding: 0 0.6rem;
+    color: var(--maroon);
+    background: #fff;
+    border: 1px solid var(--plp-line-strong);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .plp-pager__btn.is-active {
+    background: var(--maroon);
+    border-color: var(--maroon);
+    color: #fff;
+  }
+  .plp-pager__btn:disabled { opacity: 0.4; cursor: default; }
+
+  /* On-page cart bar: both products can be added before checkout
+     (primary cart entry point on mobile where header nav collapses). */
   .shop-cartbar {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.85rem 1.25rem;
     flex-wrap: wrap;
-    max-width: 760px;
+    max-width: 1240px;
     margin: 1.75rem auto 0;
     padding: 0.9rem 1.25rem;
-    background: rgba(255, 244, 206, 0.06);
-    border: 1px solid rgba(255, 244, 206, 0.18);
+    background: #fff;
+    border: 1px solid var(--plp-line-strong);
     border-radius: 14px;
   }
   .shop-cartbar[hidden] { display: none; }
   .shop-cartbar__count {
     font-family: var(--font-sans);
     font-size: 0.85rem;
-    color: var(--cream);
-    opacity: 0.85;
+    color: var(--maroon);
   }
   .shop-cartbar__link {
     font-family: var(--font-sans);
@@ -471,19 +586,14 @@
   }
   .shop-cartbar__link:hover { background: var(--amber-light); }
 
-  /* Cross-sell band — catches visitors who clicked Shop but need a
-     clinician, not a product. Sits between the maroon hero and the
-     cream values strip. */
+  /* Cross-sell band: catches visitors who clicked Shop but need a
+     clinician, not a product. Sits below the PLP. */
   .shop-treatment {
     background: var(--cream);
     color: var(--maroon);
     padding: 3.5rem 1.5rem 1.25rem;
   }
-  .shop-treatment__inner {
-    max-width: 640px;
-    margin: 0 auto;
-    text-align: center;
-  }
+  .shop-treatment__inner { max-width: 640px; margin: 0 auto; text-align: center; }
   .shop-treatment__eyebrow {
     font-family: var(--font-sans);
     font-size: 0.72rem;
@@ -526,109 +636,245 @@
     border-radius: 999px;
     transition: background 0.2s ease, transform 0.2s ease;
   }
-  .shop-treatment__cta:hover {
-    background: var(--terracotta);
-    transform: translateY(-2px);
-  }
-  .shop-treatment__cta svg {
-    width: 1rem;
-    height: 1rem;
-    transition: transform 0.25s ease;
-  }
+  .shop-treatment__cta:hover { background: var(--terracotta); transform: translateY(-2px); }
+  .shop-treatment__cta svg { width: 1rem; height: 1rem; transition: transform 0.25s ease; }
   .shop-treatment__cta:hover svg { transform: translateX(3px); }
 
-  @media (max-width: 640px) {
-    .shop-hero { padding: 3rem 1.25rem; }
-    .shop-hero__title { font-size: 2rem; }
-    .shop-hero__featured { grid-template-columns: 1fr; gap: 2rem; }
-    .shop-mockup__name-top { font-size: 3rem; }
-    .shop-mockup__name-bottom { font-size: 2rem; }
-    .shop-featured__name { font-size: 2rem; }
-    .shop-featured__cta-wrap { display: block; }
-    .shop-featured__btn { width: 100%; text-align: center; }
+  /* Mobile filter drawer backdrop */
+  .plp-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 2, 8, 0.45);
+    z-index: 40;
+  }
+
+  @media (max-width: 900px) {
+    .shop-plp__layout { grid-template-columns: 1fr; gap: 1rem; }
+    .plp-mobile-filter { display: inline-flex; }
+    .plp-filters {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: min(330px, 86vw);
+      border-radius: 0;
+      z-index: 50;
+      overflow-y: auto;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+    }
+    .plp-filters.is-open { transform: translateX(0); }
+    .plp-filters__close { display: block; }
+    .plp-backdrop.is-open { display: block; }
+  }
+
+  @media (max-width: 560px) {
+    .plp-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+    .plp-card__body { padding: 0.7rem 0.7rem 0.85rem; }
+    .plp-card__name { font-size: 0.85rem; }
+    .plp-card__add { padding: 0.45rem 0.85rem; }
   }
 </style>
 
-<section class="shop-hero">
-  <div class="shop-hero__watermark" aria-hidden="true"></div>
-  <div class="shop-hero__inner">
-    <div class="shop-hero__head fade-in">
-      <p class="shop-hero__eyebrow">Kyn Select</p>
-      <h1 class="shop-hero__title">Products we like that work with your treatment.</h1>
-      <p class="shop-hero__subtitle">Pick what you're treating and see the over-the-counter products we pair with it.</p>
-    </div>
+{%- comment -%}
+  Kyn Select PLP. Products come from the assigned collection if one is set in the
+  theme editor, otherwise from the curated OTC handle list below (the live Kyn
+  Select shelf). Care-plan / consult products are deliberately NOT listed here.
 
-    {%- comment -%} Condition-matched Kyn Select shelf. Each condition maps to a
-       list of Shopify product handles via the parallel arrays below (edit in one
-       place; outer separator ";" splits conditions, inner "," splits handles).
-       Missing/unpublished handles are skipped. JS swaps the visible panel when a
-       pill is tapped and honours ?condition=<key> for deep links from the nav or
-       condition pages. {%- endcomment -%}
-    {%- assign cond_keys = "fungal-acne,seb-derm-dandruff,tinea-versicolor" | split: "," -%}
-    {%- assign cond_labels = "Fungal acne,Seb derm & dandruff,Tinea versicolor" | split: "," -%}
-    {%- assign cond_links = "/pages/fungal-acne,/pages/seb-derm-dandruff,/pages/tinea-versicolor" | split: "," -%}
-    {%- assign cond_handlesets = "coconut-oil-fractionated-mct;neutrogena-t-sal-scalp-build-up-control-therapeutic-shampoo-4-5-fl-oz,coconut-oil-fractionated-mct;neutrogena-t-sal-scalp-build-up-control-therapeutic-shampoo-4-5-fl-oz,coconut-oil-fractionated-mct" | split: ";" -%}
+  Brand and Type facets derive from live product vendor/product_type. The Concern
+  facet derives from a curated handle->concern seed map PLUS any product tag that
+  matches the concern vocabulary, so new products become filterable by tagging them
+  with a concern slug (e.g. `fungal-acne`). `% off` renders only when a real Shopify
+  compare-at price is set, never fabricated discounts or ratings.
+{%- endcomment -%}
 
-    <div class="shop-picker fade-in" role="tablist" aria-label="Choose what you're treating">
-      {%- for key in cond_keys -%}
-        <button type="button" class="shop-picker__opt{% if forloop.first %} is-active{% endif %}" data-cond="{{ key }}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ cond_labels[forloop.index0] }}</button>
-      {%- endfor -%}
-    </div>
+{%- assign concern_vocab = "fungal-acne,seb-derm-dandruff,tinea-versicolor,dandruff,oily-scalp" | split: "," -%}
 
-    <div class="shop-panels fade-in">
-      {%- for key in cond_keys -%}
-        {%- assign ci = forloop.index0 -%}
-        {%- assign is_first = forloop.first -%}
-        {%- assign chandles = cond_handlesets[ci] | split: "," -%}
-        {%- assign valid = 0 -%}
-        {%- for handle in chandles -%}{%- if all_products[handle] != blank -%}{%- assign valid = valid | plus: 1 -%}{%- endif -%}{%- endfor -%}
-        <div class="shop-panel" data-cond="{{ key }}" role="tabpanel" aria-label="{{ cond_labels[ci] }} products"{% unless is_first %} hidden{% endunless %}>
-          {%- if valid > 0 -%}
-            <div class="shop-products">
-              {%- for handle in chandles -%}
-                {%- assign product = all_products[handle] -%}
-                {%- if product != blank -%}
-                  {%- assign variant = product.selected_or_first_available_variant -%}
-                  <div class="shop-product-card">
-                    {%- if product.featured_image != blank -%}
-                      <a href="{{ product.url }}" class="shop-product-card__image">
-                        <img
-                          src="{{ product.featured_image | image_url: width: 600 }}"
-                          alt="{{ product.featured_image.alt | default: product.title | escape }}"
-                          width="600" height="600" loading="lazy">
-                      </a>
-                    {%- endif -%}
-                    <div class="shop-product-card__body">
-                      <h2 class="shop-product-card__name"><a href="{{ product.url }}">{{ product.title | escape }}</a></h2>
-                      <p class="shop-product-card__price">{{ variant.price | money_without_trailing_zeros }}</p>
-                      {%- if product.description != blank -%}
-                        <p class="shop-product-card__desc">{{ product.description | strip_html | truncatewords: 20 }}</p>
-                      {%- endif -%}
-                      {%- if variant != blank and variant.available -%}
-                        {%- comment -%} JS adds via /cart/add.js and stays on the page so
-                           multiple products can go in one cart. No-JS falls back to a
-                           normal POST, which lands on the /cart page. {%- endcomment -%}
-                        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-add-form>
-                          <input type="hidden" name="id" value="{{ variant.id }}">
-                          <input type="hidden" name="quantity" value="1">
-                          <button type="submit" class="shop-product-card__btn" data-add-btn data-label="Add to cart">Add to cart</button>
-                        </form>
-                      {%- else -%}
-                        <span class="shop-product-card__btn shop-product-card__btn--disabled">Sold out</span>
-                      {%- endif -%}
-                    </div>
-                  </div>
-                {%- endif -%}
-              {%- endfor -%}
-            </div>
-          {%- else -%}
-            <div class="shop-panel__empty">
-              <p>No over-the-counter picks here yet. For {{ cond_labels[ci] | downcase }}, the fastest path is Kyn Care: diagnosis, prescription access when appropriate, and doctor-guided maintenance.</p>
-              <a href="{{ cond_links[ci] }}" class="shop-panel__empty-cta">Get {{ cond_labels[ci] | downcase }} care &rarr;</a>
-            </div>
-          {%- endif -%}
+{%- comment -%} Curated launch concerns (handle order matches seed_concerns; "|" splits concerns). {%- endcomment -%}
+{%- assign seed_handles = "neutrogena-t-sal-scalp-build-up-control-therapeutic-shampoo-4-5-fl-oz,coconut-oil-fractionated-mct,the-ordinary-niacinamide-10-zinc-1-30ml" | split: "," -%}
+{%- assign seed_concerns = "seb-derm-dandruff|dandruff|oily-scalp,fungal-acne|oily-scalp,fungal-acne" | split: "," -%}
+
+{%- comment -%} Resolve the product handle list: assigned collection wins, else curated default. {%- endcomment -%}
+{%- assign shop_handles_str = "" -%}
+{%- if section.settings.collection != blank -%}
+  {%- for p in section.settings.collection.products -%}
+    {%- assign shop_handles_str = shop_handles_str | append: p.handle | append: "," -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- assign shop_handles_str = section.settings.default_handles -%}
+{%- endif -%}
+{%- assign shop_handles = shop_handles_str | split: "," -%}
+
+<section class="shop-plp-hero">
+  <div class="shop-plp-hero__inner fade-in">
+    <p class="shop-plp__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    <h1 class="shop-plp__title">{{ section.settings.heading | escape }}</h1>
+    {%- if section.settings.subheading != blank -%}
+      <p class="shop-plp__subtitle">{{ section.settings.subheading | escape }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<section class="shop-plp">
+  <div class="shop-plp__inner">
+    <div class="shop-plp__layout">
+      <div class="plp-backdrop" data-plp-backdrop hidden></div>
+
+      <aside class="plp-filters" id="plpFilters" aria-label="Product filters">
+        <div class="plp-filters__head">
+          <h2 class="plp-filters__title">Filters</h2>
+          <button type="button" class="plp-filters__clear" data-plp-clear hidden>Clear all</button>
+          <button type="button" class="plp-filters__close" data-plp-close aria-label="Close filters">&times;</button>
         </div>
-      {%- endfor -%}
+
+        <details class="plp-acc" open>
+          <summary>Price</summary>
+          <div class="plp-acc__body">
+            <div class="plp-price">
+              <div class="plp-price__inputs">
+                <input type="number" inputmode="numeric" class="plp-price__num" data-price-min-num aria-label="Minimum price">
+                <span class="plp-price__sep">to</span>
+                <input type="number" inputmode="numeric" class="plp-price__num" data-price-max-num aria-label="Maximum price">
+              </div>
+              <div class="plp-price__slider">
+                <div class="plp-price__track"></div>
+                <div class="plp-price__fill" data-price-fill></div>
+                <input type="range" class="plp-price__r" data-price-min aria-label="Minimum price slider">
+                <input type="range" class="plp-price__r" data-price-max aria-label="Maximum price slider">
+              </div>
+              <div class="plp-price__labels"><span data-price-lo></span><span data-price-hi></span></div>
+            </div>
+          </div>
+        </details>
+
+        <details class="plp-acc" open>
+          <summary>Concern</summary>
+          <div class="plp-acc__body" data-facet="concern"></div>
+        </details>
+
+        <details class="plp-acc">
+          <summary>Brand</summary>
+          <div class="plp-acc__body" data-facet="brand"></div>
+        </details>
+
+        <details class="plp-acc">
+          <summary>Type</summary>
+          <div class="plp-acc__body" data-facet="type"></div>
+        </details>
+      </aside>
+
+      <div class="plp-main">
+        <div class="plp-toolbar">
+          <p class="plp-count"><b data-plp-count>0</b> <span data-plp-total>of 0</span> products</p>
+          <button type="button" class="plp-mobile-filter" data-plp-open>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5h14M6 10h8M8 15h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Filters
+          </button>
+        </div>
+
+        <div class="plp-sort" role="tablist" aria-label="Sort products">
+          <span class="plp-sort__label">Sort by:</span>
+          <button type="button" class="plp-sort__btn is-active" data-sort="featured">Featured</button>
+          <button type="button" class="plp-sort__btn" data-sort="price-asc">Price: Low to High</button>
+          <button type="button" class="plp-sort__btn" data-sort="price-desc">Price: High to Low</button>
+          <button type="button" class="plp-sort__btn" data-sort="title-asc">Title: A to Z</button>
+          <button type="button" class="plp-sort__btn" data-sort="title-desc">Title: Z to A</button>
+        </div>
+
+        <div class="plp-chips">
+          <button type="button" class="plp-chip" data-chip="vetted">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l3.5 3.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Dermatologist-vetted
+          </button>
+          <button type="button" class="plp-chip" data-chip="instock">In stock</button>
+        </div>
+
+        <div class="plp-grid" data-plp-grid>
+          {%- for handle in shop_handles -%}
+            {%- assign product = all_products[handle] -%}
+            {%- if product == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign variant = product.selected_or_first_available_variant -%}
+
+            {%- comment -%} Build concern slugs: curated seed + matching tags. {%- endcomment -%}
+            {%- assign concern_str = "" -%}
+            {%- for sh in seed_handles -%}
+              {%- if sh == handle -%}{%- assign concern_str = seed_concerns[forloop.index0] -%}{%- endif -%}
+            {%- endfor -%}
+            {%- for tag in product.tags -%}
+              {%- assign tl = tag | downcase | strip -%}
+              {%- if concern_vocab contains tl -%}{%- assign concern_str = concern_str | append: "|" | append: tl -%}{%- endif -%}
+            {%- endfor -%}
+            {%- assign concern_data = concern_str | replace: "|", " " | strip -%}
+
+            {%- assign vetted = "1" -%}
+            {%- if product.tags contains "not-vetted" -%}{%- assign vetted = "0" -%}{%- endif -%}
+
+            {%- assign on_sale = false -%}
+            {%- if variant.compare_at_price != blank and variant.compare_at_price > variant.price -%}{%- assign on_sale = true -%}{%- endif -%}
+
+            <article class="plp-card"
+              data-plp-card
+              data-rank="{{ forloop.index0 }}"
+              data-price="{{ variant.price }}"
+              data-title="{{ product.title | downcase | escape }}"
+              data-brand="{{ product.vendor | escape }}"
+              data-type="{{ product.type | escape }}"
+              data-concerns="{{ concern_data | escape }}"
+              data-vetted="{{ vetted }}"
+              data-instock="{% if variant.available %}1{% else %}0{% endif %}">
+
+              <a href="{{ product.url }}" class="plp-card__media">
+                {%- if product.featured_image != blank -%}
+                  <img src="{{ product.featured_image | image_url: width: 480 }}"
+                       alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                       width="480" height="480" loading="lazy">
+                {%- endif -%}
+                {%- if on_sale -%}
+                  {%- assign pct = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round -%}
+                  <span class="plp-card__save">{{ pct }}%<br>OFF</span>
+                {%- endif -%}
+              </a>
+
+              <div class="plp-card__body">
+                {%- if product.vendor != blank -%}<p class="plp-card__brand">{{ product.vendor | escape }}</p>{%- endif -%}
+                <h3 class="plp-card__name"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+
+                <div class="plp-card__meta">
+                  {%- if product.type != blank -%}<span class="plp-card__type">{{ product.type | downcase }}</span>{%- else -%}<span></span>{%- endif -%}
+                  {%- if vetted == "1" -%}
+                    <span class="plp-card__vetted">
+                      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l2.1 1.5 2.6-.2 1 2.4 2.2 1.4-.7 2.5.7 2.5-2.2 1.4-1 2.4-2.6-.2L10 18l-2.1-1.5-2.6.2-1-2.4L2.1 13l.7-2.5L2.1 8l2.2-1.4 1-2.4 2.6.2L10 2z" fill="currentColor" opacity="0.18"/><path d="M6.5 10l2.3 2.3 4.7-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      Derm-vetted
+                    </span>
+                  {%- endif -%}
+                </div>
+
+                <div class="plp-card__foot">
+                  <div class="plp-card__prices">
+                    <span class="plp-card__price">{{ variant.price | money_without_trailing_zeros }}</span>
+                    {%- if on_sale -%}<span class="plp-card__was">{{ variant.compare_at_price | money_without_trailing_zeros }}</span>{%- endif -%}
+                  </div>
+                  {%- if variant != blank and variant.available -%}
+                    <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-add-form>
+                      <input type="hidden" name="id" value="{{ variant.id }}">
+                      <input type="hidden" name="quantity" value="1">
+                      <button type="submit" class="plp-card__add" data-add-btn data-label="Add">Add</button>
+                    </form>
+                  {%- else -%}
+                    <span class="plp-card__sold">Sold out</span>
+                  {%- endif -%}
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+
+          <div class="plp-empty" data-plp-empty hidden>
+            <p>No products match those filters.</p>
+            <button type="button" class="plp-empty__reset" data-plp-clear-2>Clear filters</button>
+          </div>
+        </div>
+
+        <nav class="plp-pager" data-plp-pager aria-label="Pagination" hidden></nav>
+      </div>
     </div>
 
     <div class="shop-cartbar" id="shopCartBar"{% if cart.item_count == 0 %} hidden{% endif %}>
@@ -651,33 +897,280 @@
 </section>
 
 <script>
-  // Condition picker: swap the visible product panel; honour ?condition=<key>.
+  // ---- Kyn Select PLP: client-side filter / sort / paginate ----
   (function () {
-    var opts = document.querySelectorAll('.shop-picker__opt');
-    var panels = document.querySelectorAll('.shop-panel');
-    if (!opts.length || !panels.length) return;
-    function select(cond) {
-      Array.prototype.forEach.call(opts, function (o) {
-        var on = o.getAttribute('data-cond') === cond;
-        o.classList.toggle('is-active', on);
-        o.setAttribute('aria-selected', on ? 'true' : 'false');
+    var root = document.getElementById('plpFilters');
+    var grid = document.querySelector('[data-plp-grid]');
+    if (!root || !grid) return;
+
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('[data-plp-card]'));
+    var emptyEl = grid.querySelector('[data-plp-empty]');
+    var countEl = document.querySelector('[data-plp-count]');
+    var totalEl = document.querySelector('[data-plp-total]');
+    var pager = document.querySelector('[data-plp-pager]');
+    var clearBtn = document.querySelector('[data-plp-clear]');
+    var PAGE_SIZE = {{ section.settings.page_size | default: 24 }};
+
+    var CONCERN_LABELS = {
+      'fungal-acne': 'Fungal acne',
+      'seb-derm-dandruff': 'Seb derm & dandruff',
+      'tinea-versicolor': 'Tinea versicolor',
+      'dandruff': 'Dandruff',
+      'oily-scalp': 'Oily scalp'
+    };
+    function pretty(s) {
+      if (CONCERN_LABELS[s]) return CONCERN_LABELS[s];
+      return s.replace(/-/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+    }
+
+    // Parse card data once.
+    var data = cards.map(function (card) {
+      var concerns = (card.getAttribute('data-concerns') || '').split(/\s+/).filter(Boolean);
+      return {
+        el: card,
+        rank: parseInt(card.getAttribute('data-rank'), 10) || 0,
+        price: parseInt(card.getAttribute('data-price'), 10) || 0,
+        title: card.getAttribute('data-title') || '',
+        brand: card.getAttribute('data-brand') || '',
+        type: card.getAttribute('data-type') || '',
+        concerns: concerns,
+        vetted: card.getAttribute('data-vetted') === '1',
+        instock: card.getAttribute('data-instock') === '1'
+      };
+    });
+
+    totalEl.textContent = 'of ' + data.length;
+
+    // Price bounds.
+    var prices = data.map(function (d) { return d.price; });
+    var priceMin = prices.length ? Math.min.apply(null, prices) : 0;
+    var priceMax = prices.length ? Math.max.apply(null, prices) : 0;
+
+    var state = {
+      concern: {}, brand: {}, type: {},
+      chips: { vetted: false, instock: false },
+      lo: priceMin, hi: priceMax,
+      sort: 'featured', page: 1
+    };
+
+    // ---- Build facet checkbox lists ----
+    function buildFacet(key, getValues, labelFn) {
+      var box = root.querySelector('[data-facet="' + key + '"]');
+      if (!box) return;
+      var counts = {};
+      data.forEach(function (d) {
+        getValues(d).forEach(function (v) { if (v) counts[v] = (counts[v] || 0) + 1; });
       });
-      Array.prototype.forEach.call(panels, function (p) {
-        p.hidden = p.getAttribute('data-cond') !== cond;
+      var values = Object.keys(counts).sort();
+      if (!values.length) {
+        box.innerHTML = '<p class="plp-facet__empty">None yet</p>';
+        return;
+      }
+      box.innerHTML = '';
+      values.forEach(function (v) {
+        var id = 'f-' + key + '-' + v.replace(/[^a-z0-9]+/gi, '-');
+        var lab = document.createElement('label');
+        lab.className = 'plp-facet';
+        lab.setAttribute('for', id);
+        lab.innerHTML =
+          '<input type="checkbox" id="' + id + '" value="' + v.replace(/"/g, '&quot;') + '">' +
+          '<span class="plp-facet__label">' + (labelFn ? labelFn(v) : v) + '</span>' +
+          '<span class="plp-facet__count">' + counts[v] + '</span>';
+        var input = lab.querySelector('input');
+        input.addEventListener('change', function () {
+          if (input.checked) state[key][v] = true; else delete state[key][v];
+          state.page = 1;
+          render();
+        });
+        box.appendChild(lab);
       });
     }
-    Array.prototype.forEach.call(opts, function (o) {
-      o.addEventListener('click', function () { select(o.getAttribute('data-cond')); });
+    buildFacet('concern', function (d) { return d.concerns; }, pretty);
+    buildFacet('brand', function (d) { return [d.brand]; }, function (v) { return v; });
+    buildFacet('type', function (d) { return [d.type]; }, function (v) {
+      return v.replace(/\b\w/g, function (c) { return c.toUpperCase(); });
     });
+
+    // ---- Price slider ----
+    var rMin = root.querySelector('[data-price-min]');
+    var rMax = root.querySelector('[data-price-max]');
+    var nMin = root.querySelector('[data-price-min-num]');
+    var nMax = root.querySelector('[data-price-max-num]');
+    var fill = root.querySelector('[data-price-fill]');
+    var loLab = root.querySelector('[data-price-lo]');
+    var hiLab = root.querySelector('[data-price-hi]');
+
+    function dollars(cents) { return Math.round(cents / 100); }
+    function fmt(cents) { return '$' + dollars(cents); }
+    var loDollar = Math.floor(priceMin / 100);
+    var hiDollar = Math.ceil(priceMax / 100);
+
+    [rMin, rMax].forEach(function (r) { r.min = priceMin; r.max = priceMax; });
+    rMin.value = priceMin; rMax.value = priceMax;
+    nMin.value = loDollar; nMax.value = hiDollar;
+    nMin.min = loDollar; nMax.max = hiDollar;
+
+    function paintSlider() {
+      var span = (priceMax - priceMin) || 1;
+      var l = ((state.lo - priceMin) / span) * 100;
+      var r = ((state.hi - priceMin) / span) * 100;
+      fill.style.left = l + '%';
+      fill.style.width = (r - l) + '%';
+      loLab.textContent = fmt(state.lo);
+      hiLab.textContent = fmt(state.hi);
+    }
+    function onSlide() {
+      var lo = parseInt(rMin.value, 10), hi = parseInt(rMax.value, 10);
+      if (lo > hi) { var t = lo; lo = hi; hi = t; }
+      state.lo = lo; state.hi = hi;
+      nMin.value = dollars(lo); nMax.value = dollars(hi);
+      state.page = 1; paintSlider(); render();
+    }
+    rMin.addEventListener('input', onSlide);
+    rMax.addEventListener('input', onSlide);
+    function onNum() {
+      var lo = Math.max(priceMin, (parseFloat(nMin.value) || 0) * 100);
+      var hi = Math.min(priceMax, (parseFloat(nMax.value) || hiDollar) * 100);
+      if (lo > hi) { var t = lo; lo = hi; hi = t; }
+      state.lo = lo; state.hi = hi;
+      rMin.value = lo; rMax.value = hi;
+      state.page = 1; paintSlider(); render();
+    }
+    nMin.addEventListener('change', onNum);
+    nMax.addEventListener('change', onNum);
+    paintSlider();
+
+    // ---- Chips ----
+    Array.prototype.forEach.call(document.querySelectorAll('[data-chip]'), function (chip) {
+      chip.addEventListener('click', function () {
+        var key = chip.getAttribute('data-chip');
+        state.chips[key] = !state.chips[key];
+        chip.classList.toggle('is-active', state.chips[key]);
+        chip.setAttribute('aria-pressed', state.chips[key] ? 'true' : 'false');
+        state.page = 1; render();
+      });
+    });
+
+    // ---- Sort ----
+    Array.prototype.forEach.call(document.querySelectorAll('[data-sort]'), function (btn) {
+      btn.addEventListener('click', function () {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-sort]'), function (b) {
+          b.classList.toggle('is-active', b === btn);
+        });
+        state.sort = btn.getAttribute('data-sort');
+        state.page = 1; render();
+      });
+    });
+
+    var comparators = {
+      'featured': function (a, b) { return a.rank - b.rank; },
+      'price-asc': function (a, b) { return a.price - b.price; },
+      'price-desc': function (a, b) { return b.price - a.price; },
+      'title-asc': function (a, b) { return a.title.localeCompare(b.title); },
+      'title-desc': function (a, b) { return b.title.localeCompare(a.title); }
+    };
+
+    function anySelected(obj) { return Object.keys(obj).length > 0; }
+
+    function passes(d) {
+      if (d.price < state.lo || d.price > state.hi) return false;
+      if (anySelected(state.concern) && !d.concerns.some(function (c) { return state.concern[c]; })) return false;
+      if (anySelected(state.brand) && !state.brand[d.brand]) return false;
+      if (anySelected(state.type) && !state.type[d.type]) return false;
+      if (state.chips.vetted && !d.vetted) return false;
+      if (state.chips.instock && !d.instock) return false;
+      return true;
+    }
+
+    function anyFilterActive() {
+      return anySelected(state.concern) || anySelected(state.brand) || anySelected(state.type) ||
+        state.chips.vetted || state.chips.instock || state.lo !== priceMin || state.hi !== priceMax;
+    }
+
+    function renderPager(total) {
+      var pages = Math.ceil(total / PAGE_SIZE);
+      if (pages <= 1) { pager.hidden = true; pager.innerHTML = ''; return; }
+      pager.hidden = false;
+      var html = '';
+      html += '<button type="button" class="plp-pager__btn" data-pg="prev"' + (state.page === 1 ? ' disabled' : '') + '>&lsaquo;</button>';
+      for (var i = 1; i <= pages; i++) {
+        html += '<button type="button" class="plp-pager__btn' + (i === state.page ? ' is-active' : '') + '" data-pg="' + i + '">' + i + '</button>';
+      }
+      html += '<button type="button" class="plp-pager__btn" data-pg="next"' + (state.page === pages ? ' disabled' : '') + '>&rsaquo;</button>';
+      pager.innerHTML = html;
+      Array.prototype.forEach.call(pager.querySelectorAll('[data-pg]'), function (b) {
+        b.addEventListener('click', function () {
+          var v = b.getAttribute('data-pg');
+          if (v === 'prev') state.page = Math.max(1, state.page - 1);
+          else if (v === 'next') state.page = Math.min(pages, state.page + 1);
+          else state.page = parseInt(v, 10);
+          render();
+          grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    }
+
+    function render() {
+      var matched = data.filter(passes).sort(comparators[state.sort] || comparators.featured);
+      // Reorder matched cards to the front of the grid in sorted order.
+      matched.forEach(function (d) { grid.appendChild(d.el); });
+      // Hide everything, then reveal the current page slice.
+      data.forEach(function (d) { d.el.hidden = true; });
+      var start = (state.page - 1) * PAGE_SIZE;
+      matched.slice(start, start + PAGE_SIZE).forEach(function (d) { d.el.hidden = false; });
+
+      countEl.textContent = matched.length;
+      if (emptyEl) emptyEl.hidden = matched.length !== 0;
+      if (clearBtn) clearBtn.hidden = !anyFilterActive();
+      renderPager(matched.length);
+    }
+
+    // ---- Clear all ----
+    function clearAll() {
+      state.concern = {}; state.brand = {}; state.type = {};
+      state.chips = { vetted: false, instock: false };
+      state.lo = priceMin; state.hi = priceMax; state.page = 1;
+      Array.prototype.forEach.call(root.querySelectorAll('.plp-facet input'), function (i) { i.checked = false; });
+      Array.prototype.forEach.call(document.querySelectorAll('[data-chip]'), function (c) {
+        c.classList.remove('is-active'); c.setAttribute('aria-pressed', 'false');
+      });
+      rMin.value = priceMin; rMax.value = priceMax;
+      nMin.value = loDollar; nMax.value = hiDollar;
+      paintSlider(); render();
+    }
+    if (clearBtn) clearBtn.addEventListener('click', clearAll);
+    var clear2 = document.querySelector('[data-plp-clear-2]');
+    if (clear2) clear2.addEventListener('click', clearAll);
+
+    // ---- Deep links: ?condition= / ?concern= preselect a concern facet ----
     try {
-      var q = new URLSearchParams(window.location.search).get('condition');
-      if (q) {
-        var found = Array.prototype.some.call(opts, function (o) { return o.getAttribute('data-cond') === q; });
-        if (found) select(q);
+      var qs = new URLSearchParams(window.location.search);
+      var dl = qs.get('concern') || qs.get('condition');
+      if (dl) {
+        var input = root.querySelector('[data-facet="concern"] input[value="' + dl + '"]');
+        if (input) { input.checked = true; state.concern[dl] = true; }
+      }
+      var sortParam = qs.get('sort');
+      if (sortParam && comparators[sortParam]) {
+        var sb = document.querySelector('[data-sort="' + sortParam + '"]');
+        if (sb) sb.click();
       }
     } catch (e) {}
+
+    // ---- Mobile filter drawer ----
+    var backdrop = document.querySelector('[data-plp-backdrop]');
+    function openDrawer() { root.classList.add('is-open'); if (backdrop) { backdrop.hidden = false; backdrop.classList.add('is-open'); } }
+    function closeDrawer() { root.classList.remove('is-open'); if (backdrop) { backdrop.classList.remove('is-open'); backdrop.hidden = true; } }
+    var openBtn = document.querySelector('[data-plp-open]');
+    var closeBtn = document.querySelector('[data-plp-close]');
+    if (openBtn) openBtn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+    render();
   })();
 
+  // ---- Add to cart without leaving the page (multiple items per cart) ----
   (function () {
     var forms = document.querySelectorAll('[data-add-form]');
     if (!forms.length) return;
@@ -733,10 +1226,52 @@
   "class": "shop-page",
   "settings": [
     {
-      "type": "product",
-      "id": "product",
-      "label": "Featured product",
-      "info": "When set, the Add to Cart button posts to the Shopify cart."
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Kyn Select"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop derm-vetted picks"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Over-the-counter products we've paired with different treatment types. Filter by concern, brand, or type."
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Product collection",
+      "info": "Optional. When set, the grid lists this collection's products. Leave empty to use the curated Kyn Select list below."
+    },
+    {
+      "type": "text",
+      "id": "default_handles",
+      "label": "Curated product handles (fallback)",
+      "info": "Comma-separated product handles, used only when no collection is assigned.",
+      "default": "neutrogena-t-sal-scalp-build-up-control-therapeutic-shampoo-4-5-fl-oz,coconut-oil-fractionated-mct,the-ordinary-niacinamide-10-zinc-1-30ml"
+    },
+    {
+      "type": "range",
+      "id": "page_size",
+      "label": "Products per page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
     }
   ]
 }
