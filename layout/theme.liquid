@@ -1437,11 +1437,16 @@
           return v;
         } catch (e) { return "nostore_" + Math.random().toString(36).slice(2); }
       }
+      // Shopify-rendered visitor country (active market / geolocation) so the
+      // funnel can be filtered to US-only. The Railway care app sees no visitor
+      // geo header, so we capture it here on the storefront. Empty if unavailable.
+      var COUNTRY = {{ localization.country.iso_code | default: '' | json }};
       function send(event) {
         try {
-          var props = window.KynAttribution && window.KynAttribution.trafficAttribution
+          var attr = window.KynAttribution && window.KynAttribution.trafficAttribution
             ? window.KynAttribution.trafficAttribution()
             : {};
+          var props = COUNTRY ? Object.assign({}, attr, { country: COUNTRY }) : attr;
           var body = JSON.stringify({ event: event, session_id: sid(), props: props, path: location.pathname });
           // text/plain keeps sendBeacon a CORS-simple request (no preflight).
           if (navigator.sendBeacon) {
