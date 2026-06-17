@@ -4,9 +4,19 @@
   clinician). Kept deliberately separate from sections/consultation.liquid,
   which is the clinical Kynsultation / dermatologist checkout flow. This page
   is sales / guidance only and must never imply diagnosis or prescription.
-  Stripped to just the scheduler: heading + Calendly box. Inline style + the
-  Calendly external widget only.
+  Stripped to just the scheduler: heading + Calendly box.
+
+  data-resize="true" lets Calendly's widget.js auto-grow the box to fit each
+  step (it listens for the iframe's calendly.page_height message), so the box
+  never scrolls internally; the page scrolls instead. The preconnect/preload
+  hints warm the Calendly connection so the embed paints faster.
+  Inline style + the Calendly external widget only.
 {%- endcomment -%}
+
+<link rel="preconnect" href="https://assets.calendly.com">
+<link rel="preconnect" href="https://assets.calendly.com" crossorigin>
+<link rel="preconnect" href="https://calendly.com">
+<link rel="preload" as="script" href="https://assets.calendly.com/assets/external/widget.js">
 
 <section class="bc-calendar" id="bc-calendar">
   <div class="bc-calendar__container">
@@ -14,10 +24,12 @@
     <h1 class="bc-calendar__heading fade-in">Pick a time</h1>
     <p class="bc-calendar__copy fade-in">Book a free 15-minute call with a Kyn specialist.</p>
 
-    <!-- Calendly inline widget. Brand colors passed via query params. -->
+    <!-- Calendly inline widget. data-resize makes the box auto-fit (no inner
+         scroll). Brand colors passed via query params. -->
     <div
       class="calendly-inline-widget bc-calendar__widget fade-in"
       data-url="https://calendly.com/john-kynskyn/new-meeting?hide_gdpr_banner=1&background_color=fff4ce&text_color=641220&primary_color=c75b2a"
+      data-resize="true"
       style="min-width:320px;height:700px;"></div>
     <noscript>
       <p class="bc-calendar__note">
@@ -70,7 +82,27 @@
     overflow: hidden;
     background: var(--cream);
     box-shadow: 0 24px 70px -46px rgba(0, 0, 0, 0.8);
+    /* If Calendly auto-scrolls the box into view after a resize, keep it
+       clear of the fixed site header. */
+    scroll-margin-top: 100px;
+    position: relative;
   }
+  /* Lightweight spinner shown until Calendly's iframe paints over it. */
+  .bc-calendar__widget::before {
+    content: "";
+    position: absolute;
+    top: 130px;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin-left: -16px;
+    border: 3px solid rgba(100, 18, 32, 0.18);
+    border-top-color: var(--maroon);
+    border-radius: 50%;
+    animation: bc-spin 0.8s linear infinite;
+    z-index: 0;
+  }
+  @keyframes bc-spin { to { transform: rotate(360deg); } }
   .bc-calendar__note {
     font-family: var(--font-sans);
     font-size: 0.8rem;
