@@ -3,53 +3,16 @@
   can schedule time with a Kyn specialist (a member of the Kyn team, NOT a
   clinician). Kept deliberately separate from sections/consultation.liquid,
   which is the clinical Kynsultation / dermatologist checkout flow. This page
-  is sales / guidance only and must never imply diagnosis or prescription;
-  it cross-links to the clinical consultation for anyone who needs that.
-  Inline style + the Calendly external widget only.
+  is sales / guidance only and must never imply diagnosis or prescription.
+  Stripped to just the scheduler: heading + Calendly box. Inline style + the
+  Calendly external widget only.
 {%- endcomment -%}
 
-<!-- ====== HERO ====== -->
-<section class="bc-hero">
-  <img src="{{ 'molecule.svg' | asset_url }}" alt="" aria-hidden="true" class="bc-hero__molecule" width="667" height="667">
-  <p class="bc-hero__eyebrow fade-in">Free 1:1 call</p>
-  <h1 class="bc-hero__heading fade-in">Talk to a Kyn specialist</h1>
-  <p class="bc-hero__desc fade-in">Book a free 15-minute call with someone on the Kyn team. We'll walk you through how Kyn works, help you figure out where to start, and answer your questions about our products and care plans.</p>
-  <p class="bc-hero__note fade-in">Your specialist is a member of the Kyn team, not a clinician. For a diagnosis or a prescription, book a <a href="/pages/consultation?checkout=1">Kynsultation</a> with a board-certified dermatologist.</p>
-  <a href="#bc-calendar" class="bc-hero__cta fade-in">See available times</a>
-</section>
-
-<!-- ====== WHAT TO EXPECT ====== -->
-<section class="bc-expect">
-  <div class="bc-expect__container">
-    <p class="bc-expect__eyebrow fade-in">What to expect</p>
-    <h2 class="bc-expect__heading fade-in">A quick, no-pressure call</h2>
-
-    <div class="bc-expect__grid">
-      <div class="bc-card fade-in">
-        <div class="bc-card__num">01</div>
-        <h3 class="bc-card__title">A real person</h3>
-        <p class="bc-card__desc">You'll talk with someone on the Kyn team who knows the products and the care plan inside out.</p>
-      </div>
-      <div class="bc-card fade-in">
-        <div class="bc-card__num">02</div>
-        <h3 class="bc-card__title">Figure out where to start</h3>
-        <p class="bc-card__desc">Not sure whether you need the care plan, a single visit, or just the right routine? We'll point you the right way.</p>
-      </div>
-      <div class="bc-card fade-in">
-        <div class="bc-card__num">03</div>
-        <h3 class="bc-card__title">Fifteen minutes, free</h3>
-        <p class="bc-card__desc">A quick video or phone call at a time that works for you. Bring anything you're wondering about.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== CALENDLY ====== -->
 <section class="bc-calendar" id="bc-calendar">
   <div class="bc-calendar__container">
-    <p class="bc-calendar__eyebrow fade-in">Schedule</p>
-    <h2 class="bc-calendar__heading fade-in">Pick a time</h2>
-    <p class="bc-calendar__copy fade-in">Choose a slot that suits you and you'll get a calendar invite with the call link.</p>
+    <p class="bc-calendar__eyebrow fade-in">Free 1:1 call</p>
+    <h1 class="bc-calendar__heading fade-in">Pick a time</h1>
+    <p class="bc-calendar__copy fade-in">Book a free 15-minute call with a Kyn specialist.</p>
 
     <!-- Calendly inline widget. Brand colors passed via query params. -->
     <div
@@ -57,145 +20,19 @@
       data-url="https://calendly.com/john-kynskyn/new-meeting?hide_gdpr_banner=1&background_color=fff4ce&text_color=641220&primary_color=c75b2a"
       style="min-width:320px;height:700px;"></div>
     <noscript>
-      <p class="bc-calendar__fallback">
+      <p class="bc-calendar__note">
         Enable JavaScript to load the scheduler, or
         <a href="https://calendly.com/john-kynskyn/new-meeting" target="_blank" rel="noopener">book your call here</a>.
       </p>
     </noscript>
+
+    <p class="bc-calendar__note fade-in">Your specialist is a member of the Kyn team, not a clinician. For a diagnosis or prescription, book a <a href="/pages/consultation?checkout=1">Kynsultation</a>.</p>
   </div>
 </section>
 
 <style>
-  /* ========== HERO ========== */
-  .bc-hero {
-    background: var(--dark);
-    padding: 10rem 3rem 5rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .bc-hero__molecule {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40rem;
-    height: 40rem;
-    opacity: 0.04;
-    pointer-events: none;
-  }
-  .bc-hero__eyebrow {
-    font-family: var(--font-accent);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--cream);
-    opacity: 0.5;
-    margin-bottom: 1.5rem;
-  }
-  .bc-hero__heading {
-    font-family: var(--font-serif);
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    font-weight: 300;
-    color: var(--cream);
-    line-height: 1.15;
-    max-width: 48rem;
-    margin: 0 auto 1.5rem;
-  }
-  .bc-hero__desc {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    color: var(--cream);
-    opacity: 0.62;
-    line-height: 1.7;
-    max-width: 36rem;
-    margin: 0 auto 1.25rem;
-  }
-  .bc-hero__note {
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    color: var(--cream);
-    opacity: 0.46;
-    line-height: 1.6;
-    max-width: 34rem;
-    margin: 0 auto 2.5rem;
-  }
-  .bc-hero__note a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
-  .bc-hero__cta {
-    display: inline-block;
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--cream);
-    background: var(--button);
-    padding: 1rem 2.5rem;
-    border-radius: 2px;
-    text-decoration: none;
-    transition: background 0.3s;
-  }
-  .bc-hero__cta:hover { background: var(--maroon); }
-
-  /* ========== WHAT TO EXPECT ========== */
-  .bc-expect {
-    padding: 6rem 3rem;
-    background: var(--cream);
-  }
-  .bc-expect__container {
-    max-width: 64rem;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .bc-expect__eyebrow {
-    font-family: var(--font-accent);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--maroon);
-    opacity: 0.5;
-    margin-bottom: 1.5rem;
-  }
-  .bc-expect__heading {
-    font-family: var(--font-serif);
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 300;
-    color: var(--maroon);
-    margin-bottom: 3.5rem;
-  }
-  .bc-expect__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
-    text-align: left;
-  }
-  .bc-card__num {
-    font-family: var(--font-serif);
-    font-size: 3rem;
-    font-weight: 300;
-    color: var(--gold);
-    opacity: 0.35;
-    line-height: 1;
-    margin-bottom: 1rem;
-  }
-  .bc-card__title {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--maroon);
-    margin-bottom: 0.5rem;
-  }
-  .bc-card__desc {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    color: var(--maroon);
-    opacity: 0.6;
-    line-height: 1.7;
-  }
-
-  /* ========== CALENDLY ========== */
   .bc-calendar {
-    padding: 6rem 3rem;
+    padding: 7rem 1.5rem 4rem;
     background: var(--dark);
   }
   .bc-calendar__container {
@@ -210,23 +47,23 @@
     text-transform: uppercase;
     color: var(--cream);
     opacity: 0.5;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
   .bc-calendar__heading {
     font-family: var(--font-serif);
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-size: clamp(2rem, 4.5vw, 3rem);
     font-weight: 300;
     color: var(--cream);
-    margin-bottom: 1rem;
+    margin: 0 0 0.75rem;
   }
   .bc-calendar__copy {
     font-family: var(--font-sans);
     font-size: 0.95rem;
     color: var(--cream);
-    opacity: 0.6;
-    line-height: 1.7;
-    max-width: 34rem;
-    margin: 0 auto 2.5rem;
+    opacity: 0.62;
+    line-height: 1.6;
+    max-width: 32rem;
+    margin: 0 auto 2.25rem;
   }
   .bc-calendar__widget {
     border-radius: 16px;
@@ -234,20 +71,19 @@
     background: var(--cream);
     box-shadow: 0 24px 70px -46px rgba(0, 0, 0, 0.8);
   }
-  .bc-calendar__fallback {
+  .bc-calendar__note {
     font-family: var(--font-sans);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--cream);
-    opacity: 0.7;
+    opacity: 0.45;
+    line-height: 1.6;
+    max-width: 34rem;
+    margin: 1.5rem auto 0;
   }
-  .bc-calendar__fallback a { color: var(--gold); }
+  .bc-calendar__note a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
 
-  /* ========== RESPONSIVE ========== */
   @media (max-width: 768px) {
-    .bc-hero { padding: 8rem 1.5rem 3rem; }
-    .bc-expect { padding: 4rem 1.5rem; }
-    .bc-expect__grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .bc-calendar { padding: 4rem 1.25rem; }
+    .bc-calendar { padding: 6rem 1.25rem 3rem; }
   }
 </style>
 
