@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "book-call": {
+      "type": "book-call"
+    }
+  },
+  "order": ["book-call"]
+}
