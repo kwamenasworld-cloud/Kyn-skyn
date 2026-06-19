@@ -29,9 +29,28 @@
     <!-- Calendly inline widget. Tall fixed height set in CSS (see
          .bc-calendar__widget); brand colors passed via query params. -->
     <div
+      id="bc-cal"
       class="calendly-inline-widget bc-calendar__widget fade-in"
       data-url="https://calendly.com/john-kynskyn/new-meeting?hide_gdpr_banner=1&background_color=fff4ce&text_color=641220&primary_color=c75b2a"
       style="min-width:320px;"></div>
+    <script>
+      /* Forward the visitor's UTM params onto the Calendly scheduling URL so each
+         booking is attributable to its ad/campaign. Runs synchronously here,
+         BEFORE the async widget.js below initializes the embed, so auto-init
+         reads the augmented data-url. Calendly natively captures utm_* params. */
+      (function () {
+        try {
+          var el = document.getElementById("bc-cal");
+          if (!el) return;
+          var p = new URLSearchParams(location.search);
+          var extra = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"]
+            .filter(function (k) { return p.get(k); })
+            .map(function (k) { return encodeURIComponent(k) + "=" + encodeURIComponent(p.get(k)); })
+            .join("&");
+          if (extra) el.setAttribute("data-url", el.getAttribute("data-url") + "&" + extra);
+        } catch (e) {}
+      })();
+    </script>
     <noscript>
       <p class="bc-calendar__note">
         Enable JavaScript to load the scheduler, or
@@ -124,6 +143,22 @@
 </style>
 
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+<script>
+  /* Booking conversion tracking. Calendly posts a window message when an event
+     is scheduled; on that, fire a Meta Pixel Schedule event (browser) and a
+     first-party `call_booked` funnel beacon (same session + attribution +
+     country as the pageview). Without this, completed bookings are invisible to
+     Meta and to the funnel. */
+  (function () {
+    window.addEventListener("message", function (e) {
+      if (e.origin !== "https://calendly.com") return;
+      if (!e.data || e.data.event !== "calendly.event_scheduled") return;
+      try { if (window.fbq) fbq("track", "Schedule", { content_name: "book_a_call" }); } catch (err) {}
+      try { if (window.KynFunnel) window.KynFunnel.send("call_booked"); } catch (err) {}
+    });
+  })();
+</script>
 
 {% schema %}
 {
