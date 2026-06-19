@@ -19,7 +19,7 @@
        synchronously so early events buffer, and the libraries themselves load
        after first paint (first interaction, or a ~2.5s idle fallback) to keep the
        critical path clear in slow in-app browsers (Instagram/TikTok on iOS). The
-       Meta Pixel and AffiliateBase load eagerly so ad attribution and affiliate
+       Meta Pixel and Endorsely load eagerly so ad attribution and affiliate
        referral capture are never delayed. -->
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -83,8 +83,12 @@
   <!-- Meta Pixel <noscript> fallback (PageView for JS-disabled loads) -->
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=943159622092998&ev=PageView&noscript=1" alt=""/></noscript>
 
-  <script>(function(w,r){w._abq=w._abq||[];w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'affiliatebase');</script>
-  <script async src="https://cdn.jsdelivr.net/npm/@relay-capital/affiliatebase-tracking@1.0.7/dist/track.min.js" data-account-id="d970299a-5388-4756-8a6d-fc33c4d99ffa"></script>
+  <!-- Endorsely affiliate tracking. Resolves the ?via= referral for the visitor
+       and exposes it on window.endorsely_referral (+ an endorsely_referral
+       cookie); the care app stamps it into Stripe metadata for attribution. Same
+       program id as the care app's EndorselyScript so one click attributes across
+       the storefront and care.kynskyn.com. -->
+  <script async src="https://assets.endorsely.com/endorsely.js" data-endorsely="6b182976-e104-4238-9dbb-e2de10b7a7fd"></script>
   <script>
     window.KynAttribution = (function() {
       var ATTR_KEY = 'kyn_attribution_context';
@@ -170,8 +174,11 @@
           if (value) next[key] = value.slice(0, 160);
         });
 
-        if (window.affiliatebase_referral) {
-          next.affiliatebase_referral = String(window.affiliatebase_referral).slice(0, 160);
+        // Sourced from Endorsely (window.endorsely_referral). Kept under the
+        // legacy `affiliatebase_referral` key so the funnel beacon, cart
+        // attributes, and Shopify order webhook stay unchanged.
+        if (window.endorsely_referral) {
+          next.affiliatebase_referral = String(window.endorsely_referral).slice(0, 160);
         }
 
         writeJson(ATTR_KEY, next);
@@ -1456,6 +1463,9 @@
           }
         } catch (e) {}
       }
+      // Expose the beacon so other sections (e.g. the Calendly book-call page)
+      // can record conversions through the same session + attribution + country.
+      window.KynFunnel = { send: send };
       send("site_pageview");
       document.addEventListener("click", function (e) {
         var el = e.target && e.target.closest ? e.target.closest("a,button") : null;
