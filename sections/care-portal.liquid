@@ -1,74 +1,57 @@
 {%- comment -%}
-  Embedded care portal. Full-bleed takeover: the care.kynskyn.com app (its full
-  dashboard / messages / care pulse / plan / account portal) fills the viewport.
-  The Shopify site header and footer are hidden on this page so the care app's
-  own header is the only chrome (single logo); its header carries a kynskyn.com
-  link back to the store. Only the iframe scrolls. Kyn Select purchases are
-  charged to the patient's card on file inside the app (no Shopify cart), so
-  this page is purely the embed. Inline style/script only.
+  Care portal redirect. The portal is no longer embedded on the storefront;
+  existing patients who bookmarked /pages/care-portal are sent straight to the
+  live app at care.kynskyn.com. The notice below is the visible fallback if the
+  redirect script does not run. Inline style/script only.
 {%- endcomment -%}
 
-<section class="kyn-portal" id="kynPortal">
-  <iframe
-    class="kyn-portal__frame"
-    id="kynPortalFrame"
-    title="Kyn Skyn care portal"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allow="camera; clipboard-write; payment"></iframe>
-</section>
+<script>window.location.replace('https://care.kynskyn.com/dashboard' + window.location.search);</script>
 
 <style>
-  /* Hide the marketing header + footer on this page so the embedded care app
-     owns the screen and there is only one logo. The mobile tab bar (no logo)
-     stays for site navigation. */
-  .site-header { display: none !important; }
-  .site-footer { display: none !important; }
-  /* Pinned to the viewport (top:0 since the site header is hidden) down to the
-     mobile tab bar; JS sets the exact offsets. The page body has no flow
-     content, so it never scrolls; only the iframe scrolls. */
-  .kyn-portal {
-    position: fixed;
-    left: 0; right: 0; top: 0; bottom: 0;
-    background: var(--dark);
-    overflow: hidden;
-    z-index: 1;
+  .portal-redirect {
+    background: var(--cream);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 1.5rem 4rem;
   }
-  .kyn-portal__frame {
-    display: block; width: 100%; height: 100%; border: 0; background: var(--dark);
+
+  .portal-redirect__inner {
+    max-width: 32rem;
+  }
+
+  .portal-redirect__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 300;
+    color: var(--maroon);
+    line-height: 1.2;
+    margin: 0 0 1.25rem;
+  }
+
+  .portal-redirect__link {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--maroon);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 </style>
 
-<script>
-  (function () {
-    var section = document.getElementById('kynPortal');
-    var frame = document.getElementById('kynPortalFrame');
+<!-- No-JS fallback: visible notice with a plain link to the care portal. -->
+<section class="portal-redirect">
+  <div class="portal-redirect__inner">
+    <h1 class="portal-redirect__heading">Looking for your Kyn care portal?</h1>
+    <a href="https://care.kynskyn.com/dashboard" class="portal-redirect__link">Open the care portal</a>
+  </div>
+</section>
 
-    function buildPortalUrl() {
-      var target = new URL('https://care.kynskyn.com/dashboard');
-      target.searchParams.set('source', 'kynskyn');
-      target.searchParams.set('parent_origin', window.location.origin);
-      var preview = new URLSearchParams(window.location.search).get('booking_preview');
-      if (preview) target.searchParams.set('booking_preview', preview);
-      return target.toString();
-    }
-    if (frame) frame.setAttribute('src', buildPortalUrl());
-
-    // Fill the viewport between the (hidden) header and the mobile tab bar so
-    // the outer page never scrolls; the iframe scrolls its own content.
-    function fitFrame() {
-      if (!section) return;
-      var header = document.getElementById('siteHeader');
-      var headerH = header ? Math.round(header.getBoundingClientRect().height) : 0;
-      var tabbar = document.querySelector('.mobile-tab-bar');
-      var tabbarH = (tabbar && getComputedStyle(tabbar).display !== 'none')
-        ? Math.round(tabbar.getBoundingClientRect().height) : 0;
-      section.style.top = headerH + 'px';
-      section.style.bottom = tabbarH + 'px';
-    }
-    fitFrame();
-    window.addEventListener('resize', fitFrame);
-    window.addEventListener('orientationchange', fitFrame);
-    window.addEventListener('load', fitFrame);
-    setTimeout(fitFrame, 300);
-  })();
-</script>
+{% schema %}
+{
+  "name": "Care Portal",
+  "class": "care-portal-section",
+  "settings": []
+}
+{% endschema %}

@@ -11,11 +11,7 @@
   "sections": {
     "consultation": {
       "type": "consultation",
-      "settings": {
-        "monthly_plan_product": "kyn-skyn-monthly-care-plan",
-        "quarterly_plan_product": "kyn-skyn-3-month-care-plan",
-        "onetime_consult_product": "kyn-skyn-one-time-consult"
-      }
+      "settings": {}
     }
   },
   "order": [

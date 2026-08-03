@@ -445,8 +445,8 @@
       pointer-events: none;
     }
 
-    /* Telehealth CTA Banner */
-    .telehealth-cta {
+    /* Product CTA Banner */
+    .product-cta {
       display: none;
       background: linear-gradient(135deg, rgba(5, 90, 91, 0.15), rgba(31, 63, 111, 0.1));
       border: 1px solid rgba(5, 90, 91, 0.3);
@@ -456,8 +456,8 @@
       align-items: center;
       gap: 1rem;
     }
-    .telehealth-cta.visible { display: flex; }
-    .telehealth-cta__icon {
+    .product-cta.visible { display: flex; }
+    .product-cta__icon {
       width: 40px;
       height: 40px;
       min-width: 40px;
@@ -467,23 +467,23 @@
       align-items: center;
       justify-content: center;
     }
-    .telehealth-cta__icon svg { width: 20px; height: 20px; color: #055A5B; }
-    .telehealth-cta__text { flex: 1; }
-    .telehealth-cta__title {
+    .product-cta__icon svg { width: 20px; height: 20px; color: #055A5B; }
+    .product-cta__text { flex: 1; }
+    .product-cta__title {
       font-family: var(--font-sans);
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--maroon);
       margin-bottom: 2px;
     }
-    .telehealth-cta__desc {
+    .product-cta__desc {
       font-family: var(--font-sans);
       font-size: 0.75rem;
       color: var(--maroon);
       opacity: 0.6;
       line-height: 1.4;
     }
-    .telehealth-cta__btn {
+    .product-cta__btn {
       font-family: var(--font-sans);
       font-size: 0.8rem;
       font-weight: 500;
@@ -497,11 +497,102 @@
       text-decoration: none;
       transition: background 0.2s;
     }
-    .telehealth-cta__btn:hover { background: var(--maroon); }
+    .product-cta__btn:hover { background: var(--maroon); }
 
     @media (max-width: 480px) {
-      .telehealth-cta { flex-direction: column; text-align: center; }
-      .telehealth-cta__btn { width: 100%; text-align: center; }
+      .product-cta { flex-direction: column; text-align: center; }
+      .product-cta__btn { width: 100%; text-align: center; }
+    }
+
+    /* ========== VERDICT EMAIL CAPTURE ========== */
+    /* The verdict moment ("this product feeds the yeast") is the most
+       convertible second in the funnel. This block catches the user who
+       isn't ready to buy today but wants the safe-product list.
+       Without it they leave and never come back; with it they join a free
+       list we can market to forever. Hidden until a verdict renders. */
+    .verdict-capture {
+      display: none;
+      margin: 1.5rem 0;
+      padding: 1.6rem 1.8rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(100,18,32,0.04), rgba(100,18,32,0.02));
+      border: 1px solid rgba(100,18,32,0.15);
+    }
+    .verdict-capture.visible { display: block; }
+    .verdict-capture__title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--maroon);
+      margin: 0 0 0.4rem;
+    }
+    .verdict-capture__desc {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      color: var(--maroon);
+      opacity: 0.62;
+      line-height: 1.55;
+      margin: 0 0 1rem;
+    }
+    .verdict-capture__form {
+      display: flex;
+      gap: 0;
+      max-width: 30rem;
+    }
+    .verdict-capture__input {
+      flex: 1;
+      min-width: 0;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      color: var(--maroon);
+      background: #fff;
+      border: 1px solid rgba(100,18,32,0.2);
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .verdict-capture__input::placeholder { color: var(--maroon); opacity: 0.35; }
+    .verdict-capture__input:focus { border-color: rgba(100,18,32,0.5); }
+    .verdict-capture__btn {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.4rem;
+      background: var(--maroon);
+      color: var(--cream);
+      border: 1px solid var(--maroon);
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.3s;
+    }
+    .verdict-capture__btn:hover { background: var(--dark); border-color: var(--dark); }
+    .verdict-capture__btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .verdict-capture__msg {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      margin: 0.7rem 0 0;
+      display: none;
+    }
+    .verdict-capture__msg.visible { display: block; }
+    .verdict-capture__msg--ok { color: var(--safe-green); }
+    .verdict-capture__msg--err { color: var(--unsafe-red); }
+    .verdict-capture__fineprint {
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      color: var(--maroon);
+      opacity: 0.4;
+      margin: 0.6rem 0 0;
+      line-height: 1.4;
+    }
+    @media (max-width: 480px) {
+      .verdict-capture__form { flex-direction: column; }
+      .verdict-capture__input { border-right: 1px solid rgba(100,18,32,0.2); border-radius: 4px; }
+      .verdict-capture__btn { border-radius: 4px; padding: 0.85rem; margin-top: 0.5rem; }
     }
 
     /* Stats row */
@@ -1881,27 +1972,9 @@
     }
 
     /* ========== RESPONSIVE ========== */
-    /* ========== MOBILE TAB BAR ========== */
-    .mobile-tab-bar {
-      display: none;
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 200;
-      background: var(--dark);
-      border-top: 1px solid rgba(255, 244, 206, 0.08);
-      padding: 0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom, 0px));
-    }
-    .mobile-tab-bar__links { display: flex; justify-content: space-around; align-items: center; list-style: none; }
-    .mobile-tab-bar__link { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-decoration: none; color: var(--cream); opacity: 0.45; transition: opacity 0.2s; padding: 0.3rem 0.5rem; }
-    .mobile-tab-bar__link.active { opacity: 1; }
-    .mobile-tab-bar__link svg { width: 20px; height: 20px; }
-    .mobile-tab-bar__label { font-family: var(--font-sans); font-size: 0.6rem; letter-spacing: 0.04em; text-transform: uppercase; }
-
     @media (max-width: 768px) {
       .site-header { padding: 1.2rem 1.5rem; }
       .header-nav { display: none; }
-      .mobile-tab-bar { display: block; }
-      body { padding-bottom: 4.5rem; }
 
       .checker-hero { padding: 8rem 1.5rem 3.5rem; }
       .checker { padding: 3rem 1.5rem; }
@@ -1996,12 +2069,12 @@
       {
         "@type": "Question",
         "name": "What moisturizer is safe for seborrheic dermatitis?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Look for moisturizers free of fatty acids C12-C24 and plant oils. Safe options include products based on squalane, dimethicone, petrolatum, or caprylic/capric triglyceride. Popular seb derm-safe moisturizers include Vanicream Gentle Facial Cleanser products, CeraVe Moisturizing Cream (contains some debated fatty alcohols), Sebamed Clear Face Care Gel, and The Ordinary Natural Moisturizing Factors." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Look for moisturizers with no fatty acids in the C12 to C24 range and no plant oils. Good bases are squalane, dimethicone, petrolatum, or caprylic/capric triglyceride. Commonly recommended seb derm options include Vanicream products, Sebamed Clear Face Care Gel, and The Ordinary Natural Moisturizing Factors. Run any product through the checker above if you're not sure." }
       },
       {
         "@type": "Question",
         "name": "Is CeraVe safe for fungal acne?",
-        "acceptedAnswer": { "@type": "Answer", "text": "It depends on the product. CeraVe Foaming Facial Cleanser scores 93/100 on our checker with only one flagged ingredient. CeraVe Moisturizing Cream contains cetearyl alcohol and cetyl alcohol (debated fatty alcohols) which some people with fungal acne tolerate. Use our ingredient checker to check specific CeraVe products." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Depends on the product. CeraVe Foaming Facial Cleanser scores well and has only one flagged ingredient. CeraVe Moisturizing Cream contains cetearyl alcohol and cetyl alcohol (debated fatty alcohols); some people with fungal acne tolerate them, others don't. Check specific CeraVe products in the tool above." }
       },
       {
         "@type": "Question",
@@ -2020,8 +2093,8 @@
       },
       {
         "@type": "Question",
-        "name": "Can I save products and build a routine?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. After checking a product, save it and add it to your AM or PM skincare routine. The tool tracks your full routine and gives you an overall safety score. You can also use the step-by-step Routine Wizard to build a complete routine for cleanser, toner, serum, moisturizer, and SPF." }
+        "name": "Is this tool a substitute for seeing a dermatologist?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. This tool is educational and helps you screen ingredients. It isn't a diagnosis or medical advice. If you think you have fungal acne, seborrheic dermatitis, tinea versicolor, or another Malassezia-related condition, see a dermatologist for diagnosis and treatment." }
       }
     ]
   }
@@ -2171,18 +2244,34 @@
         </div>
       </div>
 
-      <!-- Telehealth CTA -->
-      <div class="telehealth-cta" id="telehealthCta">
-        <div class="telehealth-cta__icon">
+      <!-- Product CTA -->
+      <div class="product-cta" id="productCta">
+        <div class="product-cta__icon">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
           </svg>
         </div>
-        <div class="telehealth-cta__text">
-          <p class="telehealth-cta__title" id="telehealthCtaTitle">Not sure if it's fungal?</p>
-          <p class="telehealth-cta__desc" id="telehealthCtaDesc">A board-certified dermatologist can diagnose what's going on and prescribe treatment.</p>
+        <div class="product-cta__text">
+          <p class="product-cta__title" id="productCtaTitle">Ready for safer products?</p>
+          <p class="product-cta__desc" id="productCtaDesc">Shop our collection of solutions formulated for Malassezia-prone skin.</p>
         </div>
-        <a href="/pages/consultation?checkout=1" class="telehealth-cta__btn">Book consultation</a>
+        <a href="/pages/shop" class="product-cta__btn">Shop our solutions</a>
+      </div>
+
+      <!-- Verdict-anchored email capture. Catches the user who just learned
+           their routine feeds Malassezia but isn't ready to shop
+           today. Without this they leave and never return; with it they join
+           a free list we can market to forever. Source-tagged so these leads
+           are measurable separately from the footer newsletter. -->
+      <div class="verdict-capture" id="verdictCapture">
+        <p class="verdict-capture__title" id="verdictCaptureTitle">Get your free Malassezia-safe product list</p>
+        <p class="verdict-capture__desc" id="verdictCaptureDesc">We'll email you a short list of moisturizers, cleansers, and sunscreens that are actually safe for fungal-prone skin.</p>
+        <form class="verdict-capture__form" id="verdictCaptureForm" action="javascript:void(0)" method="post" novalidate>
+          <input class="verdict-capture__input" type="email" id="verdictCaptureEmail" placeholder="Email address" required aria-label="Email address">
+          <button class="verdict-capture__btn" type="submit" id="verdictCaptureBtn">Send my list</button>
+        </form>
+        <p class="verdict-capture__msg" id="verdictCaptureMsg" aria-live="polite"></p>
+        <p class="verdict-capture__fineprint">We'll also send occasional tips on fungal acne, seb derm, and tinea versicolor.</p>
       </div>
 
       <!-- Share -->
@@ -2218,13 +2307,13 @@
         <div class="results__unknown-list" id="unknownList"></div>
       </div>
 
-      <!-- Telehealth CTA -->
+      <!-- Steady Serum waitlist CTA -->
       <div style="margin-top:2.5rem;padding:2rem;background:var(--dark);border-radius:6px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
         <div>
-          <p style="font-family:var(--font-sans);font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.35rem;">Want a professional diagnosis?</p>
-          <p style="font-family:var(--font-sans);font-size:0.8rem;color:var(--cream);opacity:0.5;line-height:1.6;">Talk to a dermatologist who treats fungal acne, seb derm, and tinea versicolor.</p>
+          <p style="font-family:var(--font-sans);font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.35rem;">Meet Steady Serum.</p>
+          <p style="font-family:var(--font-sans);font-size:0.8rem;color:var(--cream);opacity:0.5;line-height:1.6;">A residue-light serum with lightweight MCT oil: long-lasting hydration that helps reduce the look of flakes and oil. 100% Malassezia-safe.</p>
         </div>
-        <a href="/pages/consultation?checkout=1" style="font-family:var(--font-sans);font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--cream);background:var(--button);padding:0.8rem 1.8rem;border-radius:2px;text-decoration:none;white-space:nowrap;">Book Consultation</a>
+        <a href="/#notify" style="font-family:var(--font-sans);font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--cream);background:var(--button);padding:0.8rem 1.8rem;border-radius:2px;text-decoration:none;white-space:nowrap;">Join the Waitlist</a>
       </div>
 
       <!-- Check another -->
@@ -2313,13 +2402,13 @@
   <!-- ====== CTA / NOTIFY ====== -->
   <section class="notify" id="notify">
     <div class="notify__container fade-in">
-      <p class="notify__eyebrow">Made for Fungus-Prone Skin</p>
-      <h2 class="notify__heading">Skincare built around the yeast that's breaking you out.</h2>
-      <p class="notify__desc">Sign up for Malassezia-related updates from Kyn Skyn.</p>
+      <p class="notify__eyebrow">Steady Serum</p>
+      <h2 class="notify__heading">Safe skincare for managing symptoms of chronic conditions.</h2>
+      <p class="notify__desc">Join the Steady Serum waitlist and get Malassezia-related updates from Kyn Skyn.</p>
 
       <form class="notify__form" id="newsletterForm" action="javascript:void(0)" method="post" novalidate>
         <input class="notify__input" type="email" name="EMAIL" placeholder="Email address" required aria-label="Email address">
-        <button class="notify__button" type="submit">Sign Up</button>
+        <button class="notify__button" type="submit">Join the Waitlist</button>
       </form>
       <p class="notify__success" id="formSuccess" aria-live="polite">You're on the list.</p>
       <p class="notify__error" id="formError" aria-live="polite">That didn't go through. Try again.</p>
@@ -2399,7 +2488,7 @@
       <div class="faq__item">
         <button class="faq__question" type="button">Is this tool a substitute for seeing a dermatologist?</button>
         <div class="faq__answer">
-          <p>No. This tool is educational and helps you screen ingredients. It isn't a diagnosis or medical advice. If you think you have fungal acne, <a href="/pages/handbook#seb-derm">seborrheic dermatitis</a>, <a href="/pages/handbook#tinea">tinea versicolor</a>, or another Malassezia-related condition, see a dermatologist for diagnosis and treatment, or <a href="/pages/consultation?checkout=1">book an online consultation</a> with one of our board-certified dermatologists.</p>
+          <p>No. This tool is educational and helps you screen ingredients. It isn't a diagnosis or medical advice. If you think you have fungal acne, <a href="/pages/handbook#seb-derm">seborrheic dermatitis</a>, <a href="/pages/handbook#tinea">tinea versicolor</a>, or another Malassezia-related condition, see a dermatologist for diagnosis and treatment.</p>
         </div>
       </div>
       <!-- FAQ:END -->
@@ -3497,23 +3586,44 @@
       };
       $('#verdictDesc').textContent = descs[analysis.verdict];
 
-      // Telehealth CTA. Contextual messaging based on verdict
-      const ctaBanner = $('#telehealthCta');
-      const ctaTitle = $('#telehealthCtaTitle');
-      const ctaDesc = $('#telehealthCtaDesc');
+      // Product CTA. Contextual messaging based on verdict
+      const ctaBanner = $('#productCta');
+      const ctaTitle = $('#productCtaTitle');
+      const ctaDesc = $('#productCtaDesc');
       ctaBanner.classList.add('visible');
 
       if (analysis.verdict === 'unsafe') {
-        ctaTitle.textContent = 'Struggling with fungal acne?';
+        ctaTitle.textContent = 'Time to swap this one out?';
         ctaDesc.textContent = analysis.unsafe.length > 0
-          ? `This product has ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that feed Malassezia. A provider can confirm the diagnosis and prescribe targeted treatment.`
-          : 'This product has multiple debated ingredients. A provider can confirm whether Malassezia is driving your symptoms and prescribe targeted treatment.';
+          ? `This product has ${analysis.unsafe.length} ingredient${analysis.unsafe.length > 1 ? 's' : ''} that feed Malassezia. Shop our collection of solutions that skip them.`
+          : 'This product has multiple debated ingredients. Shop our collection of solutions that skip the gray areas.';
       } else if (analysis.verdict === 'caution') {
-        ctaTitle.textContent = 'Not sure if it\'s fungal?';
-        ctaDesc.textContent = 'If products keep making you break out, a provider can tell you whether Malassezia is the cause and prescribe treatment.';
+        ctaTitle.textContent = 'Not sure about this one?';
+        ctaDesc.textContent = 'If products keep making you break out, swap in picks formulated for Malassezia-prone skin.';
       } else {
-        ctaTitle.textContent = 'Want a plan for your skin?';
-        ctaDesc.textContent = 'A board-certified dermatologist can review your routine and prescribe treatment.';
+        ctaTitle.textContent = 'Want a full routine that fits?';
+        ctaDesc.textContent = 'Browse our collection for products that pair well with this one.';
+      }
+
+      // Verdict-anchored email capture. Title/desc adapt to the verdict so
+      // the value-exchange matches what the user just learned. Only safe
+      // products push "build a routine"; unsafe/caution push the safe swap
+      // list, which is the more compelling offer at the worry moment.
+      const captureBlock = $('#verdictCapture');
+      const captureTitle = $('#verdictCaptureTitle');
+      const captureDesc = $('#verdictCaptureDesc');
+      if (captureBlock && captureTitle && captureDesc) {
+        captureBlock.classList.add('visible');
+        if (analysis.verdict === 'unsafe') {
+          captureTitle.textContent = 'Get safer swaps for this product';
+          captureDesc.textContent = 'We\'ll email you a short list of moisturizers, cleansers, and sunscreens that won\'t feed the yeast causing your breakouts. Free.';
+        } else if (analysis.verdict === 'caution') {
+          captureTitle.textContent = 'Want the safer alternatives?';
+          captureDesc.textContent = 'We\'ll email you a short list of Malassezia-safe products to swap in.';
+        } else {
+          captureTitle.textContent = 'Build a full Malassezia-safe routine';
+          captureDesc.textContent = 'This product is safe. We\'ll email you a complete routine (cleanser, moisturizer, sunscreen) that\'s safe for fungal-prone skin. Free.';
+        }
       }
 
       // Save button state
@@ -3563,7 +3673,15 @@
       }, 30);
 
       // Share link (use current URL which now includes #r= hash)
-      const shareText = `${label || 'This product'} scored ${analysis.score}/100 on the Malassezia-Safe Ingredient Checker by @kynskyn`;
+      // Share text. The verdict is the shareable moment — "my moisturizer
+      // scored 34/100" is what people screenshot and send to friends.
+      // Verdict-aware so an unsafe result reads as a hook, not a stat dump.
+      const verdictHook = analysis.verdict === 'unsafe'
+        ? `Just learned my ${label ? label.toLowerCase() : 'moisturizer'} is feeding the yeast behind my breakouts. It scored ${analysis.score}/100.`
+        : analysis.verdict === 'caution'
+          ? `My ${label ? label.toLowerCase() : 'product'} scored ${analysis.score}/100 on the Malassezia check. Borderline.`
+          : `My ${label ? label.toLowerCase() : 'product'} scored ${analysis.score}/100. Malassezia safe. Check yours.`;
+      const shareText = `${verdictHook} Free check:`;
       const shareUrl = window.location.href;
       $('#shareTwitter').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
 
@@ -3977,8 +4095,63 @@
     }
 
     // ==========================================
-    // FADE-IN ANIMATIONS
+    // VERDICT EMAIL CAPTURE
     // ==========================================
+    // Source-tagged 'checker-verdict' so these high-intent leads are
+    // measurable separately from the footer newsletter. Shares the
+    // KynNewsletter.submit helper (Mailchimp via sendBeacon).
+    const verdictCaptureForm = $('#verdictCaptureForm');
+    if (verdictCaptureForm) {
+      verdictCaptureForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const input = $('#verdictCaptureEmail');
+        const btn = $('#verdictCaptureBtn');
+        const msg = $('#verdictCaptureMsg');
+        const email = (input.value || '').trim();
+        const verdict = currentAnalysis ? currentAnalysis.verdict : 'unknown';
+
+        msg.classList.remove('visible', 'verdict-capture__msg--ok', 'verdict-capture__msg--err');
+        if (!input.checkValidity()) {
+          msg.textContent = 'Enter a valid email address.';
+          msg.classList.add('visible', 'verdict-capture__msg--err');
+          input.focus();
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        try {
+          await window.KynNewsletter.submit({
+            email: email,
+            source: `checker-verdict-${verdict}`
+          });
+
+          localStorage.setItem('kyn_newsletter', 'true');
+          // Preserve verdict in the tag so it survives the tag rename; the
+          // Mailchimp SOURCE field carries the lead's intent state.
+          msg.textContent = 'Check your inbox. We just sent the list.';
+          msg.classList.add('visible', 'verdict-capture__msg--ok');
+          btn.textContent = 'Sent ✓';
+          btn.style.background = '#2a6e3f';
+          btn.style.borderColor = '#2a6e3f';
+          input.value = '';
+
+          setTimeout(() => {
+            btn.textContent = 'Send my list';
+            btn.style.background = '';
+            btn.style.borderColor = '';
+            btn.disabled = false;
+            msg.classList.remove('visible');
+          }, 4000);
+        } catch (err) {
+          btn.textContent = 'Send my list';
+          btn.disabled = false;
+          msg.textContent = err && err.message ? err.message : "That didn't go through. Try again.";
+          msg.classList.add('visible', 'verdict-capture__msg--err');
+        }
+      });
+    }
     const fadeEls = $$('.fade-in');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -4244,16 +4417,6 @@
 
   })();
   </script>
-
-  <!-- ====== MOBILE TAB BAR ====== -->
-  <nav class="mobile-tab-bar">
-    <ul class="mobile-tab-bar__links">
-      <li><a href="index.html" class="mobile-tab-bar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="mobile-tab-bar__label">Home</span></a></li>
-      <li><a href="/pages/handbook" class="mobile-tab-bar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg><span class="mobile-tab-bar__label">Handbook</span></a></li>
-      <li><a href="ingredient-checker.html" class="mobile-tab-bar__link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg><span class="mobile-tab-bar__label">Checker</span></a></li>
-      <li><a href="/pages/contact-1" class="mobile-tab-bar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="mobile-tab-bar__label">Contact</span></a></li>
-    </ul>
-  </nav>
 
 
 {% schema %}

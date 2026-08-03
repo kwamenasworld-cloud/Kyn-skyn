@@ -34,8 +34,7 @@
 
       // Meta Pixel. Loads eagerly (unlike the gtag/UET tags below) so ad
       // attribution and PageView capture stay complete, including fast bounces.
-      // To deactivate, blank metaPixelId: window.fbq stays undefined and
-      // consultation.liquid's InitiateCheckout no-ops.
+      // To deactivate, blank metaPixelId: window.fbq stays undefined.
       var metaPixelId = '943159622092998';
       if (metaPixelId) {
         // Standard Meta base pixel: this stub injects fbevents.js immediately.
@@ -275,26 +274,22 @@
     })();
   </script>
   {%- capture seo_title -%}
-    {%- if template == 'index' -%}{{ shop.name }} | Skincare for Fungal Acne, Seb Derm & Malassezia-Prone Skin
-    {%- elsif page.handle == 'fungal-acne' -%}Fungal Acne Treatment Online: Dermatologist Care | {{ shop.name }}
-    {%- elsif page.handle == 'seb-derm-dandruff' -%}Seborrheic Dermatitis & Dandruff Treatment Online | {{ shop.name }}
-    {%- elsif page.handle == 'tinea-versicolor' -%}Tinea Versicolor Treatment Online: Dermatologist Care | {{ shop.name }}
-    {%- elsif page.handle == 'roflumilast' -%}Roflumilast in Seborrheic Dermatitis Care | {{ shop.name }}
-    {%- elsif page.handle == 'ketoconazole' -%}Ketoconazole in Fungal Acne & Seb Derm Care | {{ shop.name }}
+    {%- if template == 'index' -%}{{ shop.name }} | Safe Skincare for Chronic Skin Conditions (Fungal Acne, Seb Derm, Tinea Versicolor)
+    {%- elsif page.handle == 'fungal-acne' -%}Fungal Acne: Causes, Symptoms and Safe Skincare | {{ shop.name }}
+    {%- elsif page.handle == 'seb-derm-dandruff' -%}Seborrheic Dermatitis & Dandruff: Causes and Safe Skincare | {{ shop.name }}
+    {%- elsif page.handle == 'tinea-versicolor' -%}Tinea Versicolor: Causes, Symptoms and Safe Skincare | {{ shop.name }}
     {%- elsif page_title contains shop.name -%}{{ page_title }}
     {%- else -%}{{ page_title }} | {{ shop.name }}
     {%- endif -%}
   {%- endcapture -%}
   {%- capture seo_description -%}
-    {%- if template == 'index' -%}Skincare and telehealth for people with fungus-prone skin. Malassezia-safe formulas, an ingredient checker, and a clinician-backed handbook covering fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor.
-    {%- elsif page.handle == 'roflumilast' -%}Educational guide to how roflumilast and Zoryve foam may fit into clinician-led seborrheic dermatitis care. Kyn Skyn does not sell or guarantee specific medications.
-    {%- elsif page.handle == 'ketoconazole' -%}Educational guide to how ketoconazole cream, shampoo, and foam may fit into clinician-led care for Malassezia-related skin concerns.
-    {%- elsif page.handle == 'fungal-acne' -%}Fungal acne (Malassezia folliculitis) treated online by board-certified dermatologists. Get a diagnosis, a prescription when appropriate, and a routine that keeps the bumps from coming back.
-    {%- elsif page.handle == 'seb-derm-dandruff' -%}Seborrheic dermatitis and dandruff treated online by board-certified dermatologists. Get a diagnosis, a prescription when appropriate, and a maintenance routine that holds.
-    {%- elsif page.handle == 'tinea-versicolor' -%}Tinea versicolor treated online by board-certified dermatologists. Clear the yeast, even out the patches over time, and cut down on seasonal flares with an ongoing routine.
+    {%- if template == 'index' -%}Safe skincare for managing symptoms of chronic conditions like fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor. Malassezia-safe formulas, a free ingredient checker, and a plain-language handbook.
+    {%- elsif page.handle == 'fungal-acne' -%}Fungal acne (Malassezia folliculitis): what causes the itchy, uniform bumps, how to spot it, and how to build a Malassezia-safe skincare routine.
+    {%- elsif page.handle == 'seb-derm-dandruff' -%}Seborrheic dermatitis and dandruff: what drives the flakes and redness, how the two relate, and safe skincare habits that help manage symptoms.
+    {%- elsif page.handle == 'tinea-versicolor' -%}Tinea versicolor: why the discolored patches appear, what makes them flare seasonally, and safe skincare for managing symptoms over time.
     {%- elsif page_description != blank -%}{{ page_description | escape }}
     {%- elsif page.content != blank -%}{{ page.content | strip_html | truncate: 160 | escape }}
-    {%- else -%}{{ shop.description | default: "Skincare and telehealth for people with fungus-prone skin." | escape }}
+    {%- else -%}{{ shop.description | default: "Safe skincare for managing symptoms of chronic conditions." | escape }}
     {%- endif -%}
   {%- endcapture -%}
   <title>{{ seo_title }}</title>
@@ -303,7 +298,7 @@
   <meta property="og:site_name" content="{{ shop.name }}">
   <meta property="og:title" content="{{ seo_title }}">
   <meta property="og:description" content="{{ seo_description }}">
-  {%- assign article_handles = 'handbook,fungal-acne,roflumilast,ketoconazole' | split: ',' -%}
+  {%- assign article_handles = 'handbook,fungal-acne,seb-derm-dandruff,tinea-versicolor' | split: ',' -%}
   <meta property="og:type" content="{% if article_handles contains page.handle %}article{% else %}website{% endif %}">
   <meta property="og:url" content="{{ canonical_url }}">
   <meta property="og:image" content="{{ 'chandani-closeup.jpg' | asset_url | prepend: 'https:' }}">
@@ -327,11 +322,10 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Kyn Skyn",
-    "alternateName": "Kyn Skyn Care",
     "url": "https://kynskyn.com",
     "logo": "https:{{ 'logomark.svg' | asset_url }}",
     "image": "https:{{ 'chandani-closeup.jpg' | asset_url }}",
-    "description": "Skincare and telehealth for people with fungus-prone skin: fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor.",
+    "description": "Safe skincare for managing symptoms of chronic conditions like fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor.",
     "foundingDate": "2026",
     "knowsAbout": [
       "Malassezia folliculitis",
@@ -339,11 +333,8 @@
       "Seborrheic dermatitis",
       "Tinea versicolor",
       "Dandruff",
-      "Ketoconazole",
-      "Roflumilast",
       "Pityrosporum folliculitis",
-      "Sensitive skin care",
-      "Teledermatology"
+      "Sensitive skin care"
     ],
     "areaServed": {
       "@type": "Country",
@@ -523,7 +514,7 @@
 
     .header-nav a:hover { opacity: 1; }
 
-    /* Dropdown nav (Resources, Get Care) */
+    /* Dropdown nav (Resources, Conditions) */
     .header-nav__group { position: static; }
 
     .header-nav__group > a {
@@ -1395,7 +1386,7 @@
         </a>
       </li>
       <li>
-        <a href="/pages/resources" class="mobile-tab-bar__link{% if request.path contains 'resources' or request.path contains 'handbook' or request.path contains 'ingredient-checker' or request.path contains 'ketoconazole' or request.path contains 'roflumilast' %} active{% endif %}">
+        <a href="/pages/resources" class="mobile-tab-bar__link{% if request.path contains 'resources' or request.path contains 'handbook' or request.path contains 'ingredient-checker' %} active{% endif %}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
           <span class="mobile-tab-bar__label">Learn</span>
         </a>
@@ -1407,15 +1398,9 @@
         </a>
       </li>
       <li>
-        <a href="/pages/consultation?checkout=1" class="mobile-tab-bar__link{% if request.path contains 'consultation' or request.path contains 'fungal-acne' or request.path contains 'seb-derm' or request.path contains 'tinea' %} active{% endif %}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
-          <span class="mobile-tab-bar__label">Care</span>
-        </a>
-      </li>
-      <li>
-        <a href="/pages/care-portal" class="mobile-tab-bar__link{% if request.path contains 'care-portal' %} active{% endif %}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5H6.5A1.5 1.5 0 0 0 5 6.5v13A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 17.5 5H16"/><rect x="8.5" y="3.5" width="7" height="3.5" rx="1"/><path d="M9 13.5l2 2 4-4"/></svg>
-          <span class="mobile-tab-bar__label">Portal</span>
+        <a href="{{ routes.cart_url }}" class="mobile-tab-bar__link{% if request.path contains '/cart' %} active{% endif %}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.4 12.2a1.5 1.5 0 0 0 1.5 1.3h9.4a1.5 1.5 0 0 0 1.5-1.2L21.5 8H6"/></svg>
+          <span class="mobile-tab-bar__label">Cart<span data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}> ({{ cart.item_count }})</span></span>
         </a>
       </li>
     </ul>
@@ -1472,8 +1457,8 @@
         if (!el) return;
         var href = (el.getAttribute && el.getAttribute("href")) || "";
         var txt = (el.textContent || "").trim().toLowerCase();
-        var cta = /care\.kynskyn\.com|\/book\b|checkout=1|\/consultation/.test(href) ||
-                  /get started|start (your )?(visit|consult)|book (a )?(visit|consult)|begin (your )?(visit|consult)/.test(txt);
+        var cta = /\/pages\/shop|#notify/.test(href) ||
+                  /shop our solutions|join (the )?waitlist|notify me/.test(txt);
         if (cta) send("site_cta_click");
       }, true);
     } catch (e) {}

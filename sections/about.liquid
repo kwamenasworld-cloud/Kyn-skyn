@@ -1,88 +1,112 @@
 {% comment %}
-  About page. Lives at /pages/about. Consumer-facing version of the
-  brand story (press.liquid is the journalist version). Opens on the
-  Kyn Skyn slogan and walks through why the brand exists, the standard
-  of care, and a closing CTA to /pages/consultation?checkout=1.
+  About page. Lives at /pages/about. Consumer-facing brand story for the
+  DTC product brand (press.liquid is the journalist version).
+
+  Structure (editorial, product-forward):
+    1. Statement opener (oversized serif on cream)
+    2. Photo strip (community imagery)
+    3. Story (dark band, ends on the "Kyn as in kin" line as a set piece)
+    4. The standard (three non-negotiables as ruled editorial rows)
+    5. Products (Steady Serum waitlist panel + Kyn Select shop panel + tools strip)
+    6. Closing CTA
 {% endcomment %}
 
 <style>
-  /* ====== HERO ====== */
-  .about-hero {
+  /* ====== STATEMENT OPENER ====== */
+  .about-statement {
     background: var(--cream);
-    padding: 9rem 3rem 5rem;
+    padding: 10rem 3rem 4rem;
   }
 
-  .about-hero__container {
-    max-width: 72rem;
+  .about-statement__container {
+    max-width: 68rem;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    align-items: center;
-    gap: 4rem;
   }
 
-  .about-hero__eyebrow {
+  .about-statement__eyebrow {
     font-family: var(--font-accent);
     font-size: 0.75rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--maroon);
     opacity: 0.55;
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.6rem;
   }
 
-  .about-hero__heading {
+  .about-statement__heading {
     font-family: var(--font-serif);
-    font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+    font-size: clamp(2.8rem, 7vw, 5.6rem);
     font-weight: 300;
     color: var(--maroon);
-    line-height: 1.05;
-    margin: 0 0 1.6rem;
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.8rem;
+    max-width: 60rem;
   }
 
-  .about-hero__heading em {
+  .about-statement__heading em {
     font-style: italic;
     color: var(--terracotta);
     font-weight: 400;
   }
 
-  .about-hero__sub {
+  .about-statement__sub {
     font-family: var(--font-sans);
     font-size: clamp(1rem, 1.5vw, 1.15rem);
     line-height: 1.7;
     color: var(--maroon);
     opacity: 0.75;
-    max-width: 32rem;
+    max-width: 34rem;
   }
 
-  .about-hero__photo {
+  /* ====== PHOTO STRIP ====== */
+  .about-strip {
+    background: var(--cream);
+    padding: 2rem 3rem 6rem;
+  }
+
+  .about-strip__grid {
+    max-width: 68rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .about-strip__cell {
     position: relative;
-    aspect-ratio: 4 / 5;
     overflow: hidden;
-    border-radius: 1.5rem;
-    box-shadow: 0 1px 2px rgba(42, 2, 8, 0.06), 0 30px 60px -20px rgba(42, 2, 8, 0.25);
+    border-radius: 1.25rem;
+    aspect-ratio: 4 / 5;
+    box-shadow: 0 1px 2px rgba(42, 2, 8, 0.06), 0 24px 48px -24px rgba(42, 2, 8, 0.28);
   }
 
-  .about-hero__photo img {
+  .about-strip__cell--wide { aspect-ratio: auto; }
+
+  @media (min-width: 901px) {
+    .about-strip__cell { aspect-ratio: auto; height: 100%; }
+  }
+
+  .about-strip__cell img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
 
-  /* ====== MISSION NARRATIVE ====== */
-  .about-mission {
+  /* ====== STORY ====== */
+  .about-story {
     background: var(--dark);
     color: var(--cream);
     padding: 7rem 3rem;
   }
 
-  .about-mission__container {
+  .about-story__container {
     max-width: 48rem;
     margin: 0 auto;
   }
 
-  .about-mission__label {
+  .about-story__label {
     font-family: var(--font-accent);
     font-size: 0.72rem;
     letter-spacing: 0.2em;
@@ -91,7 +115,7 @@
     margin-bottom: 1.6rem;
   }
 
-  .about-mission__heading {
+  .about-story__heading {
     font-family: var(--font-serif);
     font-size: clamp(1.9rem, 3.4vw, 2.8rem);
     font-weight: 400;
@@ -99,17 +123,32 @@
     margin: 0 0 2rem;
   }
 
-  .about-mission__body {
+  .about-story__body {
     font-family: var(--font-sans);
     font-size: 1.02rem;
     line-height: 1.85;
     opacity: 0.8;
   }
 
-  .about-mission__body p + p { margin-top: 1.3rem; }
-  .about-mission__body em { font-style: italic; opacity: 0.95; }
+  .about-story__body p + p { margin-top: 1.3rem; }
 
-  /* ====== THE STANDARD (4 PRINCIPLES) ====== */
+  .about-story__kin {
+    margin-top: 3.5rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255, 244, 206, 0.14);
+    font-family: var(--font-serif);
+    font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .about-story__kin em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* ====== THE STANDARD (RULED ROWS) ====== */
   .about-standard {
     background: var(--cream);
     padding: 7rem 3rem;
@@ -121,8 +160,7 @@
   }
 
   .about-standard__head {
-    text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3.5rem;
   }
 
   .about-standard__eyebrow {
@@ -144,72 +182,61 @@
     margin: 0;
   }
 
-  .about-standard__grid {
+  .about-standard__row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: 7rem 1fr 1.4fr;
+    gap: 2rem;
+    align-items: start;
+    padding: 2.6rem 0;
+    border-top: 1px solid rgba(100, 18, 32, 0.16);
   }
 
-  .about-standard__card {
-    background: rgba(100, 18, 32, 0.04);
-    border: 1px solid rgba(100, 18, 32, 0.1);
-    border-radius: 12px;
-    padding: 2.2rem 2rem;
-  }
+  .about-standard__row:last-child { border-bottom: 1px solid rgba(100, 18, 32, 0.16); }
 
   .about-standard__num {
-    font-family: var(--font-accent);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 300;
     color: var(--terracotta);
-    margin-bottom: 1.2rem;
-  }
-
-  .about-standard__icon {
-    width: 28px;
-    height: 28px;
-    color: var(--maroon);
-    margin-bottom: 1.2rem;
+    line-height: 1;
+    margin: 0;
   }
 
   .about-standard__title {
     font-family: var(--font-serif);
-    font-size: 1.3rem;
-    font-weight: 500;
+    font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+    font-weight: 400;
     color: var(--maroon);
     line-height: 1.25;
-    margin: 0 0 0.7rem;
+    margin: 0;
   }
 
   .about-standard__body {
     font-family: var(--font-sans);
-    font-size: 0.95rem;
-    line-height: 1.7;
+    font-size: 0.98rem;
+    line-height: 1.75;
     color: var(--maroon);
     opacity: 0.78;
     margin: 0;
   }
 
-  /* ====== HOW CARE WORKS ====== */
-  .about-care {
+  /* ====== PRODUCTS ====== */
+  .about-products {
     background: var(--cream);
     padding: 0 3rem 7rem;
   }
 
-  .about-care__container {
-    max-width: 62rem;
+  .about-products__container {
+    max-width: 68rem;
     margin: 0 auto;
-    border-top: 1px solid rgba(100, 18, 32, 0.12);
-    padding-top: 5rem;
   }
 
-  .about-care__head {
+  .about-products__head {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
   }
 
-  .about-care__eyebrow {
+  .about-products__eyebrow {
     font-family: var(--font-accent);
     font-size: 0.72rem;
     letter-spacing: 0.2em;
@@ -219,47 +246,138 @@
     margin-bottom: 1.2rem;
   }
 
-  .about-care__heading {
+  .about-products__heading {
     font-family: var(--font-serif);
-    font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+    font-size: clamp(2rem, 3.8vw, 2.9rem);
     font-weight: 400;
     color: var(--maroon);
-    line-height: 1.2;
+    line-height: 1.15;
     margin: 0;
   }
 
-  .about-care__steps {
+  .about-products__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
   }
 
-  .about-care__step { text-align: center; }
+  .about-product {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 1.5rem;
+    padding: 3rem 2.6rem;
+    min-height: 22rem;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
 
-  .about-care__step-num {
+  .about-product:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 56px -24px rgba(42, 2, 8, 0.45);
+  }
+
+  .about-product--serum {
+    background: linear-gradient(165deg, var(--dark) 0%, var(--maroon) 130%);
+    color: var(--cream);
+  }
+
+  .about-product--select {
+    background: var(--gold);
+    color: var(--dark);
+  }
+
+  .about-product__pill {
+    font-family: var(--font-accent);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    border: 1.5px solid currentColor;
+    opacity: 0.85;
+    margin-bottom: auto;
+  }
+
+  .about-product__name {
     font-family: var(--font-serif);
-    font-size: 1.6rem;
-    font-weight: 400;
-    color: var(--terracotta);
-    margin-bottom: 0.8rem;
+    font-size: clamp(2rem, 3.6vw, 2.9rem);
+    font-weight: 300;
+    line-height: 1.05;
+    margin: 2.5rem 0 0.8rem;
   }
 
-  .about-care__step-title {
-    font-family: var(--font-serif);
-    font-size: 1.15rem;
-    font-weight: 500;
-    color: var(--maroon);
-    margin: 0 0 0.6rem;
+  .about-product__desc {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    opacity: 0.85;
+    margin: 0 0 1.8rem;
+    max-width: 26rem;
   }
 
-  .about-care__step-body {
+  .about-product__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
     font-family: var(--font-sans);
     font-size: 0.9rem;
-    line-height: 1.65;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .about-product__link svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.25s ease;
+  }
+
+  .about-product:hover .about-product__link svg { transform: translateX(4px); }
+
+  .about-tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .about-tool {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid rgba(100, 18, 32, 0.16);
+    border-radius: 1.25rem;
+    padding: 1.4rem 1.8rem;
+    text-decoration: none;
     color: var(--maroon);
-    opacity: 0.75;
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+
+  .about-tool:hover {
+    border-color: var(--maroon);
+    background: rgba(100, 18, 32, 0.03);
+  }
+
+  .about-tool__text { min-width: 0; }
+
+  .about-tool__label {
+    font-family: var(--font-accent);
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin: 0 0 0.3rem;
+  }
+
+  .about-tool__name {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 400;
     margin: 0;
   }
+
+  .about-tool svg { width: 18px; height: 18px; flex-shrink: 0; }
 
   /* ====== CLOSING CTA ====== */
   .about-close {
@@ -316,53 +434,77 @@
 
   /* ====== RESPONSIVE ====== */
   @media (max-width: 900px) {
-    .about-hero { padding: 7rem 1.5rem 4rem; }
-    .about-hero__container {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
-    .about-hero__photo { max-width: 24rem; margin: 0 auto; width: 100%; }
+    .about-statement { padding: 7rem 1.5rem 2.5rem; }
 
-    .about-mission { padding: 5rem 1.5rem; }
+    .about-strip { padding: 1rem 1.5rem 4rem; }
+    .about-strip__grid { grid-template-columns: 1fr 1fr; }
+    .about-strip__cell--wide { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+
+    .about-story { padding: 5rem 1.5rem; }
 
     .about-standard { padding: 5rem 1.5rem; }
-    .about-standard__grid { grid-template-columns: 1fr; }
+    .about-standard__row {
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      padding: 2rem 0;
+    }
 
-    .about-care { padding: 0 1.5rem 5rem; }
-    .about-care__container { padding-top: 3.5rem; }
-    .about-care__steps { grid-template-columns: 1fr; gap: 2rem; }
+    .about-products { padding: 0 1.5rem 5rem; }
+    .about-products__grid { grid-template-columns: 1fr; }
+    .about-product { min-height: 0; padding: 2.4rem 1.8rem; }
+    .about-product__pill { margin-bottom: 1.5rem; }
+    .about-product__name { margin-top: 0; }
+    .about-tools { grid-template-columns: 1fr; }
 
     .about-close { padding: 5rem 1.5rem; }
   }
 </style>
 
-<!-- ====== HERO ====== -->
-<section class="about-hero">
-  <div class="about-hero__container">
-    <div class="about-hero__copy">
-      <p class="about-hero__eyebrow">About Kyn Skyn</p>
-      <h1 class="about-hero__heading">Clear skin starts with <em>a plan.</em></h1>
-      <p class="about-hero__sub">We treat chronic skin conditions: fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor. Kyn Care brings dermatology, prescription access when clinically appropriate, and maintenance guidance into one ongoing membership.</p>
-    </div>
+<!-- ====== STATEMENT OPENER ====== -->
+<section class="about-statement">
+  <div class="about-statement__container">
+    <p class="about-statement__eyebrow">About Kyn Skyn</p>
+    <h1 class="about-statement__heading">Most skincare isn't made for skin like ours. So we <em>made our own.</em></h1>
+    <p class="about-statement__sub">Safe skincare for managing symptoms of chronic conditions. Made and vetted for skin prone to conditions like fungal acne, seborrheic dermatitis, dandruff, and tinea versicolor.</p>
+  </div>
+</section>
 
-    <div class="about-hero__photo">
+<!-- ====== PHOTO STRIP ====== -->
+<section class="about-strip" aria-hidden="true">
+  <div class="about-strip__grid">
+    <div class="about-strip__cell about-strip__cell--wide">
       <picture>
         <source type="image/webp" srcset="{{ 'chandani-closeup.webp' | asset_url }}">
-        <img src="{{ 'chandani-closeup.jpg' | asset_url }}" alt="Kyn Skyn community member" width="1067" height="1600" fetchpriority="high" decoding="async" style="object-position: center 20%;">
+        <img src="{{ 'chandani-closeup.jpg' | asset_url }}" alt="" width="1067" height="1600" loading="lazy" decoding="async" style="object-position: center 20%;">
+      </picture>
+    </div>
+    <div class="about-strip__cell">
+      <picture>
+        <source type="image/webp" srcset="{{ 'care-grid-matched.webp' | asset_url }}">
+        <img src="{{ 'care-grid-matched.jpg' | asset_url }}" alt="" width="941" height="1672" loading="lazy" decoding="async">
+      </picture>
+    </div>
+    <div class="about-strip__cell">
+      <picture>
+        <source type="image/webp" srcset="{{ 'care-grid-anywhere.webp' | asset_url }}">
+        <img src="{{ 'care-grid-anywhere.jpg' | asset_url }}" alt="" width="941" height="1672" loading="lazy" decoding="async">
       </picture>
     </div>
   </div>
 </section>
 
-<!-- ====== MISSION NARRATIVE ====== -->
-<section class="about-mission">
-  <div class="about-mission__container">
-    <p class="about-mission__label">Why we exist</p>
-    <h2 class="about-mission__heading">We built what we wish we had.</h2>
+<!-- ====== STORY ====== -->
+<section class="about-story">
+  <div class="about-story__container">
+    <p class="about-story__label">Why we exist</p>
+    <h2 class="about-story__heading">We built what we wish we had.</h2>
 
-    <div class="about-mission__body">
-      <p>We lived through this. Two options for treating a chronic skin condition, neither of them good. The first was a dermatology visit gated behind the kind of insurance that comes with the kind of job most people don't have. The second was an online prescription that arrived once and disappeared, with no way to change course when the treatment stopped working, which is what tends to happen with chronic conditions. So we built Kyn Care: dermatology care that's actually affordable, with adjustments built into the membership.</p>
+    <div class="about-story__body">
+      <p>We lived through this. When your skin is prone to a chronic condition, most of the skincare aisle works against you. Formulas built for everyone else can carry the exact oils and esters that feed Malassezia, the yeast behind conditions like fungal acne and dandruff, so a product that soothes one person's skin can set yours off.</p>
+      <p>We spent years reading ingredient lists like lab reports and getting burned anyway. So we built Kyn Skyn: a skincare brand where every product, the ones we make and the ones we vet, is held to a standard that's safe for chronic-condition-prone skin.</p>
     </div>
+
+    <p class="about-story__kin">The name is the point. <em>Kyn</em>, as in kin: people managing the same skin you are, holding every product to the same standard.</p>
   </div>
 </section>
 
@@ -374,68 +516,69 @@
       <h2 class="about-standard__heading">Three things we will not compromise on.</h2>
     </div>
 
-    <div class="about-standard__grid">
-      <article class="about-standard__card">
-        <p class="about-standard__num">01</p>
-        <svg class="about-standard__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M9 3v4l-3 4v9a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-9l-3-4V3"/>
-          <line x1="9" y1="3" x2="15" y2="3"/>
-          <path d="M9 14h6"/>
-        </svg>
-        <h3 class="about-standard__title">Evidence over hype.</h3>
-        <p class="about-standard__body">Every formula and protocol traces back to dermatology research on the condition we're treating, not whatever ingredient is trending. If the science doesn't back it, we don't ship it.</p>
-      </article>
+    <div class="about-standard__row">
+      <p class="about-standard__num">01</p>
+      <h3 class="about-standard__title">Evidence over hype.</h3>
+      <p class="about-standard__body">Every formula and every recommendation traces back to dermatology research on the condition it's meant for, not whatever ingredient is trending. If the science doesn't back it, we don't ship it.</p>
+    </div>
 
-      <article class="about-standard__card">
-        <p class="about-standard__num">02</p>
-        <svg class="about-standard__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-          <polyline points="22 4 12 14.01 9 11.01"/>
-        </svg>
-        <h3 class="about-standard__title">Real clinicians, real prescriptions.</h3>
-        <p class="about-standard__body">A board-certified, state-licensed dermatologist reviews your case. Not a chatbot, not a general practitioner. If a prescription antifungal is the right call, you get one.</p>
-      </article>
+    <div class="about-standard__row">
+      <p class="about-standard__num">02</p>
+      <h3 class="about-standard__title">Malassezia-safe, always.</h3>
+      <p class="about-standard__body">Every Kyn formula is built without the oils, esters, and fatty acids that feed Malassezia, the yeast behind conditions like fungal acne and dandruff. 100% Malassezia-safe is the floor, not a feature.</p>
+    </div>
 
-      <article class="about-standard__card">
-        <p class="about-standard__num">03</p>
-        <svg class="about-standard__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="9"/>
-          <path d="M12 3a9 9 0 0 1 0 18"/>
-          <path d="M3 12h18"/>
-        </svg>
-        <h3 class="about-standard__title">Built with all skin tones in mind.</h3>
-        <p class="about-standard__body">Seborrheic dermatitis and tinea versicolor look different on melanin-rich skin, and dermatology training has historically missed them there. The photos, the clinical materials, and the patient education are built around that from the start.</p>
-      </article>
+    <div class="about-standard__row">
+      <p class="about-standard__num">03</p>
+      <h3 class="about-standard__title">Built with all skin tones in mind.</h3>
+      <p class="about-standard__body">Seborrheic dermatitis and tinea versicolor look different on melanin-rich skin, and skincare guidance has historically missed them there. The photos, the product guidance, and the education are built around that from the start.</p>
     </div>
   </div>
 </section>
 
-<!-- ====== HOW CARE WORKS ====== -->
-<section class="about-care">
-  <div class="about-care__container">
-    <div class="about-care__head">
-      <p class="about-care__eyebrow">The plan</p>
-      <h2 class="about-care__heading">Three steps, one outcome.</h2>
+<!-- ====== PRODUCTS ====== -->
+<section class="about-products">
+  <div class="about-products__container">
+    <div class="about-products__head">
+      <p class="about-products__eyebrow">What we offer</p>
+      <h2 class="about-products__heading">The lineup.</h2>
     </div>
 
-    <div class="about-care__steps">
-      <div class="about-care__step">
-        <p class="about-care__step-num">01</p>
-        <h3 class="about-care__step-title">Consult</h3>
-        <p class="about-care__step-body">Share photos and a short history. A board-certified dermatologist reviews your case and confirms the diagnosis.</p>
-      </div>
+    <div class="about-products__grid">
+      <a href="/#notify" class="about-product about-product--serum">
+        <span class="about-product__pill">Coming soon</span>
+        <h3 class="about-product__name">Steady Serum</h3>
+        <p class="about-product__desc">Our flagship. 100% Malassezia-safe and residue-light, built on lightweight MCT oil for long-lasting hydration that helps reduce the look of flakes and oil.</p>
+        <span class="about-product__link">Join the waitlist
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
 
-      <div class="about-care__step">
-        <p class="about-care__step-num">02</p>
-        <h3 class="about-care__step-title">Plan</h3>
-        <p class="about-care__step-body">You get a written plan: prescriptions if you need them, a routine that won't make the condition worse, and a timeline you can plan around.</p>
-      </div>
+      <a href="/pages/shop" class="about-product about-product--select">
+        <span class="about-product__pill">Available now</span>
+        <h3 class="about-product__name">Kyn Select</h3>
+        <p class="about-product__desc">Our collection of over-the-counter solutions, each one screened for chronic-condition-prone skin so it helps manage symptoms without working against you.</p>
+        <span class="about-product__link">Shop our collection
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </div>
 
-      <div class="about-care__step">
-        <p class="about-care__step-num">03</p>
-        <h3 class="about-care__step-title">Join Kyn Care</h3>
-        <p class="about-care__step-body">These conditions are chronic, not one-time fixes. Kyn Care Membership includes follow-ups, prescription access when clinically appropriate, and doctor-guided maintenance as your skin responds.</p>
-      </div>
+    <div class="about-tools">
+      <a href="/pages/ingredient-checker" class="about-tool">
+        <span class="about-tool__text">
+          <p class="about-tool__label">Free tool</p>
+          <p class="about-tool__name">Ingredient Checker</p>
+        </span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="/pages/handbook" class="about-tool">
+        <span class="about-tool__text">
+          <p class="about-tool__label">Free guide</p>
+          <p class="about-tool__name">The Malassezia Handbook</p>
+        </span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
     </div>
   </div>
 </section>
@@ -444,9 +587,9 @@
 <section class="about-close">
   <div class="about-close__container">
     <p class="about-close__eyebrow">Get started</p>
-    <h2 class="about-close__heading">Clear skin starts with a plan. Yours starts here.</h2>
-    <a href="/pages/consultation?checkout=1" class="about-close__cta">
-      <span>Get your Kynsultation</span>
+    <h2 class="about-close__heading">Skincare that works with your skin, not against it. Start here.</h2>
+    <a href="/pages/shop" class="about-close__cta">
+      <span>Shop our solutions</span>
       <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
   </div>
